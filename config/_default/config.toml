@@ -1,5 +1,5 @@
 baseURL = "http://example.org"
-title = "Hugo Zzo Theme"
+title = "黑光技术"
 theme = "zzo"
 
 defaultContentLanguage = "zh"
@@ -9,7 +9,7 @@ hasCJKLanguage = true
 summaryLength = 70
 buildFuture = true
 
-copyright = "&copy;{year}, All Rights Reserved"
+copyright = "&copy;{year} helight，All Rights Reserved【 粤ICP备15029944号 】"
 timeout = 10000
 enableEmoji = true
 paginate = 13

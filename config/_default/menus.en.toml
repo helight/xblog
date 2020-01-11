@@ -1,7 +1,7 @@
 [[main]]
   identifier = "about"
   name = "about"
-  url = "about"
+  url = "about/me"
   weight = 1
 
 [[main]]
