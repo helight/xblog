@@ -1,0 +1,28 @@
+[[main]]
+  identifier = "about"
+  name = "关于"
+  url = "about"
+  weight = 1
+
+[[main]]
+  identifier = "archive"
+  name = "archive"
+  url = "archive"
+  weight = 2
+
+[[main]]
+  identifier = "gallery"
+  name = "照片"
+  url = "gallery"
+  weight = 3
+    
+[[main]]
+  parent = "gallery"
+  name = "fiverr"
+  url = "gallery/mine"
+
+[[main]]
+  identifier = "posts"
+  name = "博文"
+  url = "posts"
+  weight = 4
