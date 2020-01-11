@@ -1,0 +1,139 @@
+<html>
+<head>
+  <title>标准库函数 - itoa</title>
+  <meta http-equiv="Content-Type" contents="text/html;charset=gb2312">
+  <link rel="stylesheet" href="clib.css">
+</head>
+
+<body>
+
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tr><td width=150 valign=top>
+<!-- begin left nav -->
+<!-- begin logo -->
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tbody>
+  <tr>
+    <td><a href="../clib.html"><img border=0 width=150 height=65 src="images/stdlib.gif"></a></td>
+  </tr>
+</tbody>
+</table>
+<!-- end logo -->
+<!-- begin function list -->
+<table border=0 cellpadding=5 cellspacing=0 bgcolor=#FFFFFF width=150>
+<tbody>
+  <tr>
+    <td>
+      请选定要查看的函数
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <ul>
+      <li><a href="exit.html">exit</a></li>
+      <font color=red>
+      <li><a href="itoa.html">itoa</a></li>
+      </font>
+    </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>目前共有2个函数</td>
+  </tr>
+</tbody>
+</table>
+<!-- end function list -->
+</td>
+
+<td>
+
+
+
+
+
+<table border=0 cellpadding=0 cellspacing=0 width=600 height=500>
+<tbody>
+<tr>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+    <td>
+    <!-- beging of middle part -->
+    <div>
+    <table border=0 cellpadding=0 cellspacing=0 width=100% height=500>
+    <tbody>
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+      <tr><td height=62 valign=bottom><b><font size=5>itoa</font></b></td></tr>
+
+      <tr><td>
+      <table border=0 cellpadding=0 cellspacing=0 height=1 width=100%>
+      <tbody>
+        <tr>
+          <td height=1 width=150 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+          <td height=1 bgcolor=#ffffff><img src="images/null.gif" border=0 width=1 height=1></td>
+        </tr>
+      </tbody>
+      </table>
+      </td></tr>
+
+      <tr><td>
+      <div>
+      <!-- begin main body -->
+      <table border=0 cellpadding=5 cellspacing=5>
+      <tr><td>
+<pre>
+
+  原型：extern char *itoa(int i);
+    
+  用法：#include &lt;stdlib.h>
+  
+  功能：把整数i转换成字符串
+  
+  说明：返回指向转换后的字符串的指针
+  
+  举例：
+
+      // itoa.c
+      
+      #include &lt;syslib.h>
+      #include &lt;stdlib.h>
+
+      main()
+      {
+        int i=7412;
+        
+        clrscr();        // clear screen
+        textmode(0x00);
+        
+        printf("%d",i);
+        printf("%s",itoa(i));
+        
+        getchar();
+        return 0;
+      }
+      
+  相关函数：无
+
+</pre>
+      </td></tr>
+      </table>
+      
+      <!-- end main body -->
+      </td></tr>
+   
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+    </tbody>
+    </table>
+    </div>
+    <!-- end of middle part -->
+    </td>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+</tr>
+</tbody>
+</table>
+
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

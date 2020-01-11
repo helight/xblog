@@ -1,0 +1,187 @@
+<html>
+<head>
+  <title>标准库函数 - write_eng_font</title>
+  <meta http-equiv="Content-Type" contents="text/html;charset=gb2312">
+  <link rel="stylesheet" href="clib.css">
+</head>
+
+<body>
+
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tr><td width=150 valign=top>
+<!-- begin left nav -->
+<!-- begin logo -->
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tbody>
+  <tr>
+    <td><a href="../clib.html"><img border=0 width=150 height=65 src="images/system.gif"></a></td>
+  </tr>
+</tbody>
+</table>
+<!-- end logo -->
+<!-- begin function list -->
+<table border=0 cellpadding=5 cellspacing=0 bgcolor=#FFFFFF width=150>
+<tbody>
+  <tr>
+    <td>
+      请选定要查看的函数
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <ul>
+      <li><a href="ClearScreen.html">ClearScreen</a></li>
+      <li><a href="DispBCD.html">DispBCD</a></li>
+      <li><a href="SetScrollBar.html">SetScrollBar</a></li>
+      <li><a href="TextOut.html">TextOut</a></li>
+      <li><a href="UpdateLCD.html">UpdateLCD</a></li>
+      <li><a href="bell.html">bell</a></li>
+      <li><a href="block.html">block</a></li>
+      <li><a href="clrscr.html">clrscr</a></li>
+      <li><a href="cursor.html">cursor</a></li>
+      <li><a href="delay.html">delay</a></li>
+      <li><a href="get_chi_font.html">get_chi_font</a></li>
+      <li><a href="get_eng_font.html">get_eng_font</a></li>
+      <li><a href="getkey.html">getkey</a></li>
+      <li><a href="getpixel.html">getpixel</a></li>
+      <li><a href="gotoxy.html">gotoxy</a></li>
+      <li><a href="line.html">line</a></li>
+      <li><a href="move.html">move</a></li>
+      <li><a href="noidle.html">noidle</a></li>
+      <li><a href="outtextxy.html">outtextxy</a></li>
+      <li><a href="putpixel.html">putpixel</a></li>
+      <li><a href="pyfc.html">pyfc</a></li>
+      <li><a href="rectangle.html">rectangle</a></li>
+      <li><a href="sleep.html">sleep</a></li>
+      <li><a href="textmode.html">textmode</a></li>
+      <li><a href="time.html">time</a></li>
+      <li><a href="write_chi_font.html">write_chi_font</a></li>
+      <font color=red>
+      <li><a href="write_eng_font.html">write_eng_font</a></li>
+      </font>
+    </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>目前共有27个函数</td>
+  </tr>
+</tbody>
+</table>
+<!-- end function list -->
+</td>
+
+<td>
+
+
+
+
+
+<table border=0 cellpadding=0 cellspacing=0 width=600 height=500>
+<tbody>
+<tr>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+    <td>
+    <!-- beging of middle part -->
+    <div>
+    <table border=0 cellpadding=0 cellspacing=0 width=100% height=500>
+    <tbody>
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+      <tr><td height=62 valign=bottom><b><font size=5>write_eng_font</font></b></td></tr>
+
+      <tr><td>
+      <table border=0 cellpadding=0 cellspacing=0 height=1 width=100%>
+      <tbody>
+        <tr>
+          <td height=1 width=150 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+          <td height=1 bgcolor=#ffffff><img src="images/null.gif" border=0 width=1 height=1></td>
+        </tr>
+      </tbody>
+      </table>
+      </td></tr>
+
+      <tr><td>
+      <div>
+      <!-- begin main body -->
+      <table border=0 cellpadding=5 cellspacing=5>
+      <tr><td>
+<pre>
+
+  原型：extern void write_eng_font(int x,int y,char *buf,int mode);
+              
+  用法：#include &lt;system.h>
+  
+  功能：写英文字符的点阵
+  
+  说明：把get_eng_font返回的点阵信息写到屏幕上指定位置（x，y）处。
+        mode=0时写8x16点阵信息，mode=1时写8x8点阵信息。
+  
+  <font color=red>注意</font>：此处的（x，y）坐标为屏幕设成6行显示时的文本坐标。0&lt;x<14，0&lt;y<5
+    
+  举例：
+
+      // write_eng_font.c
+      
+      #include &lt;system.h>
+
+      main()
+      {
+        char buf[32];
+        char *s="Global View",*p;
+        int x=0,y=0;   // screen location to display HZ
+
+        clrscr();
+        gotoxy(10,10); // Hide Cursor
+        
+        x=y=0;
+        
+        p=s;
+        while(*p)
+        {
+          get_eng_font(*p,buf,0);
+          write_eng_font(x,y,buf,0);
+          p++;   // forward to next character
+          x++;
+        }
+
+        x=0,y=2;
+        
+        p=s;
+        while(*p)
+        {
+          get_eng_font(*p,buf,1);
+          write_eng_font(x,y,buf,1);
+          p++;   // forward to next character
+          x++;
+        }
+        
+        getchar();
+        return 0;
+      }
+      
+  相关函数：<a href="get_eng_font.html">get_eng_font</a>
+
+</pre>
+      </td></tr>
+      </table>
+      
+      <!-- end main body -->
+      </td></tr>
+   
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+    </tbody>
+    </table>
+    </div>
+    <!-- end of middle part -->
+    </td>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+</tr>
+</tbody>
+</table>
+
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

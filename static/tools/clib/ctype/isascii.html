@@ -1,0 +1,155 @@
+<html>
+<head>
+  <title>字符函数 - isascii</title>
+  <meta http-equiv="Content-Type" contents="text/html;charset=gb2312">
+  <link rel="stylesheet" href="clib.css">
+</head>
+
+<body>
+
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tr><td width=150 valign=top>
+<!-- begin left nav -->
+<!-- begin logo -->
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tbody>
+  <tr>
+    <td><a href="../clib.html"><img border=0 width=150 height=65 src="images/ctype.gif"></a></td>
+  </tr>
+</tbody>
+</table>
+<!-- end logo -->
+<!-- begin function list -->
+<table border=0 cellpadding=5 cellspacing=0 bgcolor=#FFFFFF width=150>
+<tbody>
+  <tr>
+    <td>
+      请选定要查看的函数
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <ul>
+      <li><a href="isalnum.html">isalnum</a></li>
+      <li><a href="isalpha.html">isalpha</a></li>
+      <li><a href="iscntrl.html">iscntrl</a></li>
+      <li><a href="isdigit.html">isdigit</a></li>
+      <li><a href="islower.html">islower</a></li>
+      <font color=red>
+      <li><a href="isascii.html">isascii</a></li>
+      </font>
+      <li><a href="isgraph.html">isgraph</a></li>
+      <li><a href="isprint.html">isprint</a></li>
+      <li><a href="ispunct.html">ispunct</a></li>
+      <li><a href="isspace.html">isspace</a></li>
+      <li><a href="isupper.html">isupper</a></li>
+      <li><a href="isxdigit.html">isxdigit</a></li>
+      <li><a href="toascii.html">toascii</a></li>
+      <li><a href="tolower.html">tolower</a></li>
+      <li><a href="toupper.html">toupper</a></li>
+    </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>目前共有15个函数</td>
+  </tr>
+</tbody>
+</table>
+<!-- end function list -->
+</td>
+
+<td>
+
+
+
+
+
+<table border=0 cellpadding=0 cellspacing=0 width=600 height=500>
+<tbody>
+<tr>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+    <td>
+    <!-- beging of middle part -->
+    <div>
+    <table border=0 cellpadding=0 cellspacing=0 width=100% height=500>
+    <tbody>
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+      <tr><td height=62 valign=bottom><b><font size=5>isascii</font></b></td></tr>
+
+      <tr><td>
+      <table border=0 cellpadding=0 cellspacing=0 height=1 width=100%>
+      <tbody>
+        <tr>
+          <td height=1 width=150 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+          <td height=1 bgcolor=#ffffff><img src="images/null.gif" border=0 width=1 height=1></td>
+        </tr>
+      </tbody>
+      </table>
+      </td></tr>
+
+      <tr><td>
+      <div>
+      <!-- begin main body -->
+      <table border=0 cellpadding=5 cellspacing=5>
+      <tr><td>
+<pre>
+
+  原型：extern int isascii(int c);
+  
+  用法：#include &lt;ctype.h>
+  
+  功能：判断字符c是否为ascii码
+  
+  说明：当c为ascii码时，返回非零值，否则返回零。ascii码指0x00-0x7F之间的字符
+  
+  举例：
+
+      // isascii.c
+      
+      #include &lt;syslib.h>
+      #include &lt;ctype.h>
+
+      main()
+      {
+        char s[]="文曲星-BJGGV";
+        int i=12;            // length of string s
+        
+        clrscr();            // clear screen
+        textmode(0xE0);      // make sure LCD mode is 3 big line
+        printf("%s\n",s);
+        for(i=0;i<12;i++)
+        {
+          if(isascii(s[i])) putchar('^');
+          else putchar('.');
+        }
+        getchar();
+        return 0;
+      }
+      
+  相关函数：无
+
+</pre>
+      </td></tr>
+      </table>
+      
+      <!-- end main body -->
+      </td></tr>
+   
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+    </tbody>
+    </table>
+    </div>
+    <!-- end of middle part -->
+    </td>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+</tr>
+</tbody>
+</table>
+
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

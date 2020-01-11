@@ -1,0 +1,183 @@
+<html>
+<head>
+  <title>字符串函数 - strnicmp,strncmpi</title>
+  <meta http-equiv="Content-Type" contents="text/html;charset=gb2312">
+  <link rel="stylesheet" href="clib.css">
+</head>
+
+<body>
+
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tr><td width=150 valign=top>
+<!-- begin left nav -->
+<!-- begin logo -->
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tbody>
+  <tr>
+    <td><a href="../clib.html"><img border=0 width=150 height=65 src="images/string.gif"></a></td>
+  </tr>
+</tbody>
+</table>
+<!-- end logo -->
+<!-- begin function list -->
+<table border=0 cellpadding=5 cellspacing=0 bgcolor=#FFFFFF width=150>
+<tbody>
+  <tr>
+    <td>
+      请选定要查看的函数
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <ul>
+      <li><a href="bcmp.html">bcmp</li>
+      <li><a href="bcopy.html">bcopy</li>
+      <li><a href="bzero.html">bzero</li>
+      <li><a href="memccpy.html">memccpy</li>
+      <li><a href="memchr.html">memchr</li>
+      <li><a href="memcmp.html">memcmp</li>
+      <li><a href="memcpy.html">memcpy</li>
+      <li><a href="memicmp.html">memicmp</li>
+      <li><a href="memmove.html">memmove</li>
+      <li><a href="memset.html">memset</li>
+      <li><a href="movmem.html">movmem</li>
+      <li><a href="setmem.html">setmem</li>
+      <li><a href="stpcpy.html">stpcpy</li>
+      <li><a href="strcat.html">strcat</li>
+      <li><a href="strchr.html">strchr</li>
+      <li><a href="strcmp.html">strcmp</li>
+      <li><a href="strcmpi.html">strcmpi</li>
+      <li><a href="strcpy.html">strcpy</li>
+      <li><a href="strcspn.html">strcspn</li>
+      <li><a href="strdup.html">strdup</li>
+      <li><a href="stricmp.html">stricmp</li>
+      <li><a href="strlen.html">strlen</li>
+      <li><a href="strlwr.html">strlwr</li>
+      <li><a href="strncat.html">strncat</li>
+      <li><a href="strncmp.html">strncmp</li>
+      <font color=red>
+      <li><a href="strncmpi.html">strncmpi</li>
+      </font>
+      <li><a href="strncpy.html">strncpy</li>
+      <font color=red>
+      <li><a href="strnicmp.html">strnicmp</li>
+      </font>
+      <li><a href="strpbrk.html">strpbrk</li>
+      <li><a href="strrev.html">strrev</li>
+      <li><a href="strset.html">strset</li>
+      <li><a href="strstr.html">strstr</li>
+      <li><a href="strtok.html">strtok</li>
+      <li><a href="strupr.html">strupr</li>
+    </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>目前共有34个函数</td>
+  </tr>
+</tbody>
+</table>
+<!-- end function list -->
+</td>
+
+<td>
+
+
+
+
+
+<table border=0 cellpadding=0 cellspacing=0 width=600>
+<tbody>
+<tr>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+    <td>
+    <!-- beging of middle part -->
+    <div>
+    <table border=0 cellpadding=0 cellspacing=0 width=100% height=650>
+    <tbody>
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+      <tr><td height=62 valign=bottom><b><font size=5>strnicmp,strncmpi</font></b></td></tr>
+
+      <tr><td>
+      <table border=0 cellpadding=0 cellspacing=0 height=1 width=100%>
+      <tbody>
+        <tr>
+          <td height=1 width=150 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+          <td height=1 bgcolor=#ffffff><img src="images/null.gif" border=0 width=1 height=1></td>
+        </tr>
+      </tbody>
+      </table>
+      </td></tr>
+
+      <tr><td valign=top>
+      <div>
+      <!-- begin main body -->
+      <table border=0 cellpadding=5 cellspacing=5>
+      <tr><td>
+<pre>
+
+  原型：extern int strnicmp(char *s1,char * s2，int n);
+        
+  用法：#include &lt;string.h>
+  
+  功能：比较字符串s1和s2的前n个字符但不区分大小写。
+  
+  说明：strncmpi是到strnicmp的宏定义
+        当s1&lt;s2时，返回值&lt;0
+        当s1=s2时，返回值=0
+        当s1>s2时，返回值>0
+  
+  举例：
+
+      // strnicmp.c
+      
+      #include &lt;syslib.h>
+      #include &lt;string.h>
+
+      main()
+      {
+        char *s1="Hello, Programmers!";
+        char *s2="Hello, programmers!";
+        int r;
+        
+        clrscr();
+        
+        r=strnicmp(s1,s2,strlen(s1));
+        if(!r)
+          printf("s1 and s2 are identical");
+        else
+        if(r<0)
+          printf("s1 less than s2");
+        else
+          printf("s1 greater than s2");
+        
+        getchar();
+        return 0;
+      }
+      
+  相关函数：<a href="bcmp.html">bcmp</a>,<a href="memcmp.html">memcmp</a>,<a href="stricmp.html">stricmp</a>,<a href="strncmp.html">strncmp</a>
+
+</pre>
+      </td></tr>
+      </table>
+      
+      <!-- end main body -->
+      </td></tr>
+   
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+    </tbody>
+    </table>
+    </div>
+    <!-- end of middle part -->
+    </td>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+</tr>
+</tbody>
+</table>
+
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

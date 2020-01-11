@@ -1,0 +1,150 @@
+/*
+*kernel module
+*char device
+*mytimer.c
+*该程序实现的是在内核态的一个定时任务，作为实验实例，是在2.6下的字符模块的基础上作的。
+*过程是在用户态程序使用这个字符驱动时，如果要读取数据，则不会立即读取，而是在过一段时间后再读取，
+*这个时间就是在内核中设定的定时。
+*/
+#include <linux/module.h>
+#include <linux/init.h>
+#include <linux/fs.h>
+#include <linux/kdev_t.h>
+#include <linux/cdev.h>
+#include <linux/timer.h>
+#include <linux/kernel.h>
+#include <linux/types.h>
+#include <linux/wait.h>
+#include <asm/uaccess.h>
+#include <linux/sched.h>
+
+#define DEVICE_NAME "chardev"
+
+static ssize_t chardev_read(struct file *filp, char __user *buf, size_t count, loff_t *f_pos);
+
+//在这里为了简单其间，只实现了read函数。
+static struct file_operations chardev_fops = {
+            .read = chardev_read,
+};
+
+//定义字符设备，等待队列和定时器
+static struct cdev *cdevp = NULL;
+static dev_t devno;
+static wait_queue_head_t queue;
+static int flag = 0;
+static struct timer_list timer;
+
+//定时唤醒函数
+static void timer_callback(unsigned long arg)
+{
+    printk("<4>callback...%ld %ld\n",timer.expires,jiffies);
+    flag = 1;
+    struct task_struct *p=(struct task_struct *)arg;
+    wake_up_interruptible(&queue);
+    //wake_up_process(p);
+}
+
+static ssize_t chardev_read(struct file *filp, char __user *buf, size_t count, loff_t *f_pos)
+{
+    char sendbuf[] = "hello world";
+//初始化定时器
+    init_timer(&timer);
+    timer.expires = jiffies + HZ * 20;
+    timer.data =(unsigned long)current;
+//定时到时后要执行的函数
+    timer.function = timer_callback;
+//添加定时器
+    add_timer(&timer);
+//这里打印出了系统HZ和当前时间
+    printk("<4> HZ...%d\n",HZ);
+    printk("<4> befoer schedule...%ld %ld\n",timer.expires,jiffies);
+//这个函数功能是：让该模块sleep直到等待对列queue的状态flag!=0
+    wait_event_interruptible(queue, flag != 0);
+    //schedule();
+    printk("<4>time out...%ld %ld\n",timer.expires,jiffies);
+    flag = 0;
+    del_timer(&timer);
+    copy_to_user(buf, sendbuf, strlen(sendbuf));
+    return strlen(res);
+}
+//对字符设备进行初始化
+static int __init chardev_init(void)
+{
+    int ret;
+//注册字符设备
+    ret = alloc_chrdev_region(&devno, 0, 1, DEVICE_NAME);
+    if (ret < 0)
+        goto out;
+    cdevp = cdev_alloc();
+    if (!cdevp)
+        goto alloc_err;
+//初始化等待队列
+    init_waitqueue_head(&queue);
+//初始化字符设备
+    cdev_init(cdevp, &chardev_fops);
+//添加字符设备，在2.6的后期版本中字符设备不但要注则还需要一个添加函数把他添加到内核
+    ret = cdev_add(cdevp, devno, 1);
+    if (!ret)
+        goto out;
+    cdev_del(cdevp);
+    alloc_err:
+        unregister_chrdev_region(devno, 1);
+    out:
+        return ret;
+}
+
+static void __exit chardev_exit(void)
+{
+//字符设备的删除和卸载
+    cdev_del(cdevp);
+    unregister_chrdev_region(devno, 1);
+
+    return;
+}
+
+MODULE_LICENSE("GPL");
+
+module_init(chardev_init);
+module_exit(chardev_exit);
+
+/*
+*user program
+*test.c
+*/
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <string.h>
+
+
+int main()
+{
+    int fd=0;
+    int rf=0;
+    char buf[15];
+//打开已经注册的字符设备
+    fd=open("/dev/chardev",O_RDWR);
+    if ( fd == -1 )
+        {
+          printf("Cann't open file \n");
+          exit(0);
+        }
+    memset(buf, 0, sizeof(buf));
+//读取数据，这里会等待一段时间，和内核中的定时器的时间是一致的
+    rf=read(fd,buf,12);
+    if(rf<0)
+         perror("read error\n");
+         printf("R:%d :%s\n",rf,buf);
+         close(fd);
+    return 0;
+
+
+}
+
+cat /proc/devices 查看加载后的字符设备号
+
+mknod /dev/chardev c * 0 ／／主设备号和此设备号
+
+使用用户态程序测试
+dmesg查看内核打印的信息

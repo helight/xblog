@@ -1,0 +1,149 @@
+<html>
+<head>
+  <title>输入输出 - putchar</title>
+  <meta http-equiv="Content-Type" contents="text/html;charset=gb2312">
+  <link rel="stylesheet" href="clib.css">
+</head>
+
+<body>
+
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tr><td width=150 valign=top>
+<!-- begin left nav -->
+<!-- begin logo -->
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tbody>
+  <tr>
+    <td><a href="../clib.html"><img border=0 width=150 height=65 src="images/stdio.gif"></a></td>
+  </tr>
+</tbody>
+</table>
+<!-- end logo -->
+<!-- begin function list -->
+<table border=0 cellpadding=5 cellspacing=0 bgcolor=#FFFFFF width=150>
+<tbody>
+  <tr>
+    <td>
+      请选定要查看的函数
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <ul>
+      <li><a href="getchar.html">getchar</a></li>
+      <li><a href="kbhit.html">kbhit</a></li>
+      <li><a href="printf.html">printf</a></li>
+      <font color=red>
+      <li><a href="putchar.html">putchar</a></li>
+      </font>
+    </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>目前共有4个函数</td>
+  </tr>
+</tbody>
+</table>
+<!-- end function list -->
+</td>
+
+<td>
+
+
+
+
+
+<table border=0 cellpadding=0 cellspacing=0 width=600 height=500>
+<tbody>
+<tr>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+    <td>
+    <!-- beging of middle part -->
+    <div>
+    <table border=0 cellpadding=0 cellspacing=0 width=100% height=500>
+    <tbody>
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+      <tr><td height=62 valign=bottom><b><font size=5>putchar</font></b></td></tr>
+
+      <tr><td>
+      <table border=0 cellpadding=0 cellspacing=0 height=1 width=100%>
+      <tbody>
+        <tr>
+          <td height=1 width=150 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+          <td height=1 bgcolor=#ffffff><img src="images/null.gif" border=0 width=1 height=1></td>
+        </tr>
+      </tbody>
+      </table>
+      </td></tr>
+
+      <tr><td>
+      <div>
+      <!-- begin main body -->
+      <table border=0 cellpadding=5 cellspacing=5>
+      <tr><td>
+<pre>
+
+  原型：extern void putchar(char c);
+  
+  用法：#include &lt;stdio.h>
+  
+  功能：在屏幕上显示字符c
+  
+  说明：字符输出在屏幕的当前位置。
+        可用move或gotoxy改变光标位置。
+          
+  举例：
+
+      // putchar.c
+      
+      #include &lt;stdio.h>
+      #include &lt;system.h>
+      
+      #define CPR 14
+
+      main()
+      {
+        int i,j,k;
+        
+        clrscr();
+        
+        textmode(0x00);
+        for(i=1;i<6;i++)
+        {
+          k=i>3?(6-i):i;
+          move(i,CPR/2-k);
+          for(j=1;j&lt;k*2;j++) putchar('*');
+        }
+        gotoxy(10,10);      // Hide Cursor
+        
+        getchar();
+        return 0;
+      }
+      
+  相关函数：无
+
+</pre>
+      </td></tr>
+      </table>
+      
+      <!-- end main body -->
+      </td></tr>
+   
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+    </tbody>
+    </table>
+    </div>
+    <!-- end of middle part -->
+    </td>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+</tr>
+</tbody>
+</table>
+
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

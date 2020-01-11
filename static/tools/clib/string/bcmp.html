@@ -1,0 +1,179 @@
+<html>
+<head>
+  <title>字符串函数 - bcmp</title>
+  <meta http-equiv="Content-Type" contents="text/html;charset=gb2312">
+  <link rel="stylesheet" href="clib.css">
+</head>
+
+<body>
+
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tr><td width=150 valign=top>
+<!-- begin left nav -->
+<!-- begin logo -->
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tbody>
+  <tr>
+    <td><a href="../clib.html"><img border=0 width=150 height=65 src="images/string.gif"></a></td>
+  </tr>
+</tbody>
+</table>
+<!-- end logo -->
+<!-- begin function list -->
+<table border=0 cellpadding=5 cellspacing=0 bgcolor=#FFFFFF width=150>
+<tbody>
+  <tr>
+    <td>
+      请选定要查看的函数
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <ul>
+      <font color=red>
+      <li><a href="bcmp.html">bcmp</li>
+      </font>
+      <li><a href="bcopy.html">bcopy</li>
+      <li><a href="bzero.html">bzero</li>
+      <li><a href="memccpy.html">memccpy</li>
+      <li><a href="memchr.html">memchr</li>
+      <li><a href="memcmp.html">memcmp</li>
+      <li><a href="memcpy.html">memcpy</li>
+      <li><a href="memicmp.html">memicmp</li>
+      <li><a href="memmove.html">memmove</li>
+      <li><a href="memset.html">memset</li>
+      <li><a href="movmem.html">movmem</li>
+      <li><a href="setmem.html">setmem</li>
+      <li><a href="stpcpy.html">stpcpy</li>
+      <li><a href="strcat.html">strcat</li>
+      <li><a href="strchr.html">strchr</li>
+      <li><a href="strcmp.html">strcmp</li>
+      <li><a href="strcmpi.html">strcmpi</li>
+      <li><a href="strcpy.html">strcpy</li>
+      <li><a href="strcspn.html">strcspn</li>
+      <li><a href="strdup.html">strdup</li>
+      <li><a href="stricmp.html">stricmp</li>
+      <li><a href="strlen.html">strlen</li>
+      <li><a href="strlwr.html">strlwr</li>
+      <li><a href="strncat.html">strncat</li>
+      <li><a href="strncmp.html">strncmp</li>
+      <li><a href="strncmpi.html">strncmpi</li>
+      <li><a href="strncpy.html">strncpy</li>
+      <li><a href="strnicmp.html">strnicmp</li>
+      <li><a href="strpbrk.html">strpbrk</li>
+      <li><a href="strrev.html">strrev</li>
+      <li><a href="strset.html">strset</li>
+      <li><a href="strstr.html">strstr</li>
+      <li><a href="strtok.html">strtok</li>
+      <li><a href="strupr.html">strupr</li>
+    </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>目前共有34个函数</td>
+  </tr>
+</tbody>
+</table>
+<!-- end function list -->
+</td>
+
+<td>
+
+
+
+
+
+<table border=0 cellpadding=0 cellspacing=0 width=600>
+<tbody>
+<tr>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+    <td>
+    <!-- beging of middle part -->
+    <div>
+    <table border=0 cellpadding=0 cellspacing=0 width=100% height=650>
+    <tbody>
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+      <tr><td height=62 valign=bottom><b><font size=5>bcmp</font></b></td></tr>
+
+      <tr><td>
+      <table border=0 cellpadding=0 cellspacing=0 height=1 width=100%>
+      <tbody>
+        <tr>
+          <td height=1 width=150 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+          <td height=1 bgcolor=#ffffff><img src="images/null.gif" border=0 width=1 height=1></td>
+        </tr>
+      </tbody>
+      </table>
+      </td></tr>
+
+      <tr><td valign=top>
+      <div>
+      <!-- begin main body -->
+      <table border=0 cellpadding=5 cellspacing=5>
+      <tr><td>
+<pre>
+
+  原型：extern int bcmp(const void *s1, const void *s2, int n);
+  
+  用法：#include &lt;string.h>
+  
+  功能：比较字符串s1和s2的前n个字节是否相等
+  
+  说明：如果s1=s2或n=0则返回零，否则返回非零值。bcmp不检查NULL。
+  
+  举例：
+
+      // bcmp.c
+      
+      #include &lt;syslib.h>
+      #include &lt;string.h>
+
+      main()
+      {
+        char *s1="Golden Global View";
+        char *s2="Golden global view";;
+        
+        clrscr();        // clear screen
+        if(!bcmp(s1,s2,7))
+          printf("s1 equal to s2 in first 7 bytes");
+        else
+          printf("s1 not equal to s2 in first 7 bytes");
+
+        getchar();
+        clrscr();
+        if(!bcmp(s1,s2,12))
+          printf("s1 equal to s2 in first 12 bytes");
+        else
+          printf("s1 not equal to s2 in first 12 bytes");
+
+        getchar();
+        return 0;
+      }
+      
+  相关函数：<a href="bcopy.html">bcopy</a>,<a href="bzero.html">bzero</a>
+
+</pre>
+      </td></tr>
+      </table>
+      
+      <!-- end main body -->
+      </td></tr>
+   
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+    </tbody>
+    </table>
+    </div>
+    <!-- end of middle part -->
+    </td>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+</tr>
+</tbody>
+</table>
+
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>
