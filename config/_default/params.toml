@@ -25,13 +25,13 @@ talksPaginate = 5
 talksGroupByDate = "2006"
 
 # whoami
-myname = "zzossig"
-email = "zzossig@gmail.com"
-whoami = "Web Developer"
+myname = "helight"
+email = "helight@helight.info"
+whoami = "Big Data, DevOps, ServiceMesh, Kubernetes, Microservice"
 useGravatar = false
-location = "Seoul, Korea"
-organization = "Hugo"
-link = "https://zzossig.io/ko"
+location = "ShenZhen, China"
+organization = "Tencent, Istio, ServiceMesher"
+link = "https://helight.info"
 
 # sidebar
 enableBio = true
@@ -47,7 +47,7 @@ itemsPerCategory = 5
 # footer
 # showPoweredBy = true
 # showFeedLinks = true
-# showSocialLinks = true
+showSocialLinks = true
 # enableLangChange = true
 # enableThemeChange = true
 
@@ -106,10 +106,10 @@ commento = false
   dataAttrs = "" # "data-isso='https://isso.example.com' data-isso-require-author='true'"
 
 [socialOptions]
-  email = "mailto:your@email.com"
+  email = ""
   facebook = "http://example.org/"
-  twitter = "http://example.org/"
-  github = "https://github.com/zzossig/hugo-theme-zzo"
+  twitter = "https://twitter.com/helightxu"
+  github = "https://github.com/helight"
   stack-overflow = ""
   instagram = ""
   google-plus = ""
