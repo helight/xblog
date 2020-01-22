@@ -1,8 +1,12 @@
 weight: 4
-title: "Easy to customize"
+title: "Xgcom项目"
 description: >
   <ul class="list-style-none">
-    <li>7 preprepared colour variations.</li>
-    <li>Easily to change fonts</li>
+    <li>send and receive data from com.</li>
+    <li>configure the com (speed,data bit, stop bit, odd bit, contrl data)</li>
+    <li>sace and load the configure file (speed,data bit, stop bit, odd bit, data contrl)</li>
+    <li>show the data in HEX format</li>
+    <li>count the num of receive and send data (by byte)</li>
+    <li>。。。。。。</li>
   </ul>
-image: "img/carousel/template-easy-code.png"
+image: "img/carousel/xgcom.png"
