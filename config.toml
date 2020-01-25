@@ -1,4 +1,4 @@
-baseurl = "https://example.org"
+baseurl = "https://www.helight.ca"
 title = "黑光技术"
 theme = "hugo-universal-theme"
 themesDir = "./themes/"
@@ -84,7 +84,7 @@ paginate = 10
     contact_form_ajax = false
 
     about_us = "<p><a href='https://helight.info'>黑光技术</a></p>"
-    copyright = "Copyright (c) 2007 - 2020, helight; all rights reserved."
+    copyright = "Copyright (c) 2007 - 2020, helight; all rights reserved.【 <a href='http://www.beian.miit.gov.cn'> 粤ICP备15029944号</a> 】 "
 
     # Format dates with Go's time formatting
     date_format = "January 2, 2006"
