@@ -4,16 +4,19 @@ date = "2019-09-17T13:47:08+02:00"
 tags = ["flink"]
 categories = ["programming"]
 banner = "img/banners/banner-2.jpg"
-facebook_author = "helight"
+draft = false
+author = "helight"
+authorlink = "https://helight.cn"
+summary = "对于需要 7 * 24 小时不间断运行的流式计算程序来说，能实时监控程序运行状况、出现异常告警能立即响应并快速定位问题是必须具备的能力。"
+keywords = ["flink","metrics"]
 +++
 
 # Flink状态监控介绍
 `本文整理自小组实习生的一篇组内分享`
 
-
 ## 监控机制的必要性：
 
-对于需要7 * 24小时不间断运行的流式计算程序来说，能实时监控程序运行状况、出现异常告警能立即响应并快速定位问题是必须具备的能力。
+对于需要 7 * 24 小时不间断运行的流式计算程序来说，能实时监控程序运行状况、出现异常告警能立即响应并快速定位问题是必须具备的能力。
 
 所以在对监控的设计上Flink也是下了一定功夫的，在其官网也是有非常多的介绍。
 
@@ -75,7 +78,6 @@ Metric在Flink中的实现是以Group来组织的，支持了多层的结构，�
 /taskmanagers/metrics
 /taskmanagers/:taskmanagerid/metrics
 ```
-
 
 ## System Metric
 Flink的Metrics提供了内置的一些Metrics，并且提供了扩展接口，大家可以通过扩展接口来扩展自定义的Metrics。这里介绍一下内置的一些Metrics。系统Metric就是内置Metric的一种。
