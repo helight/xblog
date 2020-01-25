@@ -156,3 +156,12 @@ paginate = 10
     enable = true
     title = "最新博文"
     subtitle = "最近有点懒，写的少了。。。"
+
+[outputs]
+    home = ["HTML", "RSS", "Algolia"]
+
+[outputFormats.Algolia]
+    baseName = "algolia"
+    isPlainText = true
+    mediaType = "application/json"
+    notAlternative = true

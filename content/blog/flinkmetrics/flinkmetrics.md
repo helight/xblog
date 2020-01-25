@@ -66,7 +66,7 @@ https://ci.apache.org/projects/flink/flink-docs-release-1.8/monitoring/rest_api.
 
 ## Metric Group
 Metric在Flink中的实现是以Group来组织的，支持了多层的结构，在Flink中Metric Group和Metric Name的组合作为Metrics的唯一标示。比如在Flink中常见的分组有jobmanager，job，taskmanagers等
-比如上面降到的：
+比如上面讲到的：
 ``` sh
 /jobmanager/metrics
 /jobs/metrics
