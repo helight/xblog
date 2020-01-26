@@ -12,7 +12,7 @@ keywords = ["romfs", "文件系统", "开源"]
 +++
 
 # ROMFS文件系统分析
-<div style="text-align:center;">作者：<a href="mailto:zhwenxu@gmail.com">许振文</a></div><br>
+作者：<a href="mailto:zhwenxu@gmail.com">许振文</a>
 
 ROMFS是一种简单的只读文件系统，主要是用来当做初始文件系统来使用的，在嵌入式linux或是uclinux中通常使用这中文件系统来作为引导系统的文件系统，甚至uclinux有时就直接把ROMFS作为其根文件系统，而不是将其作为系统启动中的过渡文件系统。在前面我也分析过，linux操作系统启动中一个是要加载内核，另一个就是要加载一个用于系统简单初始化的文件系统。这个文件系统的格式也是经过了很多发展的。现在一般使用的是一中cpio的格式。在嵌入式系统中一般使用romfs＋其它的可读文件系统。romfs由于它的小巧性（其内核编译只有4000字节），所以非常适合作为系统启动初始化的文件系统。本文就是对ROMFS文件系统进行结构上的分析。前面我也曾对其源代码结构进行了简单的分析。关于ROMFS最为权威的资料是内核源代码树下的“Documentation/filesystems/romfs.txt”。本文多数资料就是来自于该文件。<br>
 
@@ -166,7 +166,8 @@ include/linux/romfs_fs.h
 #define ROMFH_FIF 7
 #define ROMFH_EXEC 8
 ```
-（2）spec这个字段存放的是目录／硬链接／设备文件的相关信息：<br>
+（2）spec这个字段存放的是目录／硬链接／设备文件的相关信息：
+
 这个域是文件类型相关的，也就是说对于不同的文件类型，这个域表示的含义是不一样的。下面是具体的说明；来自“Documentation/filesystems/romfs.txt”。
 ``` c
           mapping               spec.info means
@@ -179,6 +180,7 @@ include/linux/romfs_fs.h
  6      socket          unused, MBZ
  7      fifo            unused, MBZ
 ```
-（3）size是这个文件的大小。<br>
-（4）checksum这个域只是文件头和文件名的校验和。<br>
+
+（3）size是这个文件的大小。
+（4）checksum这个域只是文件头和文件名的校验和。
 （5）name是文件的名称。

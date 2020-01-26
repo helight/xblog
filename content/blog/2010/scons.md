@@ -1,6 +1,6 @@
 +++
 title = "scons学习笔记"
-date = "2010-01-18T13:47:08+02:00"
+date = "2010-05-18T13:47:08+02:00"
 tags = ["scons", "gcc"]
 categories = ["programming"]
 banner = "img/banners/SCons.png"
