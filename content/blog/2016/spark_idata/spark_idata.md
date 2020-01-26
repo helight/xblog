@@ -1,3 +1,17 @@
++++
+title = "Spark在腾讯游戏数据分析和营销干预中的应用实践"
+date = "2016-12-18T13:47:08+02:00"
+tags = ["bigdata", "spark"]
+categories = ["doc"]
+banner = "img/banners/banner-2.jpg"
+draft = false
+author = "helight"
+authorlink = "https://helight.cn"
+summary = "Spark在腾讯游戏数据分析和营销干预中的应用实践"
+keywords = ["bigdata","spark", "数据分析"]
++++
+
+# 介绍
 ![](201612/1.PNG)
 
 ![](201612/2.PNG)
