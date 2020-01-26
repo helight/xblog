@@ -1,4 +1,4 @@
-baseurl = "https://www.helight.ca"
+baseurl = "https://www.helight.cn"
 title = "黑光技术"
 theme = "hugo-universal-theme"
 themesDir = "./themes/"
@@ -117,7 +117,7 @@ paginate = 10
 [params.widgets]
     categories = true
     tags = true
-    search = true
+    search = false
 
 [params.carousel]
     enable = true

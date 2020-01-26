@@ -1,7 +1,7 @@
 +++
 title = "Helight.Xu's GNU/Linux"
 date = "2010-01-18T13:47:08+02:00"
-tags = ["helight", "life"]
+tags = ["life"]
 categories = ["life"]
 banner = "img/banners/banner-2.jpg"
 draft = false

@@ -1,7 +1,7 @@
 +++
 title = "在minukube上安装istio并测试使用"
 date = "2020-01-18T13:47:08+02:00"
-tags = ["istio", "k8s", "minikube"]
+tags = ["istio", "k8s"]
 categories = ["programming"]
 banner = "img/banners/istio.jpg"
 draft = false
