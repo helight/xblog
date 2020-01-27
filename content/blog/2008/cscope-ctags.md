@@ -1,6 +1,6 @@
 +++
 title = "Vim+cscope+ctags+tags阅读源代码"
-date = "2010-08-18T13:47:08+02:00"
+date = "2008-09-18T13:47:08+02:00"
 tags = ["vim", "开源"]
 categories = ["programming"]
 banner = "img/banners/banner-2.jpg"
