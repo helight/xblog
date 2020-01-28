@@ -1,7 +1,7 @@
 +++
 title = "2.6.22下基于Netfilter的网络监听程序"
 date = "2008-09-27T13:47:08+02:00"
-tags = ["linux", "开源", "netfilter"]
+tags = ["linux", "开源", "kernel"]
 categories = ["programming"]
 banner = "img/banners/banner-2.jpg"
 draft = false
