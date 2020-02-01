@@ -54,7 +54,7 @@ paginate = 15
 
 [params]
     viewMorePostLink = "/blog/"
-    author = "DevCows"
+    author = "helight"
     defaultKeywords = ["helight", "微服务", "kernel", "DevOps", "go"]
     mainSections = ["blog"]
     defaultDescription = "完美之道，不在无可增加，而在无可删减。"
@@ -90,7 +90,7 @@ paginate = 15
     copyright = "Copyright (c) 2007 - 2020, helight; all rights reserved.【 <a href='http://www.beian.miit.gov.cn'> 粤ICP备15029944号</a> 】 "
 
     # Format dates with Go's time formatting
-    date_format = "January 2, 2006"
+    date_format = "2006年1月2日"
 
     logo = "img/helight.png"
     logo_small = "img/helight.png"
@@ -99,6 +99,8 @@ paginate = 15
       """
     latitude = "-12.043333"
     longitude = "-77.028333"
+    # 是否开启评论功能
+    gitalk = true
 
 [Permalinks]
     # blog = "/blog/:year/:month/:day/:filename/"
