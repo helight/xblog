@@ -34,7 +34,7 @@ paginate = 15
 [[menu.main]]
     identifier = "projects"
     name = "Projects"
-    url  = "/blog/2019/xprojects/"
+    url  = "/about/projects/"
     weight = 3
 
 [[menu.main]]
