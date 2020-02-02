@@ -1,4 +1,4 @@
-baseurl = "https://www.helight.cn"
+baseurl = "http://www.helight.cn"
 title = "黑光技术"
 theme = "hugo-universal-theme"
 themesDir = "./themes/"
