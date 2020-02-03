@@ -67,15 +67,15 @@ keywords = ["oneflow","golang", "cloud"]
 ## Linux ARM开发文档
 项目简介：编写一个关于linux在arm上比较实用的开发文档，当前使用开发芯片有pxa270和S3C2410.
 
-项目地址：[查看项目当前版本](http://helight.info/coding/arm-linux-compile.pdf)
+项目地址：[查看项目当前版本]/coding/arm-linux-compile.pdf)
 
 ## 2.6.22下基于Netfilter的网络监听器
-在2.6.22中skbuff发生了变化，使得我以前的防火墙程序在新内核中无法使用了，主要是可以当作一个网络数据监视，当然还是不完善的。目前只能监听数据报的源ip和目的ip，还有tcp报的原端口和目的端口。 这里是程序：[sniffnet.c](http://helight.info/coding/sniffnet.c)
+在2.6.22中skbuff发生了变化，使得我以前的防火墙程序在新内核中无法使用了，主要是可以当作一个网络数据监视，当然还是不完善的。目前只能监听数据报的源ip和目的ip，还有tcp报的原端口和目的端口。 这里是程序：[sniffnet.c](/coding/sniffnet.c)
 
 ## Tools—收集或是自己做的一些小工具。。。
 C 函数库
 是学习c编程的一个小助手，我将它收录到了这里。
-[C 函数库](http://helight.info/tools/clib/clib.html)
+[C 函数库](/tools/clib/clib.html)
 
 # 欢迎加入
 欢迎有兴趣的小伙伴试用，提问题，提需求，fork，或者一起来开发。
