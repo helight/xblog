@@ -72,8 +72,9 @@ istioctl: istio 的管理命令行
 # istio代码结构
 Istio源码托管于Github，项目使用Go开发。代码目录比较清晰，每个组件一个目录，都是 cmd 目录 + pkg 目录的方式.
 部分包\文件\文件夹功能列表如下：
+
 | Package/Directory/File  | Introduction |
-| -- | -- |
+| - | - |
 | Common* | 公共的配置文件，脚本，protos文件 |
 | bin | 存放初始化依赖、编译、插件证书检查、代码生成的脚本 |
 | galley | 提供了Istio的配置管理功能。 |
