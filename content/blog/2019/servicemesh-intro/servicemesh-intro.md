@@ -2,7 +2,7 @@
 title = "什么是ServiceMesh"
 date = "2019-12-07T13:47:08+02:00"
 tags = ["sevicemesh", "开源", "istio"]
-categories = ["programming"]
+categories = ["sevicemesh"]
 banner = "img/banners/istio2.png"
 draft = false
 author = "helight"

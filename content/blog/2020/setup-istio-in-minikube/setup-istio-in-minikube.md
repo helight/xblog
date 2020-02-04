@@ -2,11 +2,11 @@
 title = "在minukube上安装istio并测试使用"
 date = "2020-01-18T13:47:08+02:00"
 tags = ["istio", "k8s"]
-categories = ["programming"]
+categories = ["sevicemesh"]
 banner = "img/banners/istio.png"
 draft = false
 author = "helight"
-authorlink = "https://helight.cn"
+authorlink = "http://helight.info"
 summary = "只有一台机器，又想玩一下 istio 怎么办呢？本文将介绍如何使用 minikube 来安装 istio。"
 keywords = ["istio","minikube", "kiali"]
 +++
