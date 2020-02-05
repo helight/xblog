@@ -2,7 +2,7 @@
 title = "golang单元测试之mock "
 date = "2019-05-18T13:47:08+02:00"
 tags = ["golang", "test"]
-categories = ["programming"]
+categories = ["golang"]
 banner = "img/banners/golang.jpg"
 draft = false
 author = "helight"

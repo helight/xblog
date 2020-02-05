@@ -2,7 +2,7 @@
 title = "Flink数据流编程模型"
 date = "2019-02-18T13:47:08+02:00"
 tags = ["bigdata", "flink"]
-categories = ["bigdata"]
+categories = ["flink"]
 banner = "img/banners/flink.jpg"
 draft = false
 author = "helight"

@@ -1,8 +1,8 @@
 +++
 title = "golua虚拟机的使用"
 date = "2018-11-18T13:47:08+02:00"
-tags = ["go", "lua"]
-categories = ["programming"]
+tags = ["golang", "lua"]
+categories = ["golang"]
 banner = "img/banners/golua.jpg"
 draft = false
 author = "helight"

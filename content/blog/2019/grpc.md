@@ -2,7 +2,7 @@
 title = "golang grpc简单使用"
 date = "2019-05-18T13:47:08+02:00"
 tags = ["grpc", "golang"]
-categories = ["programming"]
+categories = ["golang"]
 banner = "img/banners/grpc.jpg"
 draft = false
 author = "helight"

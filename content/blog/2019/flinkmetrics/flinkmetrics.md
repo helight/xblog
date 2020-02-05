@@ -2,7 +2,7 @@
 title = "Flink状态监控介绍"
 date = "2019-09-17T13:47:08+02:00"
 tags = ["flink"]
-categories = ["programming"]
+categories = ["flink"]
 banner = "img/banners/flink.jpg"
 draft = false
 author = "helight"

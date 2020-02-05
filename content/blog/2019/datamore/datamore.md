@@ -2,7 +2,7 @@
 title = "DataMore数据服务开发系统Xone在服务化的架构实践"
 date = "2019-05-18T13:47:08+02:00"
 tags = ["bigdata"]
-categories = ["doc"]
+categories = ["bigdata"]
 banner = "img/banners/banner-2.jpg"
 draft = false
 author = "helight"

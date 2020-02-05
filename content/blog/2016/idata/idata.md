@@ -2,7 +2,7 @@
 title = "腾讯游戏数据分析平台"
 date = "2016-05-18T13:47:08+02:00"
 tags = ["bigdata"]
-categories = ["doc"]
+categories = ["bigdata"]
 banner = "img/banners/banner-2.jpg"
 draft = false
 author = "helight"

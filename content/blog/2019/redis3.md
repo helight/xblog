@@ -2,7 +2,7 @@
 title = "Redis的事件处理模型2：客户端命令执行过程"
 date = "2019-06-18T13:47:08+02:00"
 tags = ["redis", "db"]
-categories = ["bigdata"]
+categories = ["redis"]
 banner = "img/banners/redis.png"
 draft = false
 author = "helight"

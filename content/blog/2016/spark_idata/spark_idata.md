@@ -2,7 +2,7 @@
 title = "Spark在腾讯游戏数据分析和营销干预中的应用实践"
 date = "2016-12-18T13:47:08+02:00"
 tags = ["bigdata", "spark"]
-categories = ["doc"]
+categories = ["bigdata"]
 banner = "img/banners/banner-2.jpg"
 draft = false
 author = "helight"

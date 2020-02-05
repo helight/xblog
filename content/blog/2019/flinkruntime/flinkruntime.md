@@ -2,7 +2,7 @@
 title = "Flink分布式运行时环境"
 date = "2019-02-20T13:47:08+02:00"
 tags = ["flink", "bigdata"]
-categories = ["bigdata"]
+categories = ["flink"]
 banner = "img/banners/flink.jpg"
 draft = false
 author = "helight"

@@ -2,7 +2,7 @@
 title = " Redis源码分析2:Redis的事件处理模型"
 date = "2019-05-18T13:47:08+02:00"
 tags = ["redis", "db"]
-categories = ["bigdata"]
+categories = ["redis"]
 banner = "img/banners/redis.png"
 draft = false
 author = "helight"

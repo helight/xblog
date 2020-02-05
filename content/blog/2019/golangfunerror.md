@@ -2,7 +2,7 @@
 title = "Golang中 method has pointer receiver 异常"
 date = "2019-05-18T13:47:08+02:00"
 tags = ["golang"]
-categories = ["programming"]
+categories = ["golang"]
 banner = "img/banners/golang.jpg"
 draft = false
 author = "helight"
