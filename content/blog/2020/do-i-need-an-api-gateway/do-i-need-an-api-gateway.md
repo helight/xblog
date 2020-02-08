@@ -174,3 +174,5 @@ API 网关提供的最后一个主要功能就是边界安全。这包括验证�
 
 ## Wrapping up 收尾
 API 网关在一些功能点上和服务网格是重合的。它们在使用的一些技术上也有重合（比如 Envoy）。但是它们的定位是有不同的，所以理解这些可以让你在部署微服务系统的时候少很多痛苦，让你在架构使用过程中发现一些意想不到的场景和用法。
+
+原文：https://blog.christianposta.com/microservices/do-i-need-an-api-gateway-if-i-have-a-service-mesh/
