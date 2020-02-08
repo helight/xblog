@@ -19,7 +19,7 @@ keywords = ["istio","proxy", "gateway"]
 ## Why another blog on this topic? 这个话题相关的其它文章
 关于这个话题作者写了一些列的文章，比如：[“API 网关负责南北流量，服务网格负责东西流量”](https://aspenmesh.io/api-gateway-vs-service-mesh/)，[“API 网关管理业务函数，而服务网格管理服务和服务之间的通信”](https://medium.com/microservices-in-practice/service-mesh-vs-api-gateway-a6d814b9bf56)，[“从功能角度看哪些是 API 应该做的，哪些是服务网格应该做的”](https://blog.getambassador.io/api-gateway-vs-service-mesh-104c01fa4784)，[“服务网格和 API 网关对比”](https://developer.ibm.com/apiconnect/2018/11/13/service-mesh-vs-api-management/)。
     
-    我在后面也计划逐步翻译这个谢列的文章。
+    我在后面也计划逐步翻译这个系列的文章。
 
 从目前看这个领域还是有很多的让人疑惑的地方。
 
@@ -29,7 +29,7 @@ keywords = ["istio","proxy", "gateway"]
 ## What’s the confusion 有哪些困惑
 大概一年前我写了关于 [API 网关认证危机](https://blog.christianposta.com/microservices/api-gateways-are-going-through-an-identity-crisis/)的一篇文章，主要是评估 API 管理，Kubernetes Ingresses 和 API 网关（有相关的定义）的不同之处。在那篇文章最后，我试着解释为服务网格如何应对这种平衡，但是缺乏这些技术的详细对比，亦或缺少什么时候该用那种技术的足够说明。我也强烈建议大家去读一下那篇文章，那算是这个话题的第一部分了，本文是是第二部分。
 
-我认为困惑主要是应为以下一些原因：
+我认为困惑主要是以下一些原因：
 
 * 技术使用上是有重合的（各种代理）
 * 在能力上也有重合（流量控制，路由，度量收集，安全/策略执行等等）
@@ -37,7 +37,7 @@ keywords = ["istio","proxy", "gateway"]
 * 对服务网格能力的错误理解
 * 有些服务网格有他们自己的网关
 
-最后一项最容器让人困惑。
+最后一项最容易让人困惑。
 
 如果服务网格只是处理东西流量（边界内），那么为什么有些服务网格技术实现又有一个针对南北流量的 `Ingress` 网关（它也是网格的一部分）呢？典型的就是 `Istio`。看看 `stio Ingress` 网关的文档中怎么说：
 
@@ -49,7 +49,7 @@ keywords = ["istio","proxy", "gateway"]
 在这篇文章的后面我们提到的服务网格都是指 `Istio` 和 `Istio` 网关。选择这个设想的场景是因为这是最能展示重合和困惑的一个场景。其它的服务[网格技术也有网关](https://www.consul.io/docs/connect/mesh_gateway.html)，但是[有些还没有明确的网关](https://linkerd.io/2/tasks/using-ingress/)。
 
 
-## Where they overlap 那写地方重合了？
+## Where they overlap 哪些地方重合了？
 首先我们要识别的就是服务网格和 API 网格的能力上哪些地方重合了。它们都处理应用程序流量，所以重合部分应该不会想不到。以下就是列出的一些重合能力：
 
 * 遥测收集
@@ -64,9 +64,9 @@ keywords = ["istio","proxy", "gateway"]
 * 流量影子（不好翻译，目标是把流量复制出来到其它服务上）
 * 限频
 
-这些功能电视行都会重合，所以你是用其中一个还是所有还是一个都没有用过呢？
+这些功能都会重合，所以你是用其中一个还是所有还是一个都没有用过呢？
 
-## Where they diverge 那里又有不一样呢？
+## Where they diverge 哪里又有不一样呢？
 服务网格是运行在比 API 网关低的一层上，而且运行在架构的单个服务上。服务网格给服务调用客户端更多的信息：架构拓扑相关（客户端的负载均衡，服务发现，请求路由），应该实现的弹性机制（超时，重试，熔断），应该收集的遥测信息（度量、追踪），还有应用的安全流程（mTLS，RBAC）。所有的这些实现详情通常都通过 sidecar 进程（考虑下 Envoy）来提供，虽然也它们也可以不需要必须。看我在  ServiceMeshCon 上做的演讲：[服务网格数据平面的演进](https://www.slideshare.net/ceposta/the-truth-about-the-service-mesh-data-plane)。
 
 在这篇文章中 [API Identity Crisis](https://blog.christianposta.com/microservices/api-gateways-are-going-through-an-identity-crisis/)：
@@ -95,14 +95,13 @@ API 网关是以另外一种方式来提供服务的：抛去了细节并且分�
 接下来详细看看：
 
 ## Boundary decoupling 边界解耦
-A core functionality of the API Gateway is to provide a stable API interface to clients outside of the boundary. From [Chris Richardson’s Microservices Patterns Book](https://microservices.io/book), we could paraphrase the “API Gateway pattern” as:
 API 网关的核心功能就是给外界客户端提供一个稳定的 API 接口。从 Chris Richardson 写的[微服务模式](https://microservices.io/book)一书中，我们可以将 `API 网关模式` 解释为：
 
     明确简化对一组 API/微服务的调用
     给指定的使用者，客户端或者消费者模拟一个应用程序的一组 API
     这里关键是 API 网关，应用 API 网关之后，它会变成了客户端访问应用程序体系 API 的一个单一入口点
 
-在 [API 网关标示危机](https://blog.christianposta.com/microservices/api-gateways-are-going-through-an-identity-crisis/)一文中提到的 API 网关实现例子：
+在 [API 网关认证危机](https://blog.christianposta.com/microservices/api-gateways-are-going-through-an-identity-crisis/)一文中提到的 API 网关实现例子：
 
 * [Solo.io Gloo](https://gloo.solo.io/)
 * [Spring Cloud Gateway](http://spring.io/projects/spring-cloud-gateway)
@@ -140,9 +139,6 @@ API 网关的核心功能就是给外界客户端提供一个稳定的 API 接�
 如你所见，在服务提供者和客户端之间提供一个强大的解耦层，涉及的东西远不止是允许 HTTP 流量进入集群。
 
 ## Tight control over what’s allowed in/out of services 严格控制进出服务的请求
-Another important functionality of an API Gateway is that of “governing” what data/requests are allowed into the application architecture and which data/responses are allowed out. This means, the gateway will need deep understanding of the requests coming into the architecture or those requests coming out. For example, a common scenario is Web Application firewalling to prevent SQL injection attacks. Another is “data loss prevention” techniques to prevent SSN or PII to be returned in requests for PCI-DSS/HIPPA/GDPR. The edge is a natural place to help implement these policies.
-
-Again, defining and enforcing these capabilities aren’t as simple as just allowing HTTP traffic into a cluster.
 API 网关的另外一个重要的功能是管理哪些数据/请求可以进入应用程序体系，哪些数据/响应可以流出去。这意味着网关需要深入理解进入系统的请求或出去的请求。例如，一个普通的场景就是 WEB 应用程序防火墙阻止 SQL 注入攻击。另外就是`防止数据丢失`技术来防止请求中返回 SSN 或者 PII，因为这些规范或者标准的要求：PCI-DSS/HIPPA/GDPR。网关是实现这些策略的天然场所。
 
     SSN：在美国，社会安全号码（Social Security number，SSN）是发给公民、永久居民、临时（工作）居民的一组九位数字号码，是依据美国社会安全法案（Social Security Act）205条C2中社会安全卡的记载。这组数字由联邦政府社会安全局针对个人发行。社会安全号码主要的目的是为了追踪个人的赋税资料，但近年来已经成为实际上（De facto）的国民辨识号码。
@@ -155,10 +151,12 @@ API 网关的另外一个重要的功能是管理哪些数据/请求可以进入
 
     GDPR：《通用数据保护条例》（General Data Protection Regulation，简称GDPR）为欧洲联盟的条例，前身是欧盟在1995年制定的《计算机数据保护法》。
 
+同样，定义和执行这些功能并不像只允许 HTTP 流量进入集群那么简单。
+
 ## Custom security / bridging trust domains 自定义安全/桥接信任域
 API 网关提供的最后一个主要功能就是边界安全。这包括验证外部应用体系的用户和服务提供身份信息和范围策略，这样可以限制访问指定服务和业务功能。这也和前面一段介绍的功能有关系。
 
-一个通用的例子是可以和 OAuth/SSO 认证流绑定，包括 Open ID Connect。对这些标准的挑战在于网关有可能没有完全实现这些功能，或者是实现的不正确。API 网关需要一种方式能耦灵活的适配这些环境，同时还要提供自定义能力。
+一个通用的例子是可以和 OAuth/SSO 认证流绑定，包括 Open ID Connect。对这些标准的挑战在于网关有可能没有完全实现这些功能，或者是实现的不正确。API 网关需要一种方式能够灵活的适配这些环境，同时还要提供自定义能力。
 
 在很多企业都已经有身份/信任/授权机制，所以 API 网关的很大一部分就是能够为这些后端能力进行本地化集成。虽然新的像 SPIFEE 标准已经出现了，但是企业还是需要一段时间来研究使用，在这段时间内 API 网关还是一个强需求（甚至在下一代的应用程序架构中都可能是）。同样，你可以撇一眼上面的内容，这部分也上面提到的转换/解耦有点关系。
 
