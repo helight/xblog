@@ -2,7 +2,7 @@
 title = "Kubernetes 服务网格: Istio, Linkerd 和 Consul 大比较"
 date = "2020-02-02T13:47:08+02:00"
 tags = ["istio", "k8s"]
-categories = ["sevicemesh"]
+categories = ["sevicemesh", "microservices"]
 banner = "img/banners/istio.png"
 draft = false
 author = "helight"

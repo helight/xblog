@@ -1,8 +1,8 @@
 +++
 title = "有了Service Mesh，还需要 API 网关吗？"
 date = "2020-02-07T13:47:08+02:00"
-tags = ["istio"]
-categories = ["sevicemesh"]
+tags = ["istio", "microservices"]
+categories = ["sevicemesh", "microservices"]
 banner = "img/banners/istio.png"
 draft = false
 author = "helight"

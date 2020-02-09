@@ -2,7 +2,7 @@
 title = "在minikube上安装istio并测试使用"
 date = "2020-01-18T13:47:08+02:00"
 tags = ["istio", "k8s"]
-categories = ["sevicemesh"]
+categories = ["sevicemesh", "microservices"]
 banner = "img/banners/istio.png"
 draft = false
 author = "helight"
