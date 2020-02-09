@@ -1,6 +1,6 @@
 +++
 title = "API 网关和服务网格功能定位比较"
-date = "2020-02-09T13:47:08+02:00"
+date = "2020-02-08T13:47:08+02:00"
 tags = ["istio", "microservices"]
 categories = ["sevicemesh", "microservices"]
 banner = "img/banners/istio2.png"
