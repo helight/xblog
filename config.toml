@@ -4,6 +4,7 @@ subtitle = "完美之道，不在无可增加，而在无可删减。"
 theme = "hugo-universal-theme"
 themesDir = "./themes/"
 languageCode = "zh"
+hasCJKLanguage = true
 # Site language. Available translations in the theme's `/i18n` directory.
 defaultContentLanguage = "zh"
 # Enable comments by entering your Disqus shortname
@@ -11,6 +12,7 @@ defaultContentLanguage = "zh"
 # Code highlight
 pygmentsUseClasses = false
 pygmentCodeFences = true
+
 
 # Define the number of posts per page
 paginate = 15
