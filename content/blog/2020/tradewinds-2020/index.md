@@ -1,7 +1,7 @@
 +++
-title: 2020 年的 Istio - 顺风而行
-subtitle: 在 Istio 2020 年的路线图中，将会继续变的更快，更易用
-description: Istio 2020 年的愿景申明和路线图计划。
+title = "2020 年的 Istio - 顺风而行"
+subtitle = "在 Istio 2020 年的路线图中，将会继续变的更快，更易用"
+description = "Istio 2020 年的愿景申明和路线图计划。"
 date = "2020-03-07T13:47:08+02:00"
 tags = ["istio", "k8s"]
 categories = ["sevicemesh", "microservices"]
