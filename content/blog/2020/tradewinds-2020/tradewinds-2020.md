@@ -2,7 +2,7 @@
 title = "2020 年的 Istio - 顺风而行"
 subtitle = "在 Istio 2020 年的路线图中，将会继续变的更快，更易用"
 description = "Istio 2020 年的愿景申明和路线图计划。"
-date = "2020-03-07T13:47:08+02:00"
+date = "2020-03-06T13:47:08+02:00"
 tags = ["istio", "k8s"]
 categories = ["sevicemesh", "microservices"]
 banner = "img/banners/istio.png"
@@ -52,19 +52,11 @@ Istio 从其建设之初就提供了可扩展性，是通过叫做 Mixer 的一�
 
 为了减少每个节点的空间占用，我们干掉了用于分发证书的 node-agent，并且把它的功能迁移到了 istio-agent， istio-agent 已经是在每个 Pod 中了，我们正从这个图中所示的架构
 
-{{< image width="75%"
-    link="./architecture-pre-istiod.svg"
-    alt="基于 Pilot，Mixer，Citadel，Sidecar 注入器的 Istio 架构 "
-    caption="Istio 现在的架构"
-    >}}
+![](./old_control_plane.png)
 
 向这个架构发展。
 
-{{< image width="75%"
-    link="./architecture-post-istiod.svg"
-    alt=基于 istiod 的 Istio 架构"
-    caption="2020 年的 Istio 架构"
-    >}}
+![](./new_control_plane.png)
 
 在 2020 年，我们将持续建设以实现我们的“零配置”默认目标，无需更改任何应用程序配置即可享用大多数 Istio 的功能。
 
