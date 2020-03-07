@@ -26,15 +26,15 @@ Istio 解决了人们在运行微服务时遇到的实际问题。甚至[非常�
 
 ## 更流畅，更平滑，更快 {#sleeker-smoother-and-faster}
 
-Istio 从其建设之初就提供了可扩展性，是通过叫做 Mixer 的一个组件来实现的。Mixer 是一个平台，在 Mixer 上允许自定义[适配器](https://istio.io/zh/docs/reference/config/policy-and-telemetry/mixer-overview/#adapters)来充当数据平面和用于策略或遥测后端之间的中介。不过因为 Mixer 要求扩展是在进程外，因此增加了不惜要的请求开销。 所以我们正在向一种模式发展：直接在代理内部启用扩展。
+Istio 从其建设之初就提供了可扩展性，是通过叫做 Mixer 的一个组件来实现的。Mixer 是一个平台，在 Mixer 上允许自定义[适配器](https://istio.io/zh/docs/reference/config/policy-and-telemetry/mixer-overview/#adapters)来充当数据平面和用于策略或遥测后端之间的中介。不过因为 Mixer 要求扩展是在进程外，因此增加了不必要的请求开销。 所以我们正在向一种模式发展：直接在代理内部启用扩展。
 
 大多数 Mixer 用于执行策略的用例已经通过 Istio 的[认证](https://istio.io/zh/docs/concepts/security/#authentication-policies)和[授权](https://istio.io/zh/docs/concepts/security/#authorization))策略实现了， 这些策略允许直接在代理中控制 workload 到 workload，终端用户到 workload 的认证。公共监控用例也已经迁移到了代理中，我们为发送遥测信息到 Prometheus 和 Stackdriver 而[引入代理内支持](https://istio.io/zh/docs/ops/configuration/telemetry/in-proxy-service-telemetry/)。
 
-我们的基准测试显示新的遥测模型显著降低了延迟，并为有业界领先的性能，延迟和 CPU 消耗都减少了 50%。
+我们的基准测试显示新的遥测模型显著降低了延迟，并有业界领先的性能，延迟和 CPU 消耗都减少了 50%。
 
 ## 新的 Istio 扩展模型 {#a-new-model-for-Istio-extensibility}
 
-在这个模型中用在 Envoy 中引入扩展，替换掉了 Mixer 的方式，这样可以提供更多的能力。Istio 社区正在带领在 Envoy 中实现 [WebAssembly](https://webassembly.org/) (Wasm) 运行时，这中方式可以以模块化，沙箱的方式实现扩展，并且可以支持使用[超过 20 中语言](https://github.com/appcypher/awesome-wasm-langs)。代理可以在持续服务的情况下动态加载和重载扩展。Wasm 扩展同样也将能够以 Mixer 无法做到的方式扩展平台。它们可以充当自定义协议处理程序，并在通过 Envoy 时转换有效负载 — 简而言之，它们可以执行与构建到 Envoy 中的模块相同的事情。
+在这个模型中用在 Envoy 中引入扩展，替换掉了 Mixer 的方式，这样可以提供更多的能力。Istio 社区正在带领在 Envoy 中实现 [WebAssembly](https://webassembly.org/) (Wasm) 运行时，这种方式可以以模块化，沙箱的方式实现扩展，并且可以支持使用[超过 20 种语言](https://github.com/appcypher/awesome-wasm-langs)。代理可以在持续服务的情况下动态加载和重载扩展。Wasm 扩展同样也将能够以 Mixer 无法做到的方式扩展平台。它们可以充当自定义协议处理程序，并在通过 Envoy 时转换有效负载 — 简而言之，它们可以执行与构建到 Envoy 中的模块相同的事情。
 
 我们正在与 Envoy 社区合作，寻找发现和分发这些扩展的方法。我们想让 WebAssembly 扩展像容器一样易于安装和运行。许多合作伙伴已经编写了 Mixer 适配器，并且和我们一起把他们移植到了 Wasm 上。我们也在开发教如何编写自定义集成扩展的指引和代码教程。
 
@@ -67,7 +67,7 @@ Istio 从其建设之初就提供了可扩展性，是通过叫做 Mixer 的一�
 - 人工触发：使用 istioctl 来应用配置到集群上。
 - 机器触发：用一个控制器监听 CRD 的变动，并且实时应用配置。
 
-在 2020 年更新升级将会更容易。我们会增加支持金丝雀方式发布 Istio 控制平面的新版，这样可以让新版本和现存版本同时运行，载逐渐的切换数据平面到新的版本上。
+在 2020 年更新升级将会更容易。我们会增加支持金丝雀方式发布 Istio 控制平面的新版，这样可以让新版本和现存版本同时运行，再逐渐的切换数据平面到新的版本上。
 
 ## 默认安全策略 {#secure-by-default}
 
@@ -77,7 +77,7 @@ Istio 已经为强壮的服务安全提供了基础能力：可靠的 workload �
 
 此外，我们会让 Istio 需要更少的权限，并且简化它的依赖，从而使它成为一个更强大的系统。以前，你必须使用 Kubernetes Secrets 挂载证书给 Envoy，作为文件一样挂载到每个代理上。现在通过 [Secret Discovery Service](https://www.envoyproxy.io/docs/envoy/latest/configuration/security/secret) 我们可以安全地分发这些证书，而不必担心它们被机器上的其它 workloads 截获。这种模式也将会变成 1.5 中的默认做法。
 
-放弃 node-agent 不尽简化了部署，而且也消除了集群内对 `PodSecurityPolicy` 的要求，从而进一步改善了集群的安全性。
+放弃 node-agent 不仅简化了部署，而且也消除了集群内对 `PodSecurityPolicy` 的要求，从而进一步改善了集群的安全性。
 
 ## 其它功能 {#other-features}
 
