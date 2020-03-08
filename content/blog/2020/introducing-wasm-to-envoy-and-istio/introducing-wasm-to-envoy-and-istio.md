@@ -29,7 +29,7 @@ keywords = ["istio","wasm", "extensibility", "performance", "operator"]
 
 Envoy 模型强化了单体构建过程，并要求使用 C++ 编写扩展，从而限制了开发者的生态。给集群发布新的扩展需要下发新的二进制文件并滚动重启，这可能很难协调，并有可能会导致停机。这也促使了开发者向 Envoy 上游提交他们的扩展，而这些扩展仅由一小部分生产环境使用，更多仅仅是为了利用其发布机制。
 
-随着时间的流逝，Istio 的一些对性能最敏感的功能已合进了上游的 Envoy - 例如[流量检查策略](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/security/rbac_filter)和例如[遥测上报](/docs/reference/config/telemetry/metrics/)。 尽管如此，我们一直想把扩展性汇聚在一个技术栈上，从而减少两者之间犹豫折衷：这使 Envoy 版本与其扩展生态系统脱钩，使开发者能够使用他们选择的语言进行工作，并使 Istio 可靠地推出新功能而不必有停机风险。
+随着时间的流逝，Istio 的一些对性能最敏感的功能已合进了上游的 Envoy - 例如[流量检查策略](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/security/rbac_filter)和例如[遥测上报](https://istio.io/zh/docs/reference/config/telemetry/metrics/)。 尽管如此，我们一直想把扩展性汇聚在一个技术栈上，从而减少两者之间犹豫折衷：这使 Envoy 版本与其扩展生态系统脱钩，使开发者能够使用他们选择的语言进行工作，并使 Istio 可靠地推出新功能而不必有停机风险。
 
 ## 什么是 WebAssembly {#what-is-WebAssembly}
 
@@ -67,9 +67,9 @@ Envoy 模型强化了单体构建过程，并要求使用 C++ 编写扩展，从
 
 为了显著提高性能，Istio 在 1.5 的发布中，把它的几个扩展内置到了 Envoy中。在执行此工作时，我们把这些同样的扩展可以作为 Proxy-Wasm 模块进行编译和运行，测试确保其行为没有异常。考虑到我们认为 Wasm 支持还是 Alpha 版本，我们还没有完全准备好将这个设置设为默认设置；然而，在我们的通用实现和主机环境还是给了我们不少信心，至少 ABI 和 SDK 已经开发完成了。
 
-我们还是要小心地确保 Istio 控制平面及其 [Envoy 配置 API](/docs/reference/config/networking/envoy-filter/) 已经可以支持 Wasm。 我们有一些示例来展示几种常见的定制，例如定制头解码或程序中路由，这是用户的常见要求。当将这个支持发展到 Beta 版本时，将会看到 Istio 中使用 Wasm 最佳实践的文档。
+我们还是要小心地确保 Istio 控制平面及其 [Envoy 配置 API](https://istio.io/zh/docs/reference/config/networking/envoy-filter/) 已经可以支持 Wasm。 我们有一些示例来展示几种常见的定制，例如定制头解码或程序中路由，这是用户的常见要求。当将这个支持发展到 Beta 版本时，将会看到 Istio 中使用 Wasm 最佳实践的文档。
 
-最后，我们正在与许多编写了 [Mixer 适配器](/docs/reference/config/policy-and-telemetry/adapters/)的供应商合作，帮助他们迁移到 Wasm — 如果这是前行的最佳方式。 Mixer 将在未来的版本中转为社区项目，它将仍可用于老系统。
+最后，我们正在与许多编写了 [Mixer 适配器](https://istio.io/zh/docs/reference/config/policy-and-telemetry/adapters/)的供应商合作，帮助他们迁移到 Wasm — 如果这是前行的最佳方式。 Mixer 将在未来的版本中转为社区项目，它将仍可用于老系统。
 
 ## 开发者体验 {#developer-experience}
 
