@@ -13,7 +13,7 @@ summary = "在 2020 年 Istio 有更雄伟的目标，并且很多重大工作�
 keywords = ["istio","roadmap", "security", "performance", "operator"]
 +++
 
-翻译 Istio 官网blog文章，原文：[https://istio.io/blog/2020/tradewinds-2020/](https://istio.io/blog/2020/tradewinds-2020/)。
+翻译 Istio 官网 blog 文章，原文：[https://istio.io/blog/2020/tradewinds-2020/](https://istio.io/blog/2020/tradewinds-2020/)。
 
 Istio 解决了人们在运行微服务时遇到的实际问题。甚至[非常早期的预发布版本](https://kubernetespodcast.com/seeption/016-descartes-labs/)也帮助用户调试其系统结构中的延迟问题，帮助提高服务的可靠性，并且透明地保护了火墙后的通信。
 
