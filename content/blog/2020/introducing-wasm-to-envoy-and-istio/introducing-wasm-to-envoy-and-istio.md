@@ -22,7 +22,7 @@ keywords = ["istio","wasm", "extensibility", "performance", "operator"]
 
 在过去的一年半中，我们在Google的团队一直在努力用 [WebAssembly](https://webassembly.org/) 来为 Envoy 代理添加动态扩展。 今天我们很高兴与大家分享这项工作，并推出 [针对代理的 WebAssembly (Wasm)](https://github.com/proxy-wasm/spec) (Proxy-Wasm)：包括一个会标准化的ABI，SDK，以及它的第一个重点实现：新的，低延迟的 [Istio 遥测系统](https://istio.io/zh/docs/reference/config/telemetry)。
 
-我们还与社区紧密合作，以确保为用户提供良好的开发着体验，帮助他们快速上手。 Google 团队一直与 [Solo.io](https://solo.io) 团队紧密合作，Solo 他们已经建立了 [WebAssembly Hub](https://webassemblyhub.io/) 服务，用于构建，共享，发现和部署 Wasm 扩展。 有了 WebAssembly Hub，Wasm 扩展就会像容器一样易于管理，安装和运行。
+我们还与社区紧密合作，以确保为用户提供良好的开发者体验，帮助他们快速上手。 Google 团队一直与 [Solo.io](https://solo.io) 团队紧密合作，Solo 他们已经建立了 [WebAssembly Hub](https://webassemblyhub.io/) 服务，用于构建，共享，发现和部署 Wasm 扩展。 有了 WebAssembly Hub，Wasm 扩展就会像容器一样易于管理，安装和运行。
 
 这个项目现在发布了 Alpha 版本，仍然还有很多[工作要做](#next-steps)，但是我们很高兴将其交提供给开发者，以便他们可以开始尝试由此带来的巨大可能性。
 
@@ -82,12 +82,7 @@ Envoy 模型强化了单体构建过程，并要求使用 C++ 编写扩展，从
 
 WebAssembly Hub 把为开发和部署 Wasm 扩展所需的许多步骤都完全自动化了。 使用 WebAssembly Hub 工具，用户可以轻松地把任何受支持语言开发的代码编译为 Wasm 扩展。可以将这些扩展上传到 Hub 仓库，并且用单个命令就将其在 Istio 中部署和删除。
 
-Behind the scenes the Hub takes care of much of the nitty-gritty, such as pulling in the correct
-toolchain, ABI version verification, permission control, and more. The workflow also eliminates
-toil with configuration changes across Istio service proxies by automating the deployment of your
-extensions. This tooling helps users and operators avoid unexpected behaviors due to
-misconfiguration or version mismatches.
-在后台，Hub会处理很多细节问题，例如引入正确的工具链，ABI版本验证，权限控制等。 该工作流程还通过自动化扩展部署，消除了跨Istio服务代理的配置更改带来的麻烦。 该工具可帮助用户和运维人员避免由于配置错误或版本不匹配而引起的意外行为。
+在后台，Hub 处理了很多细节问题，例如：引入正确的工具链、ABI 版本验证、权限控制等等。该工作流程还通过自动化扩展部署，消除了跨 Istio 服务代理的配置更改带来的麻烦。此工具帮助用户和操作员避免由于配置错误或版本不匹配而导致的意外行为。
 
 WebAssembly Hub 工具提供了功能强大的 CLI 和优雅且易于使用的图形用户界面。WebAssembly Hub 的一个重要目标是简化围绕构建 Wasm 模块的体验，并为开发者提供共享和发现有用扩展的协作场所。
 
