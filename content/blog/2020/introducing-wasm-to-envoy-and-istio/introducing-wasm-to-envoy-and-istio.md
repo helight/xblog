@@ -1,5 +1,5 @@
 +++
-title = "重新定义代理的扩展性：介绍 Envoy 和 Istio 中的 WebAssembly 应用"
+title = "重新定义代理的扩展：介绍 Envoy 和 Istio 中的 WebAssembly 应用"
 subtitle = "一种针对代理服务扩展的新接口，可以把 Istio 的扩展从控制平面迁移到 sidecar 代理中"
 description = "Istio 的扩展中使用 WASM 的前景"
 date = "2020-03-07T13:47:08+02:00"
@@ -20,7 +20,7 @@ keywords = ["istio","wasm", "extensibility", "performance", "operator"]
 
 自 2016 年使用 [Envoy](https://www.envoyproxy.io/) 以后，Istio 项目一直想提供一个平台，在此平台上可以构建丰富的扩展，以满足用户多样化的需求。 有很多要向服务网格的数据平面增加功能的理由 --- 比如：支持更新的协议，与专有安全控件集成，或是通过自定义度量来增强可观察性。
 
-在过去的一年半中，我们在Google的团队一直在努力用 [WebAssembly](https://webassembly.org/) 来为 Envoy 代理添加动态扩展性。 今天我们很高兴与大家分享这项工作，并推出 [针对代理的 WebAssembly (Wasm)](https://github.com/proxy-wasm/spec) (Proxy-Wasm)：包括一个会标准化的ABI，SDK，以及它的第一个重点实现：新的，低延迟的 [Istio 遥测系统](https://istio.io/zh/docs/reference/config/telemetry)。
+在过去的一年半中，我们在Google的团队一直在努力用 [WebAssembly](https://webassembly.org/) 来为 Envoy 代理添加动态扩展。 今天我们很高兴与大家分享这项工作，并推出 [针对代理的 WebAssembly (Wasm)](https://github.com/proxy-wasm/spec) (Proxy-Wasm)：包括一个会标准化的ABI，SDK，以及它的第一个重点实现：新的，低延迟的 [Istio 遥测系统](https://istio.io/zh/docs/reference/config/telemetry)。
 
 我们还与社区紧密合作，以确保为用户提供良好的开发着体验，帮助他们快速上手。 Google 团队一直与 [Solo.io](https://solo.io) 团队紧密合作，Solo 他们已经建立了 [WebAssembly Hub](https://webassemblyhub.io/) 服务，用于构建，共享，发现和部署 Wasm 扩展。 有了 WebAssembly Hub，Wasm 扩展就会像容器一样易于管理，安装和运行。
 
@@ -34,7 +34,7 @@ keywords = ["istio","wasm", "extensibility", "performance", "operator"]
 
 Envoy 模型强化了单体构建过程，并要求使用 C++ 编写扩展，从而限制了开发者的生态。给集群发布新的扩展需要下发新的二进制文件并滚动重启，这可能很难协调，并有可能会导致停机。这也促使了开发者向 Envoy 上游提交他们的扩展，而这些扩展仅由一小部分生产环境使用，更多仅仅是为了利用其发布机制。
 
-随着时间的流逝，Istio 的一些对性能最敏感的功能已合进了上游的 Envoy - 例如[流量检查策略](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/security/rbac_filter)和例如[遥测上报](https://istio.io/zh/docs/reference/config/telemetry/metrics/)。 尽管如此，我们一直想把扩展性汇聚在一个技术栈上，从而减少两者之间犹豫折衷：这使 Envoy 版本与其扩展生态系统脱钩，使开发者能够使用他们选择的语言进行工作，并使 Istio 可靠地推出新功能而不必有停机风险。
+随着时间的流逝，Istio 的一些对性能最敏感的功能已合进了上游的 Envoy - 例如[流量检查策略](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/security/rbac_filter)和例如[遥测上报](https://istio.io/zh/docs/reference/config/telemetry/metrics/)。 尽管如此，我们一直想把扩展汇聚在一个技术栈上，从而减少两者之间犹豫折衷：这使 Envoy 版本与其扩展生态系统脱钩，使开发者能够使用他们选择的语言进行工作，并使 Istio 可靠地推出新功能而不必有停机风险。
 
 ## 什么是 WebAssembly {#what-is-WebAssembly}
 
