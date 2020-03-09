@@ -1,5 +1,5 @@
 +++
-title = "重新定义代理的扩展：介绍 Envoy 和 Istio 中的 WebAssembly 应用"
+title = "重新定义代理的扩展性：介绍 Envoy 和 Istio 中的 WebAssembly 应用"
 subtitle = "一种针对代理服务扩展的新接口，可以把 Istio 的扩展从控制平面迁移到 sidecar 代理中"
 description = "Istio 的扩展中使用 WASM 的前景"
 date = "2020-03-07T13:47:08+02:00"
