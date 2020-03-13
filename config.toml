@@ -14,6 +14,16 @@ pygmentsUseClasses = false
 pygmentCodeFences = true
 
 
+[Permalinks]
+    # blog = "/blog/:year/:month/:day/:filename/"
+    blog = "/blog/:year/:filename/"
+    
+# support html in markdown
+[markup]
+    [markup.goldmark]
+        [markup.goldmark.renderer]
+            unsafe = true
+
 # Define the number of posts per page
 paginate = 15
 
@@ -93,10 +103,6 @@ paginate = 15
 
     # 是否开启评论功能
     gitalk = true
-
-[Permalinks]
-    # blog = "/blog/:year/:month/:day/:filename/"
-    blog = "/blog/:year/:filename/"
 
 # Enable and disable widgets for the right sidebar
 [params.widgets]
