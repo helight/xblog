@@ -3,6 +3,7 @@
 .idea/
 .vscode/
 
+.DS_Store
 # Vim ignore
 # source: https://github.com/github/gitignore/blob/master/Global/Vim.gitignore
 
