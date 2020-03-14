@@ -1,0 +1,135 @@
++++
+title = "Vim+cscope+ctags+tags阅读源代码"
+date = "2008-09-18T13:47:08+02:00"
+tags = ["vim", "开源"]
+categories = ["programming"]
+banner = "img/banners/banner-2.jpg"
+draft = false
+author = "helight"
+authorlink = "https://helight.cn"
+summary = "可linux源代码提供了制作cscope索引文件和tags文件的make命令。"
+keywords = ["vim", "cscope", "tags", "linux"]
++++
+
+# Vim+cscope+ctags+tags阅读源代码
+作者：<a href="mailto:zhwenxu@gmail.com">许振文</a>
+linux源代码提供了制作cscope索引文件和tags文件的make命令。<br>
+# 一，软件安装
+先安装cscope：
+``` sh
+sudo apt-get install cscope
+```
+在安装ctags：<br>
+
+http://ctags.sourceforge.net/<br><br>
+
+可以使用：ctags –version来查看当前ctags的版本是否是emacs的。<br>
+要是安装了emacs的话就必须使用上面这个地址的ctags，vim不支持emacs的ctags，所以要下载安装这个ctags，下载之后在源文件所在目录运行：
+``` sh
+helight@helight-desktop:~/Desktop/ctags-5.7$  ./configure
+helight@helight-desktop:~/Desktop/ctags-5.7$ make
+```
+即可生成ctags文件，将这个文件保存到“/usr/bin/”目录下即可。
+
+# 二，生成索引文件
+
+在源代码目录下使用一下两条命令即可生成cscope索引文件和tags文件。
+``` sh
+helight@helight-desktop:~/Downloads/linux-2.6.26$ make cscope
+FILELST cscope.files
+MAKE    cscope.out
+helight@helight-desktop:~/Downloads/linux-2.6.26$ make tags
+MAKE   tags
+helight@helight-desktop:~/Downloads/linux-2.6.26$ ls tags -l
+-rw-r–r– 1 helight ftp 69274841 2008-09-27 11:04 tags
+helight@helight-desktop:~/Downloads/linux-2.6.26$ ls cscope.* -l
+-rw-r–r– 1 helight ftp  23814144 2008-09-25 20:08 cscope.in.out
+-rw-r–r– 1 helight ftp    609665 2008-09-25 20:06 cscope.list
+-rw-r–r– 1 helight ftp 174470617 2008-09-25 20:08 cscope.out
+-rw-r–r— 1 helight ftp 124973256 2008-09-25 20:08 cscope.po.out
+```
+
+# 三，一般源文件中生成索引文件
+为了方便使用，编写了下面的脚本来更新cscope和ctags的索引文件：
+``` sh
+#!/bin/sh
+find . -name "*.h" -o -name "*.c" -o -name "*.cc" > cscope.files
+cscope -bkq -i cscope.files
+ctags -R
+```
+这个命令会生成三个文件：cscope.out, cscope.in.out, cscope.po.out。<br>
+其中cscope.out是基本的符号索引，后两个文件是使用"-q"选项生成的，可以加快cscope的索引速度。<br>
+这个脚本，首先使用find命令，查找当前目录及子目录中所有后缀名为".h", ".c"和".c"的文件，并把查找结果重定向到文件cscope.files中。
+然后cscope根据cscope.files中的所有文件，生成符号索引文件。最后一条命令使用ctags命令，生成一个tags文件，在vim中执行":help tags"命令查询它的用法。它可以和cscope一起使用。上面所用到的命令参数，含义如下：
+
+* -R: 在生成索引文件时，搜索子目录树中的代码<br>
+* -b: 只生成索引文件，不进入cscope的界面<br>
+* -q: 生成cscope.in.out和cscope.po.out文件，加快cscope的索引速度<br>
+* -k: 在生成索引文件时，不搜索/usr/include目录<br>
+* -i: 如果保存文件列表的文件名不是cscope.files时，需要加此选项告诉cscope到哪儿去找源文件列表。可以使用“-”，表示由标准输入获得文件列表。<br>
+* -I dir: 在-I选项指出的目录中查找头文件<br>
+* -u: 扫描所有文件，重新生成交叉索引文件<br>
+* -C: 在搜索时忽略大小写<br>
+* -P path: 在以相对路径表示的文件前加上的path，这样，你不用切换到你数据库文件所在的目录也可以使用它了。<br>
+
+# 四，在VIM使用cscope查找
+1，加载cscope.out文件
+
+在VIM中使用cscope非常简单，首先调用“cscope add”命令添加一个cscope数据库，然后就可以调用“cscope find”命令进行查找了。VIM支持8种cscope的查询功能，如下：例如，我们想在代码中查找调用work()函数的函数，我们可以输入：“:cs find c work”，回车后发现没有找到匹配的功能，可能并没有函数调用work()。我们再输入“:cs find s work”，查找这个符号出现的位置，现在vim列出了这个符号出现的所有位置。我们还可以进行字符串查找，它会双引号或单引号括起来的内容中查找。还可以输入一个正则表达式，这类似于egrep程序的功能。<br>
+在源代码目录下打开vim。要使用cscope查找就必须加载cscope.out文件.在vim命令行下执行：<br>
+``` sh
+:cs add cscope.out
+```
+在vim命令行下执行：
+``` sh
+:cs help
+cscope commands:
+add  : Add a new database             (Usage: add file|dir [pre-path] [flags])
+find : Query for a pattern            (Usage: find c|d|e|f|g|i|s|t name)
+       c: Find functions calling this function
+       d: Find functions called by this function
+       e: Find this egrep pattern
+       f: Find this file
+       g: Find this definition
+       i: Find files #including this file
+       s: Find this C symbol
+       t: Find assignments to
+help : Show this message              (Usage: help)
+kill : Kill a connection              (Usage: kill #)
+reset: Reinit all connections         (Usage: reset)
+show : Show connections               (Usage: show)
+```
+* s: 查找C语言符号，即查找函数名、宏、枚举值等出现的地方<br>
+* g: 查找函数、宏、枚举等定义的位置，类似ctags所提供的功能<br>
+* d: 查找本函数调用的函数<br>
+* c: 查找调用本函数的函数<br>
+* t: 查找指定的字符串<br>
+* e: 查找egrep模式，相当于egrep功能，但查找速度快多了<br>
+* f: 查找并打开文件，类似vim的find功能<br>
+* i: 查找包含本文件的文<br><br>
+
+2，使用cscope查找do_fork函数的定义：<br>
+在vim命令行下执行：
+``` sh
+:cs f g do_fork
+```
+
+# 五，在VIM中使用tags查找符号：
+在vim命令行下执行：
+``` sh
+:tag xxx
+```
+即可找到你想找的函数或是数据结构或是函数xxx<br>
+关于tags的其它用法可以在vim中执行”:help tags”命令进行查询。
+
+# 六，其它命令介绍：
+
+ctrl+］：在函数调用的地方跳转到函数定义的地方
+
+ctrl+t：返回上一个查找的地方
+
+# 七，特别注意：
+所生成的cscope.out和tags文件要在打开VIM所在的文件夹，否则VIM无法找到相关符号信息。<br>
+
+
+

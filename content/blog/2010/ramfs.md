@@ -1,0 +1,128 @@
++++
+title = "Ramdisk文件系统的制作-V0.2"
+date = "2010-04-18T13:47:08+02:00"
+tags = ["ramfs", "开源"]
+categories = ["programming"]
+banner = "img/banners/banner-2.jpg"
+draft = false
+author = "helight"
+authorlink = "https://helight.cn"
+summary = "可以利用工具软件BusyBox制作Ramdisk文件系统。"
+keywords = ["ramfs", "文件系统", "开源", "linux"]
++++
+
+# Ramdisk文件系统的制作-V0.2
+作者：<a href="mailto:zhwenxu@gmail.com">许振文</a>
+
+# Ramdisk文件系统:
+
+可以利用工具软件BusyBox制作Ramdisk文件系统。
+busybox是一个集成了一百多个最常用linux命令和工具的软件,他甚至还集成了
+一个http服务器和一个telnet服务器,而所有这一切功能却只有区区1M左右的大小.完整的BusyBox源代码可以从
+http://www.busybox.net下载,压缩包大小为1.3 MB左右。下面是如何使用编译BusyBox的过程。
+
+# busybox配置编译:
+
+下载busybox到本地文件夹并解压。
+``` sh
+#tar jxvf busybox-1.10.1.tar.bz2 
+
+# cd busybox-1.10.1/
+```
+
+修改 Makefile
+``` sh
+ARCH                =arm
+
+CROSS_COMPILE     =arm-linux-
+ 
+
+$make menuconfig
+
+Busybox Settings >
+
+General Configuration >
+
+[*] Support for devfs
+
+Build Options >
+
+[*] Build BusyBox as a static binary (no shared libs)
+
+/* 将busybox编译为静态连接，少了启动时找动态库的麻烦 */
+
+Installation Options
+
+Don't use /usr
+
+Init Utilities >
+
+[*] init
+
+[*] Support reading an inittab file
+
+/* 支持init读取/etc/inittab配置文件，一定要选上 */
+```
+
+其他选项都是一些linux基本命令选项,自己需要哪些命令就编译进去,一般用默认的就可以了.由于库的问题可能有些命令编译不过去，
+现在的办法只是在配置的时候不选这些命令就可以了，具体需要编译时看，在我编译的时候出现了taskset和insmod_main编译错误
+的问题。我分别取消了tasket命令和对2.2和2.4模块insmod支持就可以了。
+
+# 建立根文件系统结构:
+
+建立根文件系统结构
+``` sh
+#mkdir rootfs
+
+#cd rootfs
+
+#mkdir bin dev etc lib proc sbin tmp usr var
+
+#chmod 777 tmp
+
+#mkdir usr/bin usr/lib usr/sbin
+
+#mkdir var/lib var/lock var/log var/run var/tmp
+
+#chmod 1777 var/tmp
+```
+准备所需的设备文件，可以直接拷贝宿主机上的，或者自建几个就是。
+``` sh
+#cd rootfs/dev
+
+#mknod -m 660 console c 5 1
+```
+
+创建linuxrc文件 内容如下:
+``` sh
+$ vim rootfs/linuxrc
+
+#!/bin/sh
+
+echo "Hello linux--helight"
+
+exec /sbin/init
+```
+然后修改权限：chmod 775 linuxrc
+
+当然，lib里面还要拷入一些库文件，为了方便，我将交叉编译的库全放进去。
+``` sh
+#cp -rfd /usr/local/arm/3.4.1/arm-linux/lib/* ./lib  (注意-d，保持库文件的链接关系)
+
+#mkdir initrd
+```
+
+# 制作文件系统:
+``` sh
+#dd if=/dev/zero ōf=initrd.img bs=1k count=8192
+
+#/sbin/mke2fs -F -v -m0 initrd.img
+
+#mount -o loop initrd.img initrd
+
+#cp -avd rootfs/* initrd
+
+#umount
+
+#gzip -9 initrd.img 
+```

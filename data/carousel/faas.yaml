@@ -1,0 +1,13 @@
+weight: 2
+title: "Function as a Service介绍"
+description: >
+  <ul class="list-style-none">
+     <li>分层设计和服务化设计</li>
+     <li>后台事物执行</li>
+     <li>批量任务</li>
+     <li>数据处理工作流</li>
+     <li>定时任务</li>
+     <li>人工触发 ......</li>
+     <li><a href="/blog/2018/faas/">查看</a></li>
+   </ul>
+image: "img/carousel/3.png"

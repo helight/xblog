@@ -1,0 +1,152 @@
+baseurl = "http://www.helight.info"
+title = "黑光技术"
+subtitle = "完美之道，不在无可增加，而在无可删减。"
+theme = "hugo-universal-theme"
+themesDir = "./themes/"
+languageCode = "zh"
+hasCJKLanguage = true
+# Site language. Available translations in the theme's `/i18n` directory.
+defaultContentLanguage = "zh"
+# Enable comments by entering your Disqus shortname
+# disqusShortname = "helight"
+# Code highlight
+pygmentsUseClasses = false
+pygmentCodeFences = true
+
+
+[Permalinks]
+    # blog = "/blog/:year/:month/:day/:filename/"
+    blog = "/blog/:year/:filename/"
+    
+# support html in markdown
+[markup]
+    [markup.goldmark]
+        [markup.goldmark.renderer]
+            unsafe = true
+
+# Define the number of posts per page
+paginate = 15
+
+[menu]
+
+# Main menu
+
+[[menu.main]]
+    identifier="home"
+    name = "Home"
+    url  = "/"
+    weight = 1
+
+[[menu.main]]
+    identifier="blog"
+    name = "Blog"
+    url  = "/blog/"
+    weight = 2
+
+[[menu.main]]
+    identifier = "projects"
+    name = "Projects"
+    url  = "/about/projects/"
+    weight = 3
+
+[[menu.main]]
+    identifier = "aboutme"
+    name = "AboutMe"
+    url  = "/about/me"
+    weight = 4
+
+
+[params]
+    viewMorePostLink = "/blog/"
+    author = "helight"
+    defaultKeywords = ["helight", "微服务", "kernel", "DevOps", "go"]
+    mainSections = ["blog"]
+    defaultDescription = "完美之道，不在无可增加，而在无可删减。"
+    subtitle = "完美之道，不在无可增加，而在无可删减。"
+    logo = "img/helight.png"
+    logo_small = "img/helight.png"
+
+    # Social media
+    facebook_site = "" # the Facebook handle of your site ('https://www.facebook.com/HANDLE')
+    twitter_site = "GoHugoIO" # the Twitter handle of your site (without the '@')
+    default_sharing_image = "img/sharing-default.png"
+
+    # Style options: default (light-blue), blue, green, marsala, pink, red, turquoise, violet
+    style = "blue"
+
+    # Since this template is static, the contact form uses www.formspree.io as a
+    # proxy. The form makes a POST request to their servers to send the actual
+    # email. Visitors can send up to a 1000 emails each month for free.
+    #
+    # What you need to do for the setup?
+    #
+    # - set your email address under 'email' below
+    # - upload the generated site to your server
+    # - send a dummy email yourself to confirm your account
+    # - click the confirm link in the email from www.formspree.io
+    # - you're done. Happy mailing!
+    #
+    # Enable the contact form by entering your Formspree.io email
+    email = "helight@helight.info"
+    contact_form_ajax = false
+
+    about_us = "<p>关注大数据微服务</br>请关注我们的微信公众号</p><img src=/img/site/mp.jpg>"
+    copyright = "Copyright (c) 2007 - 2020, helight; all rights reserved.【 <a href='http://www.beian.miit.gov.cn'> 粤ICP备15029944号</a> 】 "
+
+    # Format dates with Go's time formatting
+    date_format = "2006年1月2日"
+
+    # avatar used for thumbnail on sharing
+    avatar = "/img/helight.png"
+    address = """<p>关注大数据微服务</br>微信扫码加好友交流</p><p><img src="/img/site/wx.png"></p>
+        """
+
+    # 是否开启评论功能
+    gitalk = true
+
+# Enable and disable widgets for the right sidebar
+[params.widgets]
+    categories = true
+    tags = true
+    search = false
+
+[params.carousel]
+    enable = true
+    # All carousel items are defined in their own files. You can find example items
+    # at 'exampleSite/data/carousel'.
+    # For more informtion take a look at the README.
+
+[params.features]
+    enable = false
+    # All features are defined in their own files. You can find example items
+    # at 'exampleSite/data/features'.
+    # For more informtion take a look at the README.
+
+[params.testimonials]
+    enable = false
+    # All testimonials are defined in their own files. You can find example items
+    # at 'exampleSite/data/testimonials'.
+    # For more informtion take a look at the README.
+    title = "Testimonials"
+    subtitle = "We have worked with many clients and we always like to hear they come out from the cooperation happy and satisfied. Have a look what our clients said about us."
+
+[params.see_more]
+    enable = false
+    icon = "far fa-file-alt"
+    title = "Do you want to see more?"
+    subtitle = "We have prepared for you more than 40 different HTML pages, including 5 variations of homepage."
+    link_url = "#"
+    link_text = "Check other homepages"
+
+[params.clients]
+    enable = false
+    # All clients are defined in their own files. You can find example items
+    # at 'exampleSite/data/clients'.
+    # For more informtion take a look at the README.
+    title = "Our Clients"
+    subtitle = ""
+
+[params.recent_posts]
+    enable = true
+    title = "最新博文"
+    subtitle = "最近有点懒，写的少了。。。"

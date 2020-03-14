@@ -1,0 +1,12 @@
+weight: 4
+title: "Xgcom项目"
+description: >
+  <ul class="list-style-none">
+    <li>send and receive data from com.</li>
+    <li>configure the com (speed,data bit, stop bit, odd bit, contrl data)</li>
+    <li>sace and load the configure file (speed,data bit, stop bit, odd bit, data contrl)</li>
+    <li>show the data in HEX format</li>
+    <li>count the num of receive and send data (by byte)</li>
+     <li><a href="/blog/2010/470/">查看</a></li>
+  </ul>
+image: "img/carousel/xgcom.png"

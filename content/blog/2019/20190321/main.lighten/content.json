@@ -1,0 +1,597 @@
+{
+  "rightNumber" : 5,
+  "style" : {
+    "lineColor" : "{124, 214, 212, 1.00}",
+    "fontName" : "AndaleMono",
+    "fontStyle" : "normal",
+    "fontWeight" : "normal",
+    "fontFamily" : "Andale Mono",
+    "enablePalette" : true
+  },
+  "skeletonTheme" : {
+    "name" : "cable-taperedline",
+    "palette" : [
+
+    ],
+    "topicStyleForMain" : {
+      "lineType" : 1,
+      "topicShape" : 0,
+      "lineWidth" : 3
+    },
+    "topicStyleForSubtopic" : {
+      "lineType" : 1,
+      "topicShape" : 1,
+      "lineWidth" : 3
+    },
+    "mapStyle" : {
+      "taperedLine" : true
+    },
+    "topicStyleForCentral" : {
+      "lineType" : 1,
+      "topicShape" : 0,
+      "lineWidth" : 3
+    },
+    "topicStyleForFloating" : {
+      "lineType" : 1,
+      "topicShape" : 0,
+      "lineWidth" : 3
+    },
+    "relationshipStyle" : {
+      "lineWidth" : 2
+    }
+  },
+  "id" : "BAFA14AA-F357-4BC9-9E08-8270826C7DC5-80084-00014E0A7A3FD066",
+  "updateTime" : 1553157970.5754609,
+  "colorTheme" : {
+    "name" : "summer",
+    "palette" : [
+      "{124, 214, 212, 1.00}",
+      "{178, 148, 139, 1.00}",
+      "{242, 198, 19, 1.00}",
+      "{173, 217, 55, 1.00}",
+      "{251, 168, 71, 1.00}",
+      "{102, 106, 126, 1.00}"
+    ],
+    "topicStyleForMain" : {
+      "lineType" : 2,
+      "lineWidth" : 5,
+      "fontStyle" : "normal",
+      "fontWeight" : "normal",
+      "topicMargin" : "{16, 6}",
+      "topicShape" : 1,
+      "fontColor" : "{91, 91, 91, 1.00}",
+      "lineColor" : "{124, 214, 212, 1.00}",
+      "fillColor" : "{255, 255, 255, 1.00}",
+      "fontName" : "AvenirNext-Regular",
+      "cornerRadius" : 8,
+      "fontFamily" : "Avenir Next"
+    },
+    "topicStyleForSubtopic" : {
+      "lineType" : 2,
+      "lineWidth" : 5,
+      "fontStyle" : "normal",
+      "fontWeight" : "normal",
+      "topicMargin" : "{6, 6}",
+      "topicShape" : 1,
+      "fontColor" : "{91, 91, 91, 1.00}",
+      "lineColor" : "{124, 214, 212, 1.00}",
+      "fillColor" : "{255, 255, 255, 1.00}",
+      "fontName" : "AvenirNext-Regular",
+      "cornerRadius" : 8,
+      "fontFamily" : "Avenir Next"
+    },
+    "mapStyle" : {
+      "fillColor" : "{255, 255, 255, 1.00}",
+      "lineType" : 0
+    },
+    "topicStyleForCentral" : {
+      "lineType" : 1,
+      "lineWidth" : 5,
+      "fontStyle" : "normal",
+      "fontWeight" : "normal",
+      "topicMargin" : "{28, 16}",
+      "topicShape" : 0,
+      "fontColor" : "{102, 106, 126, 1.00}",
+      "lineColor" : "{102, 106, 126, 1.00}",
+      "fillColor" : "{255, 255, 255, 1.00}",
+      "fontName" : "AvenirNext-Regular",
+      "cornerRadius" : 12,
+      "fontFamily" : "Avenir Next"
+    },
+    "topicStyleForFloating" : {
+      "lineType" : 2,
+      "lineWidth" : 5,
+      "fontStyle" : "normal",
+      "fontWeight" : "normal",
+      "topicMargin" : "{16, 6}",
+      "topicShape" : 1,
+      "fontColor" : "{91, 91, 91, 1.00}",
+      "lineColor" : "{124, 214, 212, 1.00}",
+      "fillColor" : "{255, 255, 255, 1.00}",
+      "fontName" : "AvenirNext-Regular",
+      "cornerRadius" : 8,
+      "fontFamily" : "Avenir Next"
+    },
+    "relationshipStyle" : {
+      "lineWidth" : 3,
+      "lineColor" : "{255, 87, 34, 1.00}"
+    }
+  },
+  "relationships" : [
+    {
+      "startNodeId" : "A57EAEBE-3863-4790-8E65-C2262C317369-80084-00014F18D336037B",
+      "id" : "80C583C9-F832-4E6A-ACEC-7E2ABFADA804-80084-00014F3B02A591D7",
+      "style" : {
+        "fontStyle" : "normal",
+        "fontName" : "AndaleMono",
+        "fontWeight" : "normal",
+        "fontFamily" : "Andale Mono",
+        "enablePalette" : true
+      },
+      "controlPoint1" : "{0, 0}",
+      "controlPoint2" : "{0, 0}",
+      "endNodeId" : "EE5DE214-843E-4AD0-BF26-1951C7E1D1AD-80084-00014EA9F6DCD21B"
+    },
+    {
+      "startNodeId" : "6CC90721-76D2-43B8-A68B-B5904A941C6B-80084-00014F278329AE36",
+      "id" : "A487271D-BED1-4FF3-95BB-A039595CF4C4-80084-00014F3DAB09F6FF",
+      "style" : {
+        "fontStyle" : "normal",
+        "fontName" : "AndaleMono",
+        "fontWeight" : "normal",
+        "fontFamily" : "Andale Mono",
+        "enablePalette" : true
+      },
+      "controlPoint1" : "{0, 0}",
+      "controlPoint2" : "{0, 0}",
+      "endNodeId" : "EE5DE214-843E-4AD0-BF26-1951C7E1D1AD-80084-00014EA9F6DCD21B"
+    },
+    {
+      "startNodeId" : "AD42F640-44DC-43CE-9D1C-28C3B4682C2D-80084-00014EB134DC8861",
+      "id" : "29489134-A1C0-446E-91A4-DFB1F5F9EB80-80084-00014F3FF8FE48CE",
+      "style" : {
+        "fontStyle" : "normal",
+        "fontName" : "AndaleMono",
+        "fontWeight" : "normal",
+        "fontFamily" : "Andale Mono",
+        "enablePalette" : true
+      },
+      "controlPoint1" : "{0, 0}",
+      "controlPoint2" : "{0, 0}",
+      "endNodeId" : "EE5DE214-843E-4AD0-BF26-1951C7E1D1AD-80084-00014EA9F6DCD21B"
+    }
+  ],
+  "rootTopic" : {
+    "detach" : false,
+    "style" : {
+      "fontStyle" : "normal",
+      "fontName" : "AndaleMono",
+      "fontWeight" : "normal",
+      "fontFamily" : "Andale Mono",
+      "enablePalette" : true
+    },
+    "folded" : false,
+    "id" : "C37FDD87-4DDC-4835-ADC5-E39DA3F47338-80084-00014E0A7A537338",
+    "checkList" : false,
+    "title" : "main",
+    "position" : "{0, 0}",
+    "note" : {
+
+    },
+    "highlight" : false,
+    "subtopics" : [
+      {
+        "detach" : false,
+        "style" : {
+          "lineColor" : "{124, 214, 212, 1.00}",
+          "fontName" : "AndaleMono",
+          "fontStyle" : "normal",
+          "fontWeight" : "normal",
+          "fontFamily" : "Andale Mono",
+          "enablePalette" : true
+        },
+        "folded" : false,
+        "id" : "1A9A354E-36DA-4EF6-B5E8-6DD85D0255E0-80084-00014E7ED9095802",
+        "checkList" : false,
+        "title" : "initServer(void)",
+        "position" : "{0, 0}",
+        "note" : {
+
+        },
+        "highlight" : false,
+        "subtopics" : [
+          {
+            "detach" : false,
+            "style" : {
+              "lineColor" : "{124, 214, 212, 1.00}",
+              "fontName" : "AndaleMono",
+              "fontStyle" : "normal",
+              "fontWeight" : "normal",
+              "fontFamily" : "Andale Mono",
+              "enablePalette" : true
+            },
+            "folded" : false,
+            "id" : "663456FC-23C3-4D6B-8A45-041BE47C5269-80084-00014E7ED90BAFC3",
+            "checkList" : false,
+            "title" : "aeCreateEventLoop",
+            "position" : "{0, 0}",
+            "note" : {
+
+            },
+            "highlight" : false,
+            "subtopics" : [
+              {
+                "detach" : false,
+                "style" : {
+                  "lineColor" : "{124, 214, 212, 1.00}",
+                  "fontName" : "AndaleMono",
+                  "fontStyle" : "normal",
+                  "fontWeight" : "normal",
+                  "fontFamily" : "Andale Mono",
+                  "enablePalette" : true
+                },
+                "folded" : false,
+                "id" : "EE5DE214-843E-4AD0-BF26-1951C7E1D1AD-80084-00014EA9F6DCD21B",
+                "checkList" : false,
+                "title" : "typedef struct aeEventLoop {\n    int maxfd;   \n    ……\n} aeEventLoop;",
+                "position" : "{0, 0}",
+                "note" : {
+
+                },
+                "highlight" : false,
+                "checkboxStatus" : 0
+              }
+            ],
+            "checkboxStatus" : 0
+          },
+          {
+            "detach" : false,
+            "style" : {
+              "lineColor" : "{124, 214, 212, 1.00}",
+              "fontName" : "AndaleMono",
+              "fontStyle" : "normal",
+              "fontWeight" : "normal",
+              "fontFamily" : "Andale Mono",
+              "enablePalette" : true
+            },
+            "folded" : false,
+            "id" : "42AE7799-0ABD-4410-A261-4C2BAFFE7A35-80084-00014F0FDDE71295",
+            "checkList" : false,
+            "title" : "listenToPort",
+            "position" : "{0, 0}",
+            "note" : {
+
+            },
+            "highlight" : false,
+            "checkboxStatus" : 0
+          },
+          {
+            "detach" : false,
+            "style" : {
+              "lineColor" : "{124, 214, 212, 1.00}",
+              "fontName" : "AndaleMono",
+              "fontStyle" : "normal",
+              "fontWeight" : "normal",
+              "fontFamily" : "Andale Mono",
+              "enablePalette" : true
+            },
+            "folded" : false,
+            "id" : "A57EAEBE-3863-4790-8E65-C2262C317369-80084-00014F18D336037B",
+            "checkList" : false,
+            "title" : "(aeCreateFileEvent(server.el, server.ipfd[j], AE_READABLE, acceptTcpHandler,NULL)",
+            "position" : "{0, 0}",
+            "note" : {
+
+            },
+            "highlight" : false,
+            "subtopics" : [
+              {
+                "detach" : false,
+                "style" : {
+                  "lineColor" : "{124, 214, 212, 1.00}",
+                  "fontName" : "AndaleMono",
+                  "fontStyle" : "normal",
+                  "fontWeight" : "normal",
+                  "fontFamily" : "Andale Mono",
+                  "enablePalette" : true
+                },
+                "folded" : false,
+                "id" : "D99871AA-21CB-49CE-859B-9CBBD2372D17-80084-00014F2254D47894",
+                "checkList" : false,
+                "title" : "1. `anetTcpAccept`，它是接受tcp的连接请求",
+                "position" : "{0, 0}",
+                "note" : {
+
+                },
+                "highlight" : false,
+                "checkboxStatus" : 0
+              },
+              {
+                "detach" : false,
+                "style" : {
+                  "lineColor" : "{124, 214, 212, 1.00}",
+                  "fontName" : "AndaleMono",
+                  "fontStyle" : "normal",
+                  "fontWeight" : "normal",
+                  "fontFamily" : "Andale Mono",
+                  "enablePalette" : true
+                },
+                "folded" : false,
+                "id" : "6CC90721-76D2-43B8-A68B-B5904A941C6B-80084-00014F278329AE36",
+                "checkList" : false,
+                "title" : "2. `acceptCommonHandler`，它是把请求生成客户端对象并放到`aeEventLoop`对象中。在这个函数中有个一`createClient`函数，在这里面创建了客户端，并且把连接fd和客户端处理事件放到`aeEventLoop`对象中",
+                "position" : "{0, 0}",
+                "note" : {
+
+                },
+                "highlight" : false,
+                "checkboxStatus" : 0
+              }
+            ],
+            "checkboxStatus" : 0
+          }
+        ],
+        "checkboxStatus" : 0
+      },
+      {
+        "detach" : false,
+        "style" : {
+          "lineColor" : "{178, 148, 139, 1.00}",
+          "fontName" : "AndaleMono",
+          "fontStyle" : "normal",
+          "fontWeight" : "normal",
+          "fontFamily" : "Andale Mono",
+          "enablePalette" : true
+        },
+        "folded" : false,
+        "id" : "AAC7C27E-F224-43DC-A826-A7987CF62D21-80084-00014E90B8B612D7",
+        "checkList" : false,
+        "title" : "aeSetBeforeSleepProc(server.el,beforeSleep);",
+        "position" : "{0, 0}",
+        "note" : {
+
+        },
+        "highlight" : false,
+        "checkboxStatus" : 0
+      },
+      {
+        "detach" : false,
+        "style" : {
+          "lineColor" : "{242, 198, 19, 1.00}",
+          "fontName" : "AndaleMono",
+          "fontStyle" : "normal",
+          "fontWeight" : "normal",
+          "fontFamily" : "Andale Mono",
+          "enablePalette" : true
+        },
+        "folded" : false,
+        "id" : "7E477718-9AA5-4585-A95C-48CD609FAFBE-80084-00014E92AFBC09EE",
+        "checkList" : false,
+        "title" : "aeSetAfterSleepProc(server.el,afterSleep);   ",
+        "position" : "{0, 0}",
+        "note" : {
+
+        },
+        "highlight" : false,
+        "checkboxStatus" : 0
+      },
+      {
+        "detach" : false,
+        "style" : {
+          "lineColor" : "{173, 217, 55, 1.00}",
+          "fontName" : "AndaleMono",
+          "fontStyle" : "normal",
+          "fontWeight" : "normal",
+          "fontFamily" : "Andale Mono",
+          "enablePalette" : true
+        },
+        "folded" : false,
+        "id" : "4C904C74-261F-4000-819E-2B50AD338494-80084-00014E337A4A1B26",
+        "checkList" : false,
+        "title" : "aeMain(server.el)",
+        "position" : "{0, 0}",
+        "note" : {
+
+        },
+        "highlight" : false,
+        "subtopics" : [
+          {
+            "detach" : false,
+            "style" : {
+              "lineColor" : "{173, 217, 55, 1.00}",
+              "fontName" : "AndaleMono",
+              "fontStyle" : "normal",
+              "fontWeight" : "normal",
+              "fontFamily" : "Andale Mono",
+              "enablePalette" : true
+            },
+            "folded" : false,
+            "id" : "AD42F640-44DC-43CE-9D1C-28C3B4682C2D-80084-00014EB134DC8861",
+            "checkList" : false,
+            "title" : "aeProcessEvents",
+            "position" : "{0, 0}",
+            "note" : {
+
+            },
+            "highlight" : false,
+            "subtopics" : [
+              {
+                "detach" : false,
+                "style" : {
+                  "lineColor" : "{173, 217, 55, 1.00}",
+                  "fontName" : "AndaleMono",
+                  "fontStyle" : "normal",
+                  "fontWeight" : "normal",
+                  "fontFamily" : "Andale Mono",
+                  "enablePalette" : true
+                },
+                "folded" : false,
+                "id" : "C25B8F1E-5785-4672-A56A-7F4317F71C7A-80084-00014EB6BD399735",
+                "checkList" : false,
+                "title" : "1. 首先根据flags参数判断，如果没有时间任务和文件输入输入类型的事件处理，则直接返回",
+                "position" : "{0, 0}",
+                "note" : {
+
+                },
+                "highlight" : false,
+                "checkboxStatus" : 0
+              },
+              {
+                "detach" : false,
+                "style" : {
+                  "lineColor" : "{173, 217, 55, 1.00}",
+                  "fontName" : "AndaleMono",
+                  "fontStyle" : "normal",
+                  "fontWeight" : "normal",
+                  "fontFamily" : "Andale Mono",
+                  "enablePalette" : true
+                },
+                "folded" : false,
+                "id" : "EB618FB1-B8DE-4B06-9F1D-213ACDF1710B-80084-00014EB71D70FCCC",
+                "checkList" : false,
+                "title" : "2. 从`aeEventLoop`的`timeEventHead`中获取最近要处理的事件，处理函数是`aeSearchNearestTimer`。这里`timeEventHead`是一个链表，是使用顺序比较的方式获取最近要处理的事情，算法复杂度O(n)，其实这里可以使用堆或者有序链表来优化的。",
+                "position" : "{0, 0}",
+                "note" : {
+
+                },
+                "highlight" : false,
+                "checkboxStatus" : 0
+              },
+              {
+                "detach" : false,
+                "style" : {
+                  "lineColor" : "{173, 217, 55, 1.00}",
+                  "fontName" : "AndaleMono",
+                  "fontStyle" : "normal",
+                  "fontWeight" : "normal",
+                  "fontFamily" : "Andale Mono",
+                  "enablePalette" : true
+                },
+                "folded" : false,
+                "id" : "EE194DA4-8701-4BC0-9FDE-6541835D98AB-80084-00014EB7627F9645",
+                "checkList" : false,
+                "title" : "3. 根据最近要处理的事件的时间计算当前时间事件中已经过期的事件的时间差（也有可能没有过期的事件，则后面就不需要处理了）",
+                "position" : "{0, 0}",
+                "note" : {
+
+                },
+                "highlight" : false,
+                "checkboxStatus" : 0
+              },
+              {
+                "detach" : false,
+                "style" : {
+                  "lineColor" : "{173, 217, 55, 1.00}",
+                  "fontName" : "AndaleMono",
+                  "fontStyle" : "normal",
+                  "fontWeight" : "normal",
+                  "fontFamily" : "Andale Mono",
+                  "enablePalette" : true
+                },
+                "folded" : false,
+                "id" : "3429D9B3-E496-4914-8C9D-1C39ADD7A4B7-80084-00014EB7A131BC92",
+                "checkList" : false,
+                "title" : "4. 获取当前要处理的事件，这里就是根据上面的时间差来获取的`numevents = aeApiPoll(eventLoop, tvp);`",
+                "position" : "{0, 0}",
+                "note" : {
+
+                },
+                "highlight" : false,
+                "checkboxStatus" : 0
+              },
+              {
+                "detach" : false,
+                "style" : {
+                  "lineColor" : "{173, 217, 55, 1.00}",
+                  "fontName" : "AndaleMono",
+                  "fontStyle" : "normal",
+                  "fontWeight" : "normal",
+                  "fontFamily" : "Andale Mono",
+                  "enablePalette" : true
+                },
+                "folded" : false,
+                "id" : "393C7497-6053-42E4-9F53-CDC734A16AEA-80084-00014ED562281C8A",
+                "checkList" : false,
+                "title" : "5. 执行`eventLoop->aftersleep(eventLoop);`，这个函数是设置了才执行，和beforesleep是一对，是在`server.c`的main函数最后设置的，实际上就是进行了一个加锁解锁操作，为了避免在一次操作中对命令执行的线程安全。",
+                "position" : "{0, 0}",
+                "note" : {
+
+                },
+                "highlight" : false,
+                "checkboxStatus" : 0
+              },
+              {
+                "detach" : false,
+                "style" : {
+                  "lineColor" : "{173, 217, 55, 1.00}",
+                  "fontName" : "AndaleMono",
+                  "fontStyle" : "normal",
+                  "fontWeight" : "normal",
+                  "fontFamily" : "Andale Mono",
+                  "enablePalette" : true
+                },
+                "folded" : false,
+                "id" : "1EF8AF61-A568-42CA-9154-D92CBD2E2CFE-80084-00014ED5F19DA5EA",
+                "checkList" : false,
+                "title" : "6. 接下来就是根据时间获取到的事件进行文件io的处理，主要处理读写",
+                "position" : "{0, 0}",
+                "note" : {
+
+                },
+                "highlight" : false,
+                "checkboxStatus" : 0
+              },
+              {
+                "detach" : false,
+                "style" : {
+                  "lineColor" : "{173, 217, 55, 1.00}",
+                  "fontName" : "AndaleMono",
+                  "fontStyle" : "normal",
+                  "fontWeight" : "normal",
+                  "fontFamily" : "Andale Mono",
+                  "enablePalette" : true
+                },
+                "folded" : false,
+                "id" : "56041F1D-8114-4DC0-94C0-FB437186A4D6-80084-00014ED636922B72",
+                "checkList" : false,
+                "title" : "7. 最后处理时间事件。",
+                "position" : "{0, 0}",
+                "note" : {
+
+                },
+                "highlight" : false,
+                "checkboxStatus" : 0
+              }
+            ],
+            "checkboxStatus" : 0
+          }
+        ],
+        "checkboxStatus" : 0
+      },
+      {
+        "detach" : false,
+        "style" : {
+          "lineColor" : "{251, 168, 71, 1.00}",
+          "fontName" : "AndaleMono",
+          "fontStyle" : "normal",
+          "fontWeight" : "normal",
+          "fontFamily" : "Andale Mono",
+          "enablePalette" : true
+        },
+        "folded" : false,
+        "id" : "88E0901E-A285-4BEC-9463-B5AF50C86638-80084-00014E9D5E1E446E",
+        "checkList" : false,
+        "title" : "aeDeleteEventLoop(server.el); ",
+        "position" : "{0, 0}",
+        "note" : {
+
+        },
+        "highlight" : false,
+        "checkboxStatus" : 0
+      }
+    ],
+    "checkboxStatus" : 0
+  },
+  "createTime" : 1553157970.5754609,
+  "mapName" : ""
+}
