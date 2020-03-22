@@ -26,14 +26,14 @@ keywords = ["kernel","ebpf", "go", "trace"]
 
 ### ebpf 是什么
 1. eBPF: extended Berkeley Packet Filter， BPF 提供了强大的网络包过滤规则，可以确定应该检查哪些流量、忽略哪些流量等，而内核近几年发展的 Extended BPF, eBPF 实际上将应用范围，处理效率进行了更新。通过一个内核内置的字节码虚拟机，完成数据包过滤、调用栈跟踪、耗时统计、热点分析等等高级功能。
-2. ‘内核虚拟机’，内核内置JIT，这个虚拟机除了借助于 llvm 的技术实现了 jit 之外，最主要要的就是实现了规定指令的检测了安全执行。不会应为应用层下发的指令而导致内核效率异常底下或者奔溃。
+2. ‘内核虚拟机’，内核内置JIT，这个虚拟机除了借助于 llvm 的技术实现了 jit 之外，最主要要的就是实现了规定指令的检测了安全执行。不会因为应用层下发的指令而导致内核效率异常低下或者奔溃。
 3. C语言编写，llvm+clang编译，这个其实是和上面一条是一致的，这个 jit 的实际上就是 llvm 提供的，多年前我们在大数据多维计算引擎的实时就用过这种技术，非常灵活高效
 4. Map types： 多种类型的存储，程序间共享，用户态内核态共享
 5. Program Types：不同类型的 bpf 程序完成不同的事，不同的类型具有不同的功能，有点像模版的概念。
 6. helper functions: 与内核数据交互，这里可以看到目前的：http://man7.org/linux/man-pages/man7/bpf-helpers.7.html。
 ![](./linux_ebpf_internals.png)
 
-这里面编程更重要的是后面的 3 点：Map types ，Program Types，helper functions。下面先学习一下基本理论，虽然上面那么所，但是毕竟不经过理论的实操，那就成瞎操做了。所以还是理论上先看看。
+这里面编程更重要的是后面的 3 点：Map types ，Program Types，helper functions。下面先学习一下基本理论，虽然上面那么说，但是毕竟不经过理论的实操，那就成瞎操作了。所以还是理论上先看看。
 
 #### Map types
 Map types 是 ebpf 中主要的数据存储类型，目前随着内核的发展已经有 20 多种的类型，通用型的，针对 CPU，socket，cgroup 等。很多 map 类型都有一些特殊的使用方式。BPF 程序可以通过 helper function 读写 map，用户态程序也可以通过 bpf(...)系统调用读写 map，因此可以通过 map 来达到 BPF 程序之间，BPF 程序与用户态程序之间的数据交互与控制。具体的类型定义可以看这个文件中定义：
@@ -303,3 +303,8 @@ as
 2. 但是在高并发请求的场景下还是有不少的提升的。
    
 所以 ebpf 最大的用途目前应该还是在上面提到的几个方面：内核调试，安全，网络数据转发。比如目前 facebook 发布的 l4LB 和 DDoS 防护，Google 的用于追踪分析的 BPFd。
+
+## 参考
+
+1. [http://www.brendangregg.com/ebpf.html](http://www.brendangregg.com/ebpf.html)
+2. [http://chenlingpeng.github.io/2020/01/07/ebpf-intro/](http://chenlingpeng.github.io/2020/01/07/ebpf-intro/)
