@@ -206,7 +206,7 @@ apt-get install bpfcc-tools python-bpfcc libbpfcc
 激动不激动，兴喜不兴喜，一起安装顺利，接下来就要测试验证了。程序员学习的老规矩，首先来一波 hello world 测试，再来高级的。如果 hello world 都过不了，说明有问题，更别说其它的高级测试了。
 
 ### hello world 测试
-这个例子来自：https://github.com/iovisor/bcc，安装了上述的组件后可以直接使用下面这个例子。
+这个例子来自：https://github.com/iovisor/bcc，python 写的例子，git clone bcc 的代码后，就可以直接使用下面这个例子。
 ```sh
 root@VM-0-13-ubuntu:/data/ebpf/bcc# ./examples/hello_world.py
      barad_agent-1567  [000] ....  2487.213681: 0: Hello, World!
@@ -233,7 +233,7 @@ root@VM-0-13-ubuntu:/data/ebpf/bcc# ./examples/hello_world.py
             sshd-10808 [000] ....  2491.495384: 0: Hello, World!
             sshd-10809 [000] ....  2491.728332: 0: Hello, World!
 ```
-来看看这个例子的源代码。
+执行顺利，看到结果，那再来看看这个例子的源代码。非常简单，实际代码只有一行，目的是对 clone 系统调用进行跟踪，如果有 clone 系统调用就打印 “Hello, World!”。
 ``` python
 #!/usr/bin/python
 # Copyright (c) PLUMgrid, Inc.
@@ -251,7 +251,7 @@ BPF(text='int kprobe__sys_clone(void *ctx) { bpf_trace_printk("Hello, World!\\n"
 ```
 
 ## gobpf 中的例子编译&使用
-
+接下来测试一个稍微高级一点的，我目前主要使用 go 语言，所以偏向于使用 go 的库来做这方面的事情，使用的是 gobpf 这个库，也是先 git clone 下来。
 ``` sh
 git clone https://github.com/iovisor/gobpf
 ```
@@ -263,6 +263,9 @@ root@VM-0-13-ubuntu:/data/ebpf# cp -rf gobpf/examples/bcc/bash_readline ./
 root@VM-0-13-ubuntu:/data/ebpf# cd bash_readline/
 root@VM-0-13-ubuntu:/data/ebpf/bash_readline# ls
 bash_readline.go
+```
+因为墙的原因，这里要设置一下 GOPROXY，在腾讯云的机器上也是一样的，具体设置和编译如下。
+```sh
 root@VM-0-13-ubuntu:/data/ebpf/bash_readline# export GOPROXY=https://goproxy.io
 root@VM-0-13-ubuntu:/data/ebpf/bash_readline# go mod init bash_readline
 go: creating new go.mod: module bash_readline
@@ -272,7 +275,8 @@ go: found github.com/iovisor/gobpf/bcc in github.com/iovisor/gobpf v0.0.0-202003
 root@VM-0-13-ubuntu:/data/ebpf/bash_readline# ls
 bash_readline  bash_readline.go  go.mod  go.sum
 ```
-一下是执行程序，这个程序主要做的就获取 bash 命令行的输入命令。在一个终端执行这个程序，在另外一个终端中随便输入命令，就会获取执行命令的 PID 和命令。
+
+接下来是执行程序，这个程序主要做的就获取 bash 命令行的输入命令。在一个终端执行这个程序，在另外一个终端中随便输入命令，就会获取执行命令的 PID 和命令。
 ```sh
 root@VM-0-13-ubuntu:/data/ebpf/bash_readline# ./bash_readline
        PID	COMMAND
@@ -284,6 +288,18 @@ as
 ```
 
 ## 总结
-目前来说 ebpf 的开发门槛是越来越低了，现在有 go 的库，python 的库，很快的就可以开发测试。在开发体验上是有非常大的进步。所以这里关键就是要找合适你的应用场景了，目前最合适的仍然是内核调试，网络跟踪，网络数据转发等。
+目前来说 ebpf 的开发门槛是越来越低了，现在有 go 的库，python 的库，很快的就可以开发测试。在开发体验上是有非常大的进步。所以这里关键就是要找合适你的应用场景了，目前最合适的仍然是内核调试，安全，网络数据转发等。
 
-我从本文开始的时候提出的解决 istio 中 sidecar 和 RS 之间的传输效率提升也是可以的，但是我们同事得出的最终结论是，从整体上来说效率提升并不明显，在有些情况下来要低一些，但是在高并发请求的场景下还是有不少的提升的。
+我从本文开始的时候提出的解决 istio 中 sidecar 和 RS 之间的传输效率提升也是可以的，基本的解决思路这里也简单说一下：
+	在 sidcar 和 RS 之间的通信是经过了本地网络协议栈的，这部分可以利用 ebpf 来进行优化。
+原本的通行方式是这样的
+![](./meshnet.png)
+
+我们可以利用 ebpf 的能力进行 socket 映射，使用 socketmap 和 sockethash 进行发送和接受端口映射。形成如下的数据通信方式。
+![](./meshnet2.png)
+
+这个方案在实际操作上是没有问题的，**但是我们同事得出的最终结论是**：
+1. 从整体上来说效率提升并不明显，在有些情况下来要低一些，因为这块并不是服务网格的最大瓶颈，使用量不多，所以优化效果提升有限。
+2. 但是在高并发请求的场景下还是有不少的提升的。
+   
+所以 ebpf 最大的用途目前应该还是在上面提到的几个方面：内核调试，安全，网络数据转发。比如目前 facebook 发布的 l4LB 和 DDoS 防护，Google 的用于追踪分析的 BPFd。
