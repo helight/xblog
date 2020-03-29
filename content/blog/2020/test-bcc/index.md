@@ -1,6 +1,6 @@
 
 +++
-title = "ebpf测试使用"
+title = "ebpf 学习梳理和测试使用"
 subtitle = "在 ubuntu 系统中测试 ebpf 程序"
 description = "在 ubuntu 系统中测试 ebpf 程序。"
 date = "2020-03-21T23:47:08+02:00"
@@ -308,3 +308,4 @@ as
 
 1. [http://www.brendangregg.com/ebpf.html](http://www.brendangregg.com/ebpf.html)
 2. [http://chenlingpeng.github.io/2020/01/07/ebpf-intro/](http://chenlingpeng.github.io/2020/01/07/ebpf-intro/)
+3. [https://github.com/zoidbergwill/awesome-ebpf](https://github.com/zoidbergwill/awesome-ebpf)

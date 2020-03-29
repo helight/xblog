@@ -2,7 +2,7 @@
 title = "什么是DevOps的生命周期"
 date = "2019-05-18T13:47:08+02:00"
 tags = ["devops", "开源"]
-categories = ["devops"]
+categories = ["DevOps"]
 banner = "img/banners/DevOPSLifeCycle.jpg"
 draft = false
 author = "helight"
