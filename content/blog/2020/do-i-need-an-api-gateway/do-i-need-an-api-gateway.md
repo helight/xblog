@@ -1,5 +1,5 @@
 +++
-title = "有了Service Mesh，还需要 API 网关吗？"
+title = "【译】有了Service Mesh，还需要 API 网关吗？"
 date = "2020-02-07T13:47:08+02:00"
 tags = ["istio", "microservices"]
 categories = ["sevicemesh", "microservices"]

@@ -1,5 +1,5 @@
 +++
-title = "发布可扩展和改进的 webassembly hub，帮助 envoy 和 Istio 使用 webassembly 的能力"
+title = "【译】发布可扩展和改进的 webassembly hub，帮助 envoy 和 Istio 使用 webassembly 的能力"
 subtitle = "发布可扩展和改进的 webassembly hub，帮助 envoy 和 Istio 使用 webassembly 的能力"
 description = "发布可扩展和改进的 webassembly hub，帮助 envoy 和 Istio 使用 webassembly 的能力"
 date = "2020-03-13T13:47:08+02:00"

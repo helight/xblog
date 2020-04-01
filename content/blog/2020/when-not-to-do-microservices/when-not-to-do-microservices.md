@@ -1,5 +1,5 @@
 +++
-title = "以 Istio 为例来看什么时候不要拆分微服务"
+title = "【译】以 Istio 为例来看什么时候不要拆分微服务"
 date = "2020-02-04T13:47:08+02:00"
 tags = ["istio", "microservices"]
 categories = ["sevicemesh", "microservices"]

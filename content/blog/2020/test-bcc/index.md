@@ -31,7 +31,7 @@ keywords = ["kernel","ebpf", "go", "trace"]
 4. Map types： 多种类型的存储，程序间共享，用户态内核态共享
 5. Program Types：不同类型的 bpf 程序完成不同的事，不同的类型具有不同的功能，有点像模版的概念。
 6. helper functions: 与内核数据交互，这里可以看到目前的：http://man7.org/linux/man-pages/man7/bpf-helpers.7.html。
-![](./linux_ebpf_internals.png)
+![](./imgs/linux_ebpf_internals.png)
 
 这里面编程更重要的是后面的 3 点：Map types ，Program Types，helper functions。下面先学习一下基本理论，虽然上面那么说，但是毕竟不经过理论的实操，那就成瞎操作了。所以还是理论上先看看。
 
@@ -143,7 +143,7 @@ enum bpf_prog_type {
 3. Net: bpfilter, tc, sockmap, XDP
 
 可以从这张图上看看不同版本的内核和其支持的功能。
-![](./linux_ebpf_support.png)
+![](./imgs/linux_ebpf_support.png)
 
 ## ubuntu 升级内核版本到 5.3
 
@@ -293,10 +293,10 @@ as
 我从本文开始的时候提出的解决 istio 中 sidecar 和 RS 之间的传输效率提升也是可以的，基本的解决思路这里也简单说一下：
 	在 sidcar 和 RS 之间的通信是经过了本地网络协议栈的，这部分可以利用 ebpf 来进行优化。
 原本的通行方式是这样的
-![](./meshnet.png)
+![](./imgs/meshnet.png)
 
 我们可以利用 ebpf 的能力进行 socket 映射，使用 socketmap 和 sockethash 进行发送和接受端口映射。形成如下的数据通信方式。
-![](./meshnet2.png)
+![](./imgs/meshnet2.png)
 
 这个方案在实际操作上是没有问题的，**但是我们同事得出的最终结论是**：
 1. 从整体上来说效率提升并不明显，在有些情况下来要低一些，因为这块并不是服务网格的最大瓶颈，使用量不多，所以优化效果提升有限。
