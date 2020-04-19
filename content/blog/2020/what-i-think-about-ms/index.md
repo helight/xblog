@@ -1,7 +1,7 @@
 ---
-title: "微服务的一些思考"
+title: "对微服务的一些思考---微服务架构的特点和优势"
 date: 2020-04-12T22:57:42+08:00
-tags: ["envoy", "mesh"]
+tags: ["microservices"]
 categories: ["sevicemesh", "microservices"]
 banner: "img/banners/ms.jpg"
 author: "helight"
