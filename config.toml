@@ -106,6 +106,7 @@ paginate = 15
     categories = true
     tags = true
     search = false
+    links = true
 
 [params.carousel]
     enable = true
@@ -146,4 +147,4 @@ paginate = 15
 [params.recent_posts]
     enable = true
     title = "最新博文"
-    subtitle = "最近有点懒，写的少了。。。"
+    subtitle = ""

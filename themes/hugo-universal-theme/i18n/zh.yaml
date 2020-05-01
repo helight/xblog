@@ -105,3 +105,6 @@
 
 - id: originallink
   translation: "查看原文"
+
+- id: friendslinks
+  translation: "友情链接"
