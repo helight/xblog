@@ -1,8 +1,7 @@
 
 {{ if isset .Site.Params.widgets "links" }}
-{{ if not (eq (len .Site.Params.links) 0) }}
+{{ if .Site.Params.widgets.links }}
 <div class="panel panel-default sidebar-menu">
-
     <div class="panel-heading">
         <h3 class="panel-title">{{ i18n "friendslinks" }}</h3>
     </div>
