@@ -3,16 +3,20 @@ title: "如何构建一个控制面来管理 Envoy 管理集群网络流量"
 date: 2020-04-04T22:45:20+08:00
 tags: ["envoy", "mesh"]
 categories: ["sevicemesh", "microservices"]
-banner: "img/banners/linux_ebpf_support.png"
+banner = "img/banners/istio2.png"
 author: "helight"
 authorlink: "http://helight.info"
 summary: ""
-keywords: ["kernel","ebpf", "go", "trace"]
+keywords: ["envoy","gateway", "istio"]
 draft: true
 ---
 
+## 前言
+这篇文章我看了之后非常想翻译，为什么呢？一方面我也在学习envoy，并且在公司的实际项目中使用envoy，另一方面，我确实在在设计一个控制管理端来统一管控多个集群的所有流量，我说的是所有的流量管控，目前这个管理系统在内部已经在逐步使用起来了。所以翻译这篇文章，即时学习envoy技术，也是想做一个参考，印证我的想法是是 OK 的，取长补短。
+
 ## 指导在服务边缘构建控制面来管理 Envoy Proxy，让它作为服务网关或者在服务网格中使用
 Envoy has become a popular networking component as of late. Matt Klein wrote a blog a couple years back talking about Envoy’s dynamic configuration API and how it has been part of the reason the adoption curve for Envoy has been up and to the right. He called the blog the “universal data plane API”. With so many other projects adopting Envoy as a central component to their offering, it would not be a stretch to say “Envoy has become the universal data plane in cloud-native architectures” for application/L7 networking solutions, not just establishing a standardized API.
+
 
 ![](imgs/envoy.png)
 
