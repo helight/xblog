@@ -15,54 +15,57 @@ draft: true
 这篇文章我看了之后非常想翻译，为什么呢？一方面我也在学习envoy，并且在公司的实际项目中使用envoy，另一方面，我确实在在设计一个控制管理端来统一管控多个集群的所有流量，我说的是所有的流量管控，目前这个管理系统在内部已经在逐步使用起来了。所以翻译这篇文章，即时学习envoy技术，也是想做一个参考，印证我的想法是是 OK 的，取长补短。
 
 ## 指导在服务边缘构建控制面来管理 Envoy Proxy，让它作为服务网关或者在服务网格中使用
-Envoy has become a popular networking component as of late. Matt Klein wrote a blog a couple years back talking about Envoy’s dynamic configuration API and how it has been part of the reason the adoption curve for Envoy has been up and to the right. He called the blog the “universal data plane API”. With so many other projects adopting Envoy as a central component to their offering, it would not be a stretch to say “Envoy has become the universal data plane in cloud-native architectures” for application/L7 networking solutions, not just establishing a standardized API.
-
+Envoy 已经成为了一个非常流行的网络组件了。Matt Klein [几年前写过一篇博文](https://blog.envoyproxy.io/the-universal-data-plane-api-d15cec7a)，可就是在讨论 Envoy 的动态配置 API 和他如何成为 Envoy 采用路线上升的原因之一。他在博文中说这是“统一数据面板 API”（UDPA）。随着很多其它项目都采用 Envoy 作为其核心组件，可以毫不夸张的说 Envoy 不仅仅建立了标准 API，而且对于应用 7 层的网络解决方案来说：“在云原生架构下 Envoy 已经变成了统一数据平面”。
 
 ![](imgs/envoy.png)
 
-Moreover, because of Envoy’s universal data plane API, we’ve seen a multitude of implementations of a management layer to configure and drive Envoy-based infrastructure. We’re going to take a deep dive into what it takes to build a control plane for Envoy so you can use this information to evaluate what type of infrastructure will fit your organization and usecases best. Because this is a broad topic, we’ll tackle it in a multi-part series published over the next coming days. Follow along (@christianposta, @soloio_inc) for the next entries.
+而且，由于 Envoy 的统一数据平面 API，我们可以看到业界开发了很多针对基于 Envoy 技术设施进行配置管理的管理系统。本文将会深入讨论为 Envoy 构建一个控制平面需要什么，大家可以通过这些信息来评估什么样的基础设施最适合你的组织和场景。因为这个是一个很大的话题，作者会出一个系列文章来对此进行详细说明。后面我也会挑一些我感兴趣的文章进行翻译。
 
-There were some great talks at EnvoyCon/KubeCon where some organizations shared their experiences adopting Envoy including how they built their own control planes. Some of the reasons folks chose to build their own control plane:
+在 [EnvoyCon/KubeCon 论坛有很多非常好的讨论](https://blog.envoyproxy.io/envoycon-recap-579d53576511)，这里好多组织都分享了它们采用 Envoy 的经验，也包括了如何构建它们自己的控制平面。下面试一些它们为什么选择自己来构建控制平面的原因：
 
-1. Had existing solutions built on different data planes with pre-existing control planes and needed to retrofit Envoy in
-2. Building for infrastructure that doesn’t have any existing opensource or other Envoy control planes (ie, VMs, AWS ECS, etc)
-3. Don’t need to use all of Envoy’s features; just a subset
-4. Prefer an domain-specific API/object model for Envoy configuration that fits their workflows/worldview better
-5. Other control planes weren’t in a mature state when their respective organizations were ready to deploy
+1. 现有的解决方案构建在不同的数据平面上，而且已经有了控制平面，需要在这里兼容 Envoy。
+2. 为不包含任何开源基础设施来构建，或者使用其它的 Envoy 控制平面（比如：VMs， AWS，ECS 等）
+3. 不需要使用所有 Envoy 的特性，只是需要一部分
+4. 为了更好适配自己的工作流和工作视图而需要为 Envoy 配置开发专属领域的 API/对象模型。
+5.  要线上使用，但是发现其它的控制平面并不够成熟。
+
 ![](imgs/control-plane-data-plane.png)
 
-However, just because some early adopters built their own bespoke control planes doesn’t mean YOU should do the same thing now. First, projects building control planes for Envoy have matured quite a bit in the last year and you should explore using those before deciding to re-create yet another control plane. Second, as the folks at Datawire found, and Daniel Bryant recently articulated, building a control plane for Envoy is not for the faint of heart.
+然而，仅仅因为有些早期使用者构建了他们自己的控制平面，这并不意味着你就应该也要做这样的事情。首先在去年中很多为 Envoy开发的控制平面已经相当成熟了，所以你应该在决定要重新开发另外一个控制平面之前先来研究一下这些已经存在的。其次，正如 Datawire 的人们发现，并且 Daniel Bryant 最近也发文章说，为 Envoy 构建一个控制平面并不是那么容易的。
 
-I work on a couple open-source projects that have built a control plane for Envoy. For example, Gloo is a function gateway that can act as a very powerful Kubernetes ingress, API Gateway, or function gateway to ease the transition of monoliths to microservices. Gloo has a control-plane for Envoy that we can refer to in this series of posts as an example of how to build a simple abstraction that allows for pluggability and extensibility at the control points you need. Other solid control-plane implementations you can use for reference are Istio and Heptio Contour and we’ll use those as good examples throughout the blog series. If nothing else, you can learn what options exist for an Envoy control plane and use that to guide your implementation if you have to go down that path.
+我参与开发几个给 Enovy 构建控制平面的开源项目。比如，Gloo 是一个功能性网关，它可以作为强大的 Kubernetes 接入服务，API 网关，或者作为从单体服务到微服务过度的功能网关。Gloo 又一个针对 Envoy 的控制平面，它可以作为我这个系列文章的例子，来说明如何在控制平面上按照需求来抽象设计实现插件管理和扩张性管理。其它可以参考的已经实现的控制平面如 istio 和 [Heptio Contour](https://github.com/heptio/contour)也是贯穿我这个系列文章的好例子。如果你确定要自己开发控制平面，那么除了这些，你还可以其它已经存在的一些控制平面来指导。
+
 ![](imgs/envoyprojects.png)
 
-In this blog series, we’ll take a look at the following areas:
+在这个系列文章中，我们将会关注一下一些点：
 
-1. Adopting a mechanism to dynamically update Envoy’s routing, service discovery, and other configuration (this part)
-2. Identifying what components make up your control plane, including backing stores, service discovery APIs, security components, et. al.
-3. Establishing any domain-specific configuration objects and APIs that best fit your usecases and organization
-4. Thinking of how best to make your control plane pluggable where you need it
-5. Options for deploying your various control-plane components
-6. Thinking through a testing harness for your control plane
-   
-To kick off the series, let’s look at using Envoy’s dynamic configuration APIs to update Envoy at runtime to deal with changes in topology and deployments.
+1. 采用一种机制可以动态的更新 Envoy 的路由，服务发现和其它配置。
+2. 识别使用哪些组件来构成你的控制平面，包括了后端存储，服务发现 API，安全组件等等。
+3. 根据场景和组织以最合适的方式建立任意制定区域的配置对象和 API。
+4.  思考如何在需要的地方以最好方式嵌入将控制平面。
+5.  部署各种控制平面组件的方式。
+6.  思考如何测试控制平面。
 
-## Dynamically configuring Envoy with its xDS API
-One of the main advantages of building on top of Envoy is it’s data plane API. With the data plane API, we can dynamically configure most of Envoy’s important runtime settings. Envoy’s configuration via its xDS APIs is eventually consistent by design – that is – there is no way to affect an “atomic update” to all of the proxies in the cluster. When the control plane has configuration updates, it makes them available to the data plane proxies through the xDS APIs and each proxy will apply these updates independently from each other.
+要开始这一系列的讨论，我们首先来看看如何在运行时使用 Envoy 的动态配置 API 来更新 Envoy，以处理拓扑和部署中的变更。
 
-The following are the parts of Envoy’s runtime model we can configure dynamically through xDS:
-1. [Listeners Discovery Service API](https://www.envoyproxy.io/docs/envoy/v1.9.0/configuration/listeners/lds#config-listeners-lds) - LDS to publish ports on which to listen for traffic
-2. [Endpoints Discovery Service API](https://www.envoyproxy.io/docs/envoy/v1.9.0/api-v2/api/v2/eds.proto#envoy-api-file-envoy-api-v2-eds-proto)- EDS for service discovery,
-3. [Routes Discovery Service API](https://www.envoyproxy.io/docs/envoy/v1.9.0/configuration/http_conn_man/rds#config-http-conn-man-rds)- RDS for traffic routing decisions
-4. [Clusters Discovery Service](https://www.envoyproxy.io/docs/envoy/v1.9.0/configuration/cluster_manager/cds#config-cluster-manager-cds)- CDS for backend services to which we can route traffic
-5. [Secrets Discovery Service](https://www.envoyproxy.io/docs/envoy/v1.9.0/configuration/secret) - SDS for distributing secrets (certificates and keys)
+## 使用 Envoy 的 xDS API 动态配置 Envoy
+在 Envoy 之上构建构建控制平面的主要优势在与它的数据平面 API。有了数据平面 API，我们可就可以动态的配置 Envoy 的大多数重要运行时设置。通过 xDS API 进行的 Envoy 配置是被设计为最终一致的，没有一种方法可以对集群中的所有代理进行原子性的更新。当控制平面上有配置更新时，它就通过 xDS API 让数据平面代理都可以获取到，每个代理都是相互独立的来应用这些配置。
+
+下面是我们可以通过 xDS 动态配置 Envoy 的部分运行时模型：
+1. [监听发现服务（LDS）API](https://www.envoyproxy.io/docs/envoy/v1.9.0/configuration/listeners/lds#config-listeners-lds) - LDS 用于下发服务监听的端口。
+2. [终端发现服务（EDS）API](https://www.envoyproxy.io/docs/envoy/v1.9.0/api-v2/api/v2/eds.proto#envoy-api-file-envoy-api-v2-eds-proto)- EDS 用户服务发现。
+3. [路由发现服务（RDS）API](https://www.envoyproxy.io/docs/envoy/v1.9.0/configuration/http_conn_man/rds#config-http-conn-man-rds)- RDS 用于流量路由决策。
+4. [集群发现服务（CDS）](https://www.envoyproxy.io/docs/envoy/v1.9.0/configuration/cluster_manager/cds#config-cluster-manager-cds)- CDS 用于可以路由流量过去的后端服务。
+5. [密钥发现服务（SDS）](https://www.envoyproxy.io/docs/envoy/v1.9.0/configuration/secret) - SDS 用户分发密钥（证书和密钥）。
+
 ![](imgs/xds-control-plane.png)
-The API is defined with proto3 Protocol Buffers and even has a couple reference implementations you can use to bootstrap your own control plane:
+
+这些 API 使用 proto3 的 Protocol Buffer 来定义的，并且已经有一些相关实现了，可以提供大家在构建自己的控制平面时参考：
 
 1. [go-control-plane](https://github.com/envoyproxy/go-control-plane)
 2. [java-control-plane](https://github.com/envoyproxy/java-control-plane)
 
-Although each of these areas (LDS/EDS/RDS/CDS/SDS, together “xDS”) are dynamically configurable, that doesn’t mean you must configure everything dynamically. You can have a combination of parts that are statically defined and some parts that are updated dynamically. For example, to implement a type of service discovery where endpoints are expected to be dynamic but the clusters are well known at deploy time, you can statically define the clusters and use the [Endpoint Discovery Service](https://www.envoyproxy.io/docs/envoy/v1.9.0/api-v2/api/v2/eds.proto#envoy-api-file-envoy-api-v2-eds-proto) from Envoy. If you are not sure exactly which upstream clusters will be used at deploy time you could use the [Cluster Discovery Service](https://www.envoyproxy.io/docs/envoy/v1.9.0/configuration/cluster_manager/cds#config-cluster-manager-cds) to dynamically find those. The point is, you can build a workflow and process that statically configures the parts you need while use dynamic xDS services to discover the pieces you need at runtime. One of the reasons why you see different control-plane implementation is not everyone has a fully dynamic and fungible environment where all of the pieces should be dynamic. Adopt the level of dynamism that’s most appropriate for your system given the existing constraints and available workflows.
+虽然每个 xDS（LDS/EDS/RDS/CDS/SDS，这些统称xDS）都是动态可配置的，但是这并不意味着你必须动态配置所有内容。你可以组合一下，区分静态配置部分和动态配置服务。例如，要实现配置实现一种类型的服务发现：希望终端是动态的，但是集群在部署的时候就是已经知道路由信息了，所以你可以使用 Envoy 中的 [Endpoint Discovery Service](https://www.envoyproxy.io/docs/envoy/v1.9.0/api-v2/api/v2/eds.proto#envoy-api-file-envoy-api-v2-eds-proto) 来静态的定义集群的配置。如果在部署的时候你不确定是那个上游集群，那你可以使用[Cluster Discovery Service](https://www.envoyproxy.io/docs/envoy/v1.9.0/configuration/cluster_manager/cds#config-cluster-manager-cds)来动态的配置发现上游。关键是你可以构建一个工作流和处理流程来静态的配置你需要的部分，而且可以使用动态 xDS 服务在运行时发现你需要的部分。为什么有不同的控制平面实现的其中一个原因就是不是所有人都有一个完全动态和可替代的环境（这个环境下所有的配置都应该是动态的），这点几乎不可能。根据现有条件的约束和可用工作流，要为你的系统采取合适级别的动态配置，而不是全动态配置。
 
 In the case of Gloo, we use a control plane based on go-control-plane to implement the xDS APIs to serve Envoy’s dynamic configuration. Istio uses this implementation also as does Heptio Contour. This control plane API leverages [gRPC streaming](https://grpc.io/docs/guides/concepts.html#server-streaming-rpc) calls and stubs out the API so you can fill it with an implementation. Another project, which is unfortunately deprecated but can be used to learn a lot, is Turbine Labs’ Rotor project. This is a highly efficient way to integrate Envoy’s data plane API with the control plane.
 
