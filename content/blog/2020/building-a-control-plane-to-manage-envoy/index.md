@@ -1,6 +1,6 @@
 ---
 title: "如何构建一个控制面来管理 Envoy 管理集群网络流量"
-date: 2020-04-04T22:45:20+08:00
+date: 2020-05-10T22:45:20+08:00
 tags: ["envoy", "mesh"]
 categories: ["sevicemesh", "microservices"]
 banner = "img/banners/istio2.png"
@@ -67,20 +67,20 @@ Envoy 已经成为了一个非常流行的网络组件了。Matt Klein [几年�
 
 虽然每个 xDS（LDS/EDS/RDS/CDS/SDS，这些统称xDS）都是动态可配置的，但是这并不意味着你必须动态配置所有内容。你可以组合一下，区分静态配置部分和动态配置服务。例如，要实现配置实现一种类型的服务发现：希望终端是动态的，但是集群在部署的时候就是已经知道路由信息了，所以你可以使用 Envoy 中的 [Endpoint Discovery Service](https://www.envoyproxy.io/docs/envoy/v1.9.0/api-v2/api/v2/eds.proto#envoy-api-file-envoy-api-v2-eds-proto) 来静态的定义集群的配置。如果在部署的时候你不确定是那个上游集群，那你可以使用[Cluster Discovery Service](https://www.envoyproxy.io/docs/envoy/v1.9.0/configuration/cluster_manager/cds#config-cluster-manager-cds)来动态的配置发现上游。关键是你可以构建一个工作流和处理流程来静态的配置你需要的部分，而且可以使用动态 xDS 服务在运行时发现你需要的部分。为什么有不同的控制平面实现的其中一个原因就是不是所有人都有一个完全动态和可替代的环境（这个环境下所有的配置都应该是动态的），这点几乎不可能。根据现有条件的约束和可用工作流，要为你的系统采取合适级别的动态配置，而不是全动态配置。
 
-In the case of Gloo, we use a control plane based on go-control-plane to implement the xDS APIs to serve Envoy’s dynamic configuration. Istio uses this implementation also as does Heptio Contour. This control plane API leverages [gRPC streaming](https://grpc.io/docs/guides/concepts.html#server-streaming-rpc) calls and stubs out the API so you can fill it with an implementation. Another project, which is unfortunately deprecated but can be used to learn a lot, is Turbine Labs’ Rotor project. This is a highly efficient way to integrate Envoy’s data plane API with the control plane.
+在 Gloo 的实现中，我们使用了基于 go-control-plane 来构建控制平面，来实现 xDS API 到 Envoy 的动态配置。Istio 和 Heptio Contour 也是使用这种方式。这个控制平面的 API 使用 gRPC streaming 实现，并且留了实现接口，所以我们在实现的时候只需要实现这些接口就可以了。这种方式可以非常高效的把 Envoy 数据平面 API 集成到控制平面中。
 
-gRPC streaming is not the only way to update Envoy’s configuration. In [previous versions of the Envoy xDS API](https://www.envoyproxy.io/docs/envoy/v1.5.0/api-v1/api), polling was the only option to determine whether new configuration was available. Although this was acceptable, and met the criteria for “eventually-consistent” configuration updates, it was less efficient in both network and compute usage. It can also be difficult to properly tune the polling configurations to reduce wasted resources.
+gRPC streaming 方式也不是唯一的更新 Envoy 配置的方法。在[Envoy 早期版本中的 xDS API](https://www.envoyproxy.io/docs/envoy/v1.5.0/api-v1/api)，轮询是唯一检测是否有新配置可用的方式。虽然这也是接受的，并且也符合配置更新最终一致性的原则，但是在网络和计算使用上还是不够高效。也比较困难去调整优化轮询配置以减少资源浪费。
 
-Lastly, some Envoy management implementations opt to generate [static Envoy configuration files](https://www.envoyproxy.io/docs/envoy/latest/configuration/overview/v2_overview#static) and periodically replace the configuration files on disk for Envoy and then perform a [hot reload of the Envoy process](https://blog.envoyproxy.io/envoy-hot-restart-1d16b14555b5). In a highly dynamic environment (like Kubernetes, but really any ephemeral-compute based platform) the management of this file generation, delivery, hot-restart, etc can get unwieldy. Envoy was originally operated in an environment that performed updates like this (Lyft, where it was created) but they are incrementally moving toward using the xDS APIs.
+最后，一些 Envoy 管理系统的实现采取生成[静态 Envoy 配置文件](https://www.envoyproxy.io/docs/envoy/latest/configuration/overview/v2_overview#static)和给 Envoy 周期性的替换磁盘上的配置文件，再执行[Envoy 进程的热重启](https://blog.envoyproxy.io/envoy-hot-restart-1d16b14555b5)。在高度动态环境中（像 Kubernetes，实际上任何短暂的计算平台都算），管理这种文件的生成，传递，热重启等等会非常笨重的。Envoy 最初就是在这样操作的（Lyft公司创建这个项目），但是它逐步发展到现在的 xDS API了。
 
-## Takeaway
-The Gloo team believes using gRPC streaming and the xDS APIs is the ideal way to implement dynamic configuration and control for Envoy. Again, not all of the Envoy configurations should be served dynamically if you don’t need that, however if you’re operating in a highly dynamic environment (e.g., Kubernetes), the option to configure Envoy dynamically is critical. Other environments may not have this need. Either way, gRPC streaming API for the dynamic parts is ideal. Some benefits to this approach:
+## 总结
+Gloo 团队相信使用 gRPC streaming 和 xDS API 来实现对 Envoy 的动态配置和控制是一种比较好的方式。同样，并不是所有的 Envoy 配置都应该是动态的，尤其是你不需要动态配置的内容。但是如果你是在一个高度动态的环境（比如在 Kubernetes 中），动态配置 Envoy 就很关键了。其它的环境或许也有这样的需要。不管怎么样，动态配置使用 gRPC streaming API 是最理想的，主要有以下一些好处：
 
-1. event-driven configuration updates; configuration is pushed to Envoy when it becomes available in the control plane
-2. no need to poll for changes
-3. no need to hot-reload Envoy
-4. no disruption to traffic
+1. 事件驱动配置更新；在控制平面中配置会在可用的时候下发到 Envoy。
+2. 不需要轮询配置变化了。
+3. 不需要热重启 Envoy。
+4. 不会中断流量。
 
-## What’s next
-In this first part, we established some basic context on how to build a control plane for Envoy by covering the xDS APIs and the different options you have for serving dynamic configuration to Envoy. In the next sections, to be released in a few days, will cover breaking your control plane into deployable components, identifying which pieces you need, what a domain-specific configuration object model could look like, and how to think about pluggability of the control plane. Follow along on twitter (@christianposta, @soloio_inc) or blog (https://blog.christianposta.com https://medium.com/solo-io)
+## 下一步
+这是第一部分，我们只是建立了为 Envoy 构建控制平面的基本概念，简述了 xDS API 和对 Envoy 动态配置的不同考虑。在下一节，会在几天会发布，将会把控制面分解成为可部署的组件，确定你需要的组件，特定领域对象会是什么样子，以及对控制平面扩展插件的思考。
 
