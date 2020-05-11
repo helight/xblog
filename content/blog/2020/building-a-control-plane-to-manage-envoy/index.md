@@ -83,3 +83,7 @@ Gloo 团队相信使用 gRPC streaming 和 xDS API 来实现对 Envoy 的动态�
 
 ## 下一步
 这是系列文章的第一部分，我们只是建立了为 Envoy 构建控制平面的基本概念，简述了 xDS API 和对 Envoy 动态配置不同的考虑。在下一节，会在几天后发布，将会把控制面分解成为可部署的组件，确定你需要的组件，特定领域对象会是什么样子？以及对控制平面扩展插件的思考。
+
+
+
+​英文原文: [https://blog.christianposta.com/envoy/guidance-for-building-a-control-plane-to-manage-envoy-proxy-based-infrastructure/](https://blog.christianposta.com/envoy/guidance-for-building-a-control-plane-to-manage-envoy-proxy-based-infrastructure/)
