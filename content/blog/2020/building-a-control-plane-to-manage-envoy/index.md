@@ -1,5 +1,5 @@
 ---
-title: "如何构建一个控制面来管理 Envoy 管理集群网络流量"
+title: "如何为 Envoy 构建一个控制面来管理集群网络流量"
 date: 2020-05-10T08:45:20+08:00
 tags: ["envoy", "mesh"]
 categories: ["sevicemesh", "microservices"]
