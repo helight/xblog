@@ -55,8 +55,9 @@ $ dmesg | tail
 [1880957.563408] Killed process 18694 (perl) total-vm:1972392kB, anon-rss:1953348kB, file-rss:0kB
 [2320864.954447] TCP: Possible SYN flooding on port 7001. Dropping request.  Check SNMP counters.
 ```
-This views the last 10 system messages, if there are any. Look for errors that can cause performance issues. The example above includes the oom-killer, and TCP dropping a request.
-Don’t miss this step! dmesg is always worth checking.
+这里展示的是最近 10 条系统消息日志，如果系统消息没有就不会展示。主要是看由于性能问题导致的错误。上面这个例子包含了杀死 OOM 问题的进程，丢弃 TCP 请求的问题。
+所以要记得使用这个命令， dmesg 命令值得一用。
+
 ## 3. vmstat 1
 ```sh
 $ vmstat 1
@@ -69,21 +70,22 @@ procs ---------memory---------- ---swap-- -----io---- -system-- ------cpu-----
 32  0    0 200890208  73712 591860    0    0     0     0 15898 4840 98  1  1  0  0
 ^C
 ```
-Short for virtual memory stat, vmstat(8) is a commonly available tool (first created for BSD decades ago). It prints a summary of key server statistics on each line.
 
-vmstat was run with an argument of 1, to print one second summaries. The first line of output (in this version of vmstat) has some columns that show the average since boot, instead of the previous second. For now, skip the first line, unless you want to learn and remember which column is which.
+对虚拟内存统计的简短展示，vmstat 是一个常用工具（最早是几十年前为 BSD 创建的）。它每一行打印关键的服务信息统计摘要。
 
-### Columns to check:
-1. r: Number of processes running on CPU and waiting for a turn. This provides a better signal than load averages for determining CPU saturation, as it does not include I/O. To interpret: an “r” value greater than the CPU count is saturation.
-2. free: Free memory in kilobytes. If there are too many digits to count, you have enough free memory. The “free -m” command, included as command 7, better explains the state of free memory.
-3. si, so: Swap-ins and swap-outs. If these are non-zero, you’re out of memory.
-4. us, sy, id, wa, st: These are breakdowns of CPU time, on average across all CPUs. They are user time, system time (kernel), idle, wait I/O, and stolen time (by other guests, or with Xen, the guest’s own isolated driver domain).
+vmstat 使用参数 1 来运行的时候，是每 1 秒打印一条统计信息。在这个版本的 vmstat 中，输出的第一行展示的是自动启动后的平均值，而不是前一秒的统计。所以现在，可以跳过第一行，除非你要看一下抬头的字段含义。
 
-The CPU time breakdowns will confirm if the CPUs are busy, by adding user + system time. A constant degree of wait I/O points to a disk bottleneck; this is where the CPUs are idle, because tasks are blocked waiting for pending disk I/O. You can treat wait I/O as another form of CPU idle, one that gives a clue as to why they are idle.
+### 每列含义说明：
+1. r: CPU 上的等待运行的可运行进程数。这个指标提供了判断 CPU 饱和度的数据，因为它不包含 I/O 等待的进程。可解释为：“r” 的值比 CPU 数大的时候就是饱和的。
+2. free：空闲内存，单位是 k。如果这个数比较大，就说明你还有充足的空闲内存。“free -m” 和 下面第 7 个命令，可以更详细的分析空闲内存的状态。
+3. si，so：交换进来和交换出去的数据量，如果这两个值为非 0 值，那么就说明没有内存了。
+4. us，sy，id，wa，st：这些是 CPU 时间的分解，是所有 CPU 的平均值。他们是用户时间，系统时间（内核），空闲，等待 I/O 时间，和被偷的时间（这里主要指其它的客户，或者使用 Xen，这些客户有自己独立的操作域）。
 
-System time is necessary for I/O processing. A high system time average, over 20%, can be interesting to explore further: perhaps the kernel is processing the I/O inefficiently.
+CPU 时间的分解可以帮助确定 CPU 是不是非常忙（通过用户时间和系统时间累加判断）。持续的 I/O 等待则表明磁盘是瓶颈。这种情况下 CPU 是比价空闲的，因为任务都由于等待磁盘 I/O 而被阻塞。你可以把等待 I/O 看作是是另外一种形式的 CPU 空闲，而这个命令给了为什么他们空闲的线索。
 
-In the above example, CPU time is almost entirely in user-level, pointing to application level usage instead. The CPUs are also well over 90% utilized on average. This isn’t necessarily a problem; check for the degree of saturation using the “r” column.
+系统时间对于 I/O 处理来说是必须的。比较高的平均系统时间消耗，比如超过了 20%，就有必要进一步探索研究了：有可能是内核处理 I/O 效率不够高导致。
+
+在上面的例子中，CPU 时间几乎都是用户级别的，指出这是一个应用级别的使用情况。 CPU 的使用率平均都超过了 90%。这不一定是个问题；可以使用 “r” 列来检查使用饱和度。
 
 ## 4. mpstat -P ALL 1
 ```sh
