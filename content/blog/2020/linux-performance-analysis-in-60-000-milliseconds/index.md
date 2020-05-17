@@ -100,8 +100,11 @@ Linux 3.13.0-49-generic (titanclusters-xxxxx)  07/14/2015  _x86_64_ (32 CPU)
 07:38:50 PM    3  96.97   0.00   0.00    0.00   0.00   0.00    0.00    0.00    0.00   3.03
 [...]
 ```
-This command prints CPU time breakdowns per CPU, which can be used to check for an imbalance. A single hot CPU can be evidence of a single-threaded application.
-5. pidstat 1
+
+这个命令分打印各个 CPU 的时间统计，可以看出整体 CPU 的使用是不是均衡的。有一个使用率明显较高的 CPU 就可以明显看出来这是一个单线程应用。
+
+## 5. pidstat 1
+```sh
 $ pidstat 1
 Linux 3.13.0-49-generic (titanclusters-xxxxx)  07/14/2015    _x86_64_    (32 CPU)
 
@@ -120,9 +123,11 @@ Linux 3.13.0-49-generic (titanclusters-xxxxx)  07/14/2015    _x86_64_    (32 CPU
 07:41:04 PM   108      6718    1.00    0.00    0.00    1.00     0  snmp-pass
 07:41:04 PM 60004     60154    1.00    4.00    0.00    5.00     9  pidstat
 ^C
-Pidstat is a little like top’s per-process summary, but prints a rolling summary instead of clearing the screen. This can be useful for watching patterns over time, and also recording what you saw (copy-n-paste) into a record of your investigation.
+```
 
-The above example identifies two java processes as responsible for consuming CPU. The %CPU column is the total across all CPUs; 1591% shows that that java processes is consuming almost 16 CPUs.
+Pidstat 命令有点像 top 命令中的为每个 CPU 统计信息功能，但是它是以不断滚动更新的方式打印信息，而不是每次清屏打印。这个对于观察随时间变化的模式很有用，同时把你看到的信息（复制粘贴）记录到你的调查记录中。
+
+上面的例子可以看出是 2 个 java 进程在消耗 CPU。%CPU 列是所有 CPU 的使用率；1591% 是说明这个 java 进程消耗了几乎 16 个 CPU 核。
 
 ## 6. iostat -xz 1
 ```sh
