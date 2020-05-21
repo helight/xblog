@@ -257,4 +257,4 @@ top 的一个缺陷也比较明显，很难看出变化趋势，其它像 vmstat
 
 还有很多可以使用来深挖系统问题的命令和技术，可以看看 Brendan 在 2015 年讲的 [Linux 性能工具介绍](https://netflixtechblog.com/netflix-at-velocity-2015-linux-performance-tools-51964ddb81cf) ，这里面讲述了 40 多个命令，涵盖了可观测性，基准测试，调优，静态性能调优，分析和跟踪等多个方面。
 
-原文：https://netflixtechblog.com/linux-performance-analysis-in-60-000-milliseconds-accc10403c55
+原文：[https://netflixtechblog.com/linux-performance-analysis-in-60-000-milliseconds-accc10403c55](https://netflixtechblog.com/linux-performance-analysis-in-60-000-milliseconds-accc10403c55)
