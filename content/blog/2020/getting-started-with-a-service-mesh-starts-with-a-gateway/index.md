@@ -1,17 +1,17 @@
 ---
-title: "从使用微服务网关为起点入门ServiceMesh"
-date: 2020-05-11T08:45:20+08:00
-tags: ["linux", "Performance"]
-categories: ["linux", "kernel"]
-banner: "img/banners/linux_performance_ovservability.png"
+title: "ServiceMesh入门的起点：构建一个微服务网关"
+date: 2020-05-24T08:45:20+08:00
+tags: ["istio", "envoy"]
+categories: ["sevicemesh", "microservices"]
+banner: "img/banners/envoy.png"
 author: "helight"
 authorlink: "http://helight.info"
-summary: "在你登陆一台 Linux 服务器之后，因为一个问题要做性能分析时：你会在第一分钟内做哪些检测呢？"
-keywords: ["linux","Performance", "top"]
-draft: true
+summary: "本文是在看了国外 Solo 公司 CTO 的博客之后整理的，本来也是想按原文翻译，但是考虑到我自己在公司实践的思路，还是想把他的思路和我自己的思路做一些结合。"
+keywords: ["envoy","gateway", "istio"]
+draft: false
 ---
 
-本文是在看了国外 Solo 公司 CTO 的博客之后整理的，本来也是想按原文翻译，但是考虑到我自己在公司实践的思路，还是想把他的思路和我自己的思路做一些结合。所以本文中有部分内容是来自这位高手的思考，也有有我在公司实践中的思考。
+本文是在看了国外 Solo 公司 CTO 的博客之后整理的，本来是想按原文翻译，但是考虑到我自己在公司实践的思路，还是想把他的思路和我自己的思路做一些结合。所以本文中有部分内容是来自这位高手的思考，也有有我在公司实践中的思考。
 
 作者是从 Red Hat 跳到 Solo 公司的，这家公司现在主要产品就是基于 Envoy 和 Istio 的网络治理工具的研发，包括了微服务网关和服务网格上的产品。
 
@@ -44,39 +44,44 @@ Solo CTO 的文章让我更坚定了我们目前的思路和做法。下面几�
 总体来说 Envoy 目前是一个非常功能强大，支持多种使用方式和实现复杂的技术组件。在服务网关，服务网格技术中目前是最佳的选择。
 
 ## 从基于 Envoy 构建一个服务网关开始
-Using Envoy as a shared gateway is a great place to start when adopting a service mesh. In my book Istio in Action I introduce the Istio [Gateway resource](https://istio.io/docs/tasks/traffic-management/ingress/ingress-control/) and its associated configuration near the beginning of the book, because this is the best way to get started with Istio. The Gateway is built on Envoy and can front your microservices without being forced to build the full mesh (ie, inject sidecars next to all of your applications.
+
+如果你想在组织内使用落地服务网格，那么采用基于 Envoy 作为微服务网关是非常好的一个开始。作者在他之前写的一本书《Istio in Action》中就极力介绍 Istio 的[服务网关资源](https://istio.io/docs/tasks/traffic-management/ingress/ingress-control/)。因为把 Envoy 作为入口网关是使用 Istio 的最好的开始方式，这样你在不断熟悉 Isito 和推广服务网格文化，让内部逐步接受，并且探索服务网格的最佳使用方式是非常好的，不用一上来就推动大家都必须启用边车。
 
 ![](imgs/1.png)
 
-Using a gateway to front your applications means you can get both operational experience running Envoy as well as get a “service-mesh lite” experience. When the gateway is in place, you can get some powerful traffic routing control (including percentage based routing, header/method based routing, as well as shadow traffic, etc), TLS termination/passthrough, TCP control, etc.
+使用基于 Envoy 的服务网关这意味这你不但可以解决你微服务网关的问题，而且还可以逐步实践小型化的服务网格。当你部署了服务网关之后，你就可以强有力的掌控流量和路由了（包括百分比的路由，基于协议头或者方法的路由，还有流量镜像），还有加密传输等。
 
-A simple gateway like the Istio Gateway may be a good way provide basic traffic ingress to your cluster when starting out, but a more-full featured API Gateway built on Envoy might provide more benefits.
+简单的网关也是有的，在一般情况下使用也是没有问题的，作为网关最大的作用就是管控入口流量。但是通用且强大的网关就可以有很多的用处，所以基于 Envoy 来构建微服务网关是一个非常好的选择。Envoy 的功能可以说是相当的丰富。
 
 ## 基于 Envoy 构建更好的服务网关
-The reality is, when connecting clients outside of the cluster/future service mesh to those services running within the cluster/service mesh, there’s a harsh reality that must be taken into account: existing organizations already have assumptions about how traffic flows and should be secured.
-For example, when bringing traffic into a cluster or new service mesh via a gateway, we will need to solve for things like:
-1. caching
-2. spike arrest/rate limiting
-3. end-user/client oauth flows
-4. HMAC/message signatures
-5. jwt validation (including integrating with existing JWT issuers or identity management)
-6. web-application firewalling (WAF)
-7. message transformation
-8. API orchestration
 
-And many others. In other words, this ingress point needs to be more powerful and capable than the a basic Envoy gateway (ie, Istio’s Gateway). It needs to handle familiar edge functionalities typically found in API Gateways.
+在一般情况下，集群外的服务来访问集群的内的服务，我们都遵循不可信原则，主要原因是安全问题。所以一般要对外提供服务，我们就要解决下面一些问题：
+
+1. 缓存
+2.  限频限流
+3.  客户认证
+4.  消息签名
+5.  jwt 验证（包括和现有的 JWT 系统和认证管理系统集成）
+6.  web 应用防火墙
+7.  消息转换
+8.  API 的编排等
+
+另外还有一堆其它的功能，比如外部鉴权，内容改写等等。
 
 ![](imgs/2.png)
 
-Gloo from Solo.io is an Envoy Proxy based API gateway that provides the best of both worlds:
-1. A stepping stone to a service mesh by simplifying the experience of adopting a single front-gateway as well as
-2. The ability to handle familiar API Gateway functionality.
-
-Gloo allows you to combine the features of an API gateway with that of a service mesh. Gloo integrates cleanly with all service-mesh implementations like Istio, Consul, AWS App Mesh, and Linkerd. We’ve had a lot of customer success taking this simple, iterative approach, while coaching teams to operationalize Envoy.
+Gloo 的做法是基于 Envoy 构建了一个强大的微服务网关，而且基于 xDS 配备了一个好用的控制管理端。使得这个微服务网关既可以作为微服务网关，也可以继续深入作为边车使用。而在他们的设计单中，首先是可以作为一个强大的微服务网关来使用。而且他们可以直接和 Istio，Consul， AWS App Mesh 和 Linkerd 等集成。目前他们说已经在很多客户那里落地了。
 
 ![](imgs/3.png)
 
-Gloo is different from other API Gateways built on Envoy because it’s built by a team with vast experience operationalizing Envoy, a scalable and flexible control plane, with a security-first mindset, as well as a Kubernetes-native and non-Kubernetes deployments.
+在我们的实践单中也是这样一个思路，早期我们使用 OpenResty 来构建我们的微服务网关，插件都是使用 lua 来编写，直到我们 2 年前遇到了 Envoy 和 Isito，我们综合对比考虑之后，采用了 Envoy 最为我们的微服务网关，我们也是和 Consul 结合，利用其 xDS 开发了我们公司内的诸多业务插件，配合使用。目前已经作为微服务网关在内部大量使用。同时也在逐步积累开发一个基于 Envoy 和 Istio 的控制系统。目标是既可以控制微服务网关，也可以控制服务网格，统一的把集群内以及多个集群的网络流量管理做一个统一。
 
 ## 总结
-If you’re on your journey to a service mesh, keep in mind this simple, tried and true approach to adoption. Envoy is the de-facto service mesh data plane (except for Linkerd — at least at this point) and building your strategy around Envoy is an important first step. If you’re exploring API management or gateway L7 networking technology not built on Envoy, you may wish to have a second look especially if you’re looking for an easy on-ramp to a service mesh.
+在基于 Envoy 构建微服务网关的同时，我们也在不断的探测基于 Isito 的服务网格的应用场景和落地方式。但是以 Envoy 作为微服务网关是一个非常成熟的解决方案。作为服务网格的入手点一定是一个不错的思路。所以大家如何想在内部测试落地服务网格，不妨尝试从 Envoy 的微服务网关开始。
+
+Envoy 目前已经成为主流服务网格的数据面，所以其功能和成熟度都是不用太多质疑的，大家放心用就是了。
+
+## 后记
+本文并不是完全翻译原文，其中加了我自己在这几年实践的一些看法。
+
+原文：[https://medium.com/solo-io/getting-started-with-a-service-mesh-starts-with-a-gateway-96384deedca2](https://medium.com/solo-io/getting-started-with-a-service-mesh-starts-with-a-gateway-96384deedca2)
