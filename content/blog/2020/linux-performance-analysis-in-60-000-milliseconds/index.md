@@ -1,8 +1,8 @@
 ---
 title: "如何 60 秒内进行 Linux 性能分析"
 date: 2020-05-21T08:45:20+08:00
-tags: ["linux", "Performance"]
-categories: ["linux", "kernel"]
+tags: ["linux 应用", "Performance"]
+categories: ["linux 应用", "kernel"]
 banner: "img/banners/linux_performance_ovservability.png"
 author: "helight"
 authorlink: "http://helight.info"
