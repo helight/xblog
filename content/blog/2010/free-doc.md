@@ -180,3 +180,12 @@ prefer copylefted manuals to non-copylefted ones.
 		that lists free books available from other publishers</a>].
 
 [注：我们现在维护一个<a href="/doc/other-free-books.html">网页，这里列出了可从其它出版商那获得的自由书籍</a>]。
+
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

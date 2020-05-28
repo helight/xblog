@@ -181,3 +181,11 @@ Documentation/filesystems/sysfs.txt.
 
 更多关于sysfs目录布局的信息可以查阅当前文件夹中的其它文档和文件<br>
 Documentation/filesystems/sysfs.txt...<br>
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

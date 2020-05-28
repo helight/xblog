@@ -184,3 +184,12 @@ include/linux/romfs_fs.h
 （3）size是这个文件的大小。
 （4）checksum这个域只是文件头和文件名的校验和。
 （5）name是文件的名称。
+
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

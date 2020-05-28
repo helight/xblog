@@ -21,3 +21,11 @@ keywords = ["开源", "linux", "http"]
 ## 项目状态:
 
 目前已在参考其它嵌入式http服务器程序的基础上实现静态页面的处理。仍在进行中。。。
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

@@ -56,3 +56,12 @@ GET是最普遍的method，表示请求一个资源。什么是资源？诸如HT
 HEAD与GET一样，不过它不请求资源内容，而是请求资源信息，例如文件长度等信息。 initial line后面的内容： 对应于GET和HEAD两个method，紧接着的字段就是资源名，其实从这里可以看出，也就是文件名(相对于你服务器的资源目录)，例 如这里的/index.html；最后一个字段表明HTTP协议版本号。目前我们只需要支持HTTP1.1和1.0，没有多大的技术差别。 然后是header line。我们并不需要关注每一个header line。我只列出常用和必须的几个header line : - Host : 对于HTTP1.1而言，请求报文中必须包含此header，如果没有包含，服务器需要返回bad request错误信息。 - Date : 用于回应报文，用于客户端缓存数据用。 - Content-Type : 用于回应报文，表示回应资源的文件类型，以MIME形式给出。什么是MIME？它们都有自己的格式，例如： text/html, image/jpg, image/gif等。 - Content-Length : 用于回应报文，表示回应资源的文件长度。
 
 body域很简单，你只需要将一个文件全部读入内存，然后附加到回应报文段后发送即可，即使是二进制数据。 - 回应报文 上面已经给出了一个回应报文的例子，以其为例说明。首先是initial line，第一个字段表明HTTP协议版本，可以直接以请求报文为准(即请求报文版本是多少这里就是多少)；第二个字段是一个status code，也就是回应状态，相当于请求结果，请求结果被HTTP官方事先定义，例如200表示成功、404表示资源不存在等；最后一个字段为status code的可读字符串，你随便给吧。 回应报文中最好跟上Content-Type、Content-Length等header。
+
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

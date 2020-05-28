@@ -52,3 +52,11 @@ static noinline void __sched __down(struct semaphore *sem) {
 #define LONG_MAX ((long)(~0UL>>1)) __down_common
 ```
 这个函数的代码有点长，就不列取了，对它的功能作一些解释吧！ 首先它进行状态检查和时间片检查。再将当前进程的状态设置为UNINTERRUPTIBLE，然后进行schedule。将当前进程阻塞。
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

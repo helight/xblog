@@ -40,3 +40,11 @@ xnotebook$ xnotebook
 该软件作者：（Zhwen Xu）Helight.xu@gmail.com 个人站点：http://zhwen.org 
 
 如果在使用中发现什么bug请发邮件通知我，我会尽快改进。 
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

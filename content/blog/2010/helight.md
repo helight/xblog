@@ -40,3 +40,11 @@ Keep your life simple and clean, and this page!
 ## Contact
 At last if you want to contact me, please use:
 Helight at helight dot info 
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

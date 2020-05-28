@@ -162,3 +162,11 @@ I’m working on cleaning up the code so that you can generate the dataset by yo
 
 
 文章原文地址：https://blog.marouni.fr/bidata-trends-analysis/
+
+<center>
+看完本文有收获？请分享给更多人
+
+关注「黑光技术」，关注大数据+微服务
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

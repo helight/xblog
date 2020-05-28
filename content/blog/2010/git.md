@@ -319,3 +319,12 @@ git-reset [ --soft | --hard] [<commit-ish>]
 * git-show-branch
 * git-show-index
 * git-show-ref
+
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

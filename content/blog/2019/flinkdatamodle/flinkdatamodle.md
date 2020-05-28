@@ -111,3 +111,11 @@ Flink以一种特殊的的[流处理程序](https://ci.apache.org/projects/flink
 
 # Next Steps下一步
 可以在Flink的[Distributed Runtime](https://ci.apache.org/projects/flink/flink-docs-release-1.7/concepts/runtime.html).分布式运行时一文中继续了解基本概念。
+
+<center>
+看完本文有收获？请分享给更多人
+
+关注「黑光技术」，关注大数据+微服务
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

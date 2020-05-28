@@ -75,3 +75,11 @@ API中也包含了一个资源组[resource group](https://ci.apache.org/projects
 保存点[Savepoints](https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/state/savepoints.html) 是**人工触发的检查点**，保存点就是把程序的执行做个快照并且写入状态端。用常规检查点机制就可以做到这样的。在执行时，程序会被周期性的在工作节点上做快照，并且产生检查点。对恢复来说，只会用到最近的检查点，并且可以在新检测点做好之后就安全的丢弃早期的检查点。
 
 保存点和周期性的检查点是类似，但是保存点是要**被用户触发**的并且在新检查点完成之后**不会自动过期**。保存点会在下面的情况下被创建：可以通过[命令行](https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/cli.html#savepoints)或者用 [REST API](https://ci.apache.org/projects/flink/flink-docs-release-1.7/monitoring/rest_api.html#cancel-job-with-savepoint)撤销一个作业的时候。
+
+<center>
+看完本文有收获？请分享给更多人
+
+关注「黑光技术」，关注大数据+微服务
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

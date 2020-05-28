@@ -34,3 +34,11 @@ static noinline void __sched __up(struct semaphore *sem) {
 } 
 ```
 wake_up_process(waiter->task);再调用函数try_to_wake_up(p, TASK_ALL, 0);进行了进程的唤醒。
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

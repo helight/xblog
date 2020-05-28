@@ -21,3 +21,11 @@ keywords = ["tao","life"]
 
 -- --------------------------------- 
 Zhenwen Xu - Open and Free Home Page: http://zhwen.org My Studio: http://helight    .cn
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

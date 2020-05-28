@@ -271,3 +271,11 @@ ok      _/d_/code_dev/heliht_github/helight_code/go_code/go_test2       3.870s
 ## 参考链接
 go testing: http://docs.studygolang.com/pkg/testing/
 https://github.com/golang/go/wiki
+
+<center>
+看完本文有收获？请分享给更多人
+
+关注「黑光技术」，关注大数据+微服务
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

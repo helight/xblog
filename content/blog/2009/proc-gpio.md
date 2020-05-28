@@ -161,3 +161,11 @@ MODULE_AUTHOR("Helight.Xu");
 MODULE_LICENSE("Dual BSD/GPL"); 
 
 ```
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

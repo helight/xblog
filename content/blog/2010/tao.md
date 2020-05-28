@@ -35,3 +35,12 @@ keywords = ["tao","life"]
 ## Play Game
 
 生活也要学会轻松娱乐！
+
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

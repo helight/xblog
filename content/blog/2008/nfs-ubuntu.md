@@ -41,3 +41,11 @@ sudo apt-get install nfs-kernel-server
     mount -t nfs 192.168.1.242:/var/nfs /mnt -o nolock 
 ```
     可以使用ls /mnt查看挂载过来的文件。在uclinux下挂载远程主机的共享文件主要是为了实现远程调试。在远程主机上进行交叉编译之后，在uclinux下直接运行编译好的程序。
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

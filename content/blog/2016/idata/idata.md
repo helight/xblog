@@ -98,3 +98,11 @@ keywords = ["bigdata", "数据分析"]
 ![](201605/33.PNG)
 
 ![](201605/35.PNG)
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

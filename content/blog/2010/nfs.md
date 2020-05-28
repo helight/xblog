@@ -119,3 +119,12 @@ mount -t nfs 192.168.1.242:/var/nfs /mnt -o nolock
 该配置可适用于几乎所有的嵌入式开发，这里只是以Uclinux为例来说明！！！
 
 
+
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

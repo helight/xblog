@@ -53,3 +53,11 @@ struct irq_desc {
 } ____cacheline_internodealigned_in_smp; 
 ```
 这是在SMP中使用的一个数据结构，当然在单cpu（更准确的说应该是单核cpu中）有一些数据项是没有使用的。这其中比较重要的数据项是action和status。一个是真正要执行服务程序的一个链表，另一个是当前irq的状态。
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

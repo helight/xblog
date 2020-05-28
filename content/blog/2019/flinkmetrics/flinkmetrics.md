@@ -122,3 +122,11 @@ getRuntimeContext().getMetricGroup().addGroup("MyMetrics").counter("myCounter");
 
 ### 报表使用
 这里就不用多说了，使用Prometheus的话，结合Grafana可以做到一站式的报表开发。如果没有的话，那自己采集到数据库中就需要自己再结合报表系统进行报表开发了，比如supperset等。
+
+<center>
+看完本文有收获？请分享给更多人
+
+关注「黑光技术」，关注大数据+微服务
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

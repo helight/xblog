@@ -117,3 +117,12 @@ helight@helight:test$ valgrind --tool=memcheck --leak-check=yes --show-reachable
 helight@helight:test$
 ```
 可以看出上面提示“Use of uninitialised value of size 4“，”by 0x80483C7: main (hello.c:10) ”。即使用了未初始化的值。
+
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

@@ -455,3 +455,12 @@ MANPATH /home/mysql/man
 man在各领域的搜索次序可以通过修改
 MANSECT 1:8:2:3:4:5:6:7:9:tcl:n:l:p
 实现，一般不推荐修改。
+
+
+<center>
+看完本文有收获？请分享给更多人<br>
+
+关注「黑光技术」，关注大数据+微服务<br>
+
+![](/img/qrcode_helight_tech.jpg)
+</center>
