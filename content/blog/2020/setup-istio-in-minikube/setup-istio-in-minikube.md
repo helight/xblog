@@ -299,3 +299,12 @@ spec:
 修改上面 http 的 fault 中 abort 的 percent 值，让它可以有 50% 的不可访问。
 测试结果也可以在 kiali 的拓扑图中看出来：
 ![](imgs/kiali2.png)
+
+
+<center>
+看完本文有收获？请分享给更多人
+
+关注「黑光技术」，关注大数据+微服务
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

@@ -51,3 +51,11 @@ func main() {
     // PASSED THE ADDRESS AND NO MORE ERROR.
 ```
 希望我通过这个异常，更深入的了解了Golang的interface机制。
+
+<center>
+看完本文有收获？请分享给更多人
+
+关注「黑光技术」，关注大数据+微服务
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

@@ -85,3 +85,11 @@ Envoy 目前已经成为主流服务网格的数据面，所以其功能和成�
 本文并不是完全翻译原文，其中加了我自己在这几年实践的一些看法。
 
 原文：[https://medium.com/solo-io/getting-started-with-a-service-mesh-starts-with-a-gateway-96384deedca2](https://medium.com/solo-io/getting-started-with-a-service-mesh-starts-with-a-gateway-96384deedca2)
+
+<center>
+看完本文有收获？请分享给更多人
+
+关注「黑光技术」，关注大数据+微服务
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

@@ -71,3 +71,11 @@ draft: false
 
 ## 参考
 1. 《微服务在亚马逊云上的实践》
+
+<center>
+看完本文有收获？请分享给更多人
+
+关注「黑光技术」，关注大数据+微服务
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

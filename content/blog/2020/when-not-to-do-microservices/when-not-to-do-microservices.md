@@ -101,3 +101,12 @@ keywords = ["istio","microservices", "sevicemesh"]
 非常高兴能看到 `Istio` 社区在不断的改进它的可用性和可操作性。把 `Istio` 的控制平面做成一个单体架构部署对这个项目来说很有意义。有什么东西对你的项目也有意义吗。如果有你会考虑去做吗？你是否在考虑你微服务架构（还有相应的基础设施）的复杂性和价值比呢？并且以此来确定修改实现的时间。
 
 ​英文原文：[https://blog.christianposta.com/microservices/istio-as-an-example-of-when-not-to-do-microservices/​](https://blog.christianposta.com/microservices/istio-as-an-example-of-when-not-to-do-microservices/​)
+
+
+<center>
+看完本文有收获？请分享给更多人
+
+关注「黑光技术」，关注大数据+微服务
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

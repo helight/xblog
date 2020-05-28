@@ -163,6 +163,13 @@ Istio 正迅速的成为 Kubernetes 上的服务网格技术标准。它是最�
 
 
 原文：https://platform9.com/blog/kubernetes-service-mesh-a-comparison-of-istio-linkerd-and-consul/
+<center>
+看完本文有收获？请分享给更多人
+
+关注「黑光技术」，关注大数据+微服务
+
+![](/img/qrcode_helight_tech.jpg)
+</center>
 <!--
 <table><tbody>
 <tr><th></th><th><img src="imgs/istio.png"><p ><strong>Istio</strong></p></th><th><img  src="imgs/linkerd.png"><p ><strong>Linkerd v2</strong></p></th><th><img  src="imgs/consul.png" alt="" widthheight><p ><strong>Consul</strong></p></th></tr>

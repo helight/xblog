@@ -82,3 +82,11 @@ C 函数库
 
 # 欢迎关注
 ![](../201901imgs/qrcode_helight.jpg)
+
+<center>
+看完本文有收获？请分享给更多人
+
+关注「黑光技术」，关注大数据+微服务
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

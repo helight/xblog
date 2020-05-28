@@ -63,3 +63,11 @@ Video 2: [https://youtu.be/-XPTGXEpUp8](https://youtu.be/vuJKRnjh1b8)
 ## 从今天开始扩展 Envoy {#start-extending-Envoy-today}
 
 我们希望 WebAssembly Hub 可以成为一个社区，可以共享，发现和分发 Wasm 扩展。通过提供非常好的用户体验，我们希望让开发，安装和运行 Wasm 更容易和更有价值。我们同时邀请大家加入 [WebAssembly Hub](https://webassemblyhub.io/)，来分享你的扩展和想法，也邀请大家[加入我们即将举办的网络研讨会](https://solo.zoom.us/webinar/register/WN_i8MiDTIpRxqX-BjnXbj9Xw?__hstc=228074946.8844ea368b7fd089e8ced824d2018e0f.1581728706405.1581728706405.1583585122566.2&__hssc=228074946.4.1583585122566&__hsfp=697009169)。
+
+<center>
+看完本文有收获？请分享给更多人
+
+关注「黑光技术」，关注大数据+微服务
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

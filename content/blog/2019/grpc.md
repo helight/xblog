@@ -129,3 +129,12 @@ feature, err := client.GetFeature(context.Background(), point)
 [4]: https://grpc.io/docs/reference/go/generated-code.html
 [5]: http://doc.oschina.net/grpc
 [6]: https://developers.google.com/protocol-buffers/docs/proto3
+
+
+<center>
+看完本文有收获？请分享给更多人
+
+关注「黑光技术」，关注大数据+微服务
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

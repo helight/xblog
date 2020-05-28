@@ -102,3 +102,12 @@ WebAssembly Hub 工具提供了功能强大的 CLI 和优雅且易于使用的�
 - [Proxy-Wasm AssemblyScript SDK](https://github.com/solo-io/proxy-runtime)
 - [指南](https://docs.solo.io/web-assembly-hub/latest/tutorial_code/)
 - [Solo.io Youtube 频道](https://www.youtube.com/channel/UCuketWAG3WqYjjxtQ9Q8ApQ)上的视频
+
+
+<center>
+看完本文有收获？请分享给更多人
+
+关注「黑光技术」，关注大数据+微服务
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

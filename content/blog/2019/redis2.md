@@ -174,3 +174,12 @@ void aeMain(aeEventLoop *eventLoop) {
 最后附上一个分析脑图：
 
 ![](../20190321/main.png)
+
+
+<center>
+看完本文有收获？请分享给更多人
+
+关注「黑光技术」，关注大数据+微服务
+
+![](/img/qrcode_helight_tech.jpg)
+</center>

@@ -95,3 +95,11 @@ Here's a snapshot of some more exciting things you can expect from Istio in
 - 让 Istio 脱离 Kubernetes 也可以方便的运行！
 
 从大海到[天空](https://www.youtube.com/watch?v=YjZ4AZ7hRM0)，我们会很高兴看到你将 Istio 带向何处。
+
+<center>
+看完本文有收获？请分享给更多人
+
+关注「黑光技术」，关注大数据+微服务
+
+![](/img/qrcode_helight_tech.jpg)
+</center>
