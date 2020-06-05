@@ -95,8 +95,14 @@ Errors 错误或者错误率这个也比较好理解，就是系统在处理这�
 或许你说这个和 API 监控有什么关系？Gregg 最早提出的目标确实是针对系统的指标分析，但是实际上这套方法模型应用在系统线程分析，网络请求分析也是可以的。但是从根本来说它还是主要针对基础设施的监控模型。
 
 ### RED 模型
+RED (Requests, Errors, and Duration)，这个模型是由 Tom Wilkie 在 2015 的时候提出来的，它是对 USE 模型的一种升级，USE 模型在单机模型中会比较好用，但是在目前的分布式环境，微服务环境下，其实很难快速的来定位问题了，所以 RED 模型在针对复杂系统的健康评估的时候就比较有用了，可以看到使用的指标并不是很多，也是像上面的灵魂三问一样：你的系统请求量多大？错误或者错误率有多少？耗时多大？
+
+可以看出来这就是对应上面的`服务级别监控`。RED 模型是正对系统的整体可用性进行的一种评估方式。通过对系统请求的完整监控（从请求开始到返回的整个过程），并且从中抽取 3 个关键指标，来评估系统的可用性。RED 模型一般是在 API 网关这一层来使用，在这一层就可以对服务进行监控了。
 
 ### LETS 模型
+LETS (Latency, Errors, Traffic, and Saturation)，整个模型是 Google 在 2003 年提出的，其实这个模型是 Google 提出他们的 SRE 的时候提出来的一个模型，这 4 个指标在 SRE 这本书中被称之为 [“The Four Golden Signals”](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/#xref_monitoring_golden-signals)。书中说如果你只能关注 4 个指标，那就关注这 4 个：延迟，错误，流量和饱和度。
+    “If you can only measure four metrics, focus on these four: Latency, Errors, Traffic, and Saturation.”   
+这个模型用最小关注指标集，提供了对系统可用性的评估。通过这 4 个指标的关注你就会发现系统中的大多数问题。它不像 USE 一样比底层，而是一个针对服务可用性的监控分析模型。
 
 ## 总结
 
