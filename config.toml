@@ -95,7 +95,7 @@ paginate = 15
 
     # avatar used for thumbnail on sharing
     avatar = "/img/helight.png"
-    address = """<p>关注大数据微服务</br>微信扫码加好友交流</p><p><img src="/img/site/wx.png"></p>
+    address = """<p>关注大数据微服务</br>微信扫码加好友交流</p><p><img src="/img/site/wx.jpg"></p>
         """
 
     # 是否开启评论功能
