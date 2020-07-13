@@ -59,7 +59,7 @@ Observations : We see the steady decline of Hadoop since 2013 and the moment Spa
 
 ## Hadoop与Kafka
 
-![img](20190214/Image [1].png)
+![img](20190214/Image1.png)
 
 Observations : The rise of Kafka as the main building block in all Big data stacks.
 
@@ -69,7 +69,7 @@ Observations : The rise of Kafka as the main building block in all Big data stac
 
 ## Hadoop与Kubernetes
 
-![img](20190214/Image [2].png)
+![img](20190214/Image2.png)
 
 Observations : An interesting observation is the rise of Kubernestes, even though the Data Eng Weekly is not a Devops news letters, is a witness to the overall hype around Kubernetes in all domains starting from beginning of 2017.
 
