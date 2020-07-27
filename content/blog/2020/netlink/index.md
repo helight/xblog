@@ -3,7 +3,7 @@ title: "内核通信之Netlink源码分析和测试"
 date: 2020-07-25T08:45:20+08:00
 tags: ["netlink", "kernel", "netfilter"]
 categories: ["kernel"]
-banner: "img/banners/ms.jpg"
+banner: "img/banners/linux.jpeg"
 author: "helight"
 authorlink: "http://helight.info"
 summary: ""
