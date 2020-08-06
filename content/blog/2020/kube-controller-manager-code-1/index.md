@@ -55,7 +55,7 @@ func main() {
 
 NewControllerManagerCommand 函数返回的是一个 cobra.Command 类型指针，里面主要的就是看 `Run` 这个方法，其它都是配置参数加载，解析，help 函数和使用函数注册。这个 `Run` 方法在后面执行 command.Execute() 的时候执行。`Run` 方法里面执行的还是一个 Run 函数，这个函数是在这个文件中定义的，这个函数也是 controller-manager 的主要函数，所有功能从此走起。
 
-这个函数中首先做的是在多个 controller-manager 中进行选主，在 k8s 的所有组件中据说是出了 api-server 没有高可用外，其它的组件都利用 etcd 进行高可用了。所以 controller-manager 启动后首先也是进行选主，只有主服务才进行服务，其它状态的服务处在等待状态，等待争取主状态。选主之后主服务会启用正式的服务，代码如下，还是在 Run 函数中，Run 函数的最后代码就是这块了。
+这个函数中首先做的是在多个 controller-manager 中进行选主，在 k8s 的所有组件中据说是除了 api-server 没有高可用外，其它的组件都利用 etcd 进行高可用了。所以 controller-manager 启动后首先也是进行选主，只有主服务才进行服务，其它状态的服务处在等待状态，等待争取主状态。选主之后主服务会启用正式的服务，代码如下，还是在 Run 函数中，Run 函数的最后代码就是这块了。
 ``` go
     leaderelection.RunOrDie(context.TODO(), leaderelection.LeaderElectionConfig{
 		Lock:          rl,
@@ -73,7 +73,7 @@ NewControllerManagerCommand 函数返回的是一个 cobra.Command 类型指针�
 	})
 ```
 leaderelection 这个组件这里先不多说，我在上面的代码中也做了简单的注释说明。这里分析 controllermanager 的主体逻辑，所以关键看它变为 leader 后要执行的业务代码。
-也就是上面看到 `OnStartedLeading` 后面有一个 run 函数，着 run 函数是在 Run 函数中定义的函数，如下：
+也就是上面看到 `OnStartedLeading` 后面有一个 run 函数，这个 run 函数是在 Run 函数中定义的函数，如下：
 
 ``` golang
 run := func(ctx context.Context) {
@@ -128,7 +128,7 @@ type ControllerContext struct {
 	// ClientBuilder 会提供一个客户端给这个 controller 来使用
 	ClientBuilder controller.ControllerClientBuilder
 
-	// InformerFactory 给 controller 可以访问 informers
+	// InformerFactory 让 controller 可以访问 informers
 	InformerFactory informers.SharedInformerFactory
 
 	// ComponentConfig 对制定的 controller 提供访问初始的参数项
@@ -158,7 +158,7 @@ type ControllerContext struct {
 
 	// InformersStarted is closed after all of the controllers have been initialized and are running.  After this point it is safe,
 	// for an individual controller to start the shared informers. Before it is closed, they should not.
-	// InformersStarted channel 再所有控制器都初始化完成并且运行之后会关闭。对于个人定义的控制器，要通过这个启动共享 informers。
+	// InformersStarted channel 在所有控制器都初始化完成并且运行之后会关闭。对于个人定义的控制器，要通过这个启动共享 informers。
 	InformersStarted chan struct{}
 
 	// ResyncPeriod generates a duration each time it is invoked; this is so that
