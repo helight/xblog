@@ -16,14 +16,15 @@ draft: false
 今天开始走读 k8s 的代码，首先选择的是 controller-manager 这个组件。这几天也看了《kubernetes源码剖析》的前两章，这本书还是不错的，推荐大家阅读。前面两章主要讲解什么是 kubernets，它的来历，它的架构，它的代码结构，以及它的编译过程。读代码首先要了解它的架构，其次要知道它的代码结构。代码结构就是整个代码目录的组成，那个目录中的文件是做什么的。看了这本书的前面 2 章，对它的架构和结构就会有比较清晰的认识。
 
 ## kubernetes 的代码目录结构
-这里按照我记得先列一下一级目录。
+这里先列出我这一期认识到的比较重要的目录。
+
 | 目录| 说明 | 备注 |
 | - | - | - |
-| cmd | 这里面主要就是可以运行的模块，main 函数所在，比如 apiserver，kubectl，kubelet 等 |  |
-| pkg | 这里面是开发的主要代码，看代码实现的重要地方 |  |
-| third_party | 一些第三方库 |  |
-| logo | 这个目录中放有 kubernetes 的 logo 图片 |  |
-| translations | 是 kubectl 的语言包 |  |
+| cmd | 这里面主要就是可以运行的模块，main 函数所在，比如 apiserver，kubectl，kubelet 等 |  - |
+| pkg | 这里面是开发的主要代码，看代码实现的重要地方 | - |
+| third_party | 一些第三方库 | - |
+| logo | 这个目录中放有 kubernetes 的 logo 图片 | - |
+| translations | 是 kubectl 的语言包 | - |
 
 
 ## kube-controller-manager 代码走读之主函数
