@@ -1,0 +1,91 @@
+---
+title: "k8s代码走读---client-go编程交互"
+date: 2020-08-08T08:45:20+08:00
+tags: ["k8s", "microservices"]
+categories: ["k8s", "microservices"]
+banner: "img/banners/kubernetes.jpg"
+author: "helight"
+authorlink: "http://helight.info"
+summary: ""
+keywords: ["k8s","microservices"]
+draft: false
+---
+
+## 前言
+
+代码 clone 地址：[https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go)。实际上在 kubernetes 的源码中也包含了这部分代码：`vendor/k8s.io/client-go/`。看代码都没问题。
+
+client-go 是 kubernetes 中比较重要的一个组件，从我上一篇文章中梳理的图中可以看出来，apiserver 是一个核心，其它组件都要和这个核心模块交互，所以 client-go 的出现就是为了统一封装对 apiserver 的交互访问。还是放这个图哈。
+
+    *我思故我在*
+    client-go 这种设计思路还是不错的，当然是适合 kubernetes 这样的项目，几乎所有的模块都在围绕 apiserver，那么和 apiserver 的交互就显的尤为重要，那么这部分代码的抽象封装也就顺理成章了。
+
+![](imgs/k8s.png)
+
+## 目录结构
+认识代码还是从目录结构开始，我认为 golang 的规范做的非常好，有官方自己的代码规范工具，还有指导的工程代码目录结构规范。这里正对 client-go 我只列出我认为重要的一些目录。
+
+| 目录名 | 用途 |
+| - | - |
+| discovery| 这个是 discovery client 的代码，是对 rest 客户端的进一步封装，用于发现 apiserver 所支持的能力和信息 |
+| dynamic | 这个是 dynamic client 的代码，是对 rest 客户端的进一步封装，动态客户端，面向处理 CRD |
+| examples | 这里面有一些例子，比如对 deployment 创建、修改，如何选主，workqueue 如何使用等等 |
+| informers | 这就是 client-go 中非常有名的 informer 机制的核心代码 |
+| kubernetes | clientset 的代码，也是对 rest 客户端的进一步封装，提供复杂的资源访问和管理能力 |
+| listers | 为每个 k8s 资源提供 lister 功能，提供了只读缓存功能 |
+| metadata | |
+| pkg | 主要是一些功能函数，比如版本函数 |
+| rest | 这是最基础的 client，其它的 client 都是基于此派生的 |
+| scale | scale client 的代码 |
+| tools | 工具函数库，主要是和 k8s 相关的工具函数 |
+| util | 通用的一些工具函数|
+| transport | 提供安全 tcp 链接 |
+
+## rest client 走读
+首先还是从核心数据结构走起:
+```golang
+type RESTClient struct {
+	// 这个初始化的 apiserver 的地址，下面我也贴了一个 kubeconfig 文件的内容，这个地址就是 cluster 的 server。
+	base *url.URL
+
+    // 这个是 apiVersion 
+	versionedAPIPath string
+    // 对客户端编解码的设置
+	content ClientContentConfig
+
+	// creates BackoffManager that is passed to requests.
+	createBackoffMgr func() BackoffManager
+
+	// rateLimiter is shared among all requests created by this client unless specifically
+	// overridden.
+	rateLimiter flowcontrol.RateLimiter
+
+	// warningHandler is shared among all requests created by this client.
+	// If not set, defaultWarningHandler is used.
+	warningHandler WarningHandler
+
+	// Set specific behavior of the client.  If not set http.DefaultClient will be used.
+	Client *http.Client
+}
+```
+
+```yaml
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: xxx
+    server: https://192.168.1.10:60002
+  name: local
+contexts:
+- context:
+    cluster: local
+    user: admin
+  name: master
+current-context: master
+kind: Config
+preferences: {}
+users:
+- name: admin
+  user:
+    token: pb4SVutkyteV12jLZoNvBtG46HkcS8HS
+```
