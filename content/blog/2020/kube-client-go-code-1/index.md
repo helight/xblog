@@ -18,7 +18,11 @@ draft: false
 client-go 是 kubernetes 中比较重要的一个组件，从我上一篇文章中梳理的图中可以看出来，apiserver 是一个核心，其它组件都要和这个核心模块交互，所以 client-go 的出现就是为了统一封装对 apiserver 的交互访问。还是放这个图哈。
 
     *我思故我在*
-    client-go 这种设计思路还是不错的，当然是适合 kubernetes 这样的项目，几乎所有的模块都在围绕 apiserver，那么和 apiserver 的交互就显的尤为重要，那么这部分代码的抽象封装也就顺理成章了。
+    client-go 这种设计思路还是不错的，当然是适合 kubernetes 这样的项目，几乎所有的模块都在围绕 apiserver，那么和 apiserver 的交互就显的尤为重要，那么这部分代码的抽象封装也就顺理成章了。这种解偶方式也是挺特别的，在看了书，走读了这部分的源码之后也才发现，同样的 client 在使用方式，使用对象不一样，就需要不一样的封装方式。
+    
+    kubernetes 的 client-go 根据具体使用的方式进行了基础库封装和另外 4 种（书上介绍 3 种，我认为 scale client 也是一种 client）类型的 client 封装，分别针对不同的应用场景。discovery client，dynamic client，clientset，scale client。
+
+    今天在公司讨论 sdk 的封装上就讨论到这一点， sdk 的封装很多时候不能过分也不能太简单。太简单，开发体验不好，开发者还有设置或者配置或者开发很多东西，封装太过，封装了很多开发者不想要的内容也很麻烦。所以这样的封装一定要多元化，多层次的来提供。
 
 ![](imgs/k8s.png)
 
@@ -56,8 +60,7 @@ type RESTClient struct {
 	// creates BackoffManager that is passed to requests.
 	createBackoffMgr func() BackoffManager
 
-	// rateLimiter is shared among all requests created by this client unless specifically
-	// overridden.
+    // 限流控制，是针对这个客户端的所有请求的。
 	rateLimiter flowcontrol.RateLimiter
 
 	// warningHandler is shared among all requests created by this client.
@@ -69,6 +72,7 @@ type RESTClient struct {
 }
 ```
 
+~/.kube/config
 ```yaml
 apiVersion: v1
 clusters:
