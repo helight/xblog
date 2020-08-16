@@ -8,7 +8,7 @@ author: "helight"
 authorlink: "http://helight.info"
 summary: ""
 keywords: ["k8s","microservices"]
-draft: false
+draft: true
 ---
 
 ## 前言
