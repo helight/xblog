@@ -96,7 +96,7 @@ users:
 主要分为 clusters，contexts，users，用户保存集群信息，可以支持多个集群，多个账户访问使用，每个集群和用户有自己独立的鉴权数据或是 token。
 
 ## client 封装
-client-go 的 rest client 实际上在很多时候使用起来还是不方便的，而且在逐步的发展中 对 client 的要求会有多种多样，所以针对这一需求 client-go 又进行了抽象和封装，把常用到的 client 类型尽心专门封装，形成独立的库，以方便直接使用，这样避免了直接使用基础 rest client 时又要进行再次编码封装。目前形成的常用到的封装 client 有这样几个：discovery client，dynamic client，clientset 和 scaleClient，scaleClient 在《kubernetes源码剖析》这本书中没有提到，但是我看了 1.14 版本的代码中是有这个的实现和介绍的。在它的代码介绍中是这样介绍的：
+client-go 的 rest client 实际上在很多时候使用起来还是不方便的，而且在逐步的发展中 对 client 的要求会有多种多样，所以针对这一需求 client-go 又进行了抽象和封装，把常用到的 client 类型进行专门封装，形成独立的库，以方便直接使用，这样避免了直接使用基础 rest client 时又要进行再次编码封装。目前形成的常用到的封装 client 有这样几个：discovery client，dynamic client，clientset 和 scaleClient，scaleClient 在《kubernetes源码剖析》这本书中没有提到，但是我看了 1.14 版本的代码中是有这个的实现和介绍的。在它的代码介绍中是这样介绍的：
 ``` go
 // scaleClient is an implementation of ScalesGetter
 // which makes use of a RESTMapper and a generic REST
@@ -108,4 +108,4 @@ client-go 的 rest client 实际上在很多时候使用起来还是不方便的
 这种封装在一定程度上是可以提升开发者体验的，对开发者比较好，很多代码直接由官方来提供，而不用开发者自己再写。避免了直接使用裸的基础 client。但是这种封装也一定得有限制不能无限多，不然维护成本会很高。
 
 ## 后记
-针对者几种客户端，我后面想写一些例子来实际跑一跑，目前只是简单的认识这些 client。当然源代码中也有例子可以参考学习，目前由于我的时间问题只是走读了代码，没有对官方的源码例子进行编译执行。实际上公司内有同学开发了一个对 k8s 事件收集的模块，这个模块的代码我也是参与开发了一部分，从编译执行上来说是没问题，之前是没有从 client-go 这部分代码上去理解，现在感觉对这部分代码的认识更深了一些。
+针对这几种客户端，我后面想写一些例子来实际跑一跑，目前只是简单的认识这些 client。当然源代码中也有例子可以参考学习，目前由于我的时间问题只是走读了代码，没有对官方的源码例子进行编译执行。实际上公司内有同学开发了一个对 k8s 事件收集的模块，这个模块的代码我也是参与开发了一部分，从编译执行上来说是没问题，之前是没有从 client-go 这部分代码上去理解，现在感觉对这部分代码的认识更深了一些。
