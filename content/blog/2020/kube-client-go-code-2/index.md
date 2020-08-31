@@ -19,3 +19,89 @@ Informer(就是SharedInformer)是client-go的重要组成部分，在了解clien
 ![](imgs/informer.jpeg)
 主要使用到 Informer和workqueue两个核心组件。Controller可以有一个或多个informer来跟踪某一个resource。Informter跟API server保持通讯获取资源的最新状态并更新到本地的cache中，一旦跟踪的资源有变化，informer就会调用callback。把关心的变更的Object放到workqueue里面。然后woker执行真正的业务逻辑，计算和比较workerqueue里items的当前状态和期望状态的差别，然后通过client-go向API server发送请求，直到驱动这个集群向用户要求的状态演化。
 
+
+这里写了一个测试代码，主要是监控 deployment。
+``` golang
+package main
+
+import (
+	"flag"
+	"fmt"
+	"log"
+	"path/filepath"
+	"time"
+
+	v1 "k8s.io/api/apps/v1"
+	"k8s.io/apimachinery/pkg/labels"
+	"k8s.io/client-go/informers"
+	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/tools/clientcmd"
+	// "k8s.io/client-go/rest"
+	"k8s.io/client-go/tools/cache"
+	"k8s.io/client-go/util/homedir"
+)
+
+// func demo(config *rest.Config, namespace string) {
+func main() {
+	var namespace = "default"
+	var kubeconfig *string
+	if home := homedir.HomeDir(); home != "" {
+		kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
+	} else {
+		kubeconfig = flag.String("kubeconfig", "", "absolute path to the kubeconfig file")
+	}
+	flag.Parse()
+	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
+	if err != nil {
+		log.Println(err)
+	}
+	clientset, err := kubernetes.NewForConfig(config)
+	if err != nil {
+		panic(err)
+	}
+
+	informerFactory := informers.NewSharedInformerFactory(clientset, time.Minute)
+	informer := informerFactory.Apps().V1().Deployments()
+	informer.Informer().AddEventHandler(
+		cache.ResourceEventHandlerFuncs{
+			AddFunc:    onAdd,
+			UpdateFunc: onUpdate,
+			DeleteFunc: onDelete,
+		})
+	lister := informer.Lister()
+
+	stopCh := make(chan struct{})
+	defer close(stopCh)
+	informerFactory.Start(stopCh)
+	if !cache.WaitForCacheSync(stopCh, informer.Informer().HasSynced) {
+		return
+	}
+
+	deployments, err := lister.Deployments(namespace).List(labels.Everything())
+	if err != nil {
+		panic(err)
+	}
+	for _, deployment := range deployments {
+		fmt.Printf("%s\r\n", deployment.Name)
+	}
+	<-stopCh
+}
+
+func onAdd(obj interface{}) {
+	deployment := obj.(*v1.Deployment)
+	fmt.Printf("onAdd:%s\r\n", deployment.Name)
+}
+
+func onUpdate(old, new interface{}) {
+	oldDeployment := old.(*v1.Deployment)
+	newDeployment := new.(*v1.Deployment)
+	fmt.Printf("onUpdate:%s to %s\r\n", oldDeployment.Name, newDeployment.Name)
+}
+
+func onDelete(obj interface{}) {
+	deployment := obj.(*v1.Deployment)
+	fmt.Printf("onDelete:%s\r\n", deployment.Name)
+}
+
+```
+

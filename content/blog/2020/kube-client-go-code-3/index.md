@@ -32,51 +32,56 @@ import (
 var clientset *kubernetes.Clientset
 
 func main() {
-  var kubeconfig *string
-  // 获取配置文件路径
-  if home := homedir.HomeDir(); home != "" {
-    kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
-  } else {
-    kubeconfig = flag.String("kubeconfig", "", "absolute path to the kubeconfig file")
-  }
-  flag.Parse() // flags解析
-  config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig) // 根据配置文件生成配置文件对象，这个对象如下面的代码注释
-  if err != nil {
-    log.Println(err)
-    return
-  }
-  clientset, err = kubernetes.NewForConfig(config) // 根据配置文件对象构建客户端
-  if err != nil {
-    log.Fatalln(err)
-    return
-  } else {
-    fmt.Println("connect k8s success")
-  }
+	var kubeconfig *string
+	// 获取配置文件路径
+	if home := homedir.HomeDir(); home != "" {
+		kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
+	} else {
+		kubeconfig = flag.String("kubeconfig", "", "absolute path to the kubeconfig file")
+	}
+	flag.Parse() // flags解析
+	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig) // 根据配置文件生成配置文件对象，这个对象如下面的代码注释
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	clientset, err = kubernetes.NewForConfig(config) // 根据配置文件对象构建客户端
+	if err != nil {
+		log.Fatalln(err)
+		return
+	} else {
+		fmt.Println("connect k8s success")
+	}
 
-  pods, err := clientset.CoreV1().Pods("").List(context.TODO(), metav1.ListOptions{}) // 获取 pods 列表信息
-  if err != nil {
-    log.Println(err.Error())
-    return
-  }
+	pods, err := clientset.CoreV1().Pods("").List(context.TODO(), metav1.ListOptions{}) // 获取 pods 列表信息
+	if err != nil {
+		log.Println(err.Error())
+		return
+	}
 
-  fmt.Println(pods.Items[1].Name)
-  fmt.Println(pods.Items[1].CreationTimestamp)
-  fmt.Println(pods.Items[1].Labels)
-  fmt.Println(pods.Items[1].Namespace)
-  fmt.Println(pods.Items[1].Status.HostIP)
-  fmt.Println(pods.Items[1].Status.PodIP)
-  fmt.Println(pods.Items[1].Status.StartTime)
-  fmt.Println(pods.Items[1].Status.Phase)
-  fmt.Println(pods.Items[1].Status.ContainerStatuses[0].RestartCount) //重启次数
-  fmt.Println(pods.Items[1].Status.ContainerStatuses[0].Image)        //获取重启时间
-
-  fmt.Println("##################")
-  nodes, err := clientset.CoreV1().Nodes().List(context.TODO(), metav1.ListOptions{}) // 获取节点列表信息
-  fmt.Println(nodes.Items[0].Name)
-  fmt.Println(nodes.Items[0].CreationTimestamp) //加入集群时间
-  fmt.Println(nodes.Items[0].Status.NodeInfo)
-  fmt.Println(nodes.Items[0].Status.Conditions[len(nodes.Items[0].Status.Conditions)-1].Type)
-  fmt.Println(nodes.Items[0].Status.Allocatable.Memory().String())
+	for index, pod := range pods.Items {
+		fmt.Println("pods info", index)
+		fmt.Println("pods info", pod.Name)
+		fmt.Println("pods info", pod.CreationTimestamp)
+		fmt.Println("pods info", pod.Labels)
+		fmt.Println("pods namespace", pods.Items[1].Namespace)
+		fmt.Println("pods info", pod.Status.HostIP)
+		fmt.Println("pods info", pod.Status.PodIP)
+		fmt.Println("pods info", pod.Status.StartTime)
+		fmt.Println("pods info", pod.Status.Phase)
+		fmt.Println("pods info", pod.Status.ContainerStatuses[0].RestartCount) //重启次数
+		fmt.Println("pods info", pod.Status.ContainerStatuses[0].Image)        //获取重启时间
+	}
+	fmt.Println("##################")
+	nodes, err := clientset.CoreV1().Nodes().List(context.TODO(), metav1.ListOptions{})
+	for index, node := range nodes.Items {
+		fmt.Println("index info", index)
+		fmt.Println("node info ", node.Name)
+		fmt.Println("node info ", node.CreationTimestamp) //加入集群时间
+		fmt.Println("node info ", node.Status.NodeInfo)
+		fmt.Println("node info ", node.Status.Conditions[len(nodes.Items[0].Status.Conditions)-1].Type)
+		fmt.Println("node info ", node.Status.Allocatable.Memory().String())
+	}
 }
 ```
 Clientset 这个对象可以看一下，可以看出这个对象是一些不同版本客户端对象的集合。
@@ -105,73 +110,65 @@ type Config struct {
 	Password string
 	BearerToken string // Bearer 认证需要的信息
 	BearerTokenFile string // 包含 BearerToken 的文件
-
-	// Impersonate is the configuration that RESTClient will use for impersonation.
 	Impersonate ImpersonationConfig
-
-	// Server requires plugin-specified authentication.
 	AuthProvider *clientcmdapi.AuthProviderConfig
-
-	// Callback to persist config for AuthProvider.
 	AuthConfigPersister AuthProviderConfigPersister
-
-	// Exec-based authentication provider.
 	ExecProvider *clientcmdapi.ExecConfig
-
-	// TLSClientConfig contains settings to enable transport layer security
-	TLSClientConfig
-
-	// UserAgent is an optional field that specifies the caller of this request.
+	TLSClientConfig //
 	UserAgent string
-
-	// DisableCompression bypasses automatic GZip compression requests to the
-	// server.
-	DisableCompression bool
-
-	// Transport may be used for custom HTTP behavior. This attribute may not
-	// be specified with the TLS client certificate options. Use WrapTransport
-	// to provide additional per-server middleware behavior.
-	Transport http.RoundTripper
-	// WrapTransport will be invoked for custom HTTP behavior after the underlying
-	// transport is initialized (either the transport created from TLSClientConfig,
-	// Transport, or http.DefaultTransport). The config may layer other RoundTrippers
-	// on top of the returned RoundTripper.
-	//
-	// A future release will change this field to an array. Use config.Wrap()
-	// instead of setting this value directly.
-	WrapTransport transport.WrapperFunc
-
-	// QPS indicates the maximum QPS to the master from this client.
-	// If it's zero, the created RESTClient will use DefaultQPS: 5
-	QPS float32
-
-	// Maximum burst for throttle.
-	// If it's zero, the created RESTClient will use DefaultBurst: 10.
-	Burst int
-
-	// Rate limiter for limiting connections to the master from this client. If present overwrites QPS/Burst
-	RateLimiter flowcontrol.RateLimiter
-
-	// WarningHandler handles warnings in server responses.
-	// If not set, the default warning handler is used.
-	WarningHandler WarningHandler
-
-	// The maximum length of time to wait before giving up on a server request. A value of zero means no timeout.
-	Timeout time.Duration
-
-	// Dial specifies the dial function for creating unencrypted TCP connections.
-	Dial func(ctx context.Context, network, address string) (net.Conn, error)
-
-	// Proxy is the the proxy func to be used for all requests made by this
-	// transport. If Proxy is nil, http.ProxyFromEnvironment is used. If Proxy
-	// returns a nil *URL, no proxy is used.
-	//
-	// socks5 proxying does not currently support spdy streaming endpoints.
-	Proxy func(*http.Request) (*url.URL, error)
-
-	// Version forces a specific version to be used (if registered)
-	// Do we need this?
-	// Version string
+	DisableCompression bool // 是否开启 GZip 压缩
+	Transport http.RoundTripper //
+	WrapTransport transport.WrapperFunc //
+	QPS float32 // client 访问的最大 QPS，默认是 5
+	Burst int  // 最大突发请求量，默认是 10
+	RateLimiter flowcontrol.RateLimiter // 这个 client 到 master 的最大请求速率
+	WarningHandler WarningHandler // 处理服务响应的告警事件
+	Timeout time.Duration // server 访问的超时时间，0 表示不超时
+	Dial func(ctx context.Context, network, address string) (net.Conn, error) // 非加密 tcp 链接探测
+	Proxy func(*http.Request) (*url.URL, error) // 代理
 }
-
 ```
+
+## 编译
+默认使用 `go mod` 编译，但是 `go mod` 默认获取的 client-go 版本有问题，需要自己调整，才能编译过。我使用的 go.mod 文件。
+
+``` console
+module k8sclientx
+
+go 1.13
+
+require (
+        github.com/imdario/mergo v0.3.11 // indirect
+        golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d // indirect
+        golang.org/x/time v0.0.0-20200630173020-3af7569d3a1e // indirect
+        k8s.io/apimachinery v0.18.8
+        k8s.io/client-go v0.18.8
+        k8s.io/utils v0.0.0-20200815180417-3bc9d57fc792 // indirect
+)
+```
+输出结果：
+``` console
+[root@vm-74-51-centos /data/k8s/client-test]# ./k8sclient 
+connect k8s success
+pods info 0
+pods info grafana-54b54568fc-qzv46
+pods info 2020-06-02 18:07:11 +0800 CST
+pods info map[app:grafana chart:grafana heritage:Tiller pod-template-hash:54b54568fc release:istio-system]
+pods namespace istio-system
+pods info 9.134.74.51
+pods info 192.168.10.8
+pods info 2020-06-02 18:07:11 +0800 CST
+pods info Running
+pods info 1
+pods info grafana/grafana:6.5.2
+pods info 1
+pods info istio-egressgateway-5cbb74b6d-8xskg
+pods info 2020-06-02 18:07:10 +0800 CST
+pods info map[app:istio-egressgateway chart:gateways heritage:Tiller istio:egressgateway pod-template-hash:5cbb74b6d release:istio service.istio.io/canonical-name:istio-egressgateway service.istio.io/canonical-revision:latest]
+pods namespace istio-system
+pods info 9.134.74.51
+pods info 192.168.10.6
+......
+```
+
+## 总结
