@@ -6,7 +6,7 @@ categories: ["k8s", "microservices"]
 banner: "img/banners/kubernetes.jpeg"
 author: "helight"
 authorlink: "http://helight.info"
-summary: ""
+summary: "这部分还是以 client-go 为基础的代码测试，今天这里分享的一个是我测试过的 client-go 代码例子"
 keywords: ["k8s","microservices"]
 draft: false
 ---
