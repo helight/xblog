@@ -1,5 +1,5 @@
 ---
-title: "k8s代码走读---client-go编程交互代码测试"
+title: "k8s 代码走读---client-go 编程交互代码测试"
 date: 2020-08-20T08:45:20+08:00
 tags: ["k8s", "microservices"]
 categories: ["k8s", "microservices"]
@@ -172,3 +172,5 @@ pods info 192.168.10.6
 ```
 
 ## 总结
+
+通过上面的分析和示例代码的编译，基本上我掌握了 kubernetes 的 client 编写方式和编译方式，这里比较坑的一点就在编译。默认 gomod 的编译引入的库是有版本冲突的，需要核对使用的版本并修改 `go.mod` 中的相应版本号才能编译通过。

@@ -1,5 +1,5 @@
 ---
-title: "k8s代码走读---client-go 编程之 informers"
+title: "k8s 代码走读---client-go 编程之 informers"
 date: 2020-08-14T08:45:20+08:00
 tags: ["k8s", "microservices"]
 categories: ["k8s", "microservices"]
@@ -8,7 +8,7 @@ author: "helight"
 authorlink: "http://helight.info"
 summary: ""
 keywords: ["k8s","microservices"]
-draft: true
+draft: false
 ---
 
 ## 前言

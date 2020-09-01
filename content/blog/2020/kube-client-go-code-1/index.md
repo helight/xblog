@@ -1,5 +1,5 @@
 ---
-title: "k8s代码走读---client-go编程交互基础"
+title: "k8s 代码走读---client-go 编程交互基础走读"
 date: 2020-08-08T08:45:20+08:00
 tags: ["k8s", "microservices"]
 categories: ["k8s", "microservices"]
