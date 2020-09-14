@@ -40,4 +40,6 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /home/www/xblog/
-            ls
+            ls -l
+            Makefile
+            ls -l
