@@ -43,7 +43,7 @@ jobs:
           # ssh user
           user: root # optional
           # content of ssh private key. ex raw content of ~/.ssh/id_rsa
-          key: -----BEGIN RSA PRIVATE KEY-----
+          key: "-----BEGIN RSA PRIVATE KEY-----
 MIIEowIBAAKCAQEAq0fnBhbfSbY6O7XwVYatB+bqlDC/4MchI2RGb1P/vn8vLJeN
 +1uYTU0yCn8R9WSXZkQssWjuRNPRY5IfCoP+FLi8Kayo9Sd0P+r6UzL3rWp9hwmg
 5Ci7HGvb7DYqjTU+U5CyK7nGq7Sk7uM24/t2ex/JuaOalKOCUafGWfiYtOKe6Nfb
@@ -69,7 +69,7 @@ VTrqVN+O3BO+WFqbiX1vloMjmIZapqFrysVnJmwjuFYgE271P/Yfwx6BPpm5cwCG
 AeZrbwKBgGF14yUDqwdKdKD5HCAlnbfFTB1x63fdxE+pH7MuSChyYQxuinrwc2pQ
 rTIaaC7VDzmp4n4MeoHSJKIL6JsD1WVL5BvLWJ0L5jIJWA6XqBgpGk9dCTnJ55uz
 umqRRdtN8oYF4euq28yqifGkJq2RqIdYcrPzq5y231Xyh+Yv7Qnk
------END RSA PRIVATE KEY----- # optional
+-----END RSA PRIVATE KEY-----" # optional
           # execute commands before SCP
           ssh_before: ls # optional
           # scp local and remote
