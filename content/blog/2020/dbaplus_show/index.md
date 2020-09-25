@@ -1,5 +1,5 @@
 ---
-title: "dbaplus社群】线上分享-游戏数据应用的DevOps建设"
+title: "【dbaplus社群】线上分享-游戏数据应用的DevOps建设"
 date: 2020-07-12T08:45:20+08:00
 tags: ["bigdata", "Envoy", "microservices"]
 categories: ["bigdata", "microservices"]
