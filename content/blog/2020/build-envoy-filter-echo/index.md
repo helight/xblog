@@ -1,13 +1,13 @@
 ---
 title: "envoy filter 开发实践系列 1：官网 echo 示例编译测试"
 date: 2020-09-20T08:45:20+08:00
-tags: ["mac", "Envoy", "microservices"]
+tags: ["Envoy", "microservices"]
 categories: ["Envoy", "microservices"]
 banner: "img/banners/envoy.png"
 author: "helight"
 authorlink: "http://helight.info"
 summary: ""
-keywords: ["mac","microservices", "Envoy"]
+keywords: ["microservices", "Envoy"]
 draft: false
 ---
 
