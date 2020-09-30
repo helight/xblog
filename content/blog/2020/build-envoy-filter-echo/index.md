@@ -88,8 +88,10 @@ ubuntu@ubuntu:/data/mesh/envoy-filter-example$ ./bazel-bin/envoy --config-path .
 ```
 
 ### 6.3 trace 日志和插件代码解读
-envoy 的日志级别有
-
+envoy 的日志级别有一下几种，默认是 `info`。
+```
+Log levels: [trace][debug][info][warning|warn][error][critical][off]
+```
 在 `echo` 这个插件的代码中是有一行 trace 日志的，如下面的代码。这段代码是 `envoy` 在收到信息后转给这个插件，在收到数据后，直接回写数据给客户端。并且终止把数据继续发往下游。这里返回了 `StopIteration`。
 ```c++
 // echo2.cc 
