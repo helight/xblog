@@ -18,7 +18,7 @@ draft: false
 
 从 envoy 1.16 开始发现 gcc 7.5 的版本已经无法编译通过了，从其官网推荐来说是要 gcc 9 以上或者要 clang 10 以上。
 
-### 查看 docker 镜像
+### 2.1 查看 docker 镜像
 可以用于编译的是 `envoyproxy/envoy-build-ubuntu` 这个镜像。
 
 ```sh
@@ -29,7 +29,7 @@ envoyproxy/envoy-build-ubuntu   b480535e8423b5fd7c102fd30c92f4785519e33a   7757d
 envoyproxy/envoy-build          latest                                     96175ccf21e5        14 months ago       1.16GB
 root@VM-144-184-ubuntu:/data/home/ubuntu# 
 ```
-### 查看 gcc 版本
+### 2.2 查看 gcc 版本
 进入镜像后可以看一下 gcc 的版本号，这个镜像使用的是 9.3 的 gcc。
 ```sh
 root@VM-144-184-ubuntu:/data/home/ubuntu# docker run -t -i 7757d8081892 /bin/bash
@@ -45,7 +45,7 @@ Thread model: posix
 gcc version 9.3.0 (Ubuntu 9.3.0-11ubuntu0~18.04.1) 
 root@0bef984284ca:/#
 ```
-### 运行 docker 镜像
+### 2.3 运行 docker 镜像
 这里要把把源码映射到 docker 内，再到 docker 内的目录内进行编译，如下：
 ```sh
 docker run -v /data/mesh/envoy-filter-example:/envoy-filter-example -t -i 7757d8081892 /bin/bash
@@ -58,12 +58,12 @@ root@300e54c54ce4:/envoy-filter-example# bazel build //:envoy
 
 llvm 的官网在这里：[https://apt.llvm.org/](https://apt.llvm.org/)
 
-### 安装方式 1
+### 3.1 安装方式 1
 使用下面的方式可以安装最新稳定版的 clang。
 ```sh
 root@VM-144-184-ubuntu:/data/home/ubuntu# bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
 ```
-### 安装方式 2
+### 3.2 安装方式 2
 根据其官网指引配置相应的源地址，我使用的 ubuntu 18.04，所以源配置如下：
 ```sh
 Bionic (18.04) - Last update : Tue, 13 Oct 2020 20:00:24 UTC / Revision: 20201013091414+1687a8d83b7
@@ -101,7 +101,8 @@ python3-clang-11 - Clang Python Bindings
 python3-lldb-11 - Next generation, high-performance debugger, python3 lib
 root@VM-144-184-ubuntu:/data/home/ubuntu# 
 ```
-### 版本设置和环境变量配置
+### 3.3 版本设置和环境变量配置
+设置版本，我测试过 clang 10 和 clang 11 两个版本编译，都没问题。
 ```sh
 root@VM-144-184-ubuntu:/usr/bin# rm /usr/bin/clang
 root@VM-144-184-ubuntu:/usr/bin# rm /usr/bin/clang++
