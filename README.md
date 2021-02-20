@@ -14,3 +14,12 @@ git submodule update
 ```sh
 hugo server
 ```
+
+- 🔭 Live in Shenzhen China
+- 🌱 Graduated from Xi'an University of Posts & Telecommunications
+- 👯 [Kubernetes-dashboard](https://github.com/kubernetes/dashboard) Contributor/Reviewer
+- 😄 [Istio Chinese Docs](https://istio.io/latest/zh/) Contributor
+- 💬 [Istio](https://github.com/istio) Contributor
+- 📫 How to reach me: helight@qq.com
+
+![](https://github-readme-stats.vercel.app/api?username=helight&count_private=true)
