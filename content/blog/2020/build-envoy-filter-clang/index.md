@@ -22,17 +22,17 @@ draft: false
 可以用于编译的是 `envoyproxy/envoy-build-ubuntu` 这个镜像。
 
 ```sh
-root@VM-144-184-ubuntu:/data/home/ubuntu# docker images
+root@ubuntu:/data/home/ubuntu# docker images
 REPOSITORY                      TAG                                        IMAGE ID            CREATED             SIZE
 envoyproxy/envoy-dev            latest                                     317be1534a57        4 days ago          129MB
 envoyproxy/envoy-build-ubuntu   b480535e8423b5fd7c102fd30c92f4785519e33a   7757d8081892        8 days ago          3.8GB
 envoyproxy/envoy-build          latest                                     96175ccf21e5        14 months ago       1.16GB
-root@VM-144-184-ubuntu:/data/home/ubuntu# 
+root@ubuntu:/data/home/ubuntu# 
 ```
 ### 2.2 查看 gcc 版本
 进入镜像后可以看一下 gcc 的版本号，这个镜像使用的是 9.3 的 gcc。
 ```sh
-root@VM-144-184-ubuntu:/data/home/ubuntu# docker run -t -i 7757d8081892 /bin/bash
+root@ubuntu:/data/home/ubuntu# docker run -t -i 7757d8081892 /bin/bash
 root@0bef984284ca:/# gcc -v
 Using built-in specs.
 COLLECT_GCC=gcc
@@ -61,7 +61,7 @@ llvm 的官网在这里：[https://apt.llvm.org/](https://apt.llvm.org/)
 ### 3.1 安装方式 1
 使用下面的方式可以安装最新稳定版的 clang。
 ```sh
-root@VM-144-184-ubuntu:/data/home/ubuntu# bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+root@ubuntu:/data/home/ubuntu# bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
 ```
 ### 3.2 安装方式 2
 根据其官网指引配置相应的源地址，我使用的 ubuntu 18.04，所以源配置如下：
@@ -80,7 +80,7 @@ deb-src http://apt.llvm.org/bionic/ llvm-toolchain-bionic-11 main
 配置完成之后直接 `apt-get update` 进行信息更新后就可以直接安装了。
 
 ```sh
-root@VM-144-184-ubuntu:/data/home/ubuntu# apt-cache search clang
+root@ubuntu:/data/home/ubuntu# apt-cache search clang
 ......
 clang-11 - C, C++ and Objective-C compiler
 clang-11-doc - C, C++ and Objective-C compiler - Documentation
@@ -99,16 +99,20 @@ liblldb-11-dev - Next generation, high-performance debugger, header files
 lldb-11 - Next generation, high-performance debugger
 python3-clang-11 - Clang Python Bindings
 python3-lldb-11 - Next generation, high-performance debugger, python3 lib
-root@VM-144-184-ubuntu:/data/home/ubuntu# 
+root@ubuntu:/data/home/ubuntu# 
+```
+执行安装：
+```sh
+root@ubuntu:/data/home/ubuntu# apt-get install clang-11
 ```
 ### 3.3 版本设置和环境变量配置
 设置版本，我测试过 clang 10 和 clang 11 两个版本编译，都没问题。
 ```sh
-root@VM-144-184-ubuntu:/usr/bin# rm /usr/bin/clang
-root@VM-144-184-ubuntu:/usr/bin# rm /usr/bin/clang++
-root@VM-144-184-ubuntu:/usr/bin# ln -s ../lib/llvm-11/bin/clang /usr/bin/clang
-root@VM-144-184-ubuntu:/usr/bin# ln -s ../lib/llvm-11/bin/clang++ /usr/bin/clang++
-root@VM-144-184-ubuntu:/usr/bin# 
+root@ubuntu:/usr/bin# rm /usr/bin/clang
+root@ubuntu:/usr/bin# rm /usr/bin/clang++
+root@ubuntu:/usr/bin# ln -s ../lib/llvm-11/bin/clang /usr/bin/clang
+root@ubuntu:/usr/bin# ln -s ../lib/llvm-11/bin/clang++ /usr/bin/clang++
+root@ubuntu:/usr/bin# 
 ```
 配置环境变量到 `~/.bashrc`，从新打开一个终端或者执行一下 `source ~/.bashrc` 就可以用了。
 ```sh
@@ -117,13 +121,13 @@ export CC=clang
 ```
 使用 `env` 来查看环境信息。
 ```sh
-ubuntu@VM-144-184-ubuntu:~$ env
+ubuntu@ubuntu:~$ env
 ...
 LANG=en_US.utf8
 CXX=clang++
 CC=clang
 ...
-ubuntu@VM-144-184-ubuntu:~$ 
+ubuntu@ubuntu:~$ 
 ```
 ## 4. 编译 envoy 1.16
 接下来就来编译吧，编译过程和之前介绍的大体差不多，但是这里我们是要把 envoy 的版本 check 到 1.16 上去。
