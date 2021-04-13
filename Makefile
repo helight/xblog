@@ -5,3 +5,5 @@ all:
 commit:
 	git commit -m "add new blog" -a
 
+test:
+	hugo server
