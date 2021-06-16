@@ -52,6 +52,12 @@ paginate = 15
     url  = "/about/me"
     weight = 4
 
+[[menu.main]]
+    identifier = "github"
+    name = "github"
+    url  = "https://github.com/helight"
+    weight = 5
+
 
 [params]
     viewMorePostLink = "/blog/"
