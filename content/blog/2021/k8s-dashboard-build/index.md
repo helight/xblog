@@ -3,7 +3,7 @@ title: "k8s dashboard 编译测试"
 date: 2021-03-31T08:45:20+08:00
 tags: ["k8s"]
 categories: ["k8s"]
-banner: "img/banners/ms.jpg"
+banner: "img/banners/kubernetes.jpeg"
 author: "helight"
 authorlink: "http://helight.info"
 summary: ""

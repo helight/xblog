@@ -3,7 +3,7 @@ title: "linux5.3.0编译运行LINUX内核源码中的BPF示例代码"
 date: 2021-03-31T08:45:20+08:00
 tags: ["kernel", "ebpf"]
 categories: ["kernel", "ebpf"]
-banner: "img/banners/ms.jpg"
+banner: "img/banners/linux_ebpf_support.png"
 author: "helight"
 authorlink: "http://helight.info"
 summary: ""
