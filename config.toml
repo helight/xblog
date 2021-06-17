@@ -54,7 +54,7 @@ paginate = 15
 
 [[menu.main]]
     identifier = "github"
-    name = "github"
+    name = "Github"
     url  = "https://github.com/helight"
     weight = 5
 
