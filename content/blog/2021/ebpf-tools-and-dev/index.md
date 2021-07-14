@@ -38,7 +38,6 @@ Auto-detecting system features:
   CC       bpf_jit_disasm.o
 /data/linux-source-5.3.0/tools/bpf/bpf_jit_disasm.c:23:10: fatal error: bfd.h: No such file or directory
  #include <bfd.h>
-          ^~~~~~~
 compilation terminated.
 Makefile:57: recipe for target 'bpf_jit_disasm.o' failed
 make: *** [bpf_jit_disasm.o] Error 1

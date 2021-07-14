@@ -20,6 +20,7 @@ draft: false
 在linux上怎么安装minikube看这里：
 https://minikube.sigs.k8s.io/docs/start/linux/.
 很简单，下载安装即可
+
 ```sh
  curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
    && sudo install minikube-linux-amd64 /usr/local/bin/minikube
