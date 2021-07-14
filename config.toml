@@ -94,7 +94,7 @@ paginate = 15
     contact_form_ajax = false
 
     about_us = "<p>关注大数据微服务</br>请关注我们的微信公众号</p><img src=/img/site/mp.jpg>"
-    copyright = "Copyright (c) 2007 - 2020, helight; all rights reserved.【 <a href='http://www.beian.miit.gov.cn'> 粤ICP备15029944号</a> 】 "
+    copyright = "Copyright (c) 2007 - 2020, helight; all rights reserved.【 <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备15029944号</a> 】 "
 
     # Format dates with Go's time formatting
     date_format = "2006年1月2日"
