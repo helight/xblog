@@ -12,19 +12,21 @@ draft: true
 ---
 
 ## 前言
+本文是一篇学习翻译文章，[原文在这里](https://www.tigera.io/blog/comparing-kube-proxy-modes-iptables-or-ipvs/)。
 
-kube-proxy is a key component of any Kubernetes deployment.  Its role is to load-balance traffic that is destined for services (via cluster IPs and node ports) to the correct backend pods.  Kube-proxy can run in one of three modes, each implemented with different data plane technologies: userspace, iptables, or IPVS.
+对任何 Kubernetes 来说 kube-proxy 是一个很关键的组件。它的功能是把流量负载均衡代理（通过集群 IP 和节点端口）到正确的后端 pod上。Kube-proxy可以运行在一下 3 种模式之一：userspace、 iptables 或者 IPVS，每种模式都是由不同的数据面技术实现。
 
-The userspace mode is very old, slow, and definitely not recommended!  But how should you weigh up whether to go with iptables or IPVS mode? In this article, we’ll compare the two, measure how they perform in the context of a real microservice, and explain when you might want to choose one versus the other.
+userspace 模式是非常老的一种模式，现在也是绝对不推荐的一种方式。但是你怎么衡量到底是使用 iptables 还是 IPVS 模式呢？在这篇文章种，我们会比较这两种模式，衡量他们在真实微服务环境下的性能表现，评价指导你在什么情况选择哪种模式。
 
-First, we’ll start with a bit of background on the two modes, then dive into the testing and results below…
+首先，我们要先介绍一下这两种模式的一些背景知识，然后我们在深入测试和总结测试结果。
 
-## Background: iptables proxy mode
-iptables is a Linux kernel feature that was designed to be an efficient firewall with sufficient flexibility to handle a wide variety of common packet manipulation and filtering needs.  It allows flexible sequences of rules to be attached to various hooks in the kernel’s packet processing pipeline. In iptables mode, kube-proxy attaches rules to the “NAT pre-routing” hook to implement its NAT and load balancing functions. This works, it’s simple, it uses a mature kernel feature, and, it “plays nice” with other programs that also work with iptables for filtering (such as Calico!).
+## iptables proxy 模式的背景知识
+iptables 是一个内核种的特性，它是被设计用来作为高效防火墙的，同时可以灵活的处理各种各样通用数据包的修改操作和过滤处理。它可以在内核数据包处理的钩子点上灵活的挂载一系列的处理规则。在 iptalbes 模式下，kube-proxy 挂载规则到 “NAT pre-routing” 钩子电商来实现节点上 NAT 和负载均衡功能。它简单有效，使用了成熟的内核功能，并且它可以很好的和其它使用 iptables 来过滤的程序（比如 Calico）一起运行。
 
 However, the way kube-proxy programs the iptables rules means that it is nominally an O(n) style algorithm, where n grows roughly in proportion to your cluster size (or more precisely the number of services and number of backend pods behind each service).
+然而，kube-proxy 下发的 iptalbes 规则只是按照 O(n) 的算法复杂度来运行的，其中 n 的增值是和集群规模成正比的（或者更准确的说是它跟 service 数量和每个 service 后面的 pod 数量是成正比的）。
 
-## Background: IPVS proxy mode
+## IPVS proxy 模式的背景知识
 IPVS is a Linux kernel feature that is specifically designed for load balancing. In IPVS mode, kube-proxy programs the IPVS load balancer instead of using iptables.  This works, it also uses a mature kernel feature and IPVS is designed for load balancing lots of services; it has an optimized API and an optimized look-up routine rather than a list of sequential rules.
 
 The result is that kube-proxy’s connection processing in IPVS mode has a nominal computational complexity of O(1).  In other words, in most scenarios, its connection processing performance will stay constant independent of your cluster size.
