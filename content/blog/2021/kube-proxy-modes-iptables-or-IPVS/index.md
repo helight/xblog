@@ -23,14 +23,13 @@ userspace 模式是非常老的一种模式，现在也是绝对不推荐的一�
 ## iptables proxy 模式的背景知识
 iptables 是一个内核种的特性，它是被设计用来作为高效防火墙的，同时可以灵活的处理各种各样通用数据包的修改操作和过滤处理。它可以在内核数据包处理的钩子点上灵活的挂载一系列的处理规则。在 iptalbes 模式下，kube-proxy 挂载规则到 “NAT pre-routing” 钩子电商来实现节点上 NAT 和负载均衡功能。它简单有效，使用了成熟的内核功能，并且它可以很好的和其它使用 iptables 来过滤的程序（比如 Calico）一起运行。
 
-However, the way kube-proxy programs the iptables rules means that it is nominally an O(n) style algorithm, where n grows roughly in proportion to your cluster size (or more precisely the number of services and number of backend pods behind each service).
 然而，kube-proxy 下发的 iptalbes 规则只是按照 O(n) 的算法复杂度来运行的，其中 n 的增值是和集群规模成正比的（或者更准确的说是它跟 service 数量和每个 service 后面的 pod 数量是成正比的）。
 
 ## IPVS proxy 模式的背景知识
-IPVS is a Linux kernel feature that is specifically designed for load balancing. In IPVS mode, kube-proxy programs the IPVS load balancer instead of using iptables.  This works, it also uses a mature kernel feature and IPVS is designed for load balancing lots of services; it has an optimized API and an optimized look-up routine rather than a list of sequential rules.
+IPVS 是内核种专门设计用于负载均衡的一个功能。在 IPVS 模式下，kube-proxy 下发 IPVS 规则来做负载均衡，而不是使用 iptables。它同样使用了一个成熟的内核功能，并且 IPVS 被设计成可以支持大量 service 的负载均衡；它有一个优化的 API 和优化过的查询方式，而不是顺序的规则列表。
 
 The result is that kube-proxy’s connection processing in IPVS mode has a nominal computational complexity of O(1).  In other words, in most scenarios, its connection processing performance will stay constant independent of your cluster size.
-
+带来的结果就是 kube-proxy 在 IPVS 模式下处理链接的算法复杂度是 O(1)。
 In addition, as a dedicated load balancer, IPVS boasts multiple different scheduling algorithms such as round-robin, shortest-expected-delay, least connections, and various hashing approaches.  In contrast, kube-proxy in iptables uses a randomized equal cost selection algorithm.
 
 One potential downside of IPVS is that packets that are handled by IPVS take a very different path through the iptables filter hooks than packets under normal circumstances.  If you plan to use IPVS with other programs that use iptables then you will need to research whether they will behave as expected together. (Fear not though, Calico has been compatible with IPVS kube-proxy since way back when!)
