@@ -1,5 +1,5 @@
 ---
-title: "Comparing kube-proxy modes: iptables or IPVS?"
+title: "比较 kube-proxy 模式: iptables 或者 IPVS?"
 date: 2021-10-20T08:45:20+08:00
 tags: ["k8s"]
 categories: ["k8s"]
