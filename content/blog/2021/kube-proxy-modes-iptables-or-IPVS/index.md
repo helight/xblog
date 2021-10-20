@@ -28,64 +28,63 @@ iptables 是一个内核种的特性，它是被设计用来作为高效防火�
 ## IPVS proxy 模式的背景知识
 IPVS 是内核种专门设计用于负载均衡的一个功能。在 IPVS 模式下，kube-proxy 下发 IPVS 规则来做负载均衡，而不是使用 iptables。它同样使用了一个成熟的内核功能，并且 IPVS 被设计成可以支持大量 service 的负载均衡；它有一个优化的 API 和优化过的查询方式，而不是顺序的规则列表。
 
-The result is that kube-proxy’s connection processing in IPVS mode has a nominal computational complexity of O(1).  In other words, in most scenarios, its connection processing performance will stay constant independent of your cluster size.
-带来的结果就是 kube-proxy 在 IPVS 模式下处理链接的算法复杂度是 O(1)。
-In addition, as a dedicated load balancer, IPVS boasts multiple different scheduling algorithms such as round-robin, shortest-expected-delay, least connections, and various hashing approaches.  In contrast, kube-proxy in iptables uses a randomized equal cost selection algorithm.
+带来的结果就是 kube-proxy 在 IPVS 模式下处理链接的算法复杂度是 O(1)。换句话说，在大多数的场景种，他的链接处理性能是保持恒定的，和你的集群规模无关。
 
-One potential downside of IPVS is that packets that are handled by IPVS take a very different path through the iptables filter hooks than packets under normal circumstances.  If you plan to use IPVS with other programs that use iptables then you will need to research whether they will behave as expected together. (Fear not though, Calico has been compatible with IPVS kube-proxy since way back when!)
+此外，作为专用的负载均衡器，IPVS 支持多种不同的调度算法，例如：轮询，最短延时优先，最少链接优先和各种哈希实现。相反，kube-proxy 在 iptables 模式下使用的是随机等代价选择算法。
 
-## Performance Comparison
-OK, so nominally kube-proxy’s connection processing in iptables mode is O(n) and in IPVS mode is O(1).  But what does this translate to in reality in the context of microservices doing real microservice kinds of things?
+IPVS 中一个潜在缺陷是 IPVS 在通常情况下使用了和 iptables 过滤钩子点非常不一样的包处理路径。如果你计划和其它程序一起使用 IPVS，而这些程序是使用的 iptables 的话，你就需要研究看看他们的处理结果是否符合你的预期了。（但是不要担心，Calico是兼容 kube-proxy 的 IPVS 模式的）。
 
-In most scenarios there are two key attributes you will likely care about when it comes to the performance of kube-proxy in the context of your application and microservices:
+## 性能比较
+OK，虽然说 kube-proxy 的链接处理在 iptables 模式下是 O(n) 的复杂度，在 IPVS 模式下是 O(1) 的复杂度。那么在真实的微服务场景下他们的表现如何呢？
 
-1. Impact on round-trip response times.  When one microservice makes an API call to another microservice, how long does it take on average for the first microservice to send the request to and receive the response back from the second microservice?
-1. Impact on total CPU usage.  What is the total CPU usage of a host when running your microservices, including userspace and kernel/system usage, across all the processes that are needed to support your microservices including kube-proxy?
+在大多数的场景下，kube-proxy 在应用和微服务处理中的性能，有 2 个属性你可能是比较关注的：
 
-To illustrate this we ran a “client” microservice pod on a dedicated node generating 1,000 requests per second to a Kubernetes service backed by 10 “server” microservice pods running on other nodes in the cluster.  We then measured performance on the client node in both iptables and IPVS mode with various numbers of Kubernetes services with each service being backed by 10 pods, up to a maximum of 10,000 services (with 100,000 service backends).  For the microservices, we used a simple test tool written in golang as our client microservice and used standard NGINX for the backend pods of the server microservice.
+1. 对往返响应时间的影响。当一个微服务发起一个 API 调用到另外的一个微服务，那么从第一个微服务发起请求到收到第二个微服务发回的请求响应的平均耗时是多少？
 
-## Round-Trip Response Times
-When considering round-trip response time it’s important to understand the difference between connections and requests. Typically most microservices will use persistent or “keepalive” connections, meaning that each connection is reused across multiple requests, rather than requiring a new connection per request. This is important because most new connections require a three-way TCP-handshake across the network (which takes time), more processing within the Linux networking stack (which takes a bit more time and CPU).
+1. 对总 CPU 使用的影响。当运行一个微服务的时候你的主机的总 CPU 使用是多少？这包含了用户空间和内核/系统使用，也包括了支持你微服务运行所需要的所有进程，包括 kube-proxy。
 
-To illustrate these differences we tested with and without keepalive connections.  For the keepalive connections, we used NGINX’s default configuration, which keeps each connection alive for re-use for up to 100 requests. See the graph below and note that the lower the response time the better.
+为了说明，我们在专用的节点上运行一个“客户端”微服务的 pod，并且发出 1000 的请求 QPS 到一个 Kubernetes 的 service，这个 service 后面是 10 个运行在这集群上其它节点上的微服务 pod。这时候我们来测量客户端在在节点的性能，测试条件包含了在 iptalbes 和 IPVS 模式下各种数量的 Kubernetes services，每个 services 后面有 10 个 pod，直到 services 数量达到 10000 个（即有 10000 个后端 services）。对于微服务，我们使用一个用 golang 开发的简单测试工具作为客户端微服务，并且使用标准的 NGINX 作为后端 pod 的微服务。 
+
+## 往返响应时间
+在看往返响应时间时，了解连接和请求之间的差异是很重要的。通常大多数的微服务会使用持久或者 “keepalive” 链接，就是说每个链接都可以在多个请求上复用，而不是为每个请求请求一个新的链接。这一点非常重要，因为新链接的建立需要 TCP 的三次握手协议（这个就要耗费时间），在 Linux 网络栈上也有跟多的处理（这也需要耗费一些时间和 CPU）。
+
+为了说明这些区别，我们测试了有链接复用和没有链接复用的情况。在链接复用的情况下，我们使用 NGINX 的默认配置，默认配置设置了每个存活链接可以给最多100个请求复用。看下面的图，越低的响应延时越好。
 
 ![](imgs/1.png)
 
-The chart shows two key things:
+这个图展示 2 个关键的东西：
 
-1. The difference in average round-trip response times between iptables and IPVS is trivially insignificant until you get beyond 1,000 services (10,000 backend pods).
-The difference in average round-trip response times is only discernible when not using keepalive connections. i.e. when using a new connection for every request.
-1. For both iptables and IPVS mode, the response time overhead for kube-proxy is associated with establishing connections, not the number of packets or requests you send on those connections.  This is because Linux uses connection tracking (conntrack) that is able to match packets against existing connections very efficiently. If a packet is matched in conntrack then it doesn’t need to go through kube-proxy’s iptables or IPVS rules to work out what to do with it. Linux conntrack is your friend! (Almost all of the time…. look out for our next blog post “When Linux conntrack is not your friend”!)
+1. 在 iptables 和 IPVS 模式下往返响应耗时在 1000 个 services（后端有 10000 个 pod） 之后才会比较明显。平均往返响应耗时在不实用链接复用的情况下才能看出却别，链接复用的时候变化非常微小。也就是说在对每个请求都创建新链接的时候才明显。
+1. 对于 iptables 和 IPVS 模式，对 kube-proxy 的响应时间开销都和链接建立有关系，和包数量或者链接上的请求数不相关。这是应为 Linux 使用了链接跟踪(conntrack) ，它可以非常高效的把包匹配到已经存在的链接。如果一个包在 conntrack 中被匹配到了，那么它就不需要通过 kube-proxy 的 iptables 或者 IPVS 规则来处理。Linux conntrack 是你们的朋友。
 
-It’s worth noting that for the “server” microservice in this example we used NGINX pods serving up a small static response body. Many microservices need to do far more work than this which would result in correspondingly higher response times, meaning the delta for kube-proxy processing would be a smaller percentage of the response time compared to this chart.
+我们这个例子中使用了 NGINX pod 返回了一个静态的响应体，所以这个微服务的用处并不是很大。很多微服务需要做比这更复杂的工作，响应的也就要产生更高的响应耗时，这意味着与此图表相比，kube-proxy 处理的增量占响应时间的百分比会更小。
 
-There’s one final oddity to explain: why do non-keepalive response times get slower for IPVS at 10,000 services if the processing of new connections in IPVS is O(1) complexity?  We would need to do a lot more digging to really get to the bottom of this, but one factor that contributes is that the system as a whole gets slower due to increased CPU usage on the host. This brings us nicely on to the next topic.
+这里有个一个比较奇怪的地方需要解释：如果 IPVS 在处理新链接的复杂度是 O(1)，那为什么在 10000 个 services 的时候响应耗时会更多一点呢？我们需要做更多的发觉才能发现真像，但其中一个因素是，由于主机上CPU使用率的增加，系统整体速度变慢。这也让我们可以更好的计入下一个话题了。
 
-## Total CPU
-To illustrate the total CPU usage the chart below focuses on the worst case scenario of not using persistent/keepalive connections in which the kube-proxy connection processing overhead has the biggest impact.
+## 总 CPU
+为了说明总 CPU 使用率，下图就聚焦于没有使用持久链接的最坏情况，这样对 kube-proxy 的链接处理开销的影响是最大的。
 
 ![](imgs/2.png)
 
-The chart shows two key things:
+这图展示了 2 个关键事情：
+1. 在 iptables 和 IPVS 模式下 CPU 使用率的区别是直到后端 service 超过 1000 个的时候才比较明显。（每个后端还是 10000 个 pod）。
+1. 在 10000 个 service（每个后端有 100000 个 pod）的时候，iptables 模式下 CPU 使用率上市到单核 35% 左右，而 IPVS 的单核使用率在 8% 左右。
+有 2 个主要的因素在影响 CPU 使用率。
 
-1. The difference in CPU usage between iptables and IPVS is relatively insignificant until you get beyond 1,000 services (with 10,000 backend pods).
-1. At 10,000 services (with 100,000 backend pods), the increase in CPU with iptables is ~35% of a core, and with IPVS is ~8% of a core.
-There are two main contributors that influence this CPU usage pattern.
+第一个因素：默认情况下 kube-proxy 给内核下发所有 service 的规则是有 30 秒的间隔。这就解释了为什么在 IPVS 模式下即便是它处理链接的复杂度是 O(1)，仍然有小幅的 CPU 使用率增长。另外 iptables 在老版本内核的下发 API 要比现在的内核慢很多。所以如果你在老版本内核上使用 kube-prxoy 的 iptables 模式，你会发现 CPU 的使用率比这张图上的还要高。
 
-The first contributor is that by default kube-proxy reprograms the kernel with all services at 30-second intervals. This explains why IPVS mode has a slight increase in CPU even though IPVS’s processing of new connections is nominally O(1) complexity. In addition, the API to reprogram iptables in older kernel versions was much slower than it is today.  So if you are using an older kernel with kube-proxy in iptables mode you would see even higher CPU growth than this chart.
+第二个因素：kube-proxy 使用 iptables 或者 IPVS 处理新链接的开销。对于 iptables 来说，它名义上是 O(n) 的复杂度。在大量 service 的时候对 CPU 利用率的影响是比较明显的。例如，在 10000 个 service（后端有 100000 个 pod），iptalbes对每个新链接要执行差不多 20000 个规则。注意，虽然在这个图中我们展示了微服务中的最坏的场景：每个请求都创建新链接。如果我们使用了 NGINX 的默认配置：100 个请求使用一个链接，那么 kube-proxy 的 iptalbes 规则会少执行 100 倍，大大的降低了使用 iptables 带来的 CPU 影响，甚至接近单核 2%。
 
-The second contributor is the time it takes for kube-proxy’s use of iptables or IPVS to process new connections. For iptables, this is nominally O(n). At a large number of services, this contributes significantly to the CPU usage.  For example, at 10,000 services (with 100,000 backend pods) iptables is executing ~20,000 rules for every new connection. Remember though that in this chart we are showing the worst case scenario of microservices that use a new connection for every request. If we had used NGINX’s default keepalive of 100 requests per connection then kube-proxy’s iptables rules are executed 100 times less often, greatly reducing bringing the likely CPU impact of using iptables rather than IPVS down to something closer to 2% of a core.
+还有要说明的是，这个测试中我们使用的客户端微服务在收到服务端微服务的响应之后只是简单的丢弃了。一个真实的微服务是需要处理远比这个多的事情，这也有可能增加图上 CPU 的使用，但不会改变与服务数量相关的 CPU 的绝对增长。
 
-It’s worth noting that the “client” microservice used in this example simply discards every response it receives from the “server” microservice. A real microservice would need to do far more work than this, which would increase the base CPU usage in this chart, but not change the absolute increase in CPU associated with the number of services.
-
-## Conclusions
+## 结论
 At scales significantly beyond 1,000 services, kube-proxy’s IPVS mode can offer some nice performance improvements.  Your mileage may vary, but as a general guide, for microservices that use persistent “keepalive” style connections, running on a modern kernel, the benefits will likely be relatively modest. For microservices that don’t use persistent connections, or when running on older kernels, then switching to kube-proxy to IPVS mode will likely be a good win. 
 
 Independent of performance considerations, you should also consider using IPVS mode if you have a need for more sophisticated load balancing scheduling algorithms than kube-proxy’s iptables mode random load balancing.
 
 If you aren’t sure whether IPVS will be a win for you then stick with kube-proxy in iptables mode. It’s had a ton more in-production hardening, and while it isn’t perfect, you could argue it is the default for a reason.
 
-## Afterword: Comparing kube-proxy and Calico’s use of iptables
+## 后记: 对比 iptables 模式下的 kube-proxy 和 Calico
 In this article, we’ve seen how kube-proxy’s use of iptables can lead to performance impacts at very high scales. I’m sometimes asked why Calico doesn’t have the same challenges. The answer is that Calico’s use of iptables is significantly different than kube-proxy’s.  Kube-proxy uses a very long chain of rules that grows roughly in proportion to cluster size, whereas Calico uses very short optimized chains of rules and makes extensive use of ipsets, which have O(1) lookup independent of their size. 
 
 To put this in perspective, the following chart shows the average number of iptables rules executed per connection by kube-proxy vs Calico assuming that nodes in the cluster host an average of 30 pods and each pod in the cluster has an average of 3 network policies that apply to it.
