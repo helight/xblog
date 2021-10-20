@@ -8,7 +8,7 @@ author: "helight"
 authorlink: "http://helight.info"
 summary: ""
 keywords: ["k8s","kube-proxy","iptables","IPVS"]
-draft: true
+draft: false
 ---
 
 ## 前言
@@ -78,21 +78,20 @@ OK，虽然说 kube-proxy 的链接处理在 iptables 模式下是 O(n) 的复�
 还有要说明的是，这个测试中我们使用的客户端微服务在收到服务端微服务的响应之后只是简单的丢弃了。一个真实的微服务是需要处理远比这个多的事情，这也有可能增加图上 CPU 的使用，但不会改变与服务数量相关的 CPU 的绝对增长。
 
 ## 结论
-At scales significantly beyond 1,000 services, kube-proxy’s IPVS mode can offer some nice performance improvements.  Your mileage may vary, but as a general guide, for microservices that use persistent “keepalive” style connections, running on a modern kernel, the benefits will likely be relatively modest. For microservices that don’t use persistent connections, or when running on older kernels, then switching to kube-proxy to IPVS mode will likely be a good win. 
+在规模上只要超过了 1000 service，kube-proxy 在 IPVS 模式下可以带来很好的性能提升。大家的目标可能有所不通，但是作为一个通用的指导，在微服务场景下使用链路复用，使用较新的内核，这些好处可能相对有限。对于不实使用链路复用的微服务，或者运行在较老内核上的，切换到 kube-proxy 的 IPVS 模式下会有一个较好的收益。
 
-Independent of performance considerations, you should also consider using IPVS mode if you have a need for more sophisticated load balancing scheduling algorithms than kube-proxy’s iptables mode random load balancing.
+独立于性能考虑，如果你有需要使用比 iptables 的随机负载均衡更复杂的负载均衡算法，那么你应该考虑使用 IPVS 模式。
 
-If you aren’t sure whether IPVS will be a win for you then stick with kube-proxy in iptables mode. It’s had a ton more in-production hardening, and while it isn’t perfect, you could argue it is the default for a reason.
+如果你不确定 IPVS 是否能更好，那么请使用 kube-proxy 的 iptables 模式。它在产品化上还是有一定积累的，虽然它有不完美的地方，可以说它作为默认配置还是有原因的。
 
 ## 后记: 对比 iptables 模式下的 kube-proxy 和 Calico
-In this article, we’ve seen how kube-proxy’s use of iptables can lead to performance impacts at very high scales. I’m sometimes asked why Calico doesn’t have the same challenges. The answer is that Calico’s use of iptables is significantly different than kube-proxy’s.  Kube-proxy uses a very long chain of rules that grows roughly in proportion to cluster size, whereas Calico uses very short optimized chains of rules and makes extensive use of ipsets, which have O(1) lookup independent of their size. 
+在这篇文章中，在大规模场景下，我们看到了 kube-proxy 在 iptables 模式中如何会影响性能开销。我有时也会问这样的问题，为什么 Calico 不会有这样的问题。答案是 Calico 使用 iptables 的方式和 kube-proxy 的方式有明显的区别。kube-proxy 使用了一个非常长的规则链，并且会随着集群规模按比例增长，而 Calico 使用了非常短的优化过的规则链，使用了 ipset 进行扩展，ipset 在查询上也是 O(1) 复杂度，和大小无关。
 
-To put this in perspective, the following chart shows the average number of iptables rules executed per connection by kube-proxy vs Calico assuming that nodes in the cluster host an average of 30 pods and each pod in the cluster has an average of 3 network policies that apply to it.
+要真确的看这个事情，下面的图展示了 kube-proxy 和 Calico 对每个链接处理的平均 iptables 规则数量，假设集群中的每个节点上平均有 30 个 pod，每个 pid 平均有 3 个网关处理策略。
 
 ![](imgs/3.png)
 
-Even when running in a fully scaled out cluster with 10,000 services and 100,000 backend pods, Calico only executes roughly the same number of iptables rules per connection as kube-proxy executes at 20 services with 200 backend pods. In other words, Calico’s use of iptables scales!
-
+甚至当集群中全力运行有 10000 个 service 和 100000 个后端 pod，Calico 在每个连接上执行的 iptables 规则数量与kube-proxy 在 20 个服务和 200 个后端 pod 上执行的 iptables 规则数量大致相同。换句话说，Calico 使用 iptables 是非常高效的。
 
 
 <center>
