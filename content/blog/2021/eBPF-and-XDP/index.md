@@ -15,19 +15,20 @@ draft: true
 本文是一篇学习翻译文章，[原文在这里](https://sematext.com/blog/ebpf-and-xdp-for-processing-packets-at-bare-metal-speed/)。
 
 ## XDP 介绍
-XDP or Express Data Path arises due to the pressing need for high-performance packet processing in the Linux kernel. Several kernel bypass techniques (DPDK being the most prominent one) aim to accelerate network operations by moving packet processing to user space.
+XDP 或 Express Data Path 的兴起是应为 Linux 内核需要一个高性能的包处理能力。很多绕过内核的技术（DPDK是最突出的一个）目标都是通过把包处理迁移到用户空间来加速网络操作。
 
-This means ditching the overhead induced by context switches, syscall transitions or IRQ requests between the kernel-user space boundary. The operating system hands over the control of the networking stack to user space processes that directly interact with NIC through their own drivers.
+这就意味着要消除内核-用户空间边界之间的上下文切换、系统调用转换或 IRQ 请求所引起的开销。操作系统将网络堆栈的控制权交给用户空间进程，这些进程通过自己的驱动程序直接与 NIC 交互。
 
-Even though this approach results in a significant performance boost, it brings a series of drawbacks including reinventing the TCP/IP stack along with other networking functions in the user space or dropping the battle-tested kernel features that arm programs with powerful resource abstraction and security primitives.
+虽然这种做法的带来了明显的高性能，但是它也带来了一系列的缺陷，包括在用户空间要重新实现 TCP/IP 协议栈以及其它网络功能，或者是放弃了内核中强大的资源抽象管理和安全管理。
 
-The mission of XDP is to achieve programmable packet processing in the kernel while still retaining the fundamental building blocks of the networking stack. In fact, XDP represents a natural extension of eBPF instrumentation capabilities. It adopts the programming model built around maps, supervised helper functions and sandboxed bytecode that’s checked and loaded into the kernel in a safe fashion.
+XDP 的目的是在内核中也达到可编程的包处理，并且仍然保留基础的网络协议栈模块。实际上，XDP 代表了 eBPF 指令的自然扩展能力。它使用 maps，可管理的帮助函数，沙箱子节运行器来做到可编程，这些字节码会被检测安全之后才会加载到内核中运行。
 
-The key point of the XDP fast processing path is that the bytecode is attached at the earliest possible point in the network stack, right after the packet hits the network adapter receive (RX) queue. In this stage of the network stack none of the kernel packet traits are yet built which favors the immense speed gains in the packet processing path.
+XDP 高速处理路径的关键点在于这些编程字节码被夹在到网络协议栈最早期的可能处理点上，就在网络包接受队列（RX）之后。在网络协议栈的这一阶段中，还没有构建网络包的任何内核属性，所以非常有利于提升网络处理速度。
 
-If you’ve missed my previous blog post about eBPF essentials, I’d encourage you to give it a read first. To highlight the position of XDP in the networking stack, let’s see the life of a TCP packet since it arrives on the NIC until it hits the destination socket in user space. Keep in mind this is going to be a high level overview. We’ll just scratch the surface of this complex beast which is the kernel networking stack.
+如果你没有看过我之前关于 eBPF 基础的博文，我建议你首先应该读一下，这篇我也翻译了：[基于 eBPF 的 Linux 可观测性](http://www.helight.info/blog/2020/linux-kernel-observability-ebpf/)。为了强调 XDP 在网络协议栈中的位置，让我们来一起看看一个 TCP 包的生命过程，从它到达 NIC 知道它发送到用户空间的目的 socket。始终要记住这是一个高级别的视图。我们将只触及这个复杂的核心网络堆栈的表面层。
 
-## Ingress packet flow through the network stack
+## 通过网络协议栈的入包
+
 Once the network card receives a frame (after applying all the checksums and sanity checks), it will use DMA to transfer packets to the corresponding memory zone. This means the packet is directly copied from the NIC’s queue to the main memory region mapped by the driver. When the ring buffer reception queue’s thresholds kick in, the NIC raises a hard IRQ and the CPU dispatches the processing to the routine in the IRQ vector table to run the driver’s code.
 
 Since the driver execution path has to be blazingly fast, processing is deferred outside of the driver IRQ context by the mean of soft IRQs (NET_RX_SOFTIRQ). Given that IRQs are disabled during the execution of the interrupt handler, the kernel prefers to schedule long-running tasks out of the IRQ context to avoid the loss of any events that could occur while interrupt routine is busy. The device’s driver starts the NAPI loop and per-cpu kernel threads (ksoftirqd) consume packets from the ring buffer. The responsibility of the NAPI loop is primarily related to triggering soft IRQs (NET_RX_SOFTIRQ)to be processed by softirq handler that in turn sends up data to the network stack.
@@ -169,4 +170,5 @@ XDP is slowly emerging as the standard for fast packet processing in the Linux k
 关注「黑光技术」，关注大数据+微服务
 
 ![](/img/qrcode_helight_tech.jpg)
+
 </center>
