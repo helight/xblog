@@ -10,6 +10,13 @@
         <header>
 
           {{ partial "nav.html" . }}
+
+        </header>
+
+        {{ partial "breadcrumbs.html" . }}
+
+        <div id="content">
+            <div class="container">
           <!-- google ads -->
           <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1580080557477436"
           crossorigin="anonymous"></script>
@@ -22,13 +29,6 @@
         <script>
           (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
-        </header>
-
-        {{ partial "breadcrumbs.html" . }}
-
-        <div id="content">
-            <div class="container">
-
               <div class="row">
 
                     <!-- *** LEFT COLUMN *** -->
