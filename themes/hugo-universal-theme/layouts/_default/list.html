@@ -10,10 +10,6 @@
         <header>
 
           {{ partial "nav.html" . }}
-          <!-- google ads -->
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1580080557477436"
-          crossorigin="anonymous"></script>
-        </header>
 
         {{ partial "breadcrumbs.html" . }}
 
@@ -94,6 +90,19 @@
                             {{ range .Paginator.Pages }}
                             {{ end }}
                         </div>
+                        <!-- google ads -->
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1580080557477436"
+                    crossorigin="anonymous"></script>
+                        <ins class="adsbygoogle"
+                            style="display:block"
+                            data-ad-format="fluid"
+                            data-ad-layout-key="-ez-7g+ch+98-t0"
+                            data-ad-client="ca-pub-1580080557477436"
+                            data-ad-slot="5603571155"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+
                     </div>
                     <!-- /.col-md-9 -->
 
