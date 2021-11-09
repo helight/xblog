@@ -114,15 +114,15 @@ p {
   font-family:-apple-system-font,BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB , Microsoft YaHei UI , Microsoft YaHei ,Arial,sans-serif;
   font-size:1.1em; font-weight:bold; margin:2em 8px 0.75em 0;
   padding-bottom:.1em; padding-left:8px; 
-  background-image: linear-gradient(to right bottom, rgb(2, 115, 221), rgb(77, 78, 80)); 
-  border-left:7px solid rgb(54, 53, 53); border-radius: 5px; 
+  background-image: linear-gradient(to right bottom, rgb(0, 188, 212), rgb(63, 81, 181)); 
+  border-left:7px solid rgb(51, 51, 51); border-radius: 5px; 
 }
 
 #post-content h2{
   margin-right: 5px; padding: 8px 10px; letter-spacing: 2px; 
-  background-image: linear-gradient(to right bottom, rgb(4, 93, 177), rgb(96, 96, 97)); 
+  background-image: linear-gradient(to right bottom, rgb(0, 188, 212), rgb(63, 81, 181));
   background-color: rgb(63, 81, 181); color: rgb(255, 255, 255); 
-  border-left: 10px solid rgb(54, 53, 53); border-radius: 5px; 
+  border-left: 10px solid rgb(51, 51, 51); border-radius: 5px; 
   text-shadow: rgb(102, 102, 102) 1px 1px 1px; box-shadow: rgb(102, 102, 102) 1px 1px 2px;
 }
 
