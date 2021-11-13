@@ -3,7 +3,7 @@ title: "云原生技术解读1-如何理解云原生"
 date: 2021-11-04T08:45:20+08:00
 tags: ["云原生"]
 categories: ["云原生", "微服务"]
-banner: "img/banners/linux_ebpf_support.png"
+banner: "img/banners/kubernetes.jpeg"
 author: "helight"
 authorlink: "http://helight.info"
 summary: ""
