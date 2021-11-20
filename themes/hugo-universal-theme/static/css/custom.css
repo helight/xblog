@@ -137,7 +137,7 @@ p {
   font-size: 15px; text-decoration: none; border-bottom: 1px solid #d1e9ff;
 }
 
-#post-content blockquote{display: block; padding: 15px 15px 15px 1rem; font-size: 0.9em; margin: 1em 0px; color: rgb(8, 9, 10); border-left: 6px solid rgb(220, 230, 240); background: rgb(242, 247, 251); overflow: auto; overflow-wrap: normal; word-break: normal;}
+#post-content blockquote{display: block; padding: 15px 15px 15px 1rem; font-size: 0.9em; margin: 1em 0px; color: rgb(8, 9, 10); border-left: 6px solid rgb(89, 134, 179); background: rgb(242, 247, 251); overflow: auto; overflow-wrap: normal; word-break: normal;}
 
 #post-content blockquote p{margin: 0px;}
 

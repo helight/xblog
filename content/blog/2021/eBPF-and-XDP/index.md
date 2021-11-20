@@ -29,28 +29,29 @@ XDP 高速处理路径的关键点在于这些编程字节码被夹在到网络�
 
 ## 通过网络协议栈的入包
 
-Once the network card receives a frame (after applying all the checksums and sanity checks), it will use DMA to transfer packets to the corresponding memory zone. This means the packet is directly copied from the NIC’s queue to the main memory region mapped by the driver. When the ring buffer reception queue’s thresholds kick in, the NIC raises a hard IRQ and the CPU dispatches the processing to the routine in the IRQ vector table to run the driver’s code.
+网卡在收到一帧（所有校验和正常检查）时，网卡就回使用 DMA 来转发数据包到对于的内存区域。这意味着数据包时由驱动做了映射后直接从网卡队列拷贝到主内存区。当环形接受队列由数据进程如的时候，网卡会产生一个硬中断，并且 CPU 会把处理事件下发到中断向量表中，执行驱动代码。
 
-Since the driver execution path has to be blazingly fast, processing is deferred outside of the driver IRQ context by the mean of soft IRQs (NET_RX_SOFTIRQ). Given that IRQs are disabled during the execution of the interrupt handler, the kernel prefers to schedule long-running tasks out of the IRQ context to avoid the loss of any events that could occur while interrupt routine is busy. The device’s driver starts the NAPI loop and per-cpu kernel threads (ksoftirqd) consume packets from the ring buffer. The responsibility of the NAPI loop is primarily related to triggering soft IRQs (NET_RX_SOFTIRQ)to be processed by softirq handler that in turn sends up data to the network stack.
+因为驱动的执行路径必须非常短快，具体数据处理可以延迟到驱动中断上下文之外，使用软中断来触发处理（NET_RX_SOFTIRQ）。在中断处理的时候中断请求时被屏蔽的，内核更愿意把这种长时间处理的任务放在中断上下文之外，以避免在中断处理的时候丢失中断事件。设备驱动开始使用 NAPI 循环和一个 CPU 一个内核线程（ksoftirqd）来从环形缓冲区中消费数据包。NAPI 循环的责任主要就是触发软中断（NET_RX_SOFTIRQ），由软中断处理程序处理数据包并且发送数据到网络协议栈。
 
-A new socket buffer (sk_buff) is allocated by the net device driver to accommodate the flow of inbound packets. The socket buffer represents the fundamental data structure for abstracting packet buffering/manipulation in the kernel. It also underpins all the upper layers in the network stack.
+设备驱动申请一个新的 socket 缓冲区（sk_buff）来存放入流量包。socket 缓冲区是内核中对数据包缓冲/处理抽象出来的一个最基础的数据结构。在整个网络协议栈中的上层中都在使用。
 
-The socket buffer’s structure has several fields that identify different network layers. After consuming buffer sockets from CPU queues, the kernel fills the metadata, clones sk_buff and pushes it upstream into subsequent network layers for further processing. This is where the IP protocol layer is registered in the stack. The IP layer performs some basic integrity checks and hands over the packet to netfilter hooks. If the packet is not dropped by the netfilter, the IP layer inspects the high-level protocol and give the processing to the handler function for the previously extracted protocol.
+socket 缓冲区的结构体由多个字段，来标识不同的网络层。从 CPU 队列上消费缓冲数据后，内核会填充这些元数据，复制 sk_buff 并且把它推到上游的网络层的自队列中做进一步处理。这是 IP 协议层在堆栈中注册的位置。IP 层执行一些基本的完整型检测，并且把包发送给 netfilter 的钩子函数。如果包没有被 netfilter 丢弃，IP 层会检测高级协议，并且为之前提取的协议把处理交给响应的处理函数。
 
-Data is eventually copied to user space buffers where sockets are attached. Processes receive data either via the family of blocking syscalls (recv, read) or proactively via some polling mechanism (epoll) .
+数据最终被拷贝到 socket 关联的用户空间缓冲区。进程通过阻塞系统调用（recv、read）函数或通过某种轮询机制（epoll）主动接收数据。
 
-XDP hooks are triggered right after NIC copies the packet data to the RX queue, at which point we can effectively prevent allocations of various meta-data structures including sk_buffers. If we consider the simplest possible use case such as packet filtering in high-speed networks or nodes that are subject of DDoS attacks, traditional network firewall (iptables) solutions would inevitably swamp the machine due to the amount of workload introduced by each stage in the networking stack.
+在网卡把数据包拷贝到接受队列之后就触发了 XDP 的钩子函数，在这一点上我们可以高效的阻止申请各种各样的元数据结构，包括 sk_buffer。如果我们看一下非常简单的可能使用场景，比如在高流量网络中的包过滤或者阻止 DDos 攻击，传统的网络防火墙方案（iptables）由于网络堆栈中的每个阶段都会引入大量的工作负载，这将不可避免地给机器造成压力。
 
-eBPF and XDP for Processing Packets at Bare-metal Speed
-XDP hook in the networking stack
+在裸机速度下的 eBPF 和 XDP 包处理流程
+
+在网络协议栈中的 XDP 的钩子
 ![](imgs/1.png)
 
-Specifically, iptables rules, which are scheduled in their own softirq tasks but also evaluated sequentially, would match at the IP protocol layer to decide whether the packet from a specific IP address is about to be dropped. On the contrary, XDP would directly operate on a raw Ethernet frame obtained from the DMA-backed ring buffer, so the dropping logic can occur prematurely, saving the kernel from immense processing that would lead to network stack latency and eventually to complete resource starvation.
+具体上来看在软中断任务中调度顺序执行的 iptables 规则，会在 IP 协议层中去匹配指定的 IP 地址，以决定是否丢弃这个数据包。和 iptables 不一样的是 XDP 会直接操作一个从 DMA 后端环形缓冲区中拿的原始的以太帧包，所以丢弃逻辑可以很早的执行，这样就节省了内核时间，避免了会导致协议栈执行导致的延时。
 
-## XDP constructs
-As you might already know, the eBPF bytecode can be attached on various strategic points like kernel functions, sockets, tracepoints, cgroup hierarchies or user space symbols. Thus, each type of eBPF program operates within particular context – the state of the CPU registers in case of kprobes, socket buffers for socket programs, and so on. In XDP parlance, the backbone of the resulting eBPF bytecode is modeled around XDP metadata context (xdp_md). XDP context contains all the needed data to access the packet at its raw form.
+## XDP 组成
+正如你已经知道的，eBPF 的子节码可以挂载在各种策略执行点上，比如内核函数，socket，tracepoint，cgroup 层级或者用户空间符号。这样的话，每个 eBPF 程序操作特定的上下文- kprobes xia场景下的 CPU 寄存器状态，socket 程序的 socket 缓冲区等等。用 XDP 的说法，生成的 eBPF 字节码的主干是围绕 XDP 元数据上下文建模的（xdp_md）。XDP 上下文包含了所有需要在原始形式下访问数据包的信息。
 
-To better comprehend the key blocks of the XDP program, let’s dissect the following stanza:
+为了更好地理解 XDP 程序的关键模块，让我们剖析以下章节：
 ```c
 #include <linux/bpf.h>
 
@@ -63,46 +64,45 @@ int xdp_drop(struct xdp_md *ctx) {
 
 char __license[] SEC("license") = "GPL";
 ```
-This is the minimal XDP program that once attached on a network interface drops every packet. We start by importing the bpf header that brings in the definitions of various structures including the xdp_md structure. Next, we declare the SEC macro to place maps, functions, license metadata and other elements in ELF sections that are introspected by eBPF loader.
+这个小 XDP 程序一旦加载到网卡上就会丢弃所有数据包。我们引入了 **bpf** 头文件，它里面包含了数据结构定义，包括 xdp_md 结构体。接下来，声明了 **SEC** 宏来存放 map，函数，许可证元信息和其它 ELF 段中的元素（可以被 eBPF 加载器解析）。
 
-Now comes the most relevant part of our XDP program that deals with packet’s processing logic. XDP ships with a predefined set of verdicts that determine how the kernel diverts the packet flow. For instance, we can pass the packet to the regular network stack, drop it, redirect the packet to another NIC and such. In our case, XDP_DROP yields an ultra-fast packet drop. Also note that we’ve anchored the prog section in our function that eBPF loader is expecting to encounter (the program will fail to load if different section name is found, however we can instruct ip to use a non-standard section name).  Let’s compile the program above and give it a try.
+现在来看我们 XDP 程序中处理数据包逻辑最相关的部分。XDP 做了预定义的一组判定可以决定内核处理数据包流。例如，我们可以让数据包通过，从而发送到常规的网络协议栈中，或者丢弃它，或者重定向数据包到其它的网卡等。在我们的例子中，XDP_DROP 是说超快速的丢弃数据包。同时注意，我们声明了是在 prog 段中加载执行，eBPF 加载会检测加载（如果段名称没有找到会加载失败，但是我们可以根据 IP 来使用非标准段名称 ）。下面我们来编译试运行一下上面的代码。
 ```shell
 $ clang -Wall -target bpf -c xdp-drop.c -o xdp-drop.o
 ```
-The binary object can be loaded into the kernel with different userspace tools (part of iproute2 suite), tc or ip being most widely utilized. XDP supports veth (virtual ethernet) interfaces, so an instant way to see our program in action is to offload it to an existing container interface. We’ll spin up a nginx container and launch a couple of curls before and after attaching the XDP program on the interface. The first attempt of curling the nginx root context results in a successful HTTP status code:
+我们可以使用不同的用户空间工具把二进制目标代码加载到内核中（iproute2 的部分工具就可以），tc 或者 ip 是是常用的。XDP支持虚拟网卡，所以要直接看出上面程序的作用，我们可以把代码加载到一个已经存在的容器网卡上。我们会启动一个 nginx 容器，并且在加载 XDP 程序之前和之后分别启动一组 curl 请求。之前的 curl 请求会返回一个成功的 HTTP 状态码：
 ```shell
 $ curl --write-out '%{http_code}' -s --output /dev/null 172.17.0.4:80
 200
 ```
-Loading the XDP bytecode can be accomplished with the following command:
+加载 XDP 字节码可以使用下面的命令：
 ```shell
 $ sudo ip link set dev veth74062a2 xdp obj xdp-drop.o
 ```
-We should see the xdp flag activated in the veth interface:
+我们会看到虚拟网卡上有 xdp 被激活的标识：
 ```shell
 veth74062a2@if16: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 xdp/id:37 qdisc noqueue master docker0 state UP group default
 link/ether 0a:5e:36:21:9e:63 brd ff:ff:ff:ff:ff:ff link-netnsid 2
 inet6 fe80::85e:36ff:fe21:9e63/64 scope link
 valid_lft forever preferred_lft forever
 ```
-The subsequent curl requests will hang for a while before failing with an error message like below, which effectively confirms the XDP hook is working as expected:
+curl 请求将会被阻塞一段时间直到返回如下的错误信息，这就说明 XDP 代码生效了，也是我们预期的效果：
 ```shell
 curl: (7) Failed to connect to 172.17.0.4 port 80: No route to host
 ```
-When we’re done with our experiments the XDP program can be unloaded via:
-
+我们在测试完整之后，可以使用下面的命令卸载 XDP 程序：
 ```shell
 $ sudo ip link set dev veth74062a2 xdp off
 ```
 
-## Programming XDP in Go
-The previous code snippet demonstrated some basic concepts, but to leverage the super powers of XDP we are going to craft slightly more sophisticated piece of software using the Go language – a small tool built around a sort of canonical use case: dropping packets for particular blacklisted IP addresses. The full source code along with instructions on how to build the tool are available in the repository right here. As in the previous blog post, we utilize the gobpf package that provides the pillars for interacting with the eBPF VM (loading programs into the kernel, accessing/manipulating eBPF maps and much more). A plenty of eBPF program types can directly be written in C and compiled to ELF object files.  Unfortunately, XDP ELF-based programs are not covered yet. As an alternative,  attaching XDP programs is still possible via BCC modules at the cost of dealing with libbcc dependencies.
+## 使用 GO 编写 XDP 程序
+上面的代码片段演示了一些基本的概念，但是为了充分利用 XDP 的强大功能，我们将使用 Go 语言来制作稍微复杂点的软件 - 围绕某种规范用例构建的小工具:针对一些指定的黑名单 IP 地址进行包丢弃。完整的代码以及如何构建这个工具的文档说明在[这里](https://github.com/sematext/oxdpus)。[如上一篇博文所介绍](http://www.helight.info/blog/2020/linux-kernel-observability-ebpf/)，我们使用 gobpf 包，它提供了和 eBPF VM 交互的支持（加载程序到内核，访问/操作 eBPF map 以及其它功能）。大量的 eBPF 程序都可以直接由 C 编写，并且编译为 ELF 目标文件。但是可惜的是，基于 ELF 的 XDP 程序还不行。另外一种方法就是，通过 BCC 模块加载 XDP 程序仍然是可以的，但要是要依赖 libbcc。
 
-Nevertheless, there is an important limitation in BCC maps that prevents them from being pinned on the bpffs (in fact, you can pin maps from user space but during the bootstrap of the BCC module it happily ignores any pinned objects). Our tool needs to inspect the blacklist map, but also have the ability to add/remove elements from it after the XDP program is attached on the network interface and the main process exits.
+不管怎么处理，BCC maps 有一个非常重要的限制：不能把他们挂到 bpffs 上面（事实上，你可以从用户空间挂 maps，但是启动 BCC 模块的是，它就很容易忽略任何的挂载对象）。我们的工具需要侵入黑名单的 map，同时需要在 XDP 程序加载到网卡上之后仍可以由能力从 map 中添加或者删除元素。
 
-That was enough motivation to consider supporting XDP programs in ELF objects, so we submitted the pull request with hopes of incorporating it in the upstream repo. We think this is a valuable addition to favor the portability of XDP programs similarly to how kernel probes can be distributed across machines even if they don’t ship with clang, LLVM and other dependencies.
+我们就有足够的动力来考虑使用 ELF 目标文件支持 XDP 程序，所以我们给上游仓库提了这方面的 pr，并期望能合进去（目前这个 pr 已经被合并到 gobpf了）。我们认为这个功能对 XDP 程序的可移植性非常有价值，就像内核探测可以跨机器分布一样，即使它们不附带 clang、LLVM 和其他依赖项。
 
-Without further ado, let’s skim through the most important snippets starting with the XDP code:
+不用多说了，让我们从下面 XDP 代码开始浏览最重要的[代码片段](https://github.com/sematext/oxdpus/blob/master/pkg/xdp/prog/xdp.c)：
 ``` c
 SEC("xdp/xdp_ip_filter")
 int xdp_ip_filter(struct xdp_md *ctx) {
@@ -120,7 +120,7 @@ int xdp_ip_filter(struct xdp_md *ctx) {
     }
     eth_type = eth->h_proto;
 
-    /* handle VLAN tagged packet */
+    /* handle VLAN tagged packet 处理 VLAN 标记的数据包*/
        if (eth_type == htons(ETH_P_8021Q) || eth_type == 
 htons(ETH_P_8021AD)) {
              struct vlan_hdr *vlan_hdr;
@@ -132,14 +132,16 @@ htons(ETH_P_8021AD)) {
           eth_type = vlan_hdr->h_vlan_encapsulated_proto;
     }
 
-    /* let's only handle IPv4 addresses */
+    /* let's only handle IPv4 addresses 只处理 IPv4 地址*/
     if (eth_type == ntohs(ETH_P_IPV6)) {
         return XDP_PASS;
     }
 
     struct iphdr *iph = data + offset;
     offset += sizeof(struct iphdr);
-    /* make sure the bytes you want to read are within the packet's range before reading them */
+    /* make sure the bytes you want to read are within the packet's range before reading them 
+    * 在读取之前，确保你要读取的子节在数据包的长度范围内
+    */
     if (iph + 1 > end) {
         return XDP_ABORTED;
     }
@@ -152,16 +154,19 @@ htons(ETH_P_8021AD)) {
     return XDP_PASS;
 }
 ```
-It might look a bit intimidating, but for instance let’s ignore the code block responsible for handling VLAN tagged packets. We start by accessing packet data from the XDP metadata context and cast the pointer to the ethddr kernel structure. You also may notice several conditions that check byte boundaries within the packet. If you omit them, the verifier will refuse to load the XDP bytecode. This enforces rules that guarantee to run XDP programs without causing mayhem in the kernel if code references invalid pointers or violates safety policies. The remaining part of the code extracts the source IP address from the IP header and checks its presence in the blacklist map. If lookup is successful, the packet is dropped.
+代码看起来是稍微有点多，但是可以先忽略代码中负责处理 VLAN 标签的数据包的代码。我们先从 XDP 元信息中访问包数据开始，并且把这个指针转换成 ethddr 的内核结构。你同时会注意到检测包边界的几个条件。如果你忽略了他们，检查器会拒绝加载 XDP 子节代码。这个强制规则保证了 XDP 代码在内核中的的正常运行，避免有无效指针或者违反安全策略的代码被加载到内核。剩下的代码从 IP 协议头中提取了源 IP 地址，并且检测是否在黑名单 map 中。如果从 map 中查找到了，就回丢弃这个包。
 
-The Hook structure is in charge of attaching/detaching XDP programs in the network stack. It instantiates and loads the XDP module from object file and calls into AttachXDP or RemoveXDP methods.
+[Hook](https://github.com/sematext/oxdpus/blob/master/pkg/xdp/hook.go) 结构体是负责在网络协议栈中加载或者卸载 XDP 程序。它实例化并且从对象文件中加载 XDP 模块，最终调用 **AttachXDP** 或者 **RemoveXDP** 方法。
 
-The blacklist of IP addresses is managed through standard eBPF maps. We call UpdateElement and DeleteElement to register or remove entries respectively. Blacklist manager also contains a method for listing available IP addresses in the map.
+IP 地址[黑名单](https://github.com/sematext/oxdpus/blob/master/pkg/blacklist/map.go)是通过标准的 eBPF maps 来管理的。我们调用 **UpdateElement** 和 **DeleteElement** 来分别注册或者删除 IP 信息。黑名单管理者也包含了获取 map 中可用的 IP 地址列表的方法。
 
 The rest of the code glues all the pieces together to give a nice CLI experience that users can exploit to perform XDP program attaching/removal and the manipulation of the IP blacklist. For further details, please head to the sources.
 
+其它的代码把所有的代码片段组合起来，以提供良好的 CLI 体验，用户可以利用这种体验执行 XDP 程序附加/删除和操作 IP 黑名单。要了解更多细节，[请看源码](https://github.com/sematext/oxdpus)。
+
 ## Conclusions
 XDP is slowly emerging as the standard for fast packet processing in the Linux kernel. Throughout this blog post I’ve explained the fundamental building blocks that comprise the packet processing ecosystem. Although the networking stack is a complex subject, creating XDP programs is relatively painless due to the programmable nature of eBPF/XDP.
+XDP 在 Linux 内核中慢慢以高速包处理标准出现。通过这篇博文，我介绍了组成数据包处理系统的基本构建模块。虽然网络协议栈是一个非常复杂的主题，由于 eBPF/XDP 的编程特性，创建 XDP 程序已经是相对比较轻松了。
 
 
 <center>
