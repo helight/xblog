@@ -1,6 +1,6 @@
 ---
 title: "eBPF and XDP for Processing Packets at Bare-metal Speed"
-date: 2021-10-28T08:45:20+08:00
+date: 2021-11-20T08:45:20+08:00
 tags: ["ebpf", "kernel"]
 categories: ["ebpf", "kernel"]
 banner: "img/banners/linux_ebpf_support.png"
@@ -8,7 +8,7 @@ author: "helight"
 authorlink: "http://helight.info"
 summary: ""
 keywords: ["ebpf", "xdp", "kernel"]
-draft: true
+draft: false
 ---
 
 ## 前言
