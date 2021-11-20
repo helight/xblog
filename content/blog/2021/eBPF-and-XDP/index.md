@@ -14,6 +14,10 @@ draft: false
 ## 前言
 本文是一篇学习翻译文章，[原文在这里](https://sematext.com/blog/ebpf-and-xdp-for-processing-packets-at-bare-metal-speed/)。
 
+XDP 是一种特殊的 eBPF 程序，在数据包处理上应为在协议栈之前就可以处理数据，所以有非常高的性能。
+
+这篇文章先在原理上对 XDP 进行了介绍，并由 2 个简单的例子来对使用场景进行说明。另外还介绍了作者所在公司的一个开源项目：https://github.com/sematext/oxdpus。里面有几个 XDP 的应用程序，有相关的应用空间程序和内核相关的代码。用户空间命令工具是 golang 写的，并且 eBPF 的操作是使用 gobpf ，对于学习了解 XDP 有帮助，命令基本可以直接使用。
+
 ## XDP 介绍
 XDP 或 Express Data Path 的兴起是应为 Linux 内核需要一个高性能的包处理能力。很多绕过内核的技术（DPDK是最突出的一个）目标都是通过把包处理迁移到用户空间来加速网络操作。
 
