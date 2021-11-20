@@ -164,12 +164,9 @@ htons(ETH_P_8021AD)) {
 
 IP 地址[黑名单](https://github.com/sematext/oxdpus/blob/master/pkg/blacklist/map.go)是通过标准的 eBPF maps 来管理的。我们调用 **UpdateElement** 和 **DeleteElement** 来分别注册或者删除 IP 信息。黑名单管理者也包含了获取 map 中可用的 IP 地址列表的方法。
 
-The rest of the code glues all the pieces together to give a nice CLI experience that users can exploit to perform XDP program attaching/removal and the manipulation of the IP blacklist. For further details, please head to the sources.
-
 其它的代码把所有的代码片段组合起来，以提供良好的 CLI 体验，用户可以利用这种体验执行 XDP 程序附加/删除和操作 IP 黑名单。要了解更多细节，[请看源码](https://github.com/sematext/oxdpus)。
 
 ## Conclusions
-XDP is slowly emerging as the standard for fast packet processing in the Linux kernel. Throughout this blog post I’ve explained the fundamental building blocks that comprise the packet processing ecosystem. Although the networking stack is a complex subject, creating XDP programs is relatively painless due to the programmable nature of eBPF/XDP.
 XDP 在 Linux 内核中慢慢以高速包处理标准出现。通过这篇博文，我介绍了组成数据包处理系统的基本构建模块。虽然网络协议栈是一个非常复杂的主题，由于 eBPF/XDP 的编程特性，创建 XDP 程序已经是相对比较轻松了。
 
 
