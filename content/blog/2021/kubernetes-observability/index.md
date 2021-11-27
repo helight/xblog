@@ -14,7 +14,7 @@ draft: false
 ## 前言
 本文是一篇翻译的文章，主要是学习，[原文地址在这里](https://www.tigera.io/blog/kubernetes-observability-challenges-in-cloud-native-architecture/).
 
-这篇文章是 Calico 公司的员工写的，思路非常好。可观测性即代码，非常 k8s 范。在我们实际应用种，目前 k8s 的观测性确实是一个非常大的问题，就目前我在做的平台中，我就对这个问题很头大，虽然业界也有可观测性方案，但是 opentelemetry 目前较为成熟的只是 trace，log 还不够成熟，metrics 目前还是 Prometheus 比较成熟。所以目前大多数的业界平台都是混着用。虽然 opentelemetry 声称是要统一这三者，但是从实际技术角度和目前发展情况来看，还需要时日才能成熟。
+这篇文章是 Calico 公司的员工写的，思路非常好。可观测性即代码，非常 k8s 范。在我们实际应用中，目前 k8s 的观测性确实是一个非常大的问题，就目前我在做的平台中，我就对这个问题很头大，虽然业界也有可观测性方案，但是 opentelemetry 目前较为成熟的只是 trace，log 还不够成熟，metrics 目前还是 Prometheus 比较成熟。所以目前大多数的业界平台都是混着用。虽然 opentelemetry 声称是要统一这三者，但是从实际技术角度和目前发展情况来看，还需要时日才能成熟。
 
 所以这篇文章从目前 Kubernetes 中可观测性的挑战做了分析，在这方面提出了一个解决思路，并且做了落地实践。我认为目前这个思路是大方向，但是目前的实现情况还是比较初步，还需要 k8s 在这方面能力上持续发展。或许未来是可以直接和 opentelemetry 的方案直接对接。
 
