@@ -1,6 +1,6 @@
 ---
 title: "必须知道的 Kubernetes 设计模式 Top 10"
-date: 2021-11-31T08:45:20+08:00
+date: 2021-11-27T08:45:20+08:00
 tags: ["Kubernetes", "ebpf"]
 categories: ["k8s", "microservices"]
 banner: "img/banners/kubernetes.jpeg"
