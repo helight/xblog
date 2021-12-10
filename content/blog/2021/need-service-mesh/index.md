@@ -12,16 +12,12 @@ draft: true
 ---
 
 ## 前言
-本文是一篇翻译的文章，主要是学习，[原文地址在这里](https://developers.redhat.com/blog/2020/05/11/top-10-must-know-kubernetes-design-patterns).
+本文是一篇翻译的文章，主要是学习，[原文地址在这里](https://www.tigera.io/blog/do-you-really-need-a-service-mesh/).
 
-这篇文章是对 redhat 写的一本书的概述，提炼了很多核心概念。
-
-这篇文章中介绍了和传统《设计模式》类似的云原生时代的设计模式，《设计模式》在软件开发中意义重大，现在多少软件研发都受到它的影响，而且我之前也在公司内开了这门课程，自己学习的同时，也是想让我们的开发者开发软件更有软件设计思维。
-
-而今这本书的出现是针对目前云原生时代的设计模式，之前的设计模式更多的是对单个模块或是简单系统的，但是云原生时代的开发方式和理念与之前的主机开发模式还是有大的不同的。所以现在开发者在学习了《设计模式》的基础上，还应该学习这些**云上设计模式**。
 
 ## 正文
 The challenges involved in deploying and managing microservices have led to the creation of the service mesh, a tool for adding observability, security, and traffic management capabilities at the application layer. While a service mesh is intended to help developers and SREs with a number of use cases related to service-to-service communication within Kubernetes clusters, a service mesh also adds operational complexity and introduces an additional control plane for security teams to manage.
+部署和管理微服务所面临的挑战导致了服务网格的出现，服务网格是一种用于在应用层添加可观察性、安全性和流量管理功能的工具和技术。虽然服务网格旨在帮助开发人员和SRE处理与Kubernetes集群内的服务对服务通信相关的许多用例，但服务网格还增加了操作复杂性，并引入了一个额外的控制平面，供安全团队管理。
 
 ## What is a service mesh?
 A service mesh is a software infrastructure layer for controlling and monitoring internal, service-to-service traffic in microservices applications.
