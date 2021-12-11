@@ -1,6 +1,6 @@
 ---
 title: "Do you really need a service mesh?"
-date: 2021-11-31T08:45:20+08:00
+date: 2021-12-10T08:45:20+08:00
 tags: ["sevicemesh", "microservices"]
 categories: ["sevicemesh", "microservices"]
 banner: "img/banners/istio2.png"
@@ -8,11 +8,18 @@ author: "helight"
 authorlink: "http://helight.info"
 summary: ""
 keywords: ["sevicemesh","microservices"]
-draft: true
+draft: false
 ---
 
-## 前言
-本文是一篇翻译的文章，主要是学习，[原文地址在这里](https://www.tigera.io/blog/do-you-really-need-a-service-mesh/).
+译者注：本文作者是 Tigera 产品总监 Phil DiCorpo 写的，原文地址在这里[1]。作者介绍服务网格的价值和架构设计，并且分析了目前服务网格在落地上挑战点，这些都是非常有价值的。并且在后面介绍了他们在他们的产品 Calico 上的一些事件和解决思路。
+
+目前看服务网格在实施落地上确实是有非常大的挑战，根据具体的使用场景需求不一样，但是大多数的场景下使用服务网格还是有点太重了。所以目前大家的方向还是 2 个方面进行探索：
+1. 如何减低目前边车架构下的部署运营成本，让使用团队可以低成本的使用这项技术。
+2. 对于架构的优化，把传统的边车思路上进行突破，采用其它的架构从而减低运营成本。
+
+本文的分析和介绍也是有一定的借鉴意义，我也坚信服务网格技术是服务治理的未来，而这项技术也在这几年的发展中不断发展壮大，但是还没有到很成熟的时候，服务网格技术是一个基础设施基础，一定要不断下沉，不断向上抽象。下沉到更高效的内核或者基础网络上，向上抽象到配置管理成本更低。
+
+首先任何事情要想明白为什么要用这项技术，国内这两年随着云原生技术的兴起而且不断的也把服务网格技术拉热了，但是应用场景和运营成本依然是我们要重点考虑的核心点，不是说为用而用。
 
 
 ## 正文
@@ -64,41 +71,51 @@ draft: true
 因此，最终选择使用哪个服务网格就需要了解开发领域知识和专业技能。所以这在除了已经在使用的 Kubernetes 之外，这又增加了一层复杂性。
 
 ## 采用服务网格的主要原因
-通过与 DevOps 团队、平台和服务所有者的沟通，我们发现有三个主要场景是采用服务网格因素：安全/加密、服务级别可观察性和服务级别控制。
+通过与 DevOps 团队、平台和服务所有者的沟通，我们发现有三个主要场景是采用服务网格因素：
+1. 安全/加密
+2. 服务级别可观察性
+3. 服务级别控制。
 
-Security/encryption – Security for data in transit within a cluster. Sometimes this is driven by industry-specific regulatory concerns, such as PCI compliance or HIPAA. In other cases, it is driven by internal data security requirements. When the security of internet-facing applications is at the core of an organization’s brand and reputation, security becomes extremely important.
-Service-level observability – Visibility into how workloads and services are communicating at the application layer. By design, Kubernetes is a multi-tenant environment. As more workloads and services are deployed, it becomes harder to understand how everything is working together, especially if an organization is embracing a microservices-based architecture. Service teams want to understand what their upstream and downstream dependencies are.
-Service-level control – Controlling which services can talk to one another. This includes the ability to implement best practices around a zero-trust model to ensure security.
-While these are the main drivers for adoption, the complexity involved in achieving them through use of a service mesh can be a deterrent for many organizations and teams.
+安全/加密——群集中数据传输的安全性。有时候这是由行业特定的监管问题导致的，如 PCI 合规性或 HIPAA。在其他情况下，它由内部数据安全需求驱动。当面向 internet 的应用程序的安全性成为组织品牌和声誉的核心时，安全性就变得极其重要。
+
+服务级别可观察性——了解工作负载和服务在应用程序层的通信方式。根据设计，Kubernetes 是一个多租户环境。随着部署了更多的工作负载和服务，了解所有服务和工作负载是如何协同工作将会变得越来越困难，特别是当一个组织采用基于微服务的架构时。服务团队很希望了解服务的上游和下游依赖关系是什么。
+
+服务级别控制——控制哪些服务可以相互通信。这包括围绕零信任模型而实施最佳实践以确保安全性的能力。
+
+虽然这些是采用的主要驱动因素，但通过使用服务网格实现这些目标所涉及的复杂性可能会对许多组织和团队造成阻碍。
 
 ## 可操作的简化实现
-Platform owners, DevOps teams, and SREs have limited resources, so adopting a service mesh is a significant undertaking due to the resources required for configuration and operation.
+平台所有者、DevOps 团队和 SRE 的资源是有限的，因此由于配置和操作所需的资源成本，成为了采用服务网格是一项大工程。
 
-Calico enables a single-pane-of-glass unified control to address the three most popular service mesh use cases—security, observability, and control—with an operationally simpler approach, while avoiding the complexities associated with deploying a separate, standalone service mesh. Let’s look at the benefits of this approach, and how you can easily achieve full-stack observability and security, deploy highly performant encryption, and tightly integrate with existing security infrastructure like firewalls.
+Calico 支持单窗格统一控制，以一种操作上更简单的方法来解决三个最流行的服务网格使用场景——安全性、可观察性和控制，同时避免了与部署独立服务网格相关的复杂工作。让我们看看这种方法的好处，以及如何轻松实现全栈可观察性和安全性，部署高性能加密，以及如何与防火墙等现有安全基础设施紧密集成。
 
 ### 安全
-Calico offers encryption for data in transit that leverages the latest in crypto technology, using open-source WireGuard. As a result, Calico’s encryption is highly performant while still allowing visibility into all traffic flows.
+Calico 使用开源的 WireGuard，利用最新的加密技术为传输中的数据提供加密。因此，Calico 的加密性能很高，同时仍然允许查看所有流量。
 
-One of the areas that introduces considerable operational complexity is the certificate management associated with mTLS that is used in most service meshes. WireGuard provides a highly performant alternative that requires zero configuration—even aspects such as key rotation are built into the protocol.
+引入相当多复杂性操作的其中一个领域就是与大多数服务网格中使用的 mTLS 相关联的证书管理。WireGuard 提供了一种高性能的替代方案，它是零配置的，甚至在协议中内置了密钥轮转等方面的能力。
 
 ### 可观测性
-Calico offers visibility into service-to-service communication in a way that is resource efficient and cost effective. It provides Kubernetes-native visualizations of all the data it collects, in the form of a Dynamic Service Graph. The graph allows the user to visualize communication flows across services and team spaces, to facilitate troubleshooting. This is beneficial to platform operators, service owners, and development teams.
+Calico 以一种节省资源和成本的方式提供对服务间通信的可视性。它把它收集的所有数据以动态服务图的形式提供了 Kubernetes 原生可视化。该图允许用户可视化的跨服务和团队空间的通信流，以便于故障排除。这对平台运营商、服务所有者和开发团队都是有益的。
 
-With Calico, Envoy is integrated into the data plane, providing operational simplicity. No matter which data plane you’re using (standard Linux iptables, Windows, or eBPF), Calico provides observability, traffic flow management, and control by deploying a single instance of Envoy as a daemon set on each node of your cluster. Instead of having an Envoy container in every pod as a sidecar, there is one Envoy container per node. This provides performance advantages, as it’s more resource efficient and cost effective.
+通过 Calico，Envoy 被集成到数据平面中，提供操作简单性。无论使用的是哪种数据平面（标准 Linux iptables、Windows 或 eBPF），Calico 都通过在集群的每个节点上部署一个单一的 Envoy 实例作为守护进程集来提供可观察性、流量管理和控制。这种做法不是让每个 pod 中有一个 Envoy 容器作为 sidecar，而是每个节点有一个 Envoy 容器。这提供了性能优势，因为它有更好的资源效率和成本效益。
 
-This visibility can easily be extended to workloads outside the cluster as well.
+这种可视性也可以轻松地扩展到集群之外的工作负载上。
 
 ### 实现控制
-Over the years, Calico has become well-known for its capabilities around implementing controls. Now, we’ve extended these capabilities to the full stack, from the network layer up through the application layer. You get the application-layer controls you would get with a service mesh, but are able to combine those with controls you might want to implement at the network or transport layer. You can implement policies you’ve defined by assigning them to tiers that enforce an order of precedent, and each of those tiers can be tied to role-based access control (RBAC).
+多年来，Calico 都以其在实施控制方面的能力而闻名。现在，我们已经将这些功能扩展到了全栈，从网络层一直到应用层。可以使用服务网格获得应用程序层的控制能力，但可以将这些能力与你可能希望在网络或传输层实现的能力相结合。可以通过将已定义的策略分配给有顺序执行能力的层来实现这些策略，并且这些层中的每一层都可以绑定到基于角色的访问控制（RBAC）。
 
-For example, if you want to have a security team manage certain tiers that might be geared toward PCI compliance, or monitor egress traffic and compare it against known threat feeds, you can easily do so. What’s more, you can put those policies in place without interfering with what you might want to enable your application and development teams to do for east-west traffic and service-to-service communication, which service mesh typically handles.
+例如，如果你想让一个安全团队管理可能面向 PCI 合规性的某些层，或者监视出口流量并将其与已知的攻击源进行比较，你可以很容易地做到这一点。更重要的是，您可以将这些策略落实到位，而不会干扰你的应用程序和开发团队为东西向流量和服务间通信（服务网格通常会处理这些通信）所做的工作。
 
-Calico also offers some powerful capabilities related to egress access controls. The capabilities make it easy to integrate with firewalls or other kinds of controls where you might want to understand the origin of egress traffic, and implement certain controls around that. If you’re working with a SIEM or other log management system or monitoring tool, it’s really helpful to be able to identify the origin of egress traffic, to the point where you have visibility into the specific application or namespace from which egress traffic seen outside the cluster came.
+Calico 还提供了一些与出口访问控制相关的强大功能。这些功能使你可以轻松地与防火墙或其他类型的控件集成，你可能希望了解出口流量的来源，并围绕此实现某些控件。如果你使用的是 SIEM 或其他日志管理系统或监视工具，那么这对识别出口流量的来源非常有帮助，这样你就可以看到集群外部出口流量来自的特定应用程序或命名空间。
 
-Kubernetes itself presents a lot of challenges, and working through getting Kubernetes up and running keeps security teams quite busy. Calico is able address some of the most popular service mesh use cases, without introducing an additional control plane. This makes it operationally a lot simpler to handle, especially if your team has limited resources.
+Kubernetes 本身带来了很多挑战，通过启动和运行 Kubernetes，安全团队会非常忙碌。Calico 能够解决一些最流行的服务网格使用场景，而无需引入额外的控制平面。这使得操作上更容易处理，尤其是当您的团队资源有限时。
 
 ## 总结
-So… Do you really need a service mesh? In my opinion, if security and observability are your primary drivers, the answer is no. Calico provides granular observability and security—not just at the application layer, but across the full stack—while avoiding the operational complexities and overhead often associated with deploying a service mesh.
+那么。。。你真的需要服务网格吗？在我看来，如果安全性和可观察性是你的主要驱动因素，那么答案是否定的。Calico 不仅在应用程序层，而且在全栈中提供了细粒度的可观察性和安全性，同时避免了部署服务网格时经常出现的操作复杂性和开销。
+
+## 引用链接
+[1](https://www.tigera.io/blog/do-you-really-need-a-service-mesh/)
+
 
 <center>
 看完本文有收获？请分享给更多人
