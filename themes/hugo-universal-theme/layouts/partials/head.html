@@ -1,7 +1,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="robots" content="all,follow">
-  <meta name="googlebot" content="index,follow,snippet,archive">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {{ $title_plain := .Title | markdownify | plainify }}
   <title>{{ $title_plain }}</title>
@@ -20,7 +19,7 @@
   <!-- Bootstrap and Font Awesome CSS -->
 
   <link href="{{ "css/bootstrap.min.css" | relURL}}" rel="stylesheet">
-  
+
   <!-- CSS animations  -->
   <link href="{{ "css/animate.css" | relURL}}" rel="stylesheet">
 
@@ -96,5 +95,4 @@
   {{ end }}
   <meta name="twitter:description" content="{{ $description_plain | truncate 200 }}">
   {{ with .Param "twitter_author" }}<meta name="twitter:creator" content="@{{ . }}">{{ end }}
-  <script data-ad-client="ca-pub-1580080557477436" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
