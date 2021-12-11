@@ -114,7 +114,7 @@ Kubernetes 本身带来了很多挑战，通过启动和运行 Kubernetes，安�
 那么。。。我们真的需要服务网格吗？在我看来，如果安全性和可观察性是你的主要驱动因素，那么答案是否定的。Calico 不仅在应用程序层，而且在全栈中提供了细粒度的可观察性和安全性，同时避免了部署服务网格时经常出现的操作复杂性和开销。
 
 ## 引用链接
-[1]: (https://www.tigera.io/blog/do-you-really-need-a-service-mesh/)
+[1]: https://www.tigera.io/blog/do-you-really-need-a-service-mesh/
 
 
 <center>
