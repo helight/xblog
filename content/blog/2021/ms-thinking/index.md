@@ -5,7 +5,7 @@ tags: ["microservices"]
 categories: ["microservices"]
 banner: "img/banners/ms.jpg"
 author: "helight"
-authorlink: "http://helight.info"
+authorlink: "http://helight.cn"
 summary: ""
 keywords: ["microservices","微服务"]
 draft: false

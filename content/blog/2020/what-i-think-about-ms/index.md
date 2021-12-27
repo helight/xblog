@@ -5,7 +5,7 @@ tags: ["microservices"]
 categories: ["sevicemesh", "microservices"]
 banner: "img/banners/ms.jpg"
 author: "helight"
-authorlink: "http://helight.info"
+authorlink: "http://helight.cn"
 summary: "根据这段时间读的书想梳理一下我对微服务的一些思考，部分内容来自一些外文书籍，我感觉这部分内容还是要直接读外文书籍会得到更真实可靠的思路和解读。"
 draft: false
 ---

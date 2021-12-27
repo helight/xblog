@@ -5,7 +5,7 @@ tags: ["k8s"]
 categories: ["k8s"]
 banner: "img/banners/kubernetes.jpeg"
 author: "helight"
-authorlink: "http://helight.info"
+authorlink: "http://helight.cn"
 summary: ""
 keywords: ["k8s","kube-proxy","iptables","IPVS"]
 draft: false

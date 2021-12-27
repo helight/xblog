@@ -6,7 +6,7 @@ categories = ["sevicemesh", "microservices"]
 banner = "img/banners/istio2.png"
 draft = false
 author = "helight"
-authorlink = "http://helight.info"
+authorlink = "http://helight.cn"
 summary = "上一篇文章介绍了服务网格和 API 网关的使用场景和如何配合使用，这篇文章继续介绍，再把服务网格和 API 网关的区别和应用场景进行挖掘。"
 keywords = ["istio","microservices", "sevicemesh"]
 +++

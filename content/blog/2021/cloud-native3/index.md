@@ -5,7 +5,7 @@ tags: ["云原生"]
 categories: ["云原生", "微服务"]
 banner: "img/banners/kubernetes.jpeg"
 author: "helight"
-authorlink: "http://helight.info"
+authorlink: "http://helight.cn"
 summary: ""
 keywords: ["云原生", "微服务", "DevOps"]
 draft: false

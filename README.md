@@ -1,5 +1,5 @@
 # xblog
-helight 的个人技术博客：[黑光技术](http://www.helight.info/)
+helight 的个人技术博客：[黑光技术](http://www.helight.cn/)
 
 ## clone 
 

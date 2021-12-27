@@ -6,7 +6,7 @@ categories = ["sevicemesh", "microservices"]
 banner = "img/banners/istio.png"
 draft = false
 author = "helight"
-authorlink = "http://helight.info"
+authorlink = "http://helight.cn"
 summary = "只有一台机器，又想玩一下 istio 怎么办呢？本文将介绍如何使用 minikube 来安装 istio。"
 keywords = ["istio","minikube", "kiali"]
 +++

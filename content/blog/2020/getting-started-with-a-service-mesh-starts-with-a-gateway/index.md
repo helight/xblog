@@ -5,7 +5,7 @@ tags: ["istio", "envoy"]
 categories: ["sevicemesh", "microservices"]
 banner: "img/banners/envoy.png"
 author: "helight"
-authorlink: "http://helight.info"
+authorlink: "http://helight.cn"
 summary: "本文是在看了国外 Solo 公司 CTO 的博客之后整理的，本来也是想按原文翻译，但是考虑到我自己在公司实践的思路，还是想把他的思路和我自己的思路做一些结合。"
 keywords: ["envoy","gateway", "istio"]
 draft: false

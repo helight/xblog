@@ -5,7 +5,7 @@ tags: ["life", "kernel", "生活"]
 categories: ["kernel", "生活"]
 banner: "img/banners/tencentos.png"
 author: "helight"
-authorlink: "http://helight.info"
+authorlink: "http://helight.cn"
 summary: ""
 keywords: ["物联网","os", "嵌入式"]
 draft: false

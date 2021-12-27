@@ -7,7 +7,7 @@ tags: ["kernel", "ebpf"]
 categories: ["kernel"]
 banner: "img/banners/linux_ebpf_support.png"
 author: "helight"
-authorlink: "http://helight.info"
+authorlink: "http://helight.cn"
 summary: "最近发布的 Linux 内核带了一个针对内核的能力强大的 Linux 监控框架。它起源于历史上人们所说的的 BPF。"
 keywords: ["kernel","ebpf", "go", "trace"]
 draft: false

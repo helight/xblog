@@ -9,7 +9,7 @@ categories = ["kernel"]
 banner = "img/banners/linux_ebpf_support.png"
 draft = false
 author = "helight"
-authorlink = "http://helight.info"
+authorlink = "http://helight.cn"
 summary = "周五下午在公司的服务网格月度讨论会上，一位同事为大家分享了在服务网格中使用 ebpf 来优化提升 istio 中 sidecar 和 RS 间的通信效率。听过之后手痒难，想测试一把 ebpf。"
 keywords = ["kernel","ebpf", "go", "trace"]
 +++

@@ -6,7 +6,7 @@ categories = ["sevicemesh", "microservices"]
 banner = "img/banners/istio.png"
 draft = false
 author = "helight"
-authorlink = "http://helight.info"
+authorlink = "http://helight.cn"
 keywords = ["istio","linkerd", "consul"]
 +++
 

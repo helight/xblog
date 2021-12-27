@@ -5,7 +5,7 @@ tags: ["microservices"]
 categories: ["sevicemesh", "microservices"]
 banner: "img/banners/ms.jpg"
 author: "helight"
-authorlink: "http://helight.info"
+authorlink: "http://helight.cn"
 summary: "上一篇中梳理介绍了微服务架构的特点和优势，也明确说微服务架构是现代软件开发中解决生产力的一种模式。微服务可以大家加速现代企业中软件开发效率、软件稳定性，扩展性。"
 draft: false
 ---

@@ -6,7 +6,7 @@ categories = ["sevicemesh", "microservices"]
 banner = "img/banners/istio.png"
 draft = false
 author = "helight"
-authorlink = "http://helight.info"
+authorlink = "http://helight.cn"
 summary="这篇博文还是围绕 API 网关和服务网格的。虽然现在2020年了，围绕这个话题依然有大量的困惑"
 keywords = ["istio","proxy", "gateway"]
 +++

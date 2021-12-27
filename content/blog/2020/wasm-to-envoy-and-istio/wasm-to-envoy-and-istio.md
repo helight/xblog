@@ -8,7 +8,7 @@ categories = ["sevicemesh", "microservices"]
 banner = "img/banners/wasm-hub.png"
 draft = false
 author = "helight"
-authorlink = "http://helight.info"
+authorlink = "http://helight.cn"
 summary = "就像用户们都想采用基于 Envoy 的基础设施来解决微服务通信带来的挑战，他们都不可避免的呃发现他们必须开发一些定制的技术功能来适配解决内部的限制性问题。"
 keywords = ["istio","WebAssembly", "security", "wasm", "operator"]
 +++

@@ -5,7 +5,7 @@ tags: ["envoy", "mesh"]
 categories: ["sevicemesh", "microservices"]
 banner: "img/banners/istio2.png"
 author: "helight"
-authorlink: "http://helight.info"
+authorlink: "http://helight.cn"
 summary: "这篇文章我看了之后非常想翻译，为什么呢？一方面我也在学习 Envoy，并且在公司的实际项目中使用 Envoy，另一方面，我确实也在设计一个控制管理端来统一管控多个集群的所有流量，没错我说的是所有的流量管控。"
 keywords: ["envoy","gateway", "istio"]
 draft: false

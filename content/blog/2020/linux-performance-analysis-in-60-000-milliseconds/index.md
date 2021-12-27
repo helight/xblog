@@ -5,7 +5,7 @@ tags: ["linux 应用", "Performance"]
 categories: ["linux 应用", "kernel"]
 banner: "img/banners/linux_performance_ovservability.png"
 author: "helight"
-authorlink: "http://helight.info"
+authorlink: "http://helight.cn"
 summary: "在你登陆一台 Linux 服务器之后，因为一个问题要做性能分析时：你会在第一分钟内做哪些检测呢？"
 keywords: ["linux","Performance", "top"]
 draft: false

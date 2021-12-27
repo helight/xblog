@@ -8,7 +8,7 @@ categories = ["sevicemesh", "microservices"]
 banner = "img/banners/istio.png"
 draft = false
 author = "helight"
-authorlink = "http://helight.info"
+authorlink = "http://helight.cn"
 summary = "在 2020 年 Istio 有更雄伟的目标，并且很多重大工作已经在进行了，但是同时我们也坚信好的基础设施应该是“无知”的。在生产中使用 Istio 应该是一种无缝的体验。"
 keywords = ["istio","roadmap", "security", "performance", "operator"]
 +++
@@ -46,7 +46,7 @@ Istio 从其建设之初就提供了可扩展性，是通过叫做 Mixer 的一�
 
 ## 更少组件 {#fewer-moving-parts}
 
-我们也会简化控制平面其它部分的部署。为此，我们把控制平面的几个组件合成了一个组件：Istiod。这个二进制程序包含了 Pilot，Citadel，Galley，和 sidecar 注入器的所有功能。这个实现改进了 Istio 管理和安装的许多问题 -- 减少安装和配置复杂性，减少维护工作，提升问题诊断响应的时间。关于 Istiod 的更多信息请阅读 [Christian Posta 的这篇博文](https://blog.christianposta.com/microservices/istio-as-an-example-of-when-not-to-do-microservices/)。（这里顺便说一下，这篇博文我也已经翻译了[点击这里查看](http://www.helight.info/blog/2020/when-not-to-do-microservices/)）
+我们也会简化控制平面其它部分的部署。为此，我们把控制平面的几个组件合成了一个组件：Istiod。这个二进制程序包含了 Pilot，Citadel，Galley，和 sidecar 注入器的所有功能。这个实现改进了 Istio 管理和安装的许多问题 -- 减少安装和配置复杂性，减少维护工作，提升问题诊断响应的时间。关于 Istiod 的更多信息请阅读 [Christian Posta 的这篇博文](https://blog.christianposta.com/microservices/istio-as-an-example-of-when-not-to-do-microservices/)。（这里顺便说一下，这篇博文我也已经翻译了[点击这里查看](http://www.helight.cn/blog/2020/when-not-to-do-microservices/)）
 
 我们将 istiod 作为 1.5 中所有配置文件的默认配置。
 
