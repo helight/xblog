@@ -78,6 +78,7 @@ draft: false
 [https://cloud.tencent.com/product/tcr](https://cloud.tencent.com/product/tcr)。
 
 另外还有一个 [harbor](https://github.com/goharbor/harbor) 是一个开源的镜像仓库软件，你可以基于这个软件搭建自己的私有镜像仓库。
+
 ## 总结
 目前来说，容器技术和容器镜像技术成为云上交付部署的标准。从应用层面来说，我们更多的是能理解这个交付思想和技术即可。目前这块的技术也是比较成熟的。所以一般应用场景中我们是直接使用现成的镜像仓库，再加上 CI 系统，打通代码和镜像仓库。像我们目前在使用 tcr，感觉还是比较好用的。
 
