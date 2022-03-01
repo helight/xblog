@@ -1,6 +1,6 @@
 ---
 title: "2022 年 kubernetes 的 5 个发展趋势"
-date: 2021-12-26T08:45:20+08:00
+date: 2022-03-01T08:45:20+08:00
 tags: ["云原生"]
 categories: ["云原生", "微服务"]
 banner: "img/banners/kubernetes.jpeg"
