@@ -11,7 +11,9 @@ keywords: ["云原生", "微服务", "DevOps"]
 draft: false
 ---
 
-本文译自 [5 Kubernetes trends to watch in 2022](https://enterprisersproject.com/article/2022/1/5-kubernetes-trends-watch-2022)，原文xxx,。作者：[Kevin Casey](https://twitter.com/kevinrcasey)，译者：[helight](http://helight.cn/)。
+本文译自 [5 Kubernetes trends to watch in 2022](https://enterprisersproject.com/article/2022/1/5-kubernetes-trends-watch-2022)。
+作者：[Kevin Casey](https://twitter.com/kevinrcasey)，
+译者：[helight](http://helight.cn/)。
 
 原文地址：https://enterprisersproject.com/article/2022/1/5-kubernetes-trends-watch-2022
 
