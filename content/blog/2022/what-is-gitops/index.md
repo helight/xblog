@@ -1,5 +1,5 @@
 ---
-title: "2022 年 kubernetes 的 5 个发展趋势"
+title: "什么是 GitOps？"
 date: 2022-03-08T08:45:20+08:00
 tags: ["云原生"]
 categories: ["云原生", "DevOps"]
@@ -19,7 +19,7 @@ draft: false
 
 ![](imgs/gitops.png)
 
-## What is GitOps?
+## 什么是 GitOps？
 定义：GitOps 使用 Git 来管理基础设施和应用配置的一种开发运营实践，Git 是一个开源的版本控制系统。GitOps 的工作原理是使用 Git 作为声明基础设施和应用的单一可信源。
 
 GitOps 使用 Git pull 请求来自动的管理基础设施的提供和部署。Git 仓库中包含了系统的的整体状态，所以系统状态的变化过程是可见、可审计的。
