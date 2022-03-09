@@ -101,7 +101,7 @@ paginate = 15
 
     # avatar used for thumbnail on sharing
     avatar = "/img/helight.png"
-    address = "<img src="/img/site/wx.jpg">"
+    address = "<img src=/img/site/wx.jpg>"
 
     # 是否开启评论功能
     gitalk = true
