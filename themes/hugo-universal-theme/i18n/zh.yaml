@@ -14,7 +14,7 @@
   translation: "地址"
 
 - id: contactTitle
-  translation: "联系"
+  translation: "联系站主"
 
 - id: contactForm
   translation: "联系表单"
@@ -59,7 +59,7 @@
   translation: "最新博客"
 
 - id: aboutUs
-  translation: "关于本站"
+  translation: "关注本站微信公众号"
 
 - id: newer
   translation: "更新"
