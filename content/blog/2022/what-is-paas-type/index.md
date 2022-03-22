@@ -8,7 +8,7 @@ author: "helight"
 authorlink: "http://helight.cn"
 summary: ""
 keywords: ["云原生", "DevOps"]
-draft: true
+draft: false
 ---
 
 本文译自 [什么是 PaaS？ PaaS 类型介绍](https://jelastic.com/blog/what-is-paas-platform-as-a-service-types-explained/)。
