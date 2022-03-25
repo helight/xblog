@@ -3,7 +3,7 @@ title: "什么是 GitOps？"
 date: 2022-03-08T08:45:20+08:00
 tags: ["云原生"]
 categories: ["云原生", "DevOps"]
-banner: "img/banners/kubernetes.jpeg"
+banner: "img/banners/DevOPSLifeCycle.jpg"
 author: "helight"
 authorlink: "http://helight.cn"
 summary: ""
