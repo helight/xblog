@@ -20,7 +20,7 @@ draft: false
 ## 前言
 可观测性很多人估计会有一种疑惑：啥是可观测性，和我们之前的监控系统有啥区别，怎么老搞一些新名词出来，学不动了呀。。。。
 
-所以这篇文章从理论的角度触发，为可观测性进行“强行”正名，更重要的是我也想看看整这些名词的外国人是怎么想的。
+所以这篇文章从理论的角度出发，为可观测性进行“强行”正名，更重要的是我也想看看整这些名词的外国人是怎么想的。
 
 ![](imgs/observability.png)
 
@@ -60,7 +60,7 @@ draft: false
 在传统的监控中，通常不支持添加业务指标，或者支持得很差。实时用户数据几乎从未包含在监控系统中，这是荒谬的，因为我们在 web 应用程序中所做的一切都是为了传递用户体验!
 
 ## 可观测性“三大支柱”如何协同工作？
-Metrics, traces, and logs are the ‘three pillars’ of Observability, and they are necessary but not sufficient to really understand what Observability is and to gain insight into your applications and business. Metrics can be used to tell you what’s wrong. Traces tell you how it’s wrong – what specific calls aren’t working, for example. Logs tell you why it’s wrong, letting you dive into a particular metric/trace to figure out why it’s behaving in the way you see. Collecting this data is the start to an Observability mindset, but it’s only the start.
+
 度量指标、跟踪和日志是可观测性的“三大支柱”，它们是必要的，但不足以真正理解什么是可观测性，并深入了解你的应用程序和业务。
 
 度量指标可以用来告诉你哪里出了问题。
