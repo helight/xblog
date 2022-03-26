@@ -8,7 +8,7 @@ author: "helight"
 authorlink: "http://helight.cn"
 summary: ""
 keywords: ["云原生", "DevOps"]
-draft: true
+draft: false
 ---
 
 本文译自 [可观测性:不是你想的那样](https://www.splunk.com/en_us/blog/devops/observability-it-s-not-what-you-think.html)。
