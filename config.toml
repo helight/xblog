@@ -1,8 +1,8 @@
 baseurl = "http://www.helight.cn"
 title = "黑光技术"
 subtitle = "完美之道，不在无可增加，而在无可删减。"
-# theme = "hugo-universal-theme"
-theme = "universal-theme"
+theme = "hugo-universal-theme"
+# theme = "universal-theme"
 themesDir = "./themes/"
 languageCode = "zh"
 hasCJKLanguage = true
@@ -95,7 +95,7 @@ paginate = 15
     contact_form_ajax = false
 
     about_us = "<img src=/img/site/mp.jpg>"
-    copyright = "Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 "
+    copyright = "Copyright (c) 2007 - 2022, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 "
 
     # Format dates with Go's time formatting
     date_format = "2006年1月2日"
