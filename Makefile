@@ -1,6 +1,6 @@
 all:
-	git submodule sync
 	git pull
+	git submodule sync
 	hugo
 
 commit:
