@@ -1,4 +1,5 @@
 all:
+	git submodule sync
 	git pull
 	hugo
 
