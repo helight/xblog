@@ -1,13 +1,13 @@
-weight: 1
-title: "未来5年流行技术词"
+weight: 2
+title: "TechNews"
 description: >
   <ul class="list-style-none">
-     <li>4D printing (4DP)</li>
-     <li>Autonomous vehicles</li>
-     <li>Cloud to the edge</li>
-     <li>Continuous adaptive risk and trust</li>
-     <li>Event-driven architecture ...</li>
-     <li><a href="/blog/2019/2019new/">查看</a></li>
+     <li>科技新闻网络爬虫</li>
+     <li>个人学习</li>
+     <li>信息存储使用了：sqlite</li>
+     <li>内容可以去重过滤，防止重复</li>
+     <li>抓取站点可配置</li>
+     <li><a href="/blog/2022/technews/">查看</a></li>
    </ul>
 
-image: "img/carousel/4.png"
+image: "img/banners/technews.jpeg"
