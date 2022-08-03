@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>微服务的架构适合你吗？微服务为何而来？</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, microservices, 架构, 单体">
+  
+  
+  <meta name="description" content="完美之道，不在无可增加，而在无可删减。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="微服务的架构适合你吗？微服务为何而来？">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2020/what-microservie-should-be/" />
+  <meta property="og:description" content="完美之道，不在无可增加，而在无可删减。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/ms.jpg">
+  <meta property="og:image:type" content="image/jpg">
+  
+  
+  
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="510">
+  
+  
+  <meta property="og:updated_time" content="2020-03-28T18:47:08&#43;0200">
+  
+    
+    
+    <meta property="article:section" content="sevicemesh">
+    <meta property="article:tag" content="microservices">
+    <meta property="article:tag" content="DevOps">
+    
+    
+    <meta property="article:published_time" content="2020-03-28T18:47:08&#43;0200">
+    <meta property="article:modified_time" content="2020-03-28T18:47:08&#43;0200">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="微服务的架构适合你吗？微服务为何而来？">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/ms.jpg">
+  
+  <meta name="twitter:description" content="完美之道，不在无可增加，而在无可删减。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="微服务的架构适合你吗？微服务为何而来？ logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="微服务的架构适合你吗？微服务为何而来？ logo" class="visible-xs visible-sm">
+                    <span class="sr-only">微服务的架构适合你吗？微服务为何而来？ - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>微服务的架构适合你吗？微服务为何而来？</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2020年3月28日
+                        </i>
+                        |
+                        
+                        由 <a href="http://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        4200字 | 阅读大约需要9分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/sevicemesh">sevicemesh</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/microservices/"><i>#microservices</i></a>
+                        
+                        <a style="text-transform:capitalize" href="/tags/devops/"><i>#DevOps</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <h2 id="前言">前言</h2>
+<p>最近拾起了基本英文的讲微服务的书，一方面是学习英文，一方面也是想原汁原味的了解一下外国人口中的微服务是怎么样的。所以这篇文章是想聊聊微服务，聊聊我眼中的微服务，和实践微服务中的一些经历。也是这么多年实践微服务的一些思考。</p>
+<h2 id="大家认为的微服务">大家认为的微服务</h2>
+<p>先来聊聊我在面试中遇到的微服务。</p>
+<ol>
+<li>在公司做通道评委的一个好处就是可以看到不同部门同事形形色色的工作内容，这是一个非常好的机会，能了解公司其它部门业务详细情况的机会，在这个评审工作中，你可以详细的问这些同事的工作，甚至让他给你看看代码。评委通常会从几个问题点来问问题：
+<ol>
+<li>你项目的系统架构是什么样的</li>
+<li>你的项目有什么技术难点的</li>
+<li>你的项目和公司内同类项目，或者业界项目有哪些优势</li>
+</ol>
+</li>
+</ol>
+<p>这种情况下面试者准备的东西也很多，于是很多时候就会出现直接套用当前比较火的技术名词，百度，google 看看，只要有点意思就会：哦，我原来做的和这个技术很像啊，原来我们在搞这么高深的技术。微服务就是其中一个。我在多次的评审工作就遇到一个做业务活动的同学指着自己ppt上的一个网站架构说这就是微服务。我把一个大服务，分成了几个服务独立发布，再在前端统一整合起来，采用了微服务架构。这说的好像也没问题。。。</p>
+<ol start="2">
+<li>在面试的时候我也经常会问面试者这样的问题：
+<ol>
+<li>你的系统数据流图画一下，你的系统模块架构图画一下</li>
+<li>你认为你项目的技术难点在哪里</li>
+<li>和同类项目比，你的优势在哪里</li>
+</ol>
+</li>
+</ol>
+<p>这里也会听到各种各样的回答，有的说，我修改了 nginx，让它做服务网关；或者说我自己用 golang 开发了一个自己的服务网关，让整个服务采用了微服务架构；我把这个后台模块拆分成了 5 个小模块，采用了微服务架构。。。好像说的也是没什么问题。</p>
+<p>到底一个qps流量只有几百的小网站把后台拆成多个模块叫不叫微服务架构呢？或者写了一个网关亦或架设了一个 nginx 来代理后端多个服务的流量叫不叫微服务？或者把后台模块拆成了几个小模块叫不叫微服务呢？</p>
+<h2 id="微服务是因为什么而出现的">微服务是因为什么而出现的</h2>
+<p>一种技术不可能没有原因的就出现了，也不可能没有原因的就火起来。所以我认为我们首先要思考的是微服务是为什么而来的呢？为什么早期的软件设计中没有这个概念呢？我在上学的时候学习的软件设计方法都是 UML，面向对象的软件开发，学习设计模式。架构都是 MVC，Slave-Master， C/S。。。前几年在学习 golang 的时候我还用 <a href="https://github.com/helight/go-patterns">golang 把 23 中设计模式</a>参考 java 的实现都重新实现了一遍。</p>
+<p>从我的理解来尝试解答这个问题：微服务架构为何而来？</p>
+<p>我认为主要有以下 3 个主要原因：</p>
+<ol>
+<li>软件系统变得越来越复杂。</li>
+<li>软件需求量大增，需要让更多的开发人员低门槛的进入开发。</li>
+<li>大型软件的交付周期加速，软件平台化交付的需求增加。</li>
+</ol>
+<h3 id="软件系统变得越来越复杂">软件系统变得越来越复杂</h3>
+<p>首先，目前在企业级的应用中，软件系统是在越来越复杂，动不动千万级，亿级访问量的软件服务越来越多，尤其是 4G 移动时代的到来，让以往的软件开发模式有了较大的挑战，以我之前在做大搜索的例子来说，整个搜索引擎由100多个大大小小的模块组成，有些部署个几台机器，有些部署上千台机器，其中的调用关系更是错综复杂。</p>
+<p>如果你说搜索引擎这个例子是太大了，在非 4G 时代已经就这么复杂了。那么我们来说说其它的软件服务，微信，QQ 也很大很复杂，我们也不论。就说说游戏的活动系统，比如说一个游戏的领奖活动。如下图：
+<img src="./ms.png" alt=""></p>
+<p>这也是简单画了其中依赖的服务模块，而不是全部的服务，目前全部设计的服务模块加起来要有 30 个左右。大家不要惊讶，这其实已经很少了。而且这只是一个常见的游戏网页活动的涉及到的模块。主要因为还是现在企业级的软件不像以往的单机软件了。今天看到一个帖子说经典游戏《魂斗罗》的整个编译后的程序只有120kB，而且里面包含了那么多声音和关卡，想想现在随便一个手机软件都是几十兆起步呀。</p>
+<p>现在企业软件的开发主要考虑的大并发，多地域的云上服务。就连微软的 office 也在走这个路子。而且软件服务模式也变了，以往大多数是以购买 key 的方式，而现在是云上持续的内容付费服务。通过在云山不断的发新内容，让用户不断的消费。客户端依然已经只是成为了一个渠道。所以企业软件的发展模式就走向了轻客户端重服务端。这也要求了服务端的服务能力和服务内容能够快速更新变化，很多内容是每天变，实时变。软件的功能升级节奏也是要求更短更快。</p>
+<p>所以需要一种新的开发模式来支持这样的软件开发。</p>
+<h3 id="软件需求量大增需要让更多的开发人员低门槛的进入开发">软件需求量大增，需要让更多的开发人员低门槛的进入开发</h3>
+<p>现在整个社会已经被软件吞噬，这一点都不夸张。如果说十几年前使用软件和接触计算机还是个稀罕事，那么现在如果你不会使用软件才会是一个稀罕事。我们的生活的各个角落都是软件，进小区大门，去饭馆点菜吃饭，支付，打车，坐公交。。。。离不开，真离不开。</p>
+<p>由此而来的也是大量的软件人员的持续投入，大量培训后的程序员在走向软件开发行业。如果说早先会写代码的黑客们都是顶级大牛，那么现在很多的被培训后的程序员只能是蓝领劳动力提供者。而事实上也是如此，大牛们在不断的减低软件开发的门槛，从开发语言，开发的IDE，到开发的操作系统。都在一步步走向有更好的开发体验，更低的开发门槛。这使得软件开发可以更为普及，你只需要知道你要做什么即可，不用像以往的大牛们对底层系统，甚至是底层硬件都熟悉的不得了。而现在，呵呵。。。。当然现在高级程序员也是有的。</p>
+<p>所以这种需求驱动之下，需要新的软件开发模式来可以让更多的程序员可以接入开发，像上面的图中，或许前端的 web 开发的人只需要知道 web 开发的知识就可以了，不需要知道推荐，实时计算和发奖支付的逻辑。分工在逐步的细化。</p>
+<h3 id="大型软件的交付周期软件平台化交付的需求增加">大型软件的交付周期，软件平台化交付的需求增加</h3>
+<p>这个是不言而喻的，企业级的大型软件为了使用用户和社会的快速变化的需求，就需要有一种能力：快速的内容和功能更新。这也是现在微服务架构中最引以自豪的就是这一点，单个功能的快速迭代。</p>
+<h2 id="微服务架构-vs-单体架构">微服务架构 VS 单体架构</h2>
+<p>微服务架构和单体架构是软件实现的不同方式，当然单体架构出现的要比微服务架构早。但是这并不是说微服务架构就一定比单体架构好，架构没有好坏之分。好坏之分在于架构是不是适应业务的需求。</p>
+<p>所以下面我们先来看看微服务架构和单体架构各自的优势，其实在一定程度上微服务架构的优势都是针对单体架构提出来的。</p>
+<h3 id="微服务架构的优势">微服务架构的优势</h3>
+<p>先来看看如果你采用微服务架构，会得到哪些好处。</p>
+<ol>
+<li>微服务架构可以让开发者使用多种语言开发，多个开发者同时参与一个项目的时候，他们可以使用微服务架构而采用各自非常熟悉的开发语言进行快速高效的开发，让开发进度更快。</li>
+<li>可以让不同的团队独立的去管理服务，基本上每个服务可以有自己独立的开发和发布节奏，每个开发团队负责自己的这个模块的开发和发布就可以了。在一定程度上减少了依赖。</li>
+<li>可以针对同一个服务的不同版本同时进行线上发布。其实这个在单体服务里面也可以做到，但是在这个不同团队去做的时候，他可以根据网关路由，针对不同的服务可以用不同的版本。就是同一个服务也可以有不同的版本，同时进行服务。</li>
+<li>可以让你对独立的服务和模块进行独立的扩容，就是比如说登录组件，那么容量不够的时候只要对登录模块进行单独扩容就可以了，而不用对整个服务进行整体扩容。</li>
+<li>可以独立的做安全管控，比如说这个服务只允许那些服务来访问，在独立的模块上设置独立的安全策略，让某些服务来访问就行了，而不是对所有的这个内部服务开通管理。</li>
+</ol>
+<h3 id="单体架构的优势">单体架构的优势</h3>
+<p>那接下来我们再来看一下单体服务的优势。</p>
+<ol>
+<li>首先就是它的安装和部署，相对来说没有微服务那么复杂，要关心多个模块之间的依赖关系。</li>
+<li>统一配置，服务整合在一起，那么很多相同的配置就只需要配置一份了，对服务的管控可以更统一。</li>
+<li>升级维护简单，只要升级这一个服务啊，并不需要对服务的各个组件都要逐个升级。</li>
+<li>扩容更方便，扩容的时候只需要扩容这一个模块就行了，不需要细分到扩容那个模块。</li>
+<li>调试更方便，所有的日志，可能就打在一台机器上，调试的时候只要看一个地方的日志就可以了。微服务的调测：看关系链，看日志是个很大的问题。</li>
+<li>启动时间总体上来说会更短，拆分的服务会有互相依赖，所以一套微服务架构的系统启动速度是个问题，要等待几乎所有的模块都准备好了才能对外服务。</li>
+<li>服务调用时间会更短，这个就不用说了，微服务间是以远程调用为主的，而单体架构是函数级调用，这个个想想就知道了。</li>
+<li>代码管理维护会相对简单。</li>
+</ol>
+<h2 id="你的哪些项目不适合微服务架构如何选择架构">你的哪些项目不适合微服务架构，如何选择架构</h2>
+<p>疯狂的石头，疯狂的微服务，在每个人都为微服而疯狂的时候，我们都要冷静下来去想一想，思考一下微服务到底适不适合我，适不适合我这种场景，从我上面的这个分析来看，微服务，非常适合于大团队，大项目，对于你一个人就可以搞定的项目来说，最好还是单体架构，比如说你个人负责整个服务的一个后台服务，那后台服务里面可能有 4，5 个功能，那你这 4，5 个功能其实没有必要拆成为微服务去做。因为服务的拆分必然会增加服务维护成本，所以大家一定要在收益和付出的成本之间进行平衡。这里也不是一定说不要拆，合理的拆分是有必要的，但是能合并的一定要尽量合并。千万不要为了微服务而微服务。</p>
+<p>而对于多个团队共同来负责开发的项目，这个时候，就很有必要引入微服务，每个团队负责不同的模块。以此来构建整体的服务，再通过服务网关对外服务。</p>
+<p>这种情况下的拆分是跟组织架构有关系的，一定是不同团队负责不同的模块，而每个团队只需要对自己的服务模块进行负责，进行功能开发的，更新发布，他有自己的开发节奏。</p>
+<h2 id="总结">总结</h2>
+<p>在微服务的开发过程当中，大家容易出现这种一叶障目的情况，大家只看到微服务的好，但是没有看到微服务带来的这个成本。这个时间在 isito 的架构变迁中有很好的验证，在早期的版本里，它是微服务架构的的，但是在最<a href="http://www.helight.cn/blog/2020/when-not-to-do-microservices/">新的 1.5 版本里面，改成了单体架构</a>。这是为什么呢？因为 istio 里面所有的组件都是在一个仓库里面，而且这些组件，都是由同一个 isito 团队的成员维护的，并没有形成多个团队。另外作为一个服务我们要讲求开发体验，如果你的部署维护成本太高，这就意味着你的使用成本和门槛很高。而采用这个单体架构之后，至少比之前大大简化了服务的部署和维护成本，使用体验和开发体验上就有很大的提升。</p>
+<p>最后，我们的目标是采用合理的架构，解决你的问题，而不是为了引入微服务，另外大家在采用微服务的同时一定要看看我上面的微服务的优点，更要看看单体架构的优点。</p>
+<center>
+看完本文有收获？请分享给更多人
+<p>关注「黑光技术」，关注大数据+微服务</p>
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2020/test-bcc/" data-toggle="tooltip" data-placement="top" title="ebpf 学习梳理和测试使用">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2020/linux-kernel-observability-ebpf/" data-toggle="tooltip" data-placement="top" title="【译】基于 eBPF 的 Linux 可观测性">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2020/service-mesh-vs-api-gateway/"><i class="fa fa-link"></i>API 网关和服务网格功能定位比较</a></li>
+         
+        <li><a href="/blog/2020/when-not-to-do-microservices/"><i class="fa fa-link"></i>【译】以 Istio 为例来看什么时候不要拆分微服务</a></li>
+         
+        <li><a href="/blog/2020/do-i-need-an-api-gateway/"><i class="fa fa-link"></i>【译】有了Service Mesh，还需要 API 网关吗？</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

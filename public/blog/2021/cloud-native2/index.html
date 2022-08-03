@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>云原生技术解读2-云原生运行时：容器和容器编排</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, 云原生">
+  
+  
+  <meta name="description" content="完美之道，不在无可增加，而在无可删减。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="云原生技术解读2-云原生运行时：容器和容器编排">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2021/cloud-native2/" />
+  <meta property="og:description" content="完美之道，不在无可增加，而在无可删减。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/kubernetes.jpeg">
+  <meta property="og:image:type" content="image/jpeg">
+  
+  
+  
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="500">
+  
+  
+  <meta property="og:updated_time" content="2021-11-08T08:45:20&#43;0800">
+  
+    
+    
+    <meta property="article:section" content="云原生">
+    <meta property="article:tag" content="云原生">
+    
+    
+    <meta property="article:published_time" content="2021-11-08T08:45:20&#43;0800">
+    <meta property="article:modified_time" content="2021-11-08T08:45:20&#43;0800">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="云原生技术解读2-云原生运行时：容器和容器编排">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/kubernetes.jpeg">
+  
+  <meta name="twitter:description" content="完美之道，不在无可增加，而在无可删减。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="云原生技术解读2-云原生运行时：容器和容器编排 logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="云原生技术解读2-云原生运行时：容器和容器编排 logo" class="visible-xs visible-sm">
+                    <span class="sr-only">云原生技术解读2-云原生运行时：容器和容器编排 - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>云原生技术解读2-云原生运行时：容器和容器编排</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2021年11月8日
+                        </i>
+                        |
+                        
+                        由 <a href="http://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        4400字 | 阅读大约需要9分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f">云原生</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/"><i>#云原生</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <h2 id="前言">前言</h2>
+<p>9 月初给 BG 的新人开了一门课，专门来讲云原生技术，云原生技术从出现到现在按最早的时间出现来说也是有 10 多年了。尤其是这几年火热的不得了，但是 cloud native 这个外文词翻译成中文 “云原生” 就更加的不好理解，再加上本身这个词的定义在发展中又有多次的变化，导致很多学习这块技术的同学都感觉是云里雾里，不知所谓。</p>
+<p>所以根据我对这门技术的认识，我开了这门课，一方面我认为我的认识还算比较到位，另一方面我认为目前的新人必须要学习和了解云原生技术，这是目前底层技术发展的大趋势。非常有必要学习和了解，而且我在内部也是致力于推动云原生技术的落地。在推动的过程中也很费劲，很多人看不到这场技术变革的意义和价值，这是非常让人感慨的。</p>
+<h2 id="云原生技术架构">云原生技术架构</h2>
+<p>所以我继续接着上篇解读什么是云原生。这里要接着上面篇文章中的图来继续解释，如下图</p>
+<p><img src="imgs/4.jpg" alt=""></p>
+<p>这张图较为清晰的展示了目前云原生架构的基本层次，从最下面的运行时到最上面的应用架构，再辅助于CI/CD的持续思想以及现代编程接口方式：声明式API。层次结构都非常清晰，容易让人理解。所以下面的介绍也是围绕这个图来进行的。</p>
+<h2 id="运行时技术容器技术">运行时技术：容器技术</h2>
+<p>容器技术从根本上来说是一种虚拟化技术，如果大家使用过容器就知道，在应用层面上，我们都会认为容器就是一台独立的机器，上篇文章中所说的申请 0.5 核 512M 的资源，让我们感觉就是我们获得了一个 0.5 核 512M 的独立服务器。</p>
+<p>但是提到虚拟化技术，这个是由来已久的一个技术了，也是发展了很多年的一个技术，我接触过的就有 vmware，xen，quem，kvm，docker。从发展历史和实现思路上来说虚拟技术可以分为 2 类技术：</p>
+<blockquote>
+<ol>
+<li>全虚拟化技术</li>
+<li>半虚拟化技术</li>
+</ol>
+</blockquote>
+<h3 id="全虚拟化">全虚拟化</h3>
+<p>全虚拟化(FullVirtualization)也称为原始虚拟化技术，该模型使用虚拟机协调Guest操作系统和原始硬件，VMM 在 Guest 操作系统和裸硬件之间用于工作协调，一些受保护指令必须由 Hypervisor（虚拟机管理程序）来捕获处理。全虚拟化的运行速度要快于硬件模拟，但是性能方面不如裸机，因为 Hypervisor 需要占用一些资源。</p>
+<h3 id="半虚拟化">半虚拟化</h3>
+<p>半虚拟化(ParaVirtualization)是另一种类似于全虚拟化的技术，它使用 Hypervisor 分享存取底层的硬件，但是它的 Guest 操作系统集成了虚拟化方面的代码。该方法无需重新编译或引起陷阱，因为操作系统自身能够与虚拟进程进行很好的协作。半虚拟化需要 Guest 操作系统做一些修改，使 Guest 操作系统意识到自己是处于虚拟化环境的，但是半虚拟化提供了与原操作系统相近的性能。</p>
+<h3 id="容器虚拟化技术">容器虚拟化技术</h3>
+<p>容器技术是一种相对于虚拟机来说更加轻量的虚拟化技术，能为我们提供一种可移植、可重用的方式来打包、分发和运行应用程序。通过操作系统内核的能力，对每个进程的资源使用(包括 CPU、内存、硬盘 I/O、网络等)进行隔离，达到容器里运行的进程与其他进程进行一定程度的隔离，同时避免了虚拟机(Virtual Machine)过高的额外消耗。</p>
+<p>下面这幅图可以看出一般 VM 和容器方式的区别。</p>
+<p><img src="imgs/2.png" alt=""></p>
+<p><strong>容器提供的方式是标准化的，可以将不同应用程序的不同组件组装在一起，又可以将它们彼此隔离。</strong></p>
+<p>容器的基本思想就是将需要执行的所有软件打包到一个可执行程序包中，比如将一个Java虚拟机、Tomcat服务器以及应用程序本身打包进一个包中。目前的业界标准把这种包叫做：容器镜像。也是一种较为复杂的技术，但是非常好的解决应用程序和系统的依赖问题。一般我们可以直接使用这个镜像来启动一个容器，而在现实中我们也是这么做的，把我们要运行的应用程序和运行的环境打包成为一个镜像，直接部署到集群的机器上面。并且可以指定该运行容器使用的资源（CPU，内存等）。以这种方式运行的程序和其它程序是相对隔离的。</p>
+<p>容器方式的开发部署是具非常高的可移植性，用户可以轻松地在开发测试、预发布或生产环境中运行相同的容器。如果应用程序被设计为支持水平扩缩容，就可以根据当前业务的负载情况启动或停止容器的多个实例。</p>
+<p>Docker 项目是当前最受欢迎的容器实现，以至于很多人通常都将 Docker和容器互换使用，但 Docker 项目只是容器技术的一种实现，还有现在的 k8s 中已经在使用 containerd 替换 Docker。现在是说的容器的内核实现是基于 Cgroup 和内核的 namespace 等技术实现的，而且目前是有标准的容器运行接口： CRI。Docker 和 containerd 都是实现了容器运行接口来启动管理容器的。</p>
+<p>**因为具备轻量级的隔离属性，容器技术已然成为云原生时代应用程序开发、部署和运维的标准基础设置。**目前全球的云厂商都是支持容器部署方式，而且是主流方式。总结来看使用容器技术开发和部署应用程序的如下好处。</p>
+<blockquote>
+<ol>
+<li>容器的轻量带来了容器本身创建和启动速度非常快捷，而且管理成本和稳定性更好。以此带来了开发的效率提升。</li>
+<li>因为标准化，所以可以很好的实现自动化，很容易做到 CICDCO。</li>
+<li>目前部署都是使用镜像部署（下面会详细说），容器的创建和启动都是依赖于统一的源头，所以在较高的程度上保证了部署各个环境各个部署的一致性。</li>
+<li>可移植性：标准化的容器镜像可以保证应用程序运行于 Ubuntu、CentOS 等各种操作系统，在不同厂商的云环境下也可以轻松的跑起来。</li>
+<li>实现了资源隔离：容器应用程序和主机之间的隔离、容器应用程序之间的隔离可以为运行应用程序提供一定的安全保证。</li>
+</ol>
+</blockquote>
+<p>每个运行的容器都是可重复的； 包含依赖环境在内的标准，意味着无论您在哪里运行它，您都会得到相同的行为。</p>
+<p>容器将应用程序从底层的主机设施中解耦。 这使得在不同的云或 OS 环境中部署更加容易。</p>
+<p><strong>容器技术大大简化了应用程序的分发和部署，可以说容器技术是云原生应用发展的基础。</strong></p>
+<h2 id="运行时技术容器编排技术">运行时技术：容器编排技术</h2>
+<p><strong>有了容器技术做应用程序的分发和部署就万事大吉了吗？还有没有其它的问题？</strong></p>
+<p>答案是显而易见的，首先带来的问题就是容器的管理问题。上面我们说的 Docker 只能解决单个机器内多个容器的管理问题，而且还相对比较粗糙。<strong>现实世界中我们是以集群为单位来管理的，一个集群上千台机器是非常常见的，而且还有上万台机器的。那么这种情况下我们怎么管理这么多机器上的容器呢？</strong></p>
+<h3 id="容器编排发展">容器编排发展</h3>
+<p>所以容器的编排技术应运而生，从容器诞生起就有在做这方面的工作了，主要的有 Mesos，Swarm，Kuberneters，另外还有其它小型的就更多了。而且现在有了 CRI 标准，实现一个简单的容器调度管理服务也不是太复杂，曾经面试过几个大学生，大学期间就参与过这类项目的开发工作。一般主要是针对一些特殊环境的定制开发。</p>
+<p><img src="imgs/3.png" alt=""></p>
+<p>Kubernetes 源自Google 15 年生产环境的运维经验，同时凝聚了社区的最佳创意和实践。从 Mesos，Swarm，Kuberneters 三个开始争夺天下，到最后 Kuberneters 一统天下也就不过 3 年时间。而且目前 Kuberneters 的开源社区非常活跃，我们本人也参与了 Kuberneters 社区的 2 个项目：</p>
+<blockquote>
+<ol>
+<li>社区文档项目：我主要参与中文文档的翻译和review。</li>
+<li>Dashboard 项目：我主要参与了中文化的翻译和其中部分我们公司内使用中遇到的一些特性增加和 bug 修复。</li>
+</ol>
+</blockquote>
+<p>目前云原生技术的基础底座技术就是容器技术和 Kuberneters。</p>
+<p><strong>目前 Kuberneters 是事实上的主流容器编排引擎。Kuberneters 很多时候也直接简写为 K8S。</strong></p>
+<h2 id="kuberneters">Kuberneters</h2>
+<p>Kuberneters 的架构非常简单清晰，但是功能也确实非常强调，这里可以看看它的基本架构。</p>
+<p><img src="imgs/5.png" alt=""></p>
+<p>下面我简要的说一下 K8S 架构中的各个模块。</p>
+<h3 id="master">Master</h3>
+<p>Master 是 K8S 的核心，是整个系统的指挥中心。它不是一个模块，而是由多个模块组成的。主要有 Etcd，API Server， controller-manager 模块组成。</p>
+<h4 id="api-server">API Server</h4>
+<p>其中最为核心的就是 API Server。所有对外对内的操作接口都是对接 API Server，是整个 K8S 对外的入口。我们可以从这个模块的接口中获得整个集群几乎所有的信息，并且通过整个模块下发对集群的几乎所有的操作管理指令，也是从这模块开始对<code>声明式 API</code> 有了更深的理解，也是<code>声明式 API</code> 的一个典型实现。</p>
+<h4 id="etcd">etcd</h4>
+<p>etcd 很早我们也就在使用了，在15年的时候我们就在用，这里 etcd 的作用其实很简单作为一个内存数据库来管理 K8S 中的所有元信息、一些配置信息和中间过程信息。主要起到高可用一致性的高速存储，还有 etcd 的配置 <code>watch</code> 能力。API Server 中的大多数信息就直接存取于 etcd。</p>
+<h4 id="controller-manager">controller-manager</h4>
+<p>controller-manager 的主要作用是对 K8S 的扩展进行管理，K8S 设计非常好的一点就是这里，他把功能实现和元数据管理进行分离，通过 controller 的方式来实现对 K8S 能力的扩展，比如我们要扩展一些调度策略，监控等都可以采用这种方式。而且学习 K8S 必须学习 controller 的原理和 controller 的开发。</p>
+<h3 id="node">Node</h3>
+<p>Node 节点是真正运行容器的机器或者 VM（目前大多数云厂商的做法是 VM 和容器结合使用，物理机器之上会虚拟出多个 VM，再在 VM 之上跑容器）。</p>
+<p>在 Node 节点上也部署了几个重要的 K8S 组件：kubelet，kubeproxy，当然还有容器管理器，一般是 Docker 或者 containerd。</p>
+<h4 id="kubelet">kubelet</h4>
+<p>kuberlet 是 node 节点上资源的管理（CPU，内存，存储，进程等），一般是对接 API Server，听 API Server 的话，主要进行本地容器的管理，启动容器，销毁容器等等。</p>
+<h4 id="kubeproxy">kubeproxy</h4>
+<p>kubeproxy 的主要功能对节点上的网络进行管理，早期是作为节点网络代理，后面主要是网络策略下发管理了，关于这部分内容可以看我翻译的这篇文章：<a href="/blog/2021/kube-proxy-modes-iptables-or-ipvs/">比较 kube-proxy 模式: iptables 或者 IPVS?</a>。</p>
+<h3 id="k8s-的其它核心理念">K8S 的其它核心理念</h3>
+<p>K8S 对物理资源进行了很好的抽象，所以也形成了它特有的一些对象，这里我简单说几个</p>
+<h4 id="pod">POD</h4>
+<p>Pod 是 kubernetes 中部署和调度的最小的单位（类似于 Linux 运行的进程）。</p>
+<p>Pod的两种使用方式</p>
+<blockquote>
+<ol>
+<li>一个 Pod 中运行一个容器：该模式是最常见的用法。</li>
+<li>在一个 Pod 中同时运行多个容器：一个 Pod 中也可以同时运行几个需要紧密耦合互相协作的容器，它们之间共享资源。如 <code>sidecar</code> 模式，Pod 将这些容器的存储资源作为一个实体来管理。</li>
+</ol>
+</blockquote>
+<p>Pod 是运行在 Node 上的，由 Node 管理，Pod 无容错性：宿主机故障pod不能自动迁移，需要通过控制器下发指令到 API Server，再选择 Node 来实现管理。</p>
+<h4 id="workload">Workload</h4>
+<p>中文翻译为<code>工作负载</code>，可以理解为：<strong>Workload 是 K8S 上的一个任务。</strong> 这个任务最终可能发起一个或者多个 Pod，再在 Pod 中运行容器进行具体的执行。</p>
+<p>K8S 对任务的类型也做了抽象，目前主要有以下集中，也可以自己扩展，扩展的方式就是上面提到的 controller。</p>
+<blockquote>
+<ol>
+<li>Deployment </li>
+<li>StatefulSet </li>
+<li>DaemonSet </li>
+<li>Job 和 CronJob</li>
+</ol>
+</blockquote>
+<p>更多关于这方面的信息可以看这里：https://kubernetes.io/zh/docs/concepts。</p>
+<h2 id="总结">总结</h2>
+<p>对于运行时的内容就先梳理这么多，其实每一个话题都是非常大的一个话题，这里也是简单梳理了一下，让大家有一个初步的认识。</p>
+<p>作为云原生技术的底座，容器和容器编排技术是必须要学习的。当然大家也看到了我对容器的介绍并不多，反而对容器编排技术 K8S 做了较多的介绍。这是因为目前我个人对这块研究一般，因为目前作为开发者较少直接使用容器作为开发，容器技术对于开发者来说较为成熟，所以我们了解其基本原理和使用就可以了。而且比如容器的高可用，容器本身是无法解决的，所以我们更多的是要做容器的编排研究使用，这块对不同的应用场景需要较多灵活的处理，才能解决现实的应用问题。</p>
+<h2 id="相关阅读">相关阅读：</h2>
+<p><a href="/blog/2021/cloud-native/">云原生技术解读1-如何理解云原生</a></p>
+<center>
+看完本文有收获？请分享给更多人
+<p>关注「黑光技术」，关注大数据+微服务</p>
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2021/cloud-native/" data-toggle="tooltip" data-placement="top" title="云原生技术解读1-如何理解云原生">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2021/ebpf-and-xdp/" data-toggle="tooltip" data-placement="top" title="使用 eBPF 和 XDP 高速处理数据包">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2021/cloud-native/"><i class="fa fa-link"></i>云原生技术解读1-如何理解云原生</a></li>
+         
+        <li><a href="/blog/2020/what-microservie-should-be/"><i class="fa fa-link"></i>微服务的架构适合你吗？微服务为何而来？</a></li>
+         
+        <li><a href="/blog/2021/ms-thinking/"><i class="fa fa-link"></i>关于微服务开发平台的思考</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

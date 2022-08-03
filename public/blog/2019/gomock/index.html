@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>golang单元测试之mock</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, golang, test, mock, UnitTest">
+  
+  
+  <meta name="description" content="完美之道，不在无可增加，而在无可删减。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="golang单元测试之mock">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2019/gomock/" />
+  <meta property="og:description" content="完美之道，不在无可增加，而在无可删减。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/golang.jpg">
+  <meta property="og:image:type" content="image/jpg">
+  
+  
+  
+    <meta property="og:image:width" content="573">
+    <meta property="og:image:height" content="300">
+  
+  
+  <meta property="og:updated_time" content="2019-05-18T13:47:08&#43;0200">
+  
+    
+    
+    <meta property="article:section" content="golang">
+    <meta property="article:tag" content="golang">
+    <meta property="article:tag" content="test">
+    
+    
+    <meta property="article:published_time" content="2019-05-18T13:47:08&#43;0200">
+    <meta property="article:modified_time" content="2019-05-18T13:47:08&#43;0200">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="golang单元测试之mock">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/golang.jpg">
+  
+  <meta name="twitter:description" content="完美之道，不在无可增加，而在无可删减。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="golang单元测试之mock  logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="golang单元测试之mock  logo" class="visible-xs visible-sm">
+                    <span class="sr-only">golang单元测试之mock  - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>golang单元测试之mock </h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2019年5月18日
+                        </i>
+                        |
+                        
+                        由 <a href="https://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        5400字 | 阅读大约需要11分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/golang">golang</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/golang/"><i>#golang</i></a>
+                        
+                        <a style="text-transform:capitalize" href="/tags/test/"><i>#test</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <h1 id="golang单元测试之mock">golang单元测试之mock</h1>
+<h1 id="序言">序言</h1>
+<p>前面介绍了golang的一般单元测试，以及如何使用vscode进行高效的go单元测试开发。同时也说过一般单元测试重点在于cpu和内存类型的测试，而对io类型的测试是比较敏感的。那么针对这类测试就没法做单元测试了吗？有的，肯定是有的，这就是mock技术。</p>
+<p>mock测试不但可以支持io类型的测试，比如：数据库，网络API请求，文件访问等。mock测试还可以做为未开发服务的模拟、服务压力测试支持、对未知复杂的服务进行模拟，比如开发阶段我们依赖的服务还没有开发好，那么就可以使用mock方法来模拟一个服务，模拟的这个服务接收的参数和返回的参数和规划设计的服务是一致的，那我们就可以直接使用这个模拟的服务来协助开发测试了；再比如要对服务进行压力测试，这个时候我们就要把服务依赖的网络，数据等服务进行模拟，不然得到的结果不纯粹。总结一下，有以下几种情况下使用mock会比较好：</p>
+<ol>
+<li>IO类型的，本地文件，数据库，网络API，RPC等</li>
+<li>依赖的服务还没有开发好，这时候我们自己可以模拟一个服务，加快开发进度提升开发效率</li>
+<li>压力性能测试的时候屏蔽外部依赖，专注测试本模块</li>
+<li>依赖的内部函数非常复杂，要构造数据非常不方便，这也是一种</li>
+</ol>
+<p>mock测试，简单来说就是通过对服务或者函数发送设计好的参数，并且通过构造注入期望返回的数据来方便以上几种测试开发。</p>
+<p>一般情况自己写mock服务是比较费事的事情，而且如果风格不统一，那么后期的管理维护将是软件开发的一个巨大坑，是开发给自己挖的一个坑。所以在就有了很多mock测试框架的出现，框架的出现首先提升了编写mock测试服务的效率，而且编写风格得到了比较好的统一。c/c++也有很多mock框架，Google Mock就是一个比较经典了，java也有很多mock框架，这里就不列举了，今天我们要介绍的是针对golang的mock测试框架。</p>
+<p>GoMock是由Golang官方开发维护的测试框架，实现了较为完整的基于interface的Mock功能，能够与Golang内置的testing包良好集成，也能用于其它的测试环境中。GoMock测试框架包含了GoMock包和mockgen工具两部分，其中GoMock包完成对桩对象生命周期的管理，mockgen工具用来生成interface对应的Mock类源文件。</p>
+<h1 id="安装">安装</h1>
+<h2 id="gomock官网">GoMock官网：</h2>
+<p><a href="https://github.com/golang/mock">https://github.com/golang/mock</a></p>
+<h2 id="gomock安装">GoMock安装：</h2>
+<pre tabindex="0"><code>go get github.com/golang/mock/gomock
+</code></pre><h2 id="mockgen代码生成工具安装">mockgen代码生成工具安装：</h2>
+<pre tabindex="0"><code>go get github.com/golang/mock/mockgen
+</code></pre><p>安装好之后，在$GOPATH/src目录下有了github.com/golang/mock子目录，且在该子目录下有GoMock包和mockgen工具。</p>
+<pre tabindex="0"><code>cd $GOPATH/src/github.com/golang/mock/mockgen
+go build
+</code></pre><p>编译后在这个目录下会生成了一个可执行程序mockgen。将mockgen程序移动到$PATH可以找到的目录中：
+下面我是在window下的路径，使用了git的shell环境，可以直接看PATH，找到合适的或者新加入进去都ok。</p>
+<pre tabindex="0"><code>echo $PATH
+.....
+cp mockgen.exe C:\Users\helightxu\go\bin\
+</code></pre><p>安装之后就可以在命令行直接运行了：mockgen</p>
+<pre tabindex="0"><code>$ mockgen
+mockgen has two modes of operation: source and reflect.
+
+Source mode generates mock interfaces from a source file.
+It is enabled by using the -source flag. Other flags that
+may be useful in this mode are -imports and -aux_files.
+Example:
+        mockgen -source=foo.go [other options]
+......
+</code></pre><p>这里暂时先不细说。</p>
+<h2 id="gomock文档">GoMock文档：</h2>
+<p>GoMock框架安装完成后，可以使用go doc命令来获取文档：</p>
+<pre tabindex="0"><code>go doc github.com/golang/mock/gomock
+</code></pre><p>这个文件比较简短，但给出了核心的使用说明。
+在GoPkgDoc上也有一个<a href="https://godoc.org/github.com/golang/mock/gomock">网页版的文档</a></p>
+<h1 id="使用方式介绍">使用方式介绍</h1>
+<h2 id="mockgen模式介绍">mockgen模式介绍</h2>
+<p>mockgen有两种操作模式：source和reflect。</p>
+<p>Source模式下会从源文件产生mock的interfaces文件。 使用-source参数即可。和这个模式配套使用的参数常有-imports和-aux_files。</p>
+<pre tabindex="0"><code>mockgen -source=foo.go [other options]
+</code></pre><p>Reflect模式是通过反射的方式来生成mock interfaces。它只需要两个非标志性参数：import路径和需要mock的interface列表，列表使用逗号分割。</p>
+<p>例如：</p>
+<pre tabindex="0"><code>mockgen database/sql/driver Conn,Driver
+</code></pre><h2 id="基本参数介绍">基本参数介绍</h2>
+<p>mockgen命令可以把一个包含要Mock的interface的源文件生成一个mock类的源文件。mockgen支持的参数有以下几种：</p>
+<ul>
+<li>-source: 需要mock的文件，这个文件中有需要mock的接口</li>
+<li>-destination: 生成mock代码的文件名。如果你没有设置，生成的代码会被打印到标准输出</li>
+<li>-package: 指定生成的mock文件的包名。如果你没有设置，则包名由mock_和输入文件的包名级拼接而成</li>
+<li>-imports: 生成代码中需要import的包名，形式如foo=bar/baz，并且用逗号分隔。bar/baz是要import的包，foo这个生成的源文件中包的标识。</li>
+<li>-aux_files: 参看附加的文件列表是为了解析类似嵌套的定义在不同文件中的interface。指定元素列表以逗号分隔，元素形式为* foo=bar/baz.go，其中bar/baz.go是源文件，foo是-source选项指定的源文件用到的包名</li>
+<li>-build_flags: 这个参数只在reflect模式下使用，用于go build的时候使用</li>
+<li>-imports: 依赖的需要import的包</li>
+<li>-mock_names：自定义生成mock文件的列表，使用逗号分割。如Repository=MockSensorRepository,Endpoint=MockSensorEndpoint。
+Repository、Endpoint为接口，MockSensorRepository，MockSensorEndpoint为相应的mock文件。</li>
+</ul>
+<p>在简单的场景下，你将只需使用-source选项。在复杂的情况下，比如一个文件定义了多个interface而你只想对部分interface进行mock，或者interface存在嵌套，这时你需要用反射模式。由于 -destination 选项输入太长，笔者一般不使用该标识符，而使用重定向符号 &gt;，并且mock类代码的输出文件的路径必须是绝对路径。</p>
+<p>想了解更多的指令符，可参见<a href="https://github.com/golang/mock#running-mockgen">官方文档</a></p>
+<h2 id="mockgen工作模式适用场景">mockgen工作模式适用场景</h2>
+<p>mockgen工作模式适用场景如下：</p>
+<ol>
+<li>对于简单场景，只需使用-source选项。</li>
+<li>对于复杂场景，如一个源文件定义了多个interface而只想对部分interface进行mock，或者interface存在嵌套，则需要使用反射模式。</li>
+</ol>
+<h1 id="测试示例">测试示例</h1>
+<h2 id="目录结构">目录结构</h2>
+<pre tabindex="0"><code>D:\CODE_DEV\SRC\GOMOCKDEMO
+│  student.go
+│  student_test.go
+│
+└─mock
+        mock_people.go
+</code></pre><h2 id="定义一个接口">定义一个接口</h2>
+<p>我们先定义一个打算mock的接口Repository:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">gomockdemo</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Ipeople</span> <span style="color:#66d9ef">interface</span> {
+    <span style="color:#a6e22e">GetName</span>() <span style="color:#66d9ef">string</span>
+    <span style="color:#a6e22e">SetName</span>(<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GetPeopleName</span>(<span style="color:#a6e22e">mi</span> <span style="color:#a6e22e">Ipeople</span>) <span style="color:#66d9ef">string</span> {
+    <span style="color:#a6e22e">mi</span>.<span style="color:#a6e22e">GetName</span>()
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">mi</span>.<span style="color:#a6e22e">GetName</span>()
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">SetPeopleName</span>(<span style="color:#a6e22e">mi</span> <span style="color:#a6e22e">Ipeople</span>, <span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+     <span style="color:#66d9ef">return</span>  <span style="color:#a6e22e">mi</span>.<span style="color:#a6e22e">SetName</span>(<span style="color:#a6e22e">name</span>)
+}
+</code></pre></div><h2 id="生成mock类文件">生成mock类文件</h2>
+<pre tabindex="0"><code>$ mockgen gomockdemo Ipeople &gt; mock/mock_people.go
+</code></pre><p>这里需要注意几点：</p>
+<ol>
+<li>mock_people.go文件的mock文件夹，必须先创建好，否则会失败</li>
+<li>go_mock一定在$GOPATH/src/的目录下
+生成后的文件如下：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Code generated by MockGen. DO NOT EDIT.
+</span><span style="color:#75715e">// Source: gomockdemo (interfaces: Ipeople)
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// Package mock_gomockdemo is a generated GoMock package.
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">mock_gomockdemo</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#a6e22e">gomock</span> <span style="color:#e6db74">&#34;github.com/golang/mock/gomock&#34;</span>
+	<span style="color:#a6e22e">reflect</span> <span style="color:#e6db74">&#34;reflect&#34;</span>
+)
+
+<span style="color:#75715e">// MockIpeople is a mock of Ipeople interface
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MockIpeople</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">ctrl</span>     <span style="color:#f92672">*</span><span style="color:#a6e22e">gomock</span>.<span style="color:#a6e22e">Controller</span>
+	<span style="color:#a6e22e">recorder</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MockIpeopleMockRecorder</span>
+}
+
+<span style="color:#75715e">// MockIpeopleMockRecorder is the mock recorder for MockIpeople
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MockIpeopleMockRecorder</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">mock</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MockIpeople</span>
+}
+
+<span style="color:#75715e">// NewMockIpeople creates a new mock instance
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewMockIpeople</span>(<span style="color:#a6e22e">ctrl</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gomock</span>.<span style="color:#a6e22e">Controller</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">MockIpeople</span> {
+	<span style="color:#a6e22e">mock</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">MockIpeople</span>{<span style="color:#a6e22e">ctrl</span>: <span style="color:#a6e22e">ctrl</span>}
+	<span style="color:#a6e22e">mock</span>.<span style="color:#a6e22e">recorder</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">MockIpeopleMockRecorder</span>{<span style="color:#a6e22e">mock</span>}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">mock</span>
+}
+
+<span style="color:#75715e">// EXPECT returns an object that allows the caller to indicate expected use
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MockIpeople</span>) <span style="color:#a6e22e">EXPECT</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">MockIpeopleMockRecorder</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">recorder</span>
+}
+
+<span style="color:#75715e">// GetName mocks base method
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MockIpeople</span>) <span style="color:#a6e22e">GetName</span>() <span style="color:#66d9ef">string</span> {
+	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">T</span>.<span style="color:#a6e22e">Helper</span>()
+	<span style="color:#a6e22e">ret</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">Call</span>(<span style="color:#a6e22e">m</span>, <span style="color:#e6db74">&#34;GetName&#34;</span>)
+	<span style="color:#a6e22e">ret0</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ret</span>[<span style="color:#ae81ff">0</span>].(<span style="color:#66d9ef">string</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret0</span>
+}
+
+<span style="color:#75715e">// GetName indicates an expected call of GetName
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">mr</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MockIpeopleMockRecorder</span>) <span style="color:#a6e22e">GetName</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">gomock</span>.<span style="color:#a6e22e">Call</span> {
+	<span style="color:#a6e22e">mr</span>.<span style="color:#a6e22e">mock</span>.<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">T</span>.<span style="color:#a6e22e">Helper</span>()
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">mr</span>.<span style="color:#a6e22e">mock</span>.<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">RecordCallWithMethodType</span>(<span style="color:#a6e22e">mr</span>.<span style="color:#a6e22e">mock</span>, <span style="color:#e6db74">&#34;GetName&#34;</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>((<span style="color:#f92672">*</span><span style="color:#a6e22e">MockIpeople</span>)(<span style="color:#66d9ef">nil</span>).<span style="color:#a6e22e">GetName</span>))
+}
+
+<span style="color:#75715e">// SetName mocks base method
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MockIpeople</span>) <span style="color:#a6e22e">SetName</span>(<span style="color:#a6e22e">arg0</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">T</span>.<span style="color:#a6e22e">Helper</span>()
+	<span style="color:#a6e22e">ret</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">Call</span>(<span style="color:#a6e22e">m</span>, <span style="color:#e6db74">&#34;SetName&#34;</span>, <span style="color:#a6e22e">arg0</span>)
+	<span style="color:#a6e22e">ret0</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ret</span>[<span style="color:#ae81ff">0</span>].(<span style="color:#66d9ef">string</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret0</span>
+}
+
+<span style="color:#75715e">// SetName indicates an expected call of SetName
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">mr</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MockIpeopleMockRecorder</span>) <span style="color:#a6e22e">SetName</span>(<span style="color:#a6e22e">arg0</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#f92672">*</span><span style="color:#a6e22e">gomock</span>.<span style="color:#a6e22e">Call</span> {
+	<span style="color:#a6e22e">mr</span>.<span style="color:#a6e22e">mock</span>.<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">T</span>.<span style="color:#a6e22e">Helper</span>()
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">mr</span>.<span style="color:#a6e22e">mock</span>.<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">RecordCallWithMethodType</span>(<span style="color:#a6e22e">mr</span>.<span style="color:#a6e22e">mock</span>, <span style="color:#e6db74">&#34;SetName&#34;</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>((<span style="color:#f92672">*</span><span style="color:#a6e22e">MockIpeople</span>)(<span style="color:#66d9ef">nil</span>).<span style="color:#a6e22e">SetName</span>), <span style="color:#a6e22e">arg0</span>)
+}
+</code></pre></div><h2 id="测试用例">测试用例</h2>
+<p>编写测试用例有一些基本原则，我们一起回顾一下：</p>
+<ol>
+<li>每个测试用例只关注一个问题，不要写大而全的测试用例</li>
+<li>测试用例是黑盒的</li>
+<li>测试用例之间彼此独立，每个用例要保证自己的前置和后置完备</li>
+<li>测试用例要对产品代码非入侵</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">gomockdemo</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;testing&#34;</span>
+	<span style="color:#e6db74">&#34;github.com/golang/mock/gomock&#34;</span>
+	<span style="color:#e6db74">&#34;gomockdemo/mock&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestGetPeopleName</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+	<span style="color:#a6e22e">mockCtl</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gomock</span>.<span style="color:#a6e22e">NewController</span>(<span style="color:#a6e22e">t</span>)
+    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">mockCtl</span>.<span style="color:#a6e22e">Finish</span>()
+    <span style="color:#75715e">// 构造mock类， mock_gomockdemo就是生成的mock代码，以包的形式存在
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">mockpeople</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">mock_gomockdemo</span>.<span style="color:#a6e22e">NewMockIpeople</span>(<span style="color:#a6e22e">mockCtl</span>)   
+    <span style="color:#75715e">//注入期望的返回值
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">mockpeople</span>.<span style="color:#a6e22e">EXPECT</span>().<span style="color:#a6e22e">GetName</span>().<span style="color:#a6e22e">Return</span>(<span style="color:#e6db74">&#34;helight&#34;</span>)
+    <span style="color:#a6e22e">mockpeople</span>.<span style="color:#a6e22e">EXPECT</span>().<span style="color:#a6e22e">GetName</span>().<span style="color:#a6e22e">Return</span>(<span style="color:#e6db74">&#34;helight&#34;</span>)
+	
+    <span style="color:#a6e22e">mockedName</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">GetPeopleName</span>(<span style="color:#a6e22e">mockpeople</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;helight&#34;</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">mockedName</span> {
+        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#e6db74">&#34;Get wrong name1: &#34;</span>, <span style="color:#a6e22e">mockedName</span>)
+    }
+
+    <span style="color:#75715e">//指定输入参数，返回指定结果
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">mockpeople</span>.<span style="color:#a6e22e">EXPECT</span>().<span style="color:#a6e22e">SetName</span>(<span style="color:#a6e22e">gomock</span>.<span style="color:#a6e22e">Eq</span>(<span style="color:#e6db74">&#34;he&#34;</span>)).<span style="color:#a6e22e">Return</span>(<span style="color:#e6db74">&#34;ok&#34;</span>)
+    <span style="color:#75715e">//输出参不做指定，但是指定返回结果
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">mockpeople</span>.<span style="color:#a6e22e">EXPECT</span>().<span style="color:#a6e22e">SetName</span>(<span style="color:#a6e22e">gomock</span>.<span style="color:#a6e22e">Any</span>()).<span style="color:#a6e22e">Do</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">format</span> <span style="color:#66d9ef">string</span>) {    
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;recv param2 :&#34;</span>, <span style="color:#a6e22e">format</span>)
+    }).<span style="color:#a6e22e">Return</span>(<span style="color:#e6db74">&#34;ok1&#34;</span>)
+
+    <span style="color:#a6e22e">mockedSetName</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">SetPeopleName</span>(<span style="color:#a6e22e">mockpeople</span>,<span style="color:#e6db74">&#34;he&#34;</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;mockedSetName: &#34;</span>, <span style="color:#a6e22e">mockedSetName</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;ok&#34;</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">mockedSetName</span>{
+        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#e6db74">&#34;Set wrong name2: &#34;</span>, <span style="color:#a6e22e">mockedSetName</span>)
+    }
+
+    <span style="color:#a6e22e">mockedSetName</span> = <span style="color:#a6e22e">SetPeopleName</span>(<span style="color:#a6e22e">mockpeople</span>,<span style="color:#e6db74">&#34;al222&#34;</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;mockedSetName: &#34;</span>, <span style="color:#a6e22e">mockedSetName</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;ok1&#34;</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">mockedSetName</span>{
+        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#e6db74">&#34;Set wrong name2: &#34;</span>, <span style="color:#a6e22e">mockedSetName</span>)
+    }    
+}
+</code></pre></div><ul>
+<li>gomock.NewController：返回gomock.Controller，它代表 mock 生态系统中的顶级控件。定义了 mock 对象的范围、生命周期和* 期待值。另外它在多个 goroutine 中是安全的</li>
+<li>mockpeople := mock_gomockdemo.NewMockIpeople(mockCtl) // 构造mock实例， mock_gomockdemo就是生成的mock代码，以包的形式存在</li>
+<li>defer mockCtl.Finish() 关闭mock测试</li>
+<li>mockpeople.EXPECT().GetName().Return(&ldquo;helight&rdquo;) ：EXPECT()是期望拿到返回值，调用的方法是GetName，设定的返回值是“helight”，调用函数也可以指定参数，比如下面的mockpeople.EXPECT().SetName(gomock.Eq(&ldquo;he&rdquo;)).Return(&ldquo;ok&rdquo;)</li>
+<li>mockedSetName := SetPeopleName(mockpeople,&ldquo;he&rdquo;)，这里SetPeopleName函数是调用people类的函数，这时候我们传递mockpeople给SetPeopleName就可以测试了，SetPeopleName内部调用的mockpeople和调用真实的people的方式是一模一样的。</li>
+</ul>
+<h2 id="测试结果">测试结果</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ go test -v
+<span style="color:#f92672">===</span> RUN   TestGetPeopleName
+gomock.Any:  is anything
+gomock.Eq:  is equal to he
+gomock.Any:  is anything
+mockedSetName:  ok
+recv param2 : al222
+mockedSetName:  ok1
+--- PASS: TestGetPeopleName <span style="color:#f92672">(</span>0.00s<span style="color:#f92672">)</span>
+PASS
+ok      gomockdemo      0.485s
+</code></pre></div><p>到此，我们的mock测试就算是ok了，可以再增加一些测试用例和测试值。</p>
+<h2 id="测试覆盖率">测试覆盖率</h2>
+<p>这里在介绍一下另外一个简单的测试功能，测试覆盖率的测试cover，只要在go test后面加上-cover就可以了，如下面的例子，这里还加了一个参数-coverprofile=cover.out，这个参数是把覆盖率测试数据导出到cover.out这个文件，然后我们可以使用图形化的方式来看具体的测试覆盖情况。</p>
+<pre tabindex="0"><code>$ go test -v  -cover -coverprofile=cover.out
+=== RUN   TestGetPeopleName
+gomock.Any:  is anything
+gomock.Eq:  is equal to he
+gomock.Any:  is anything
+mockedSetName:  ok
+recv param2 : al222
+mockedSetName:  ok1
+--- PASS: TestGetPeopleName (0.00s)
+PASS
+coverage: 100.0% of statements
+ok      gomockdemo      0.403s
+</code></pre><p>运行下面这个工具就可以直接把覆盖率以网页的形式打开来看了。</p>
+<pre tabindex="0"><code>go tool cover -html=cover.out
+</code></pre><p><img src="../201901imgs/gocover.png" alt=""></p>
+<h1 id="gomock的其它用法">gomock的其它用法</h1>
+<h2 id="常用-mock-方法">常用 mock 方法</h2>
+<h3 id="调用方法">调用方法</h3>
+<ul>
+<li>Call.Do()：声明在匹配时要运行的操作</li>
+<li>Call.DoAndReturn()：声明在匹配调用时要运行的操作，并且模拟返回该函* 数的返回值</li>
+<li>Call.MaxTimes()：设置最大的调用次数为 n 次</li>
+<li>Call.MinTimes()：设置最小的调用次数为 n 次</li>
+<li>Call.AnyTimes()：允许调用次数为 0 次或更多次</li>
+<li>Call.Times()：设置调用次数为 n 次
+这里我展开分析了一下，其实gomock的实现上是这样的，以这个为例：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"> <span style="color:#a6e22e">mockpeople</span>.<span style="color:#a6e22e">EXPECT</span>().<span style="color:#a6e22e">GetName</span>().<span style="color:#a6e22e">Return</span>(<span style="color:#e6db74">&#34;helight&#34;</span>)
+</code></pre></div><p>mockpeople的EXPECT方法如下：都在生成的mock文件中。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// EXPECT returns an object that allows the caller to indicate expected use
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MockIpeople</span>) <span style="color:#a6e22e">EXPECT</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">MockIpeopleMockRecorder</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">recorder</span>
+}
+</code></pre></div><p>m.recorder是这个</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// NewMockIpeople creates a new mock instance
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewMockIpeople</span>(<span style="color:#a6e22e">ctrl</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gomock</span>.<span style="color:#a6e22e">Controller</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">MockIpeople</span> {
+	<span style="color:#a6e22e">mock</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">MockIpeople</span>{<span style="color:#a6e22e">ctrl</span>: <span style="color:#a6e22e">ctrl</span>}
+	<span style="color:#a6e22e">mock</span>.<span style="color:#a6e22e">recorder</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">MockIpeopleMockRecorder</span>{<span style="color:#a6e22e">mock</span>}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">mock</span>
+}
+</code></pre></div><p>所以这里调用的就是MockIpeopleMockRecorder的GetName方法。这个函数如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">mr</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MockIpeopleMockRecorder</span>) <span style="color:#a6e22e">GetName</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">gomock</span>.<span style="color:#a6e22e">Call</span> {
+	<span style="color:#a6e22e">mr</span>.<span style="color:#a6e22e">mock</span>.<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">T</span>.<span style="color:#a6e22e">Helper</span>()
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">mr</span>.<span style="color:#a6e22e">mock</span>.<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">RecordCallWithMethodType</span>(<span style="color:#a6e22e">mr</span>.<span style="color:#a6e22e">mock</span>, <span style="color:#e6db74">&#34;GetName&#34;</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>((<span style="color:#f92672">*</span><span style="color:#a6e22e">MockIpeople</span>)(<span style="color:#66d9ef">nil</span>).<span style="color:#a6e22e">GetName</span>))
+}
+
+</code></pre></div><p>RecordCallWithMethodType是mock.ctrl的方法，这个方法是在gomock库里面的controller.go文件中，在看一下这个函数的实现：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// RecordCallWithMethodType is called by a mock. It should not be called by user code.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">ctrl</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Controller</span>) <span style="color:#a6e22e">RecordCallWithMethodType</span>(<span style="color:#a6e22e">receiver</span> <span style="color:#66d9ef">interface</span>{}, <span style="color:#a6e22e">method</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">methodType</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Type</span>, <span style="color:#a6e22e">args</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) <span style="color:#f92672">*</span><span style="color:#a6e22e">Call</span> {
+	<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">T</span>.<span style="color:#a6e22e">Helper</span>()
+
+	<span style="color:#a6e22e">call</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">newCall</span>(<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">receiver</span>, <span style="color:#a6e22e">method</span>, <span style="color:#a6e22e">methodType</span>, <span style="color:#a6e22e">args</span><span style="color:#f92672">...</span>)
+
+	<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Lock</span>()
+	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Unlock</span>()
+	<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">expectedCalls</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">call</span>)
+
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">call</span>
+}
+</code></pre></div><p>这里看到，其实就是在ctrl.expectedCalls中把新生成函数按照函数名，参数等生成一个call，在call.go中就有Return、Do、Times等函数。这里看一些简单的例子，有兴趣的同学可以继续深入看看call.go这个文件。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// AnyTimes allows the expectation to be called 0 or more times
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Call</span>) <span style="color:#a6e22e">AnyTimes</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">Call</span> {
+	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">minCalls</span>, <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">maxCalls</span> = <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1e8</span> <span style="color:#75715e">// close enough to infinity
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>
+}
+
+<span style="color:#75715e">// MinTimes requires the call to occur at least n times. If AnyTimes or MaxTimes have not been called, MinTimes also
+</span><span style="color:#75715e">// sets the maximum number of calls to infinity.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Call</span>) <span style="color:#a6e22e">MinTimes</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">Call</span> {
+	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">minCalls</span> = <span style="color:#a6e22e">n</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">maxCalls</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">maxCalls</span> = <span style="color:#ae81ff">1e8</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>
+}
+
+<span style="color:#75715e">// MaxTimes limits the number of calls to n times. If AnyTimes or MinTimes have not been called, MaxTimes also
+</span><span style="color:#75715e">// sets the minimum number of calls to 0.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Call</span>) <span style="color:#a6e22e">MaxTimes</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">Call</span> {
+	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">maxCalls</span> = <span style="color:#a6e22e">n</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">minCalls</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">minCalls</span> = <span style="color:#ae81ff">0</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>
+}
+</code></pre></div><h3 id="参数匹配">参数匹配</h3>
+<ul>
+<li>gomock.Any()：匹配任意参数值</li>
+<li>gomock.Eq()：指定参数</li>
+<li>gomock.Nil()：返回nil</li>
+</ul>
+<h3 id="行为调用的保序">行为调用的保序</h3>
+<ul>
+<li>gomock.InOrder：声明指定了调用顺序
+默认情况下，行为调用顺序可以和mock对象行为注入顺序不一致，即不保序。如果要保序，有两种方法：</li>
+</ul>
+<ol>
+<li>通过After关键字来实现保序</li>
+<li>通过InOrder关键字来实现保序</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">	<span style="color:#75715e">// call := mockpeople.EXPECT().GetName().Return(&#34;helight1&#34;)
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// mockpeople.EXPECT().GetName().Return(&#34;helight&#34;).After(call)   
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// gomock.InOrder(
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">mockpeople</span>.<span style="color:#a6e22e">EXPECT</span>().<span style="color:#a6e22e">GetName</span>().<span style="color:#a6e22e">Return</span>(<span style="color:#e6db74">&#34;helight&#34;</span>)
+        <span style="color:#a6e22e">mockpeople</span>.<span style="color:#a6e22e">EXPECT</span>().<span style="color:#a6e22e">GetName</span>().<span style="color:#a6e22e">Return</span>(<span style="color:#e6db74">&#34;helight&#34;</span>)
+    <span style="color:#75715e">// )
+</span></code></pre></div><h3 id="建议更多的方法可参见-官方文档">建议更多的方法可参见 官方文档</h3>
+<p>参见<a href="https://github.com/golang/mock#running-mockgen">官方文档</a></p>
+<h1 id="总结">总结</h1>
+<p>gomock是单元测试的升级，帮助我们可以把之前无法做单元测试又非常重要的模块能够进行单元测试。gomock整体功能还是非常强大的，更多的功能可以在实际使用中不断熟悉，另外也可以多看看官方文档和gomock的源码。</p>
+<h1 id="参考">参考</h1>
+<ol>
+<li><a href="https://github.com/golang/mock">https://github.com/golang/mock</a></li>
+</ol>
+<p>本文详细阐述了GoMock框架的使用方法，不但结合例子给出了标准用法，而且列出了很多要点，最后通过一个简单的测试Demo说明了GoConvey + GoStub + GoMock组合使用的正确姿势。希望读者举一反三，同时将前面三篇的核心内容融入进来，写出高质量的测试代码，最终提升产品质量。</p>
+<p>至此，我们已经知道：</p>
+<ol>
+<li>全局变量可通过GoStub框架打桩</li>
+<li>过程可通过GoStub框架打桩</li>
+<li>函数可通过GoStub框架打桩</li>
+<li>interface可通过GoMock框架打桩</li>
+</ol>
+<p>于是问题来了，方法通过神马打桩？
+或许有好的解决方案，但由于笔者才疏学浅，目前还没有想到成熟的解决方案，只能尽量弱化方法调用对单元测试的影响。如果方法的调用层次很深，而且中间层都是方法，则可能导致打桩的复杂度比较高，这时需要在适当的层次引入interface，以便单元测试时通过对interface打桩将调用链从中间截断，从而有效降低打桩的复杂度。</p>
+<center>
+看完本文有收获？请分享给更多人
+<p>关注「黑光技术」，关注大数据+微服务</p>
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2019/golangdep/" data-toggle="tooltip" data-placement="top" title="Golang官方依赖管理工具：dep">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2019/golangfunerror/" data-toggle="tooltip" data-placement="top" title="Golang中 method has pointer receiver 异常">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2019/golang_unittest/"><i class="fa fa-link"></i>Golang UnitTest单元测试</a></li>
+         
+        <li><a href="/blog/2019/grpc/"><i class="fa fa-link"></i>golang grpc简单使用</a></li>
+         
+        <li><a href="/blog/2019/xprojects/"><i class="fa fa-link"></i>helight的github项目</a></li>
+         
+        <li><a href="/blog/2019/golangfunerror/"><i class="fa fa-link"></i>Golang中 method has pointer receiver 异常</a></li>
+         
+        <li><a href="/blog/2019/golangdep/"><i class="fa fa-link"></i>Golang官方依赖管理工具：dep</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

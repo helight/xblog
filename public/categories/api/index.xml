@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>api on 黑光技术</title>
+    <link>http://www.helight.cn/categories/api/</link>
+    <description>Recent content in api on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Sun, 07 Jun 2020 08:45:20 +0800</lastBuildDate><atom:link href="http://www.helight.cn/categories/api/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>做 API 监控有没有什么方法论？</title>
+      <link>http://www.helight.cn/blog/2020/api-traffic-formulas/</link>
+      <pubDate>Sun, 07 Jun 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/api-traffic-formulas/</guid>
+      <description>做事情还是的有一定的方法论来指导的，今天这里总结的这篇文章目的就在于对 API 的监控方面进行梳理，梳理出了 API 监控的基本层次，常用指标和常见的监控模型。</description>
+    </item>
+    
+  </channel>
+</rss>

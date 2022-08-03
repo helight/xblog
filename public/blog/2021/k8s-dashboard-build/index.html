@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>k8s dashboard 编译测试</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, k8s, dashboard">
+  
+  
+  <meta name="description" content="完美之道，不在无可增加，而在无可删减。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="k8s dashboard 编译测试">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2021/k8s-dashboard-build/" />
+  <meta property="og:description" content="完美之道，不在无可增加，而在无可删减。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/kubernetes.jpeg">
+  <meta property="og:image:type" content="image/jpeg">
+  
+  
+  
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="500">
+  
+  
+  <meta property="og:updated_time" content="2021-03-31T08:45:20&#43;0800">
+  
+    
+    
+    <meta property="article:section" content="k8s">
+    <meta property="article:tag" content="k8s">
+    
+    
+    <meta property="article:published_time" content="2021-03-31T08:45:20&#43;0800">
+    <meta property="article:modified_time" content="2021-03-31T08:45:20&#43;0800">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="k8s dashboard 编译测试">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/kubernetes.jpeg">
+  
+  <meta name="twitter:description" content="完美之道，不在无可增加，而在无可删减。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="k8s dashboard 编译测试 logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="k8s dashboard 编译测试 logo" class="visible-xs visible-sm">
+                    <span class="sr-only">k8s dashboard 编译测试 - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>k8s dashboard 编译测试</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2021年3月31日
+                        </i>
+                        |
+                        
+                        由 <a href="http://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        500字 | 阅读大约需要1分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/k8s">k8s</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/k8s/"><i>#k8s</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <h2 id="前言">前言</h2>
+<h2 id="minikube-install">minikube install</h2>
+<p>在 linux 上安装 minikube
+在linux上怎么安装minikube看这里：
+<a href="https://minikube.sigs.k8s.io/docs/start/linux/">https://minikube.sigs.k8s.io/docs/start/linux/</a>.
+很简单，下载安装即可</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"> curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>   <span style="color:#f92672">&amp;&amp;</span> sudo install minikube-linux-amd64 /usr/local/bin/minikube
+<span style="color:#e6db74">``</span>
+<span style="color:#75715e">### 启动过程中的一些错误</span>
+<span style="color:#75715e">#### hostname 配置问题</span>
+<span style="color:#e6db74">```</span>sh
+W0414 11:15:16.799163 <span style="color:#ae81ff">11416</span> configset.go:202<span style="color:#f92672">]</span> WARNING: kubeadm cannot validate component configs <span style="color:#66d9ef">for</span> API groups <span style="color:#f92672">[</span>kubelet.config.k8s.io kubeproxy.config.k8s.io<span style="color:#f92672">]</span>nodeRegistration.name: Invalid value: <span style="color:#e6db74">&#34;vm_74_51_centos&#34;</span>: a DNS-1123 subdomain must consist of lower <span style="color:#66d9ef">case</span> alphanumeric characters, <span style="color:#e6db74">&#39;-&#39;</span> or <span style="color:#e6db74">&#39;.&#39;</span>, and must start and end with an alphanumeric character <span style="color:#f92672">(</span>e.g. <span style="color:#e6db74">&#39;example.com&#39;</span>, regex used <span style="color:#66d9ef">for</span> validation is <span style="color:#e6db74">&#39;[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*&#39;</span><span style="color:#f92672">)</span>To see the stack trace of this error execute with --v<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span> or higher
+</code></pre></div><p>解决方法</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@VM_74_51_centos /data/minikube<span style="color:#f92672">]</span><span style="color:#75715e"># hostnamectl set-hostname vm-74-51-centos</span>
+</code></pre></div><h4 id="conntrack-tools-没有安装">conntrack-tools 没有安装</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">* minikube v1.9.2 on Centos 7.2
+* Using the none driver based on user configuration
+X Sorry, Kubernetes v1.18.0 requires conntrack to be installed in root<span style="color:#960050;background-color:#1e0010">&#39;</span>s path
+</code></pre></div><p>解决方法</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@VM_74_51_centos /data/minikube<span style="color:#f92672">]</span><span style="color:#75715e"># apt-get install conntrack</span>
+</code></pre></div><h2 id="kubectl-install">kubectl install</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -LO https://storage.googleapis.com/kubernetes-release/release/<span style="color:#e6db74">`</span>curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt<span style="color:#e6db74">`</span>/bin/linux/amd64/kubectl
+install kubectl /usr/local/bin/kubectl
+</code></pre></div><h2 id="docker-install">docker install</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">apt-get remove docker docker-engine docker.io containerd runc
+
+apt-get update
+ sudo apt-get install <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    apt-transport-https <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    ca-certificates <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    curl <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    gnupg <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    lsb-release
+
+echo <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  <span style="color:#e6db74">&#34;deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+</span><span style="color:#e6db74">  </span><span style="color:#66d9ef">$(</span>lsb_release -cs<span style="color:#66d9ef">)</span><span style="color:#e6db74"> stable&#34;</span> | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+
+ sudo apt-get update
+ sudo apt-get install docker-ce docker-ce-cli containerd.io
+</code></pre></div><h3 id="add-dockers-official-gpg-key">Add Docker’s official GPG key:</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"> curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+</code></pre></div><h2 id="dashboard-install">dashboard install</h2>
+<h3 id="nvm-安装">nvm 安装</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+bash: source ~/.bashrc
+</code></pre></div><h3 id="更新node">更新node</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">nvm install v12.22.0
+</code></pre></div><p>要使用npm6的版本，7的版本编译</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ubuntu@VM-74-51-ubuntu:/data/dashboard$ npm version
+<span style="color:#f92672">{</span>
+  <span style="color:#e6db74">&#39;kubernetes-dashboard&#39;</span>: <span style="color:#e6db74">&#39;2.2.0&#39;</span>,
+  npm: <span style="color:#e6db74">&#39;6.14.11&#39;</span>,
+  ares: <span style="color:#e6db74">&#39;1.16.1&#39;</span>,
+  brotli: <span style="color:#e6db74">&#39;1.0.9&#39;</span>,
+  cldr: <span style="color:#e6db74">&#39;37.0&#39;</span>,
+  http_parser: <span style="color:#e6db74">&#39;2.9.4&#39;</span>,
+  icu: <span style="color:#e6db74">&#39;67.1&#39;</span>,
+  llhttp: <span style="color:#e6db74">&#39;2.1.3&#39;</span>,
+  modules: <span style="color:#e6db74">&#39;72&#39;</span>,
+  napi: <span style="color:#e6db74">&#39;8&#39;</span>,
+  nghttp2: <span style="color:#e6db74">&#39;1.41.0&#39;</span>,
+  node: <span style="color:#e6db74">&#39;12.22.0&#39;</span>,
+  openssl: <span style="color:#e6db74">&#39;1.1.1j&#39;</span>,
+  tz: <span style="color:#e6db74">&#39;2019c&#39;</span>,
+  unicode: <span style="color:#e6db74">&#39;13.0&#39;</span>,
+  uv: <span style="color:#e6db74">&#39;1.40.0&#39;</span>,
+  v8: <span style="color:#e6db74">&#39;7.8.279.23-node.46&#39;</span>,
+  zlib: <span style="color:#e6db74">&#39;1.2.11&#39;</span>
+<span style="color:#f92672">}</span>
+ubuntu@VM-74-51-ubuntu:/data/dashboard$ 
+</code></pre></div><h3 id="install-the-gulp-command-line-utility">Install the gulp command line utility</h3>
+<p>npm install &ndash;global gulp-cli</p>
+<h3 id="golang-install">golang install</h3>
+<p><a href="https://golang.org/dl/">https://golang.org/dl/</a></p>
+<h2 id="create-token">create token</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">kubectl create namespace kubernetes-dashboard
+namespace/kubernetes-dashboard created
+</code></pre></div><p>创建账号</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@VM-74-51-ubuntu:/data/k8s# cat <span style="color:#e6db74">&lt;&lt;EOF | kubectl apply -f -
+</span><span style="color:#e6db74">apiVersion: v1
+</span><span style="color:#e6db74">kind: ServiceAccount
+</span><span style="color:#e6db74">metadata:
+</span><span style="color:#e6db74">  name: admin-user
+</span><span style="color:#e6db74">  namespace: kubernetes-dashboard
+</span><span style="color:#e6db74">EOF</span>
+
+serviceaccount/admin-user created
+</code></pre></div><p>绑定角色</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cat <span style="color:#e6db74">&lt;&lt;EOF | kubectl apply -f -
+</span><span style="color:#e6db74">apiVersion: rbac.authorization.k8s.io/v1
+</span><span style="color:#e6db74">kind: ClusterRoleBinding
+</span><span style="color:#e6db74">metadata:
+</span><span style="color:#e6db74">  name: admin-user
+</span><span style="color:#e6db74">roleRef:
+</span><span style="color:#e6db74">  apiGroup: rbac.authorization.k8s.io
+</span><span style="color:#e6db74">  kind: ClusterRole
+</span><span style="color:#e6db74">  name: cluster-admin
+</span><span style="color:#e6db74">subjects:
+</span><span style="color:#e6db74">- kind: ServiceAccount
+</span><span style="color:#e6db74">  name: admin-user
+</span><span style="color:#e6db74">  namespace: kubernetes-dashboard
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><h2 id="start">start</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">export GOPATH<span style="color:#f92672">=</span>$HOME/go
+npm run start --kubernetes-dashboard:bind_address<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0.0.0.0&#34;</span> --enable-skip-login
+</code></pre></div><center>
+看完本文有收获？请分享给更多人
+<p>关注「黑光技术」，关注大数据+微服务</p>
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2021/build-kernel-ebpf-sample/" data-toggle="tooltip" data-placement="top" title="linux5.3.0编译运行LINUX内核源码中的BPF示例代码">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2021/ms-thinking/" data-toggle="tooltip" data-placement="top" title="关于微服务开发平台的思考">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2020/kube-client-go-code-3/"><i class="fa fa-link"></i>k8s 代码走读---client-go 编程交互代码测试</a></li>
+         
+        <li><a href="/blog/2020/kube-client-go-code-2/"><i class="fa fa-link"></i>k8s 代码走读---client-go 编程之 informers</a></li>
+         
+        <li><a href="/blog/2020/kube-client-go-code-1/"><i class="fa fa-link"></i>k8s 代码走读---client-go 编程交互基础走读</a></li>
+         
+        <li><a href="/blog/2020/kube-controller-manager-code-1/"><i class="fa fa-link"></i>k8s代码走读---kube-controller-manager</a></li>
+         
+        <li><a href="/blog/2020/wasm-to-envoy-and-istio/"><i class="fa fa-link"></i>【译】发布可扩展和改进的 webassembly hub，帮助 envoy 和 Istio 使用 webassembly 的能力</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

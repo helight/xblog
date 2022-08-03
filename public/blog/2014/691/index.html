@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>hadoop2.3单机搭建</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, storm">
+  
+  
+  <meta name="description" content="完美之道，不在无可增加，而在无可删减。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="hadoop2.3单机搭建">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2014/691/" />
+  <meta property="og:description" content="完美之道，不在无可增加，而在无可删减。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/banner-2.jpg">
+  <meta property="og:image:type" content="image/jpg">
+  
+  
+  
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="375">
+  
+  
+  <meta property="og:updated_time" content="2014-03-23T15:06:40&#43;0800">
+  
+    
+    
+    <meta property="article:section" content="storm">
+    <meta property="article:tag" content="storm">
+    
+    
+    <meta property="article:published_time" content="2014-03-23T15:06:40&#43;0800">
+    <meta property="article:modified_time" content="2014-03-23T15:06:40&#43;0800">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="hadoop2.3单机搭建">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/banner-2.jpg">
+  
+  <meta name="twitter:description" content="完美之道，不在无可增加，而在无可删减。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="hadoop2.3单机搭建 logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="hadoop2.3单机搭建 logo" class="visible-xs visible-sm">
+                    <span class="sr-only">hadoop2.3单机搭建 - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>hadoop2.3单机搭建</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2014年3月23日
+                        </i>
+                        |
+                        
+                        由 <a href="https://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        1500字 | 阅读大约需要3分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/storm">storm</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/storm/"><i>#storm</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <p>没事整理了之前搭建hadoop的过程，这里使用了最新的hadoop版本，想在单机上做一些测试，顺手也就整理了一下这个文档。</p>
+<p>一、准备环境</p>
+<p>1．Hadoop是用Java开发的，必须要安装JDK1.6或更高版本</p>
+<p>apt-get install openjdk-6-jdk</p>
+<p>2．Hadoop是通过SSH来启动slave主机中的守护进程，必须安装OpenSSH</p>
+<p>apt-get install openssh-server</p>
+<p>3．Hadoop更新比较快，我们采用最新版hadoop2.3来安装</p>
+<p>4．配置对应Hosts记录，关闭iptables和selinux（过程略）</p>
+<p>5．创建相同用户及配置无密码认证</p>
+<p>二.配置SSH无密码登录</p>
+<p>helight:data1$ ssh-keygen -t rsa #一直回车生成</p>
+<p>helight:data1$ cd</p>
+<p>helight:~$ ls</p>
+<p>helight:~$ls -a</p>
+<p>. .. .bash_logout .bashrc .profile .ssh</p>
+<p>helight:~$ cd .ssh/</p>
+<p>helight:.ssh$ ls</p>
+<p>id_rsa id_rsa.pub</p>
+<p>helight:.ssh$ cat id_rsa.pub &raquo; authorized_keys</p>
+<p>helight:.ssh$ ls</p>
+<p>authorized_keys id_rsa id_rsa.pub</p>
+<p>helight:.ssh$ chmod 600 authorized_keys</p>
+<p>hhelight:.ssh$ chmod 700 ../.ssh #目录权限必须设置700</p>
+<p>root@debian:/data1# vim /etc/ssh/sshd_config #开启RSA认证</p>
+<p>RSAAuthentication yes</p>
+<p>PubkeyAuthentication yes</p>
+<p>AuthorizedKeysFile %h/.ssh/authorized_keys</p>
+<p>三、Hadoop的安装与配置</p>
+<p>1.下载</p>
+<p><a href="http://hadoop.apache.org/">http://hadoop.apache.org/</a>下载hadoop Release 版本，这里我下载了2.3.0的版本，目前是最新版本。解压到本地文件系统中，我下载到了/data1/目录中。</p>
+<p>$tar xzf hadoop-2.3.0.tar.gz</p>
+<p>2.用户设置环境变量
+编辑~/.bashrc，添加JAVA_HOME,PATH</p>
+<p>JAVA_HOME=/usr/lib/jvm/java-6-openjdk-amd64</p>
+<p>export JAVA_HOME
+export HADOOP_HOME=/data1/hadoop/</p>
+<p>export HADOOP_HOME</p>
+<p>PATH=$PATH:/data1/hadoop/bin:/data1/hadoop-2.3.0/sbin</p>
+<p>export PATH</p>
+<p>编辑完成之后，重新打开一个shell终端，这个大家应该都知道是为了上面配置的环境变量在新终端中生效，或者执行<code>source ～/.bashrc</code></p>
+<p>再来看看配置结果：看一下hadoop可不可以执行。</p>
+<p>helight:data1$ hadoop version</p>
+<p>Hadoop 2.3.0</p>
+<p>Subversion <a href="http://svn.apache.org/repos/asf/hadoop/common">http://svn.apache.org/repos/asf/hadoop/common</a> -r 1567123</p>
+<p>Compiled by jenkins on 2014-02-11T13:40Z</p>
+<p>Compiled with protoc 2.5.0</p>
+<p>From source with checksum dfe46336fbc6a044bc124392ec06b85</p>
+<p>This command was run using /data1/hadoop-2.3.0/share/hadoop/common/hadoop-common-2.3.0.jar</p>
+<p>helight:data1$</p>
+<p>3.hadoop环境变量配置</p>
+<p>cd hadoop-2.3.0/etc/hadoop</p>
+<p>vim hadoop-env.sh</p>
+<h1 id="the-java-implementation-to-use">The java implementation to use.</h1>
+<p>JAVA_HOME=/usr/lib/jvm/java-6-openjdk-amd64</p>
+<p>export JAVA_HOME</p>
+<p>export JAVA_HOME=${JAVA_HOME}</p>
+<p>export HADOOP_HOME=/data1/hadoop-2.3.0/</p>
+<p>export HADOOP_HOME</p>
+<p>PATH=$PATH:/data1/hadoop-2.3.0/bin/:/data1/hadoop-2.3.0/sbin</p>
+<p>export PATH</p>
+<p>4.slaves设置从节点</p>
+<p>只有一个所以是localhost，要是多个需要设置hosts和这里添加域名，并且设置ssh登录无密码。</p>
+<p>helight:hadoop$ vi slaves</p>
+<p>localhost</p>
+<p>5．hdfs核心配置文件：core-site.xml</p>
+<property>
+<p><name>fs.defaultFS</name></p>
+<p><value>hdfs://localhost:9000</value></p>
+</property>
+<property>
+<p><name>io.file.buffer.size</name></p>
+<p><value>131072</value></p>
+</property>
+<property>
+<p><name>hadoop.tmp.dir</name></p>
+<p><value>file:/home/hadoop/tmp</value></p>
+</property>
+<p>6.hdfs存储配置文件：hdfs-site.xml</p>
+<configuration> 
+<property> 
+<p><name>dfs.namenode.name.dir</name></p>
+<p><value>file:/home/hadoop/dfs/name</value></p>
+</property> 
+<property> 
+<p><name>dfs.namenode.data.dir</name></p>
+<p><value>file:/home/hadoop/dfs/data</value></p>
+</property> 
+<property> 
+<p><name>dfs.replication</name> #数据副本数量，默认3，设置1</p>
+<p><value>1</value></p>
+</property> 
+</configuration>
+<p>7．mapreaduce管理器配置文件：yarn-site.xml</p>
+<configuration>
+<property>
+<p><name>yarn.resourcemanager.address</name></p>
+<p><value>localhost:8032</value></p>
+</property>
+<property>
+<p><name>yarn.resourcemanager.scheduler.address</name></p>
+<p><value>localhost:8030</value></p>
+</property>
+<property>
+<p><name>yarn.resourcemanager.resource-tracker.address</name></p>
+<p><value>localhost:8031</value></p>
+</property>
+<property>
+<p><name>yarn.resourcemanager.admin.address</name></p>
+<p><value>localhost:8033</value></p>
+</property>
+<property>
+<p><name>yarn.resourcemanager.webapp.address</name></p>
+<p><value>localhost:8088</value></p>
+</property>
+<property>
+<p><name>yarn.nodemanager.aux-services</name></p>
+<p><value>mapreduce_shuffle</value></p>
+</property>
+<property>
+<p>   <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name></p>
+<p>   <value>org.apache.hadoop.mapred.ShuffleHandler</value></p>
+</property>
+</configuration>
+<p>8.mapreaduce框架mapred-site.xml</p>
+<configuration>
+<property>
+<p><name>mapreduce.framework.name</name></p>
+<p><value>yarn</value></p>
+</property>
+<property>
+<p><name>mapreduce.jobhistory.address</name></p>
+<p><value>localhost:10020</value></p>
+</property>
+<property>
+<p><name>mapreduce.jobhistory.webapp.address</name></p>
+<p><value>localhost:19888</value></p>
+</property>
+</configuration>
+<p>四、格式化文件系统并启动</p>
+<p>1.格式化新的分布式文件系统（hdfs namenode -format）</p>
+<p>初始化hdfs目录结构和数据。</p>
+<p>helight:sbin$ hdfs namenode -format</p>
+<p>2.启动hadoop：</p>
+<p>这里使用了start-all.sh ，实际上这个脚本是启动了start-dfs.sh和start-yarn.sh ，所以也可以分阶段启动，start-dfs.sh启动了hdfs，start-yarn.sh 启动mapreduce调度框架。</p>
+<p>helight:sbin$ ./start-all.sh</p>
+<p>This script is Deprecated. Instead use start-dfs.sh and start-yarn.sh</p>
+<p>14/03/23 22:38:45 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform&hellip; using builtin-java classes where applicable</p>
+<p>Starting namenodes on [localhost]</p>
+<p>localhost: starting namenode, logging to /data1/hadoop-2.3.0/logs/hadoop-helight-namenode-debian.out</p>
+<p>localhost: starting datanode, logging to /data1/hadoop-2.3.0/logs/hadoop-helight-datanode-debian.out</p>
+<p>Starting secondary namenodes [0.0.0.0]</p>
+<p>0.0.0.0: starting secondarynamenode, logging to /data1/hadoop-2.3.0/logs/hadoop-helight-secondarynamenode-debian.out</p>
+<p>14/03/23 22:39:14 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform&hellip; using builtin-java classes where applicable</p>
+<p>starting yarn daemons</p>
+<p>starting resourcemanager, logging to /data1/hadoop-2.3.0/logs/yarn-helight-resourcemanager-debian.out</p>
+<p>localhost: starting nodemanager, logging to /data1/hadoop-2.3.0/logs/yarn-helight-nodemanager-debian.out</p>
+<p>3使用jps检查守护进程是否启动</p>
+<p>helight:sbin$ jps</p>
+<p>14506 NodeManager</p>
+<p>14205 SecondaryNameNode</p>
+<p>14720 Jps</p>
+<p>14072 DataNode</p>
+<p>13981 NameNode</p>
+<p>14411 ResourceManager</p>
+<p>4.查看集群状态</p>
+<p>hdfs dfsadmin -report</p>
+<p>14/03/23 22:43:49 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform&hellip; using builtin-java classes where applicable</p>
+<p>Configured Capacity: 83225169920 (77.51 GB)</p>
+<p>Present Capacity: 78803722240 (73.39 GB)</p>
+<p>DFS Remaining: 78803697664 (73.39 GB)</p>
+<p>DFS Used: 24576 (24 KB)</p>
+<p>DFS Used%: 0.00%</p>
+<p>Under replicated blocks: 0</p>
+<p>Blocks with corrupt replicas: 0</p>
+<p>Missing blocks: 0</p>
+<hr>
+<p>Datanodes available: 1 (1 total, 0 dead)</p>
+<p>Live datanodes:</p>
+<p>Name: 127.0.0.1:50010 (localhost)</p>
+<p>Hostname: debian.xu</p>
+<p>Decommission Status : Normal</p>
+<p>Configured Capacity: 83225169920 (77.51 GB)</p>
+<p>DFS Used: 24576 (24 KB)</p>
+<p>Non DFS Used: 4421447680 (4.12 GB)</p>
+<p>DFS Remaining: 78803697664 (73.39 GB)</p>
+<p>DFS Used%: 0.00%</p>
+<p>DFS Remaining%: 94.69%</p>
+<p>Configured Cache Capacity: 0 (0 B)</p>
+<p>Cache Used: 0 (0 B)</p>
+<p>Cache Remaining: 0 (0 B)</p>
+<p>Cache Used%: 100.00%</p>
+<p>Cache Remaining%: 0.00%</p>
+<p>Last contact: Sun Mar 23 22:43:48 HKT 2014</p>
+<p>5.通过web查看资源（<a href="http://localhost:8088/">http://localhost:8088</a>）</p>
+<p>主要看mr进程管理</p>
+<p>6、查看HDFS状态（<a href="http://localhost:50070/">http://localhost:50070</a>）</p>
+<p>可以看到hdfs的运营情况，是hdfs的一个简单oss。</p>
+<center>
+看完本文有收获？请分享给更多人<br>
+<p>关注「黑光技术」，关注大数据+微服务<br></p>
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2014/689/" data-toggle="tooltip" data-placement="top" title="配置SSH无密码登录问题解决记录">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2014/694/" data-toggle="tooltip" data-placement="top" title="Hadoop2.3.0源码编译过程记录">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

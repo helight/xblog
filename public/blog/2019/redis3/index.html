@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>Redis的事件处理模型2：客户端命令执行过程</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, redis, db, 事件驱动, client">
+  
+  
+  <meta name="description" content="完美之道，不在无可增加，而在无可删减。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="Redis的事件处理模型2：客户端命令执行过程">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2019/redis3/" />
+  <meta property="og:description" content="完美之道，不在无可增加，而在无可删减。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/redis.png">
+  <meta property="og:image:type" content="image/png">
+  
+  
+  
+    <meta property="og:image:width" content="300">
+    <meta property="og:image:height" content="253">
+  
+  
+  <meta property="og:updated_time" content="2019-06-18T13:47:08&#43;0200">
+  
+    
+    
+    <meta property="article:section" content="redis">
+    <meta property="article:tag" content="redis">
+    <meta property="article:tag" content="db">
+    
+    
+    <meta property="article:published_time" content="2019-06-18T13:47:08&#43;0200">
+    <meta property="article:modified_time" content="2019-06-18T13:47:08&#43;0200">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="Redis的事件处理模型2：客户端命令执行过程">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/redis.png">
+  
+  <meta name="twitter:description" content="完美之道，不在无可增加，而在无可删减。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="Redis的事件处理模型2：客户端命令执行过程 logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="Redis的事件处理模型2：客户端命令执行过程 logo" class="visible-xs visible-sm">
+                    <span class="sr-only">Redis的事件处理模型2：客户端命令执行过程 - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Redis的事件处理模型2：客户端命令执行过程</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2019年6月18日
+                        </i>
+                        |
+                        
+                        由 <a href="https://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        3100字 | 阅读大约需要7分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/redis">redis</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/redis/"><i>#redis</i></a>
+                        
+                        <a style="text-transform:capitalize" href="/tags/db/"><i>#db</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <h1 id="redis的事件处理模型2客户端命令执行过程">Redis的事件处理模型2：客户端命令执行过程</h1>
+<h1 id="前言">前言</h1>
+<p>上篇分析了Redis的事件处理模型，了解了Redis的事件处理基本过程，这篇还想继续顺着上面的思路分析一下这种情况：在客户端向服务端发起一个set指令或者get指令后，服务端接收后怎么执行这个命令，这个命令操作的简单过程是怎么样的。在分析了这个过程之后，我们就知道了Redis客户端和服务端交互的整个过程。清楚交互过程之后，我再会分析每个数据类型的结构和原理。所以今天继续分析Redis的事件处理模型。</p>
+<h1 id="redis客户端命令处理分析">redis客户端命令处理分析</h1>
+<h2 id="命令字解析">命令字解析</h2>
+<p>还是从上一篇分析的延续下来，我们从服务端接收到客户端请求开始，从<code>createClient</code>分析起来。下面的代码就是<code>createClient</code>中创建初始化客户端c的一些参数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    c<span style="color:#f92672">-&gt;</span>reqtype <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// 请求类型,因为Redis服务器支持Telnet的连接，因此Telnet命令请求协议类型是PROTO_REQ_INLINE，而redis-cli命令请求的协议类型是PROTO_REQ_MULTIBULK。
+</span><span style="color:#75715e"></span>    c<span style="color:#f92672">-&gt;</span>argc <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;    <span style="color:#75715e">// 客户端传参的个数
+</span><span style="color:#75715e"></span>    c<span style="color:#f92672">-&gt;</span>argv <span style="color:#f92672">=</span> NULL; <span style="color:#75715e">// 传的参数
+</span><span style="color:#75715e"></span>    c<span style="color:#f92672">-&gt;</span>cmd <span style="color:#f92672">=</span> c<span style="color:#f92672">-&gt;</span>lastcmd <span style="color:#f92672">=</span> NULL;       <span style="color:#75715e">// 请求命令  
+</span><span style="color:#75715e"></span>    c<span style="color:#f92672">-&gt;</span>multibulklen <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;      
+    c<span style="color:#f92672">-&gt;</span>bulklen <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+    c<span style="color:#f92672">-&gt;</span>sentlen <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; 
+    c<span style="color:#f92672">-&gt;</span>flags <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;   <span style="color:#75715e">// 客户端状态的标志。中在server.h中定义了29种客户端状态。
+</span></code></pre></div><p>接下来我们持续跟进这个函数的执行，<code>readQueryFromClient</code>是绑定在每个客户端链接fd上的，这个函数的主要目标就是读取客户端传来的数据。看这函数的主干调用关系是下面的顺序:
+readQueryFromClient -&gt; processInputBufferAndReplicate -&gt; processInputBuffer -&gt; processCommand
+在<code>processInputBuffer</code>函数中还根据请求类型进行数据读取处理，<code>processMultibulkBuffer</code>是针对多个命令请求的数据读取解析，并且放到命令字段argv中。下面的代码是<code>processInputBuffer</code>的。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span> (c<span style="color:#f92672">-&gt;</span>reqtype <span style="color:#f92672">==</span> PROTO_REQ_INLINE) {         
+            <span style="color:#66d9ef">if</span> (processInlineBuffer(c) <span style="color:#f92672">!=</span> C_OK) <span style="color:#66d9ef">break</span>;
+        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (c<span style="color:#f92672">-&gt;</span>reqtype <span style="color:#f92672">==</span> PROTO_REQ_MULTIBULK) {   
+            <span style="color:#66d9ef">if</span> (processMultibulkBuffer(c) <span style="color:#f92672">!=</span> C_OK) <span style="color:#66d9ef">break</span>;    <span style="color:#75715e">// 这里读取buff中的数据，并且根据argc来填写argv数据                 
+</span><span style="color:#75715e"></span>        } <span style="color:#66d9ef">else</span> {               
+            serverPanic(<span style="color:#e6db74">&#34;Unknown request type&#34;</span>);      
+        }   
+        
+        <span style="color:#75715e">/* Multibulk processing could see a &lt;= 0 length. */</span>                  
+        <span style="color:#66d9ef">if</span> (c<span style="color:#f92672">-&gt;</span>argc <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {    
+            resetClient(c);    
+        } <span style="color:#66d9ef">else</span> {               
+            <span style="color:#75715e">/* Only reset the client when the command was executed. */</span>       
+            <span style="color:#66d9ef">if</span> (processCommand(c) <span style="color:#f92672">==</span> C_OK) {          <span style="color:#75715e">// 这里正真处理命令
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">if</span> (c<span style="color:#f92672">-&gt;</span>flags <span style="color:#f92672">&amp;</span> CLIENT_MASTER <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>(c<span style="color:#f92672">-&gt;</span>flags <span style="color:#f92672">&amp;</span> CLIENT_MULTI)) {
+ <span style="color:#75715e">/* Update the applied replication offset of our master. */</span>   
+ c<span style="color:#f92672">-&gt;</span>reploff <span style="color:#f92672">=</span> c<span style="color:#f92672">-&gt;</span>read_reploff <span style="color:#f92672">-</span> sdslen(c<span style="color:#f92672">-&gt;</span>querybuf) <span style="color:#f92672">+</span> c<span style="color:#f92672">-&gt;</span>qb_pos;                 
+                }              
+      
+</code></pre></div><p>在<code>processMultibulkBuffer</code>中可以看到是根据argc的个数量而生成响应数量的命令结构体<code>redisObject</code>。这个数据结构是redis中非常重要的一个数据结构，这里主要用来封装命令字段。关于这个命令字段，我后面会进行介绍。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">            <span style="color:#75715e">/* Optimization: if the buffer contains JUST our bulk element    
+</span><span style="color:#75715e">             * instead of creating a new object by *copying* the sds we      
+</span><span style="color:#75715e">             * just use the current sds string. */</span>   
+            <span style="color:#75715e">// 如果读入的长度大于32k 
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> (c<span style="color:#f92672">-&gt;</span>qb_pos <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span>  
+                c<span style="color:#f92672">-&gt;</span>bulklen <span style="color:#f92672">&gt;=</span> PROTO_MBULK_BIG_ARG <span style="color:#f92672">&amp;&amp;</span>  
+                sdslen(c<span style="color:#f92672">-&gt;</span>querybuf) <span style="color:#f92672">==</span> (size_t)(c<span style="color:#f92672">-&gt;</span>bulklen<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>))               
+            {                  
+                c<span style="color:#f92672">-&gt;</span>argv[c<span style="color:#f92672">-&gt;</span>argc<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> createObject(OBJ_STRING,c<span style="color:#f92672">-&gt;</span>querybuf);    <span style="color:#75715e">// 这里命令结构生成， 创建对象保存在client的参数列表中
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// 跳过换行
+</span><span style="color:#75715e"></span>                sdsIncrLen(c<span style="color:#f92672">-&gt;</span>querybuf,<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>); <span style="color:#75715e">/* remove CRLF */</span>                
+                <span style="color:#75715e">/* Assume that if we saw a fat argument we&#39;ll see another one
+</span><span style="color:#75715e">                 * likely... */</span>
+                <span style="color:#75715e">// 设置一个新长度
+</span><span style="color:#75715e"></span>                c<span style="color:#f92672">-&gt;</span>querybuf <span style="color:#f92672">=</span> sdsnewlen(SDS_NOINIT,c<span style="color:#f92672">-&gt;</span>bulklen<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>);            
+                sdsclear(c<span style="color:#f92672">-&gt;</span>querybuf);                
+            } <span style="color:#66d9ef">else</span> {           
+                c<span style="color:#f92672">-&gt;</span>argv[c<span style="color:#f92672">-&gt;</span>argc<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span>                  
+ createStringObject(c<span style="color:#f92672">-&gt;</span>querybuf<span style="color:#f92672">+</span>c<span style="color:#f92672">-&gt;</span>qb_pos,c<span style="color:#f92672">-&gt;</span>bulklen);    
+                c<span style="color:#f92672">-&gt;</span>qb_pos <span style="color:#f92672">+=</span> c<span style="color:#f92672">-&gt;</span>bulklen<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>;            
+            }                  
+            c<span style="color:#f92672">-&gt;</span>bulklen <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;   
+            c<span style="color:#f92672">-&gt;</span>multibulklen<span style="color:#f92672">--</span>;
+</code></pre></div><h2 id="命令字执行">命令字执行</h2>
+<p>从这里开始，我们开始解析<code>processCommand</code>函数，从上面的函数，把从buff中把命令字都解析出来，放到了了argv命令数组中，接下来就要去执行这个命令了。让我们看看是怎么执行的。</p>
+<h3 id="先来看一个简单的">先来看一个简单的：</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">processCommand</span>(client <span style="color:#f92672">*</span>c) {
+    <span style="color:#75715e">/* The QUIT command is handled separately. Normal command procs will     
+</span><span style="color:#75715e">     * go through checking for replication and QUIT will cause trouble       
+</span><span style="color:#75715e">     * when FORCE_REPLICATION is enabled and would be implemented in         
+</span><span style="color:#75715e">     * a regular command proc. */</span>  
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>strcasecmp(c<span style="color:#f92672">-&gt;</span>argv[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">-&gt;</span>ptr,<span style="color:#e6db74">&#34;quit&#34;</span>)) {      <span style="color:#75715e">// 如果是quit命令，  
+</span><span style="color:#75715e"></span>        addReply(c,shared.ok);          <span style="color:#75715e">// 设置回复信息
+</span><span style="color:#75715e"></span>        c<span style="color:#f92672">-&gt;</span>flags <span style="color:#f92672">|=</span> CLIENT_CLOSE_AFTER_REPLY;         <span style="color:#75715e">// 设置关闭客户端标志
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> C_ERR;          
+    }       
+</code></pre></div><p>quit命令是比较特殊的，直接退出客户端的链接，所以这里单独处理。</p>
+<h3 id="一般命令执行">一般命令执行</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#75715e">/* Now lookup the command and check ASAP about trivial error conditions  
+</span><span style="color:#75715e">     * such as wrong arity, bad command name and so forth. */</span>                
+    c<span style="color:#f92672">-&gt;</span>cmd <span style="color:#f92672">=</span> c<span style="color:#f92672">-&gt;</span>lastcmd <span style="color:#f92672">=</span> lookupCommand(c<span style="color:#f92672">-&gt;</span>argv[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">-&gt;</span>ptr);   <span style="color:#75715e">//  查询获取具体的命令函数，并拼接参数。                 
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>c<span style="color:#f92672">-&gt;</span>cmd) {             
+    ......
+    <span style="color:#75715e">/* Exec the command */</span>     
+    <span style="color:#66d9ef">if</span> (c<span style="color:#f92672">-&gt;</span>flags <span style="color:#f92672">&amp;</span> CLIENT_MULTI <span style="color:#f92672">&amp;&amp;</span> 
+        c<span style="color:#f92672">-&gt;</span>cmd<span style="color:#f92672">-&gt;</span>proc <span style="color:#f92672">!=</span> execCommand <span style="color:#f92672">&amp;&amp;</span> c<span style="color:#f92672">-&gt;</span>cmd<span style="color:#f92672">-&gt;</span>proc <span style="color:#f92672">!=</span> discardCommand <span style="color:#f92672">&amp;&amp;</span>     
+        c<span style="color:#f92672">-&gt;</span>cmd<span style="color:#f92672">-&gt;</span>proc <span style="color:#f92672">!=</span> multiCommand <span style="color:#f92672">&amp;&amp;</span> c<span style="color:#f92672">-&gt;</span>cmd<span style="color:#f92672">-&gt;</span>proc <span style="color:#f92672">!=</span> watchCommand)        
+    {   
+        queueMultiCommand(c);  
+        addReply(c,shared.queued); 
+    } <span style="color:#66d9ef">else</span> {
+        call(c,CMD_CALL_FULL); <span style="color:#75715e">// 经过上面的异常检查之后，这里才开始正真执行命令
+</span><span style="color:#75715e"></span>        c<span style="color:#f92672">-&gt;</span>woff <span style="color:#f92672">=</span> server.master_repl_offset;          
+        <span style="color:#66d9ef">if</span> (listLength(server.ready_keys))            
+            handleClientsBlockedOnKeys();             
+    }   
+    <span style="color:#66d9ef">return</span> C_OK;        
+</code></pre></div><p>在call中执行的时候的时候，其实是根据<code>lookupCommand</code>函数返回的cmd结构体来执行的。这里面把命令字比如<code>get</code>，转换为它真实要调用的函数，把函数和参数都封装到一个struct中，最后在直接调用执行这个cmd。cmd的结构体如下。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">redisCommandProc</span>(client <span style="color:#f92672">*</span>c);             
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">redisGetKeysProc</span>(<span style="color:#66d9ef">struct</span> redisCommand <span style="color:#f92672">*</span>cmd, robj <span style="color:#f92672">**</span>argv, <span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>numkeys);       
+<span style="color:#66d9ef">struct</span> redisCommand {          
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>name;                
+    redisCommandProc <span style="color:#f92672">*</span>proc;    
+    <span style="color:#66d9ef">int</span> arity;                 
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>sflags; <span style="color:#75715e">/* Flags as string representation, one char per flag. */</span>   
+    <span style="color:#66d9ef">int</span> flags;    <span style="color:#75715e">/* The actual flags, obtained from the &#39;sflags&#39; field. */</span>  
+    <span style="color:#75715e">/* Use a function to determine keys arguments in a command line.         
+</span><span style="color:#75715e">     * Used for Redis Cluster redirect. */</span>            
+    redisGetKeysProc <span style="color:#f92672">*</span>getkeys_proc;
+    <span style="color:#75715e">/* What keys should be loaded in background when calling this command? */</span>
+    <span style="color:#66d9ef">int</span> firstkey; <span style="color:#75715e">/* The first argument that&#39;s a key (0 = no keys) */</span>        
+    <span style="color:#66d9ef">int</span> lastkey;  <span style="color:#75715e">/* The last argument that&#39;s a key */</span>
+    <span style="color:#66d9ef">int</span> keystep;  <span style="color:#75715e">/* The step between first and last key */</span>                  
+    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> microseconds, calls; 
+}; 
+</code></pre></div><p>那么怎么把<code>get</code>转成装成它所对应的的函数呢？主要就是<code>lookupCommand</code>来执行的，那么再来看看这个函数的执行。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">struct</span> redisCommand <span style="color:#f92672">*</span><span style="color:#a6e22e">lookupCommand</span>(sds name) {        
+    <span style="color:#66d9ef">return</span> dictFetchValue(server.commands, name);     
+    <span style="color:#75715e">// 这里看到了server.commands，server是全局变量，所以commands也是在服务启动的时候初始化的
+</span><span style="color:#75715e"></span>} 
+...
+dictEntry <span style="color:#f92672">*</span>dictFind(dict <span style="color:#f92672">*</span>d, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>key)         
+{       
+    dictEntry <span style="color:#f92672">*</span>he;             
+    <span style="color:#66d9ef">uint64_t</span> h, idx, table;    
+        
+    <span style="color:#66d9ef">if</span> (d<span style="color:#f92672">-&gt;</span>ht[<span style="color:#ae81ff">0</span>].used <span style="color:#f92672">+</span> d<span style="color:#f92672">-&gt;</span>ht[<span style="color:#ae81ff">1</span>].used <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> NULL; <span style="color:#75715e">/* dict is empty */</span> 
+    <span style="color:#66d9ef">if</span> (dictIsRehashing(d)) _dictRehashStep(d);       
+    h <span style="color:#f92672">=</span> dictHashKey(d, key);   
+    <span style="color:#66d9ef">for</span> (table <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; table <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>; table<span style="color:#f92672">++</span>) {       <span style="color:#75715e">// 这里对dict中的连个hash表都进行了搜索     
+</span><span style="color:#75715e"></span>        idx <span style="color:#f92672">=</span> h <span style="color:#f92672">&amp;</span> d<span style="color:#f92672">-&gt;</span>ht[table].sizemask;              
+        he <span style="color:#f92672">=</span> d<span style="color:#f92672">-&gt;</span>ht[table].table[idx];                 
+        <span style="color:#66d9ef">while</span>(he) {            
+            <span style="color:#66d9ef">if</span> (key<span style="color:#f92672">==</span>he<span style="color:#f92672">-&gt;</span>key <span style="color:#f92672">||</span> dictCompareKeys(d, key, he<span style="color:#f92672">-&gt;</span>key))            
+                <span style="color:#66d9ef">return</span> he;     
+            he <span style="color:#f92672">=</span> he<span style="color:#f92672">-&gt;</span>next;     
+        }   
+        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>dictIsRehashing(d)) <span style="color:#66d9ef">return</span> NULL;         
+    }   
+    <span style="color:#66d9ef">return</span> NULL;               
+}   
+<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>dictFetchValue(dict <span style="color:#f92672">*</span>d, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>key) {      
+    dictEntry <span style="color:#f92672">*</span>he;             
+        
+    he <span style="color:#f92672">=</span> dictFind(d,key);      
+    <span style="color:#66d9ef">return</span> he <span style="color:#f92672">?</span> dictGetVal(he) <span style="color:#f92672">:</span> NULL;                
+} 
+</code></pre></div><p><code>dict</code>这个结构体是什么样的呢？这个结构体也是Redis中非常重要的一个结构体，基本的kv存储就是使用这个结构体，从上面的调用关系可以看出最终是查找<code>dictht</code>中的<code>table</code>散列数组，所以可以预想到，在Redis中初始化的时候必然要初始化这个结构体的。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> dict {          
+    dictType <span style="color:#f92672">*</span>type;      <span style="color:#75715e">// 字典类型      
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>privdata;      <span style="color:#75715e">// 私有数据    
+</span><span style="color:#75715e"></span>    dictht ht[<span style="color:#ae81ff">2</span>];        <span style="color:#75715e">// 一个字典中有两个哈希表     
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">long</span> rehashidx; <span style="color:#75715e">/* rehashing not in progress if rehashidx == -1 */</span>   <span style="color:#75715e">// 数据动态迁移的下标位置    
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> iterators; <span style="color:#75715e">/* number of iterators currently running */</span> <span style="color:#75715e">// 当前正在使用的迭代器的数量  
+</span><span style="color:#75715e"></span>} dict;   
+<span style="color:#75715e">// 哈希表结构 
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> dictht {
+    dictEntry <span style="color:#f92672">**</span>table;  <span style="color:#75715e">// 散列数组。
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> size; <span style="color:#75715e">// 散列数组的长度
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> sizemask; <span style="color:#75715e">// sizemask等于size减1
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> used;<span style="color:#75715e">// 散列数组中已经被使用的节点数量
+</span><span style="color:#75715e"></span>} dictht;
+</code></pre></div><h3 id="命令字注册初始化">命令字注册初始化</h3>
+<p>在<code>initServerConfig</code>中可以看到由下面的代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* Command table -- we initiialize it here as it is part of the   
+</span><span style="color:#75715e">     * initial configuration, since command names may be changed via  
+</span><span style="color:#75715e">     * redis.conf using the rename-command directive. */</span>    
+    server.commands <span style="color:#f92672">=</span> dictCreate(<span style="color:#f92672">&amp;</span>commandTableDictType,NULL);         
+    server.orig_commands <span style="color:#f92672">=</span> dictCreate(<span style="color:#f92672">&amp;</span>commandTableDictType,NULL);    
+    populateCommandTable();  <span style="color:#75715e">// 这里初始化基本redis支持的数据命令
+</span></code></pre></div><p>再来看<code>populateCommandTable</code>这个函数中的关键点</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* Populates the Redis Command Table starting from the hard coded list  
+</span><span style="color:#75715e"> * we have on top of redis.c file. */</span>       
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">populateCommandTable</span>(<span style="color:#66d9ef">void</span>) {           
+    <span style="color:#66d9ef">int</span> j;      
+    <span style="color:#66d9ef">int</span> numcommands <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>(redisCommandTable)<span style="color:#f92672">/</span><span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">struct</span> redisCommand);          
+  
+    <span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> numcommands; j<span style="color:#f92672">++</span>) {     
+        <span style="color:#66d9ef">struct</span> redisCommand <span style="color:#f92672">*</span>c <span style="color:#f92672">=</span> redisCommandTable<span style="color:#f92672">+</span>j;     <span style="color:#75715e">// redisCommandTable命令字数组
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>f <span style="color:#f92672">=</span> c<span style="color:#f92672">-&gt;</span>sflags;  
+        <span style="color:#66d9ef">int</span> retval1, retval2; 
+......
+        <span style="color:#75715e">// 把这个cmd添加到`server.commands`中。
+</span><span style="color:#75715e"></span>        retval1 <span style="color:#f92672">=</span> dictAdd(server.commands, sdsnew(c<span style="color:#f92672">-&gt;</span>name), c);         
+        <span style="color:#75715e">/* Populate an additional dictionary that will be unaffected    
+</span><span style="color:#75715e">         * by rename-command statements in redis.conf. */</span> 
+        retval2 <span style="color:#f92672">=</span> dictAdd(server.orig_commands, sdsnew(c<span style="color:#f92672">-&gt;</span>name), c);    
+        serverAssert(retval1 <span style="color:#f92672">==</span> DICT_OK <span style="color:#f92672">&amp;&amp;</span> retval2 <span style="color:#f92672">==</span> DICT_OK);         
+    }           
+}   
+</code></pre></div><p>上面到<code>redisCommandTable</code>是一个静态输出化的结构体，里面的内容也比较简单。首先是name，接下来是函数的名字等。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">struct</span> redisCommand redisCommandTable[] <span style="color:#f92672">=</span> { 
+    {<span style="color:#e6db74">&#34;module&#34;</span>,moduleCommand,<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#34;as&#34;</span>,<span style="color:#ae81ff">0</span>,NULL,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>},    
+    {<span style="color:#e6db74">&#34;get&#34;</span>,getCommand,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#34;rF&#34;</span>,<span style="color:#ae81ff">0</span>,NULL,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>},           
+    {<span style="color:#e6db74">&#34;set&#34;</span>,setCommand,<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>,<span style="color:#e6db74">&#34;wm&#34;</span>,<span style="color:#ae81ff">0</span>,NULL,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>},          
+    {<span style="color:#e6db74">&#34;setnx&#34;</span>,setnxCommand,<span style="color:#ae81ff">3</span>,<span style="color:#e6db74">&#34;wmF&#34;</span>,<span style="color:#ae81ff">0</span>,NULL,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>},      
+    {<span style="color:#e6db74">&#34;setex&#34;</span>,setexCommand,<span style="color:#ae81ff">4</span>,<span style="color:#e6db74">&#34;wm&#34;</span>,<span style="color:#ae81ff">0</span>,NULL,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>},       
+    {<span style="color:#e6db74">&#34;psetex&#34;</span>,psetexCommand,<span style="color:#ae81ff">4</span>,<span style="color:#e6db74">&#34;wm&#34;</span>,<span style="color:#ae81ff">0</span>,NULL,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>}, 
+</code></pre></div><p>这里我们以<code>get</code>为例来看看它的具体函数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// t_string.c
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getGenericCommand</span>(client <span style="color:#f92672">*</span>c) {         
+    robj <span style="color:#f92672">*</span>o;            
+    <span style="color:#75715e">// 这里传入的是argv[1]，进行值的查询 
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> ((o <span style="color:#f92672">=</span> lookupKeyReadOrReply(c,c<span style="color:#f92672">-&gt;</span>argv[<span style="color:#ae81ff">1</span>],shared.nullbulk)) <span style="color:#f92672">==</span> NULL)        
+        <span style="color:#66d9ef">return</span> C_OK;    
+     
+    <span style="color:#66d9ef">if</span> (o<span style="color:#f92672">-&gt;</span>type <span style="color:#f92672">!=</span> OBJ_STRING) {           
+        addReply(c,shared.wrongtypeerr);   
+        <span style="color:#66d9ef">return</span> C_ERR;   
+    } <span style="color:#66d9ef">else</span> {            
+        addReplyBulk(c,o);   <span style="color:#75715e">// 返回查询结果              
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> C_OK;    
+    }
+} 
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">getCommand</span>(client <span style="color:#f92672">*</span>c) {               
+    getGenericCommand(c);                  
+}   
+</code></pre></div><p>可以看出这里查询的就是c指向的db，db是<code>redisDb</code>这个结构体，这个结构体是Redis中保存数据的结构。这个结构我们从下次开始分析。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">robj <span style="color:#f92672">*</span><span style="color:#a6e22e">lookupKeyRead</span>(redisDb <span style="color:#f92672">*</span>db, robj <span style="color:#f92672">*</span>key) {                 
+    <span style="color:#66d9ef">return</span> lookupKeyReadWithFlags(db,key,LOOKUP_NONE);        
+}       
+robj <span style="color:#f92672">*</span><span style="color:#a6e22e">lookupKeyReadOrReply</span>(client <span style="color:#f92672">*</span>c, robj <span style="color:#f92672">*</span>key, robj <span style="color:#f92672">*</span>reply) {                  
+    robj <span style="color:#f92672">*</span>o <span style="color:#f92672">=</span> lookupKeyRead(c<span style="color:#f92672">-&gt;</span>db, key);   
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>o) addReply(c,reply);             
+    <span style="color:#66d9ef">return</span> o;           
+}   
+</code></pre></div><h1 id="总结">总结</h1>
+<p>分析到这里就可以看出了，Redis的命令字执行过程也是非常清晰的，在事件框架中接收到客户端的请求之后就进行数据的读取，读取之后再把它按照具体情况转换为cmd，最终执行这个cmd。在redis中所有已经支持的命令字都是事先初始化到<code>server.commonds</code>这个结构体中。在接收到命令字之后在这个结构体中查找具体的执行函数，再来执行。</p>
+<p>而且从上面3篇的分析，我们看到Redis的事件处理始终是单进程中处理的，也没有多线程处理。只有在第一篇中介绍的时候说到在<code>initServer</code>函数最后面有创建一些后台的bio任务，这些任务是以线程的方式启动的。而整个redis的主要服务都是单线程处理的。</p>
+<center>
+看完本文有收获？请分享给更多人
+<p>关注「黑光技术」，关注大数据+微服务</p>
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2019/redis2/" data-toggle="tooltip" data-placement="top" title=" Redis源码分析2:Redis的事件处理模型">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2019/flinkmetrics/" data-toggle="tooltip" data-placement="top" title="Flink状态监控介绍">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2019/redis2/"><i class="fa fa-link"></i> Redis源码分析2:Redis的事件处理模型</a></li>
+         
+        <li><a href="/blog/2019/redis/"><i class="fa fa-link"></i>Redis源码分析1:Redis启动分析</a></li>
+         
+        <li><a href="/blog/2012/575/"><i class="fa fa-link"></i>redis使用----数据类型和操作命令</a></li>
+         
+        <li><a href="/blog/2012/573/"><i class="fa fa-link"></i>redis学习笔记--编译配置</a></li>
+         
+        <li><a href="/blog/2012/557/"><i class="fa fa-link"></i>svn中分支开发实践学习</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

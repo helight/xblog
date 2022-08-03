@@ -1,0 +1,7 @@
+a { text-decoration: none; color: blue; }
+a:visited { text-decoration: none; color: #0000EE; }
+a:hover { text-decoration: underline; color: green; }
+a:active { text-decoration: none; }
+
+td { font-size: 9pt; }
+div td { font-size: 9pt; }

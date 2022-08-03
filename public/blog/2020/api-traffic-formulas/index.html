@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>做 API 监控有没有什么方法论？</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, api, microservices, gateway">
+  
+  
+  <meta name="description" content="完美之道，不在无可增加，而在无可删减。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="做 API 监控有没有什么方法论？">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2020/api-traffic-formulas/" />
+  <meta property="og:description" content="完美之道，不在无可增加，而在无可删减。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/ms.jpg">
+  <meta property="og:image:type" content="image/jpg">
+  
+  
+  
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="510">
+  
+  
+  <meta property="og:updated_time" content="2020-06-07T08:45:20&#43;0800">
+  
+    
+    
+    <meta property="article:section" content="api">
+    <meta property="article:tag" content="api">
+    <meta property="article:tag" content="microservices">
+    
+    
+    <meta property="article:published_time" content="2020-06-07T08:45:20&#43;0800">
+    <meta property="article:modified_time" content="2020-06-07T08:45:20&#43;0800">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="做 API 监控有没有什么方法论？">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/ms.jpg">
+  
+  <meta name="twitter:description" content="完美之道，不在无可增加，而在无可删减。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="做 API 监控有没有什么方法论？ logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="做 API 监控有没有什么方法论？ logo" class="visible-xs visible-sm">
+                    <span class="sr-only">做 API 监控有没有什么方法论？ - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>做 API 监控有没有什么方法论？</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2020年6月7日
+                        </i>
+                        |
+                        
+                        由 <a href="http://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        3600字 | 阅读大约需要8分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/api">api</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/api/"><i>#api</i></a>
+                        
+                        <a style="text-transform:capitalize" href="/tags/microservices/"><i>#microservices</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <h2 id="前言">前言</h2>
+<p>针对 API 的管理，非常重要的一点就是做 API 监控。前段时间看了 Nginx 社区发布的一本关于 API 流量管理的书，感觉书中的内容还不错，结合我在实际应用中的经验，今天就来梳理一下 API 的监控的一些方法。</p>
+<p>看了原文书感觉国外这些技术人在做事之前还是很有条理的，另外最近在也在读一本社区管理的书，其中他们就把社区研究的层次分为了 3 层：框架（Frameworks），理论（Theories），模型（Models）。下面简单解释一下，感觉这个方法论非常实用，我感觉在很多地方都可以使用。</p>
+<ol>
+<li>框架是说大方向，明确各个部分的关系，让大家能在这个框架之下达成共识；</li>
+<li>理论是比框架更明确的一个概念，它是在框架之下对每个模块或者子模块的进一步细化，或者是处理具体事情的技术或者原理性的解释以及指导；</li>
+<li>模型是更为具体的，解决特定事件的解释和指导。研究人员使用模型来测试基于理论的各种假设，模型可以使用多种工具开发，包括数学、统计技术等。</li>
+</ol>
+<p>这是一个做事情的框架体系，大家在思考和处理事情的应该也是有这样一个模式的。</p>
+<p>所以今天我在梳理 API 监控方面的内容的时候也想按照这样一个基本思路来。</p>
+<h2 id="api-管理的基本框架">API 管理的基本框架</h2>
+<p>在 API 的管理上我是认为有几个方面的：</p>
+<ol>
+<li>API 的基本开发管理（API设计，接口元信息，调用管理，测试，限流，路由管理等等）</li>
+<li>API 的基本监控（流量，耗时，错误码，可用性监控等等）</li>
+<li>API 的安全管控（STL，鉴权，证书等等）</li>
+<li>API 的高级特性（可扩展性，缓存，伸缩，性能分析，流量放大分析等等）</li>
+</ol>
+<p>从 API 的基本开发管理和到高级的功能分层进行管理，从基本可用到安全可控。API 的基本设计也是一个非常复杂的事情，要做好一个 API 的设计也不是那么容易的，这部分我后面也打算写一个系列来介绍一下。今天的重点是是 API 的基本监控。</p>
+<h2 id="api-监控级别">API 监控级别</h2>
+<p>API 监控同样也是符合上面的理论，也是有一个理论框架的。对于 API 的监控首先是分级别的，这是为了监控的实施，很多事情分层之后就会很清晰，无论在理解上和该怎么实施上都会很清晰。那看看对于 API 监控是怎么分级的。</p>
+<ol>
+<li>基础设施监控</li>
+<li>服务级别监控</li>
+<li>业务级别监控</li>
+</ol>
+<h3 id="基础设施监控">基础设施监控</h3>
+<p>这里我们主要关注的是硬件cpu，磁盘，内存等的可靠性，还有比如操作系统，队列服务等组件的可靠性。上篇文章也介绍过如何快速分析定位系统中的这些问题。这些是服务运行稳定的基础，所以对这些设施的监控是一个通用的做法，这个不是只有在 API 监控中才有的，但是如果要做完整的 API 监控，最后一部分当然是不可缺少的。</p>
+<h3 id="服务级别的监控">服务级别的监控</h3>
+<p>在服务级别的监控中，主要关注的是服务组件是不是健康可靠的，比如监控数据的读写，文件创建，服务的基本存活，服务调用延迟，服务的性能等等。</p>
+<h3 id="业务级别监控">业务级别监控</h3>
+<p>最后是业务级别的监控，不同的应用场景和业务，对于监控的内容也是不一样的。比如你要监控购买的量，监控登陆用户，消息发送的条数，收到的礼物数，走过的路线等等，不同的业务场景需要监控的指标是不一样的，这部分非常特性。</p>
+<h2 id="api-监控常见的监控指标">API 监控常见的监控指标</h2>
+<p>虽然上面说的第三个级别的监控是有很多特性，但是对于监控的内容来说他们还是有一些共性的。所以这里给大家列一些常用的监控指标类型。</p>
+<h3 id="速率">速率</h3>
+<p>速率是一个常用的监控指标，数据的发送速率，增加速率，访问速率，调用速率等等，这个指标旨在监控你的系统的服务能力。一般来说这个指标越大，服务能力越强。</p>
+<h3 id="请求延时">请求延时</h3>
+<p>这个指标很多时候和上面的速率这个指标是有关系的，一般来说这个这个数值越小，说明你的服务性能越好。这个指标一般可以在 API 网关上进行采集或者是在客户端采集。</p>
+<h3 id="错误率">错误率</h3>
+<p>对系统错误的监控对一个系统来至关重要，还有对不同错误码的统计计数，有了对这些个指标的监控，系统的可用性监控就有了。</p>
+<p>如果单纯的只看前面两个指标也是有问题的，因为有时候在系统故障的时候系统的访问速率和请求延时会表现的很好，但是实际上是有很多错误请求和错误返回，比如系统的快速错误返回，大量错误的请求等。</p>
+<h3 id="配额突发过载">配额突发过载</h3>
+<p>这种也是要监控的一个点，很多时候有瞬时过载的情况，这也是暴露了系统的一些潜在问题。</p>
+<h3 id="指标平均值">指标平均值</h3>
+<p>对于系统的稳定性、服务能力以及服务特点的监控这个是有必要的，很多时候不但要看当前状态值，还要进一步看服务指标最近 5 分钟、 10 分钟、15 分钟等的平均值。</p>
+<h2 id="api-监控常见的监控模型">API 监控常见的监控模型</h2>
+<p>上面都是铺垫了，这部分其实才是我今天主要想分享的的内容，我感觉这部分内容才是比较有意思的。我上面列举了那么多指标类型，每个类型在实际实施的时候又会派生出很多指标，那么问题就来了，我们在分析系统问题的时候是所有的指标都要看吗？这个估计很难，那怎么做呢？</p>
+<p>说起这个问题让我想到股市中的一种做法：指数。提到这里大家如果了解所谓的指数，应该就知道我要说什么了，股票指数他可以通过对股市中的一些圈定的股票指标用特别的算法，计算出来一个值来表示股市的好坏。比如美国有纳斯达克综合指数，中国有上证指数和深成指数。</p>
+<p>所以我这里介绍的这个所谓的监控模型也是类似的想法，但是这个模型是目前其它公司或者组织已经梳理好的，不是我的原创哈。</p>
+<h3 id="use-模型">USE 模型</h3>
+<p>这里介绍第一种模型：USE (Utilization, Saturation, and Errors)，这个模型最早是由 Brendan Gregg 大神提出来的，目前在 Netflix 公司，大名鼎鼎的《BPF Performance Tools》这本书的作者，1300 多页的大部头。他提到他提出这种模型就是为了让大家可以快速的定位问题解决问题，而不用陷入细节而不知所措。</p>
+<p>Gregg 说通过问 3 个问题就应该可以对你的系统可以有非常好的理解了：利用率如何？饱和度如何？错误或者错误率如何？</p>
+<p>Utilization 利用率是指对系统诸如 CPU，磁盘，I/O 等的利用情况如何，是否空闲。</p>
+<p>Saturation 饱和度是系统等待处理的业务或者请求程度，表示是否超过了目前系统的最大承受能力。</p>
+<p>Errors 错误或者错误率这个也比较好理解，就是系统在处理这些业务或者请求的时候出现的错误事件。</p>
+<p>关于这个模型更为详细的解释可以去他的个人网站了解：<a href="http://www.brendangregg.com/usemethod.html">http://www.brendangregg.com/usemethod.html</a>。</p>
+<p>实际上也是这样的，我在前面一篇翻译的文章中介绍如何定位 Linux 系统的问题，其实大部分的方法思路都是这样的。</p>
+<p>或许你说这个和 API 监控有什么关系？Gregg 最早提出的目标确实是针对系统的指标分析，但是实际上这套方法模型应用在系统线程分析，网络请求分析也是可以的。但是从根本来说它还是主要针对基础设施的监控模型。</p>
+<h3 id="red-模型">RED 模型</h3>
+<p>RED (Requests, Errors, and Duration)，这个模型是由 Tom Wilkie 在 2015 的时候提出来的，它是对 USE 模型的一种升级，USE 模型在单机模型中会比较好用，但是在目前的分布式环境，微服务环境下，其实很难快速的来定位问题了，所以 RED 模型在针对复杂系统的健康评估的时候就比较有用了，可以看到使用的指标并不是很多，也是像上面的灵魂三问一样：你的系统请求量多大？错误或者错误率有多少？耗时多大？</p>
+<p>这里对这三个指标就不多解释了，实际上大家在平时对 API 接口的考察估计也差不多会用到这些指标，但是我估计很多人从来没有想过通过指标来构建一种模型，从而反映系统的的整体稳定性和可靠性。而且尤其对于微服务来说这个模型还是非常不错的。</p>
+<p>可以看出来这就是对应上面的<code>服务级别监控</code>。RED 模型是正对系统的整体可用性进行的一种评估方式。通过对系统请求的完整监控（从请求开始到返回的整个过程），并且从中抽取 3 个关键指标，来评估系统的可用性。RED 模型一般是在 API 网关这一层来使用，在这一层就可以对服务进行监控了。</p>
+<h3 id="lets-模型">LETS 模型</h3>
+<p>LETS (Latency, Errors, Traffic, and Saturation)，整个模型是 Google 在 2003 年提出的，其实这个模型是 Google 提出他们的 SRE 的时候提出来的一个模型，这 4 个指标在 SRE 这本书中被称之为 <a href="https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/#xref_monitoring_golden-signals">“The Four Golden Signals”</a>。书中说如果你只能关注 4 个指标，那就关注这 4 个：延迟，错误，流量和饱和度。</p>
+<pre><code>“If you can only measure four metrics, focus on these four: Latency, Errors, Traffic, and Saturation.”   
+</code></pre>
+<p>这个模型用最小关注指标集，提供了对系统可用性的评估。通过这 4 个指标的关注你就会发现系统中的大多数问题。它不像 USE 一样比较底层，它是一个针对服务可用性的监控分析模型。</p>
+<h2 id="总结">总结</h2>
+<p>做事情还是得有一定的方法论来指导的，今天这里总结的这篇文章目的就在于对 API 的监控方面进行梳理，梳理出了 API 监控的基本层次，常用指标和常见的监控模型。</p>
+<p>对于 API 的监控模型来说，这里也要说明一下，不同的监控模型关注的问题点不同，或者说关注的监控层次不同。而且在实际的团队中这块的工作一般是会分为几个组织来共同完成的。不同的团队关注点会不一样，所以可以针对具体的关注点可以选择不同的模型。</p>
+<p>另外要说的是，对于 API 的监控，虽然上面提到的层次、指标和模型都是前人总结的。但是时代在发展，技术在进步，大家在实际场景中使用的时候应该一方面选择合适可用的，另一方面应该也可以想一想，可选的模型是否适应现在的场景，如果不适应又没有更好的选择的时候是不是自己可以抽象开发出一个针对自己场景的模型。让定制的模型可以准确的反映自己系统的状态。</p>
+<p>一图胜千言：</p>
+<p><img src="imgs/api-formulas.jpg" alt="API 监控体系"></p>
+<center>
+看完本文有收获？请分享给更多人
+<p>关注「黑光技术」，关注大数据+微服务</p>
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2020/getting-started-with-a-service-mesh-starts-with-a-gateway/" data-toggle="tooltip" data-placement="top" title="ServiceMesh入门的起点：构建一个微服务网关">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2020/dbaplus_show/" data-toggle="tooltip" data-placement="top" title="【dbaplus社群】线上分享-游戏数据应用的DevOps建设">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2020/do-i-need-an-api-gateway/"><i class="fa fa-link"></i>【译】有了Service Mesh，还需要 API 网关吗？</a></li>
+         
+        <li><a href="/blog/2020/getting-started-with-a-service-mesh-starts-with-a-gateway/"><i class="fa fa-link"></i>ServiceMesh入门的起点：构建一个微服务网关</a></li>
+         
+        <li><a href="/blog/2020/building-a-control-plane-to-manage-envoy/"><i class="fa fa-link"></i>如何为 Envoy 构建一个控制面来管理集群网络流量</a></li>
+         
+        <li><a href="/blog/2020/what-i-think-about-ms-2/"><i class="fa fa-link"></i>对微服务的一些思考---微服务架构下的挑战和应对策略</a></li>
+         
+        <li><a href="/blog/2020/what-i-think-about-ms/"><i class="fa fa-link"></i>对微服务的一些思考---微服务架构的特点和优势</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

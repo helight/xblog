@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ebpf on 黑光技术</title>
+    <link>http://www.helight.cn/categories/ebpf/</link>
+    <description>Recent content in ebpf on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Sat, 20 Nov 2021 08:45:20 +0800</lastBuildDate><atom:link href="http://www.helight.cn/categories/ebpf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 eBPF 和 XDP 高速处理数据包</title>
+      <link>http://www.helight.cn/blog/2021/ebpf-and-xdp/</link>
+      <pubDate>Sat, 20 Nov 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/ebpf-and-xdp/</guid>
+      <description>前言 本文是一篇学习翻译文章，原文在这里。 XDP 是一种特殊的 eBPF 程序，在数据包处理上因为在协议栈之前就可以处理数据，所以有非常高的性能。 这篇文章先在</description>
+    </item>
+    
+    <item>
+      <title>linux5.3.0编译运行LINUX内核源码中的BPF示例代码</title>
+      <link>http://www.helight.cn/blog/2021/build-kernel-ebpf-sample/</link>
+      <pubDate>Wed, 31 Mar 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/build-kernel-ebpf-sample/</guid>
+      <description>前言 环境：ubuntu 18.04，内核版本 5.3.0。 安装内核： apt-get install linux-image-5.3.0-70-generic apt-get install linux-headers-5.3.0-70-generic apt-get install linux-source-5.3.0 ebpf-tools编译 下面简单记录编译 bpf-tools 时的一些过程。 源</description>
+    </item>
+    
+  </channel>
+</rss>

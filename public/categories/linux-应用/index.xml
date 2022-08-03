@@ -1,0 +1,802 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux 应用 on 黑光技术</title>
+    <link>http://www.helight.cn/categories/linux-%E5%BA%94%E7%94%A8/</link>
+    <description>Recent content in linux 应用 on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Thu, 21 May 2020 08:45:20 +0800</lastBuildDate><atom:link href="http://www.helight.cn/categories/linux-%E5%BA%94%E7%94%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何 60 秒内进行 Linux 性能分析</title>
+      <link>http://www.helight.cn/blog/2020/linux-performance-analysis-in-60-000-milliseconds/</link>
+      <pubDate>Thu, 21 May 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/linux-performance-analysis-in-60-000-milliseconds/</guid>
+      <description>在你登陆一台 Linux 服务器之后，因为一个问题要做性能分析时：你会在第一分钟内做哪些检测呢？</description>
+    </item>
+    
+    <item>
+      <title>Gartner中APM模型的优先级</title>
+      <link>http://www.helight.cn/blog/2019/1274/</link>
+      <pubDate>Fri, 29 Nov 2019 15:33:36 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/1274/</guid>
+      <description>&lt;p&gt;前一段时间对APM的知识点做了一些梳理，对APM的基本概念也做了梳理，对于这个由Gartner提出的东西，在具体的应用落地场景上还是不免有很多不理解的地方。很多人直观的理解为APM就是一个监控，或者就是一个监控告警。就是我最早接触这个概念的时候也是这样认为的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>使用gitbook来写文档和文章啦</title>
+      <link>http://www.helight.cn/blog/2018/1146/</link>
+      <pubDate>Sat, 24 Nov 2018 03:47:54 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1146/</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言​&lt;/h2&gt;
+&lt;p&gt;项目中文档管理是一个比较麻烦的事情，一般的做法都是写word文档，或者pdf；针对代码或者接口文档高级一点的可以使用Doxygen或者swagger这样的工具自动生成更新文档。但是项目中还有很多文档有是图文混合的。那这样的文档怎么有效管理呢？&lt;/p&gt;
+&lt;p&gt;​   在找了几个工具之后，发现了一个比较合适的工具gitbook。这个工具之前也接触过，主要是用来书籍编写管理，这方面确实做的非常专业。但是我发现用来做文档管理也是非常好用的，所以拿来测试了一下，效果还是不错的。看看这个效果，也是左右分栏，左边是目录分类列表，右边是内容。还可以直接进行搜索。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>windows10下使用dockerfile制作镜像</title>
+      <link>http://www.helight.cn/blog/2018/1137/</link>
+      <pubDate>Wed, 07 Nov 2018 10:50:40 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1137/</guid>
+      <description>&lt;p&gt;其实操作系统没有关系，主要还是Dockerfile的编写和执行，过程来说比较简单。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../imgs/2018/11/dockerinwin.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;1编写dockerfile&#34;&gt;1.编写Dockerfile&lt;/h2&gt;
+&lt;p&gt;我的dockerfile如下，主要是用于golang和c++的开发，所以相关软件安装都是和这方面有关的。 本来打算使用163的源的，后来看了一下官方源速度也还不错，就直接用官方的源了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Windows10下安装Docker记录</title>
+      <link>http://www.helight.cn/blog/2018/1129/</link>
+      <pubDate>Mon, 05 Nov 2018 08:16:52 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1129/</guid>
+      <description>&lt;p&gt;之前一直使用window安装虚拟机的方式来做linux应用，这次想使用docker来试试，这里顺便记录一下，部分资料来自网上。&lt;/p&gt;
+&lt;h2 id=&#34;一启用hyper-v&#34;&gt;一、启用Hyper-V&lt;/h2&gt;
+&lt;p&gt;打开控制面板 - 程序和功能 - 启用或关闭Windows功能，勾选Hyper-V，然后点击确定即可，如图：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>helight.info域名启用</title>
+      <link>http://www.helight.cn/blog/2018/1009/</link>
+      <pubDate>Mon, 29 Jan 2018 06:49:58 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1009/</guid>
+      <description>&lt;p&gt;纠结了好久，终于定了，启用了helight.info这个域名，同时还申请了helight.cn，helight.com的域名已经被人注册了，还是一个黑科技公司，看产品就很奇怪。&lt;/p&gt;
+&lt;p&gt;这几天已经配置把helight.info配置ok了，整个网站都切换了，zhwen.org还会继续使用，欢迎大家浏览。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>nginx&#43;php站点配置https</title>
+      <link>http://www.helight.cn/blog/2018/982/</link>
+      <pubDate>Wed, 24 Jan 2018 05:21:17 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/982/</guid>
+      <description>&lt;p&gt;今天准备搞一个小程序测试一下，结果发现如果要链接我的站点，那就必须要站点支持https。所以就顺便鼓捣一下把站点升级一下，增加https的访问支持。
+    首先解决的就是证书问题，一个个人blog就没有必要买证书了，发现证书老贵老贵的。所以找了找免费证书，最后发现腾讯云提供的还是比较好的，很方便申请，这里&lt;a href=&#34;https://buy.cloud.tencent.com/ssl&#34;&gt;https://buy.cloud.tencent.com/ssl&lt;/a&gt; 直接选择免费证书，输入自己的域名就可以申请了，再按照他的流程就可以生效了，最后下载下来就可以用了。阿里云说是有，但是我的申请界面没有看到，所以没法用。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>lex和yacc 学习笔记</title>
+      <link>http://www.helight.cn/blog/2018/977/</link>
+      <pubDate>Sat, 20 Jan 2018 16:01:36 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/977/</guid>
+      <description>&lt;p&gt;前一段时间在项目中要使用一个规则表达式计算的功能，而且想可以任意扩展计算功能，比如计算AUB，A和B都表示一个号码包，计算并集，当然实际使用的公式会更为复杂，这里举例说明。在计算时候要判断如果A包已经计算ok了就可以使用A包，如果没有计算成功就需要发起计算并且等待计算成功，B包也是要同样的处理过程，最后再计算并集。当然这样一个功能自己定义写肯定是没问题的，但是还要想到后面的扩展性和程序代码可移交等问题，还是想有一个通用的方法来解决，所以在最后想到了使用yacc和lex来组织解决。实际上后来发现用yacc和lex非常方便的可以解决这类问题，而且在扩展性上非常好。所以想这里先总结一下yacc和lex使用的一些语法特点和具体我们使用的方式。现在这篇中总体总结一下yacc和lex的语法特点，下一篇再写具体使用中的一些过程。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>如何使用Swagger编写API文档</title>
+      <link>http://www.helight.cn/blog/2018/974/</link>
+      <pubDate>Fri, 19 Jan 2018 15:04:42 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/974/</guid>
+      <description>&lt;p&gt;    最近在梳理内部系统的架构设计，而且前端时间也在kindle上看了一些国外开发在API的架构设计上的一些思考。所以就想着我们内部系统的api也应该梳理梳理了。
+    目前内部使用golang开发是重头，基本上的服务和调度都是使用golang来开发，而且内部模块之间的调用都是http的接口。而且目前golang1.8已经默认支持了http2的协议，在效率上以前顾虑的问题，现在都有所缓解，所以把这块的梳理重点放在了http接口的梳理上。&lt;/p&gt;
+&lt;p&gt;    重点看了soap，json-rpc，restfull。在梳理中发现一个比较有意思的东东，叫 Swagger，中文名字也比较有意思：丝袜哥，哈哈。这个东西是做什么的呢：专门用户规范设计API的，简单用了一下还是非常好用的。在其官网这样介绍的：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ubuntu中编译安装protobuf记录</title>
+      <link>http://www.helight.cn/blog/2015/909/</link>
+      <pubDate>Fri, 11 Sep 2015 08:07:49 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/909/</guid>
+      <description>&lt;h2 id=&#34;1下载protobuf&#34;&gt;1.下载protobuf&lt;/h2&gt;
+&lt;p&gt;下载地址：https://github.com/google/protobuf/releases&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Java通过swig调用C&#43;&#43;接口</title>
+      <link>http://www.helight.cn/blog/2015/907/</link>
+      <pubDate>Thu, 10 Sep 2015 11:09:54 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/907/</guid>
+      <description>&lt;p&gt;记录一下过程&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>thrift maven编译运行</title>
+      <link>http://www.helight.cn/blog/2015/896/</link>
+      <pubDate>Fri, 22 May 2015 04:46:04 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/896/</guid>
+      <description>&lt;p&gt;dependencies编译，pom.xml中加入build配置：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>netty用pb来实现多接口rpc</title>
+      <link>http://www.helight.cn/blog/2014/852/</link>
+      <pubDate>Wed, 17 Dec 2014 08:13:35 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/852/</guid>
+      <description>&lt;p&gt;在netty中使用pb， nettty的pb编解码必须指定要解码和编码的pb结构体，这然做多接口的应用就很不方便，这里采用了一种简单的方式来解决。
+pb定义如下：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>zz MySQL的InnoDB索引原理详解 </title>
+      <link>http://www.helight.cn/blog/2014/833/</link>
+      <pubDate>Mon, 27 Oct 2014 02:10:27 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/833/</guid>
+      <description>&lt;h2 id=&#34;原文地址httpwwwadmin10000comdocument5372html&#34;&gt;原文地址：http://www.admin10000.com/document/5372.html&lt;/h2&gt;
+&lt;h2 id=&#34;摘要&#34;&gt;摘要：&lt;/h2&gt;
+&lt;p&gt;本篇介绍下Mysql的InnoDB索引相关知识，从各种树到索引原理到存储的细节。&lt;/p&gt;
+&lt;p&gt;InnoDB是Mysql的默认存储引擎(Mysql5.5.5之前是MyISAM，&lt;a href=&#34;http://dev.mysql.com/doc/refman/5.5/en/server-options.html#option_mysqld_default-storage-engine&#34;&gt;文档&lt;/a&gt;。本着高效学习的目的，本篇以介绍InnoDB为主，少量涉及MyISAM作为对比。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ngingx访问限制和iptables简单使用</title>
+      <link>http://www.helight.cn/blog/2014/830/</link>
+      <pubDate>Tue, 14 Oct 2014 02:18:34 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/830/</guid>
+      <description>&lt;p&gt;为了方便安装了一个phpmyadmin，结果公司扫描了之后说要做一些安全限制，主要还是用到nginx的访问限制和iptables，这里稍微做一下记录&lt;/p&gt;
+&lt;p&gt;nginx的限制较为简单，在server中添加对phpmyadmin的限制即可&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>hdfs的C&#43;&#43;接口编译测试</title>
+      <link>http://www.helight.cn/blog/2014/821/</link>
+      <pubDate>Fri, 09 May 2014 02:37:59 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/821/</guid>
+      <description>&lt;p&gt;项目中要做一个数据包管理服务，我们主要项目开发都是C++的，所以这个数据包管理也是c++开发的，但是数据包的存储是个问题，最后选择了本地存储和hdfs存储结合。&lt;/p&gt;
+&lt;p&gt;昨天调试了以下hdfs的C++接口，简单这里记录一下：&lt;/p&gt;
+&lt;p&gt;代码程序是网上随处可以搜到的测试代码：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>使用gdb和ps定位程序cpu占用问题</title>
+      <link>http://www.helight.cn/blog/2014/798/</link>
+      <pubDate>Wed, 30 Apr 2014 04:05:35 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/798/</guid>
+      <description>&lt;p&gt;先使用ps获取子进程cpu占用时间，可以看出那个线程cpu占用严重&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Storm云计算学习摘录总结</title>
+      <link>http://www.helight.cn/blog/2014/790/</link>
+      <pubDate>Sat, 12 Apr 2014 03:47:12 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/790/</guid>
+      <description>&lt;p&gt;本想自己也总结以下，看到这篇文章总结的太好了，直接转载了&lt;/p&gt;
+&lt;p&gt;原文：http://my.oschina.net/yilian/blog/175451&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Sqlite使用笔记</title>
+      <link>http://www.helight.cn/blog/2014/781/</link>
+      <pubDate>Thu, 10 Apr 2014 01:23:12 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/781/</guid>
+      <description>&lt;p&gt;在目前做的元数据节点中，为了保存一些节点的私有数据，选择了本地存储，在选择本地存储的选择上又选择了使用sqlite，sqlite对数据存储和数据解析在使用比较简单。而且编译入当前代码也是比较容易的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>scons学习笔记</title>
+      <link>http://www.helight.cn/blog/2014/758/</link>
+      <pubDate>Sun, 06 Apr 2014 03:42:15 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/758/</guid>
+      <description>&lt;p&gt;scons是一个python写的用来编译源码的一个工具，类似于make工具，但是支持的语言更多，灵活性更强。&lt;/p&gt;
+&lt;p&gt;这里来介绍一下scons的使用。下载可以在其官方网站：&lt;a href=&#34;http://www.scons.org/&#34;&gt;&lt;a href=&#34;http://www.scons.org&#34;&gt;http://www.scons.org&lt;/a&gt;&lt;/a&gt;，源码安装就不说了，ubuntu和debian上安装更为方便，直接apt-get install scons就可以了。本文以编译c、c++为例来介绍其使用。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ROMFS文件系统分析</title>
+      <link>http://www.helight.cn/blog/2014/756/</link>
+      <pubDate>Sun, 06 Apr 2014 03:37:03 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/756/</guid>
+      <description>&lt;p&gt;作者：许振文&lt;/p&gt;
+&lt;p&gt;ROMFS是一种简单的只读文件系统，主要是用来当做初始文件系统来使用的，在嵌入式linux或是uclinux中通常使用这中文件系统来作为引导系统的文件系统，甚至uclinux有时就直接把ROMFS作为其根文件系统，而不是将其作为系统启动中的过渡文件系统。在前面我也分析过，linux操作系统启动中一个是要加载内核，另一个就是要加载一个用于系统简单初始化的文件系统。这个文件系统的格式也是经过了很多发展的。现在一般使用的是一中cpio的格式。在嵌入式系统中一般使用romfs＋其它的可读文件系统。romfs由于它的小巧性（其内核编译只有4000字节），所以非常适合作为系统启动初始化的文件系统。本文就是对ROMFS文件系统进行结构上的分析。前面我也曾对其源代码结构进行了简单的分析。关于ROMFS最为权威的资料是内核源代码树下的“Documentation/filesystems/romfs.txt”。本文多数资料就是来自于该文件。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Ramdisk文件系统的制作-V0.2</title>
+      <link>http://www.helight.cn/blog/2014/754/</link>
+      <pubDate>Sun, 06 Apr 2014 03:36:30 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/754/</guid>
+      <description>&lt;p&gt;作者：许振文&lt;/p&gt;
+&lt;h2 id=&#34;ramdisk文件系统&#34;&gt;Ramdisk文件系统:&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;可以利用工具软件&lt;/span&gt;BusyBox制作Ramdisk文件系统.busybox是一个集成了一百多个最常用linux命令和工具的软件,&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;他甚至还集成了&lt;/span&gt;
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;一个&lt;/span&gt;http服务器和一个telnet服务器,&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;而所有这一切功能却只有区区&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;M左右的大小.&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;完整的&lt;/span&gt;BusyBox源代码可以从
+http:&lt;span style=&#34;color:#75715e&#34;&gt;//www.busybox.net下载,压缩包大小为1.3 MB左右。下面是如何使用编译BusyBox的过程。
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>GUN 工具学习</title>
+      <link>http://www.helight.cn/blog/2014/750/</link>
+      <pubDate>Sun, 06 Apr 2014 03:34:43 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/750/</guid>
+      <description>&lt;p&gt;作者：许振文&lt;/p&gt;
+&lt;h2 id=&#34;nm&#34;&gt;nm&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;nm默认的输入文件为a.out，也就是说，如果nm后面没有跟要查看的二进制文件名的话，
+那它会默认读取当前文件夹下的a.out文件作为其输入。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>git使用总结</title>
+      <link>http://www.helight.cn/blog/2014/744/</link>
+      <pubDate>Sun, 06 Apr 2014 03:30:47 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/744/</guid>
+      <description>&lt;p&gt;作者：许振文&lt;/p&gt;
+&lt;h2 id=&#34;git-介绍&#34;&gt;Git 介绍&lt;/h2&gt;
+&lt;p&gt;最近的小项目想使用git来管理，应为git可以不需要服务器而在任意的Linux机器上管理代码，相对svn和cvs还是有它的优势的，所以我选用了git来管理我的小项目，以后在提供svn的管理。&lt;/p&gt;
+&lt;p&gt;在使用了一段时间后想写一点总结，可能也是和网络上其其它的git的文章差不多。但是作为我的使用总结还是很有必要的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Vim&#43;cscope&#43;ctags&#43;tags阅读源代码</title>
+      <link>http://www.helight.cn/blog/2014/742/</link>
+      <pubDate>Sun, 06 Apr 2014 03:29:08 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/742/</guid>
+      <description>&lt;p&gt;作者：许振文
+linux源代码提供了制作cscope索引文件和tags文件的make命令。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>AutoMake 学习笔记</title>
+      <link>http://www.helight.cn/blog/2014/731/</link>
+      <pubDate>Sat, 05 Apr 2014 11:53:45 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/731/</guid>
+      <description>&lt;p&gt;作者：许振文&lt;/p&gt;
+&lt;h2 id=&#34;过程记录&#34;&gt;过程记录：&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.&lt;/span&gt; autoscan
+&lt;span style=&#34;color:#ae81ff&#34;&gt;2.&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;修改&lt;/span&gt;configure.scan&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，重命名为&lt;/span&gt;configure.in,&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;编辑Ｍａｋｅｆｉｌｅ&lt;/span&gt;.&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;ａｍ&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;3.&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;运行&lt;/span&gt;aclocal
+&lt;span style=&#34;color:#ae81ff&#34;&gt;4.&lt;/span&gt; autoconf
+&lt;span style=&#34;color:#ae81ff&#34;&gt;5.&lt;/span&gt; automake &lt;span style=&#34;color:#f92672&#34;&gt;--&lt;/span&gt;add&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;missing
+&lt;span style=&#34;color:#ae81ff&#34;&gt;6.&lt;/span&gt; .&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;configure &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;　&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;ｍａｋｅ&lt;/span&gt;　&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;　&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;ｍａｋｅ&lt;/span&gt;　&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;ｉｎｓｔａｌｌ了。&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>配置SSH无密码登录问题解决记录</title>
+      <link>http://www.helight.cn/blog/2014/689/</link>
+      <pubDate>Sun, 23 Mar 2014 14:34:37 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/689/</guid>
+      <description>&lt;p&gt;在本地测试搭建hadoop玩以下，不想在ssh配置上栽了了，记录以下过程和处理方式：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>stl的内存管理</title>
+      <link>http://www.helight.cn/blog/2014/686/</link>
+      <pubDate>Sat, 15 Feb 2014 12:21:48 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/686/</guid>
+      <description>&lt;p&gt;zz &lt;a href=&#34;http://biancheng.dnbcw.info/c/73875.html&#34;&gt;&lt;a href=&#34;http://biancheng.dnbcw.info/c/73875.html&#34;&gt;http://biancheng.dnbcw.info/c/73875.html&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在你大量使用stl的各种容器时，你确定它们会按你想象的那样释放内存吗？你使用map存放1G的数据，当map clear后，它占用的空间释放了吗？&lt;/p&gt;
+&lt;p&gt;下面是一些统计数据：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>thrift之php客户端使用</title>
+      <link>http://www.helight.cn/blog/2014/682/</link>
+      <pubDate>Thu, 13 Feb 2014 08:57:48 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/682/</guid>
+      <description>&lt;ol start=&#34;0&#34;&gt;
+&lt;li&gt;一方面是测试使用，另一方面还想把server的一些状态和运维信息能够以web的方式展示出来，组内的web框架全是ci，我想使用django，但是组内python的人少，所以还是随大家要使用ci，用php做开发，那么就需要php也能支持使用thrift的rpc方式去访问。&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+    <item>
+      <title>thrift之python客户端使用</title>
+      <link>http://www.helight.cn/blog/2014/675/</link>
+      <pubDate>Thu, 13 Feb 2014 03:53:26 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/675/</guid>
+      <description>&lt;ol start=&#34;0&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;写好了cpp的服务器后，测试是个问题，写cpp程序来测试好像不是很灵活，所以想用python脚本来写测试程序，记录一下过程。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;首先是thrift的python程序库的安装，有些基础库需要安装后才能运行，在thrift的目录库目录中，选择py目录，使用root账户就可以直接安装了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;cd thrift-0.9.0/lib/py
+python setup.py install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;即可完成安装。当然安装完成之后也要记得测试一下，安装是否成功。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Thrift的required和optional源码分析</title>
+      <link>http://www.helight.cn/blog/2014/671/</link>
+      <pubDate>Sat, 11 Jan 2014 11:49:15 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/671/</guid>
+      <description>&lt;p&gt;thrift的数据类型定义的时候和protobuf（后面简称pb）一样也有requried和optional标签，意义是类似的，required标示改消息在序列化之前必须设置该字段值，如果不设置则无法序列化，当然也就更无法反序列化，该标签标示的字段是必填字段；而optional字段则标示该字段可赋值也可以不赋值，当然不赋值的结果是在序列化之后的数据中该字段被标示为无值字段，就是说直接访问获取该值是不行的，必须先判断是否设置了该字段的值，再去读值；这样作的好处是在协议扩充和变更时可以较为灵活的设计程序，而且在传输上也就减少了不必要的字段传输。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>shell字符串的截取</title>
+      <link>http://www.helight.cn/blog/2014/669/</link>
+      <pubDate>Sat, 11 Jan 2014 06:20:33 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/669/</guid>
+      <description>&lt;p&gt;shell字符串的截取的问题：
+一、Linux shell 截取字符变量的前8位，有方法如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;1.expr substr “$a” &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;
+2.echo $a|awk ‘&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;print substr&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;,1,8&lt;span style=&#34;color:#f92672&#34;&gt;)}&lt;/span&gt;’
+3.echo $a|cut -c1-8
+4.echo $
+5.expr $a : ‘&lt;span style=&#34;color:#ae81ff&#34;&gt;\(&lt;/span&gt;.&lt;span style=&#34;color:#ae81ff&#34;&gt;\\&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.*’
+6.echo $a|dd bs&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; count&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt; 2&amp;gt;/dev/null
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>SHELL学习笔记----IF条件判断，判断条件</title>
+      <link>http://www.helight.cn/blog/2014/667/</link>
+      <pubDate>Sat, 11 Jan 2014 06:19:22 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/667/</guid>
+      <description>&lt;p&gt;无论什么编程语言都离不开条件判断。SHELL也不例外。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Thrift学习笔记—IDL基本类型</title>
+      <link>http://www.helight.cn/blog/2014/658/</link>
+      <pubDate>Sun, 05 Jan 2014 10:38:17 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/658/</guid>
+      <description>&lt;p&gt;thrift 采用IDL（Interface Definition Language）来定义通用的服务接口，并通过生成不同的语言代理实现来达到跨语言、平台的功能。在thrift的IDL中可以定义以下一些类型：基本数据类型，结构体，容器，异常、服务&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>scons学习笔记</title>
+      <link>http://www.helight.cn/blog/2014/656/</link>
+      <pubDate>Sun, 05 Jan 2014 02:57:22 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/656/</guid>
+      <description>&lt;p&gt;scons是一个 python写的用来编译源码的一个工具，类似于 make工具，但是支持的语言更多，灵活性更强。&lt;/p&gt;
+&lt;p&gt;这里来介绍一下  scons的使用。下载可以在其官方网站： &lt;a href=&#34;http://www.scons.org/&#34;&gt;  &lt;a href=&#34;http://www.scons.org&#34;&gt;http://www.scons.org&lt;/a&gt;&lt;/a&gt;，源码安装就不说了，  ubuntu和  debian上安装更为方便，直接  apt-get install scons就可以了。本文以编译c   、c++   为例来介绍其使用。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Thrift 学习笔记--概念介绍</title>
+      <link>http://www.helight.cn/blog/2014/652/</link>
+      <pubDate>Sat, 04 Jan 2014 03:33:52 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/652/</guid>
+      <description>&lt;p&gt;Thirft框架有几个比较重要的组成部分，这里简单介绍以下，主要翻译了其官方文档。加入了自己的一些理解。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Thrift http嵌入sever设计实现</title>
+      <link>http://www.helight.cn/blog/2013/646/</link>
+      <pubDate>Mon, 04 Nov 2013 06:16:09 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2013/646/</guid>
+      <description>&lt;h2 id=&#34;背景介绍&#34;&gt;背景介绍&lt;/h2&gt;
+&lt;p&gt;在服务器模块程序种嵌入一个简单的httpserver，再通过网页或是后台再访问这个httpserver，得到一些服务模块的实时运行数据或是运行环境数据，或者在浏览器端调整服务器的实时运行参数，从而达到对后台服务模块的实时监控。 本文所写的是在thrift框架之下如何嵌入一个httpserver模块，并且如何在thrift框架之下使用js和httpserver交互，发送数据到服务器，并且获取展示服务模块的运算结果。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Nginx设置为代理服务器上网</title>
+      <link>http://www.helight.cn/blog/2013/633/</link>
+      <pubDate>Tue, 30 Jul 2013 10:28:06 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2013/633/</guid>
+      <description>&lt;p&gt;公司的网络部门抽风，突然之间不让办公机连接idc上的非80端口了，而内部写的大部分的后台模块都是会起一个非80的http端口，让开发去实时查看模块信息，甚至动态调整模块内的一些flags参数，兄弟们着实痛苦了好几天，本来想简单点直接在任意idc机器上使用w3m来去登录这些页面，但是这些页面偏偏使用了ajax获取数据才进行展示，所以没办法，只好开代理了，上nginx吧，反正想在那台内网机器上安装nginx好久了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Program received signal SIGPIPE, Broken pipe</title>
+      <link>http://www.helight.cn/blog/2013/630/</link>
+      <pubDate>Tue, 21 May 2013 11:50:35 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2013/630/</guid>
+      <description>&lt;p&gt;在gdb调试程序的时候发现一个错误信息， Program received signal SIGPIPE, Broken pipe，原来是客户端程序在给服务器进行写入操作的时候，如果服务器执行了close操作，这时候根据tcp协议规定服务器要给客户端返回一个RST响应，如果client再用之前的fd往这个服务器写数据的时候，系统救护发一个SIGPIPE信号给进程，告诉进程链接已经断开。但是SIGPIPE信号的默认执行动作是terminate，所以客户端会退出，如果要想客户端不响应这个信号，则直接将其屏蔽忽略即可。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>crontab 环境变量导致脚本运行错误</title>
+      <link>http://www.helight.cn/blog/2013/619/</link>
+      <pubDate>Mon, 15 Apr 2013 06:38:57 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2013/619/</guid>
+      <description>&lt;p&gt;1.缺少LANG的ls取值错误
+程序：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;yestoday&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;date +%Y%m%d -d-1day&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;
+ytoday&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;date +%F -d-1day&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;
+pathroot&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/data5/tt_chat/&amp;#34;&lt;/span&gt;
+filelist&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;ls $pathroot/data/ -l|grep $ytoday|awk &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{print $8}&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;
+echo $filelist
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;按时间过滤过滤出昨天一天生成的文件，让后再做处理，本地测试执行，没有问题，加入crontab执行总是没有数据文件过滤出来，但是自己再本地执行，就可以了&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>mysqldb：2014:Commands out of sync; you can&#39;t run this command now</title>
+      <link>http://www.helight.cn/blog/2013/616/</link>
+      <pubDate>Tue, 05 Feb 2013 08:02:19 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2013/616/</guid>
+      <description>&lt;p&gt;自己写了一个python的mysql的访问类，在python的多线程种使用种有了点问题，就是报这个2014的错误，在网上搜了很多资料，基本都是说mysqldb有问题，但是在解决方法上我这里测试通过一种方式：&lt;/p&gt;
+&lt;p&gt;在每次查询或是更新的时候，从新获取一个sql执行结构体cursor，执行完毕之后在close这个cursor，例如在类方法种我这样写：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>python中thread的简单使用</title>
+      <link>http://www.helight.cn/blog/2013/614/</link>
+      <pubDate>Tue, 05 Feb 2013 07:51:43 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2013/614/</guid>
+      <description>&lt;p&gt;今天在整理一个pyton的脚本，功能是以http+json返回数据拉去线上一些模块的状态信息，一般在5分钟以内就可以跑完，昨天开始由于原始数据太多了，结果搞得5分钟跑不完了，后面的数据统计就有点乱了，仔细分析看了看之后是在网络数据拉去上花费的时间比较多，原来是单进程，单线程的，就想着如果修改成多线程会好一点，python种线程使用还是比较简单的了，从threading.thread继承了一个线程类，类里面直接编写__init__, run， __del__方法，这样就是一个基本的线程类了&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>js中使用sort对json数据进行排序</title>
+      <link>http://www.helight.cn/blog/2012/610/</link>
+      <pubDate>Tue, 11 Dec 2012 02:13:07 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/610/</guid>
+      <description>&lt;p&gt;json格式的数据输出的时候一般是没有排序的，在展示的时候需要另外进行排序。这里总结了js对json数据排序的方法。
+js中是弱类型变量，所以一般获取到数据是会按照系统自定义的类型处理，在我的系统中系统默认把数字也转化成了： &amp;ldquo;value&amp;rdquo;:&amp;ldquo;17404&amp;quot;这样的格式，
+所以在处理上如果直接比较排序，它就会按照字符串来排序，所以要强制类型转化一下，转换为整型。
+不说了，直接贴代码吧：&lt;/p&gt;
+&lt;p&gt;字符串比较排序：kdata是一个json数组，里面的有value字段，如下：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>terminate called after throwing an instance of &#39;stdz::logic_error&#39;</title>
+      <link>http://www.helight.cn/blog/2012/607/</link>
+      <pubDate>Tue, 04 Dec 2012 07:27:26 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/607/</guid>
+      <description>程序编译没有问题，突然在测试的时候出了这样的问题。 terminate called after throwing an instance of &amp;lsquo;std::logic_error&amp;rsquo; what(): basic_string::_S_construct NULL not valid 这个问题在我这里是因为调用了getenv，但是在测试的是后get</description>
+    </item>
+    
+    <item>
+      <title>Apache显示有加载php模块却不支持php文件解析问题</title>
+      <link>http://www.helight.cn/blog/2012/603/</link>
+      <pubDate>Mon, 19 Nov 2012 11:21:18 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/603/</guid>
+      <description>&lt;p&gt;在测试环境搭建了一个新的LAMP环境，但是结果比较奇怪，访问页面的时候提示如下：&lt;/p&gt;
+&lt;p&gt; Apache/2.2.9 (Unix) PHP/5.3.3 mod_wsgi/3.3 Python/2.6.4 Server at zhwen.isoso.com Port 80&lt;/p&gt;
+&lt;p&gt;这里显示已经成功加载了php的模块，应该可以支持php了，但是每次遇到php文件，结果还是原文下载了。&lt;/p&gt;
+&lt;p&gt;http.conf中的配置也没有错啊&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>c种内存分配错误：malloc.c:3096: sYSMALLOc: Assertion</title>
+      <link>http://www.helight.cn/blog/2012/600/</link>
+      <pubDate>Mon, 19 Nov 2012 11:20:03 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/600/</guid>
+      <description>今天在学习一个小程序的时候出现了下面的内存分配错误。 rbtest: malloc.c:3096: sYSMALLOc: Assertion `(old_top == (((mbinptr) (((char *) &amp;amp;((av)-&amp;gt;bins[((1) - 1) * 2])) - __builtin_offsetof (struct malloc_chunk, fd)))) &amp;amp;&amp;amp; old_size == 0) || ((unsigned long) (old_size) &amp;gt;= (unsigned long)((((__builtin_offsetof (struct malloc_chunk, fd_nextsize))+((2 * (sizeof(size_t))) - 1)) &amp;amp; ~((2 * (sizeof(size_t))) - 1))) &amp;amp;&amp;amp;</description>
+    </item>
+    
+    <item>
+      <title>nginx模块编程学习笔记3--模块主要数据结构</title>
+      <link>http://www.helight.cn/blog/2012/595/</link>
+      <pubDate>Wed, 31 Oct 2012 11:07:40 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/595/</guid>
+      <description>在nginx模块编写种主要会涉及到下面3个数据结构，这一篇我就先来看看这3个数据结构的作用和意义。 ngx_command_t ngx_module_t ngx_http_module_t 前面这两个是定义在这个文件中：src</description>
+    </item>
+    
+    <item>
+      <title>nginx模块编程学习笔记2--数据类型</title>
+      <link>http://www.helight.cn/blog/2012/592/</link>
+      <pubDate>Wed, 31 Oct 2012 09:42:41 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/592/</guid>
+      <description>在模块种出现了一些nginx特有的数据类型，这里做笔记记录一下。 nginx种数据类型：整型，字符串 src/core/ngx_config.h 种定义了这么集中比较常用的数据类型： typedef intptr_t</description>
+    </item>
+    
+    <item>
+      <title>nginx&#43;uwsgi&#43;django/flask配置</title>
+      <link>http://www.helight.cn/blog/2012/589/</link>
+      <pubDate>Tue, 30 Oct 2012 11:13:24 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/589/</guid>
+      <description>&lt;p&gt;这几天在不断的倒腾nginx的相关东西，今天测试了nginx+uwsgi+django/flask这个组合，配置启动没有问题，后面看有没有什么app可以做。另外之前做过Nginx+mod_wsgi+webpy 的配置开发，但是mod_wsgi感觉好久没有开发维护了，而且据网上说uwsgi的效率很高，倒腾一下。&lt;/p&gt;
+&lt;p&gt;nginx我这几天一直使用的nginx-1.2.0的，nginx的编译就不说了，直接./configure &amp;amp;&amp;amp; make &amp;amp;&amp;amp;make install&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>redis使用----数据类型和操作命令</title>
+      <link>http://www.helight.cn/blog/2012/575/</link>
+      <pubDate>Wed, 24 Oct 2012 08:19:10 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/575/</guid>
+      <description>最简单的就是key&amp;lt;--&amp;gt;value, 就是每条数据都是一个键名一个键值，如下面的操作 在编译之后在源代码目录种就可以启动redis</description>
+    </item>
+    
+    <item>
+      <title>redis学习笔记--编译配置</title>
+      <link>http://www.helight.cn/blog/2012/573/</link>
+      <pubDate>Wed, 24 Oct 2012 06:38:13 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/573/</guid>
+      <description>一直在找个一靠谱的内存数据库，这里所谓的靠谱，是数据能上能下，能在内存中高速的读取写入，而且还能把数据落地保存，下次启动的时候直接先加载磁盘</description>
+    </item>
+    
+    <item>
+      <title>nginx模块编程学习笔记1</title>
+      <link>http://www.helight.cn/blog/2012/571/</link>
+      <pubDate>Tue, 23 Oct 2012 11:40:05 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/571/</guid>
+      <description>&lt;p&gt;这两天在做nginx的模块测试，想做一个可以把记录数据，以日志的形式直接写入到redis数据库中。
+之前只是照猫画虎的写过nginx的模块，都是测试玩以下，这次想写个有用一点的（其实这个东西也不一定有用，先写再说）。
+结果出现一个很异常的情况，也是我对nginx模块熟悉的不够，结果把filter的的模块加到处理模块的变量种&amp;ndash;HTTP_MODULES，导致我的filter模块死活是不工作。这里整理了一下：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>mysql主从又不同步了</title>
+      <link>http://www.helight.cn/blog/2012/569/</link>
+      <pubDate>Thu, 23 Aug 2012 02:29:38 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/569/</guid>
+      <description>做了数据库的主从，以为就这样没事了，一直可以稳定的用下去，但是现实是多变的。 在主库上建了一个临时库，这个库确实不需要备份到从库去，是做数据中</description>
+    </item>
+    
+    <item>
+      <title>mysql数据库主从全机配置</title>
+      <link>http://www.helight.cn/blog/2012/564/</link>
+      <pubDate>Wed, 15 Aug 2012 12:03:13 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/564/</guid>
+      <description>&lt;p&gt;今天倒蹬了一下mysql的数据库主从配置，记录一下&lt;/p&gt;
+&lt;h2 id=&#34;mysql主从配置&#34;&gt;MYSQL主从配置&lt;/h2&gt;
+&lt;h3 id=&#34;master配置&#34;&gt;Master配置&lt;/h3&gt;</description>
+    </item>
+    
+    <item>
+      <title>Apache的proxy配置</title>
+      <link>http://www.helight.cn/blog/2012/560/</link>
+      <pubDate>Fri, 13 Apr 2012 16:24:32 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/560/</guid>
+      <description>&lt;p&gt;最近在做的项目中有这样的需求，就是要在服务器上做一个proxy到另外一个内网机器的服务上，当然这个最多想到的就是nginx，因为nginx在proxy配置上比较简单，关键也是我会配置。但是偏偏那个服务器安装的apache，所以今天又学习了下apache中proxy的配置。&lt;/p&gt;
+&lt;p&gt;一般apache的这些功能我们在编译的时候都是以模块的形式加入的。所以我这里先是看了我的apache中有没有这个模块，结果没有，那么就需要重新编译一下这个模块：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>也来学习写一下nginx的自定义模块</title>
+      <link>http://www.helight.cn/blog/2012/554/</link>
+      <pubDate>Sun, 19 Feb 2012 14:58:13 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/554/</guid>
+      <description>&lt;p&gt;这几天在家里，学习了一下nginx的一些东西，首先当然就是用编译安装来配置简单的服务了。上一篇也算是学习配置的一点心得，在网上看了nginx的可扩展性后，我也简单研究了一下nginx的自定义模块。并且在晚上代码的参考下，也编译了两个模块来玩了一下，这里先展示一下一个最简单的模块。&lt;/p&gt;
+&lt;p&gt;这个模块主要是这样一个目的，在输入一个指定的url后，会返回自定义的内容：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Nginx和apache共用80端口</title>
+      <link>http://www.helight.cn/blog/2012/552/</link>
+      <pubDate>Sun, 19 Feb 2012 03:07:05 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/552/</guid>
+      <description>&lt;p&gt;这几天在安装了nginx后，老想和apache一起使用，这种搭配，我这里测试使用了3种方式&lt;/p&gt;
+&lt;h2 id=&#34;方法一&#34;&gt;方法一：&lt;/h2&gt;
+&lt;p&gt;使用redirect的方式，nginx运行在80端口，apache运行在8080端口，&lt;/p&gt;
+&lt;p&gt;让后在nginx这边配置到apache8080端口的redirect，&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>svn 提交出现Password for &#39;(null)&#39; GNOME keyring: 错误</title>
+      <link>http://www.helight.cn/blog/2011/544/</link>
+      <pubDate>Fri, 16 Dec 2011 12:13:37 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/544/</guid>
+      <description>新安装了系统之后一直没有给gcode提交过代码了，前天收到一位网友xgcom的patch，我整理了一下，想提交，不想出了这样的问题：在svn</description>
+    </item>
+    
+    <item>
+      <title>Linux 让你的软件支持多国语言</title>
+      <link>http://www.helight.cn/blog/2011/542/</link>
+      <pubDate>Wed, 14 Dec 2011 07:52:36 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/542/</guid>
+      <description>&lt;h2 id=&#34;开头&#34;&gt;开头&lt;/h2&gt;
+&lt;p&gt;Xgcom一直想做成多国语言的支持，但是之前没有仔细研究怎么做，今天有时间，就研究了一下，感觉也挺简单的，这里先做一个测试demo出来，也刚好记录一下。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>gnome3下ibus设置</title>
+      <link>http://www.helight.cn/blog/2011/540/</link>
+      <pubDate>Sun, 04 Dec 2011 05:37:54 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/540/</guid>
+      <description>&lt;p&gt;在gnome3下安装了ibus-pinyin后，安装方式如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;apt-get install ibus ibus-pinyin
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;并且在~/.bashrc文件中加入了以下内容。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;export GTK_IM_MODULE&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;ibus
+
+export XMODIFIERS&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;@im&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;ibus
+
+export QT_IM_MODULE&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;ibus
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>debian下触摸板使用</title>
+      <link>http://www.helight.cn/blog/2011/532/</link>
+      <pubDate>Thu, 27 Oct 2011 13:26:23 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/532/</guid>
+      <description>之前在本本上安装了debian，但是发现触摸板的点击功能就是用不了，以为是驱动问题，加之有鼠标，而且回家用本本来写程序的时间也是很少，因为小</description>
+    </item>
+    
+    <item>
+      <title>自娱自乐写的linux下音乐播放器</title>
+      <link>http://www.helight.cn/blog/2011/526/</link>
+      <pubDate>Sat, 03 Sep 2011 01:09:15 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/526/</guid>
+      <description>&lt;p&gt;前一段时间周末在家没事做，突然之间就想写一个之前一直想写但是也是一直没有写的小程序－－写一个自己的音乐播放器，现在终于写好了，可以使用，有基本的音乐播放功能，隐藏和tray按钮控制播放等等。小巧，程序了不多，够我自己平时在家里听音乐使用了。。。。下面是截图。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>window.open的referer</title>
+      <link>http://www.helight.cn/blog/2011/518/</link>
+      <pubDate>Mon, 11 Jul 2011 08:22:32 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/518/</guid>
+      <description>&lt;p&gt;今天遇到一个奇怪的问题，一个网站在firefox下可以很好的把我的referer带到服务器去进行验证，但是在ie下面就是不行，服务器怎么都没法获取到referer值，追查追查，发现在这个网站中它使用window.open来打开我的网站，原本的感觉是，这个也没有问题啊，但是事实上它就是没有给我把referer带过去。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Nginx&#43;mod_wsgi&#43;webpy</title>
+      <link>http://www.helight.cn/blog/2011/515/</link>
+      <pubDate>Sun, 03 Apr 2011 04:39:28 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/515/</guid>
+      <description>&lt;p&gt;最近在做一个项目是以结伴开发的模式来作的，最终两个人讨论一两个人都相对熟悉而且开发效率较高的python来开发，在web框架上最终抛弃了较为原始的直接cgi和较为臃肿的django，而选择了介于之间的webpy，webpy在使用了一段时间后发现，我们两个人都很喜欢使用而且用的是相当的顺手，后台环境就使用Nginx+mod_wsgi+webpy，也是非常流畅。现在把这个简单的‘复杂’环境搭建记录一下：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Django admin搭建简单站点记录</title>
+      <link>http://www.helight.cn/blog/2011/501/</link>
+      <pubDate>Fri, 04 Feb 2011 13:34:48 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/501/</guid>
+      <description>&lt;h2 id=&#34;django-安装&#34;&gt;Django 安装：&lt;/h2&gt;
+&lt;p&gt;从此下载：www.djangoproject.com/download/&lt;/p&gt;
+&lt;p&gt;下载后直接解压到目录：Django-1.2.4&lt;/p&gt;
+&lt;p&gt;然后执行：python setup.py install 进行安装，当然安装需要root用户权限&lt;/p&gt;
+&lt;p&gt;安装完成后则开始建立站点：&lt;/p&gt;
+&lt;p&gt;XiAn_xxx:/data/helight&lt;/p&gt;
+&lt;p&gt;例如在该目录下建立以个xsite的站点，使用如下命令：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Gstyle-Protocol Buffers(protobuf)</title>
+      <link>http://www.helight.cn/blog/2011/496/</link>
+      <pubDate>Fri, 07 Jan 2011 03:35:48 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/496/</guid>
+      <description>&lt;p&gt;部门内部在大行其道Gstyle&amp;mdash;gtest、glog、protobuf。。。。。。所以我也就先学习学习，以备后面使用的时候在手慌脚乱的，上个月对gtest的使用做了一些学习，基本在日常的开发中已经开始慢慢使用了，而且我自己也根据网友的一个项目lcut分了一个分支xcut&amp;ndash;主要是增加了一些我想要的特点。&lt;/p&gt;
+&lt;p&gt;这几天又学习了protobuf，是google的一个广泛的数据包协议，有了这个就可以把这边定义的包发送到对方，对方就可以很简单的解析出来，就类似于xml，json等协议一样，据网上说，该协议效率很高，空间占有量又很小，是一个比xml或是json要好很多的协议，但是一点就是可读性比较差，看不懂数据是怎么排列和各个字段的意思。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>C单元测试框架－xcut</title>
+      <link>http://www.helight.cn/blog/2010/483/</link>
+      <pubDate>Sat, 25 Dec 2010 03:15:13 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/483/</guid>
+      <description>&lt;p&gt;今天的网络又可以用了，就这样断断续续的，赶紧的发篇blog。&lt;/p&gt;
+&lt;p&gt;现在给大家推出一款用于C语言的单元测试框架&amp;ndash;&lt;a href=&#34;http://code.google.com/p/xcut&#34;&gt;xcut&lt;/a&gt;，是由&lt;a href=&#34;http://bigwhite.blogbus.com/&#34;&gt;Tony Bai&lt;/a&gt;和helight，就是我啦，一起开发的，当然开端是有tonny开始的，我只不过在后面加入并且开始了另外一个分支，加入了一些我认为比较好的方便的特性。使用基本c写的，可以在linux，windows下跑，但是目前主要是在linux测试使用的，测试系统debian5.0。基本上都是在家里的小本本上开发的，也感谢丁丁的支持，生命中有你真好！
+ &lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>python中实现ssh自动登录并且执行命令</title>
+      <link>http://www.helight.cn/blog/2010/473/</link>
+      <pubDate>Tue, 21 Dec 2010 08:56:54 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/473/</guid>
+      <description>&lt;p&gt;由于要做一个对大量机器访问并且执行命令的一个操作，一个一个来那肯定不行了，那家伙一个人做要到猴年马月啊。所以想写一个工具来完成，考虑到开发速度、对数据库访问的便捷性等因素，我选择了python开发。查了一下python的ssh库，呃用起来挺简单的。
+ &lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>xgcom0.04.1发布啦</title>
+      <link>http://www.helight.cn/blog/2010/470/</link>
+      <pubDate>Fri, 19 Nov 2010 11:02:38 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/470/</guid>
+      <description>&lt;p&gt; 在发布了xgcom0.04后发现一个makefile文件的错误问题，因为这个问题会影响编译安装所以是一个比较紧急的bug，所以在紧急修复后又发布了xgcom0.04.1，也感谢网友 &lt;a href=&#34;http://code.google.com/u/gump.yang/&#34;&gt;gump.yang&lt;/a&gt; 的支持。感谢大家一直以来的支持！ &lt;/p&gt;
+&lt;p&gt;项目地址：&lt;a href=&#34;https://github.com/helight/xgcom&#34;&gt;xgcom&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Python 2.6 安装mysql支持（备忘）</title>
+      <link>http://www.helight.cn/blog/2010/467/</link>
+      <pubDate>Fri, 19 Nov 2010 10:53:14 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/467/</guid>
+      <description>&lt;p&gt;做这方面的安装最麻烦的就是一些库啊，路劲啊什么的，有时候太费事了，虽然很多时候可以直接扔给运维的同事去给我安装，但是，毕竟不是很方便，尤其是为了自己做个测试，就不用去麻烦人家和浪费人家时间了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>在终端中显示彩色字符</title>
+      <link>http://www.helight.cn/blog/2010/465/</link>
+      <pubDate>Wed, 10 Nov 2010 09:58:58 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/465/</guid>
+      <description>&lt;p&gt;部分转自：http://www.linuxdiyf.com/viewarticle.php?id=182904
+文本终端的颜色可以使用“ANSI非常规字符序列”来生成。举例：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;echo -e &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\033[44;37;5m ME \033[0m COOL&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>mysql客户端编码问题：python</title>
+      <link>http://www.helight.cn/blog/2010/462/</link>
+      <pubDate>Thu, 28 Oct 2010 08:11:41 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/462/</guid>
+      <description>最近在使用python写一些web应用，之前使用一直没什么问题，但是昨天却出了点小问题：用python连接mysql读取数据，显示出来老是？</description>
+    </item>
+    
+    <item>
+      <title>debian sid中添加windows下的中英文字体</title>
+      <link>http://www.helight.cn/blog/2010/451/</link>
+      <pubDate>Sat, 11 Sep 2010 11:37:10 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/451/</guid>
+      <description>&lt;p&gt;老是记不住这些命令，干脆就记录到这里吧。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>矢量图表SVG学习</title>
+      <link>http://www.helight.cn/blog/2010/441/</link>
+      <pubDate>Tue, 20 Jul 2010 09:59:59 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/441/</guid>
+      <description>&lt;p&gt;最近在自己做的一个系统中需要图标显示一些信息，在查看学习了前面一些同事的程序后发现了svg这种图像格式比较适合，所以深入学习了一下，现在这里发一个demo程序。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>我自己设计的体恤</title>
+      <link>http://www.helight.cn/blog/2009/250/</link>
+      <pubDate>Mon, 27 Apr 2009 03:59:11 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/250/</guid>
+      <description>&lt;p&gt;很喜欢Debian的系统，她的风格，她的颜色，还有她独特的设计。
+我也自己设计了一件体恤，准备什么时候自己去印一下。也自由的疯狂一下。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

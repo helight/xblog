@@ -1,0 +1,146 @@
+<html>
+<head>
+  <title>动态内存 - calloc</title>
+  <meta http-equiv="Content-Type" contents="text/html;charset=gb2312">
+  <link rel="stylesheet" href="clib.css">
+</head>
+
+<body>
+
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tr><td width=150 valign=top>
+<!-- begin left nav -->
+<!-- begin logo -->
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tbody>
+  <tr>
+    <td><a href="../clib.html"><img border=0 width=150 height=65 src="images/memory.gif"></a></td>
+  </tr>
+</tbody>
+</table>
+<!-- end logo -->
+<!-- begin function list -->
+<table border=0 cellpadding=5 cellspacing=0 bgcolor=#FFFFFF width=150>
+<tbody>
+  <tr>
+    <td>
+      请选定要查看的函数
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <ul>
+      <font color=red>
+      <li><a href="calloc.html">calloc</a></li>
+      </font>
+      <li><a href="free.html">free</a></li>
+      <li><a href="malloc.html">malloc</a></li>
+      <li><a href="realloc.html">realloc</a></li>
+    </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>目前共有4个函数</td>
+  </tr>
+</tbody>
+</table>
+<!-- end function list -->
+</td>
+
+<td>
+
+
+
+
+
+<table border=0 cellpadding=0 cellspacing=0 width=600 height=500>
+<tbody>
+<tr>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+    <td>
+    <!-- beging of middle part -->
+    <div>
+    <table border=0 cellpadding=0 cellspacing=0 width=100% height=500>
+    <tbody>
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+      <tr><td height=62 valign=bottom><b><font size=5>calloc</font></b></td></tr>
+
+      <tr><td>
+      <table border=0 cellpadding=0 cellspacing=0 height=1 width=100%>
+      <tbody>
+        <tr>
+          <td height=1 width=150 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+          <td height=1 bgcolor=#ffffff><img src="images/null.gif" border=0 width=1 height=1></td>
+        </tr>
+      </tbody>
+      </table>
+      </td></tr>
+
+      <tr><td>
+      <div>
+      <!-- begin main body -->
+      <table border=0 cellpadding=5 cellspacing=5>
+      <tr><td>
+<pre>
+
+  原型：extern void *calloc(int num_elems, int elem_size);
+  
+  用法：#include &lt;alloc.h>
+  
+  功能：为具有num_elems个长度为elem_size元素的数组分配内存
+  
+  说明：如果分配成功则返回指向被分配内存的指针，否则返回空指针NULL。
+        当内存不再使用时，应使用free()函数将内存块释放。
+  
+  举例：
+
+      // calloc.c
+      
+      #include &lt;syslib.h>
+      #include &lt;alloc.h>
+
+      main()
+      {
+        char *p;
+        
+        clrscr();        // clear screen
+
+        p=(char *)calloc(100,sizeof(char));
+        if(p)
+          printf("Memory Allocated at: %x",p);
+        else
+          printf("Not Enough Memory!\n");
+          
+        free(p);
+
+        getchar();
+        return 0;
+      }
+      
+  相关函数：<a href="free.html">free</a>,<a href="malloc.html">malloc</a>,<a href="realloc.html">realloc</a>
+
+</pre>
+      </td></tr>
+      </table>
+      
+      <!-- end main body -->
+      </td></tr>
+   
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+    </tbody>
+    </table>
+    </div>
+    <!-- end of middle part -->
+    </td>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+</tr>
+</tbody>
+</table>
+
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>Storm云计算学习摘录总结</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, linux 应用">
+  
+  
+  <meta name="description" content="完美之道，不在无可增加，而在无可删减。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="Storm云计算学习摘录总结">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2014/790/" />
+  <meta property="og:description" content="完美之道，不在无可增加，而在无可删减。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/banner-2.jpg">
+  <meta property="og:image:type" content="image/jpg">
+  
+  
+  
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="375">
+  
+  
+  <meta property="og:updated_time" content="2014-04-12T03:47:12&#43;0800">
+  
+    
+    
+    <meta property="article:section" content="linux 应用">
+    <meta property="article:tag" content="linux 应用">
+    
+    
+    <meta property="article:published_time" content="2014-04-12T03:47:12&#43;0800">
+    <meta property="article:modified_time" content="2014-04-12T03:47:12&#43;0800">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="Storm云计算学习摘录总结">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/banner-2.jpg">
+  
+  <meta name="twitter:description" content="完美之道，不在无可增加，而在无可删减。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="Storm云计算学习摘录总结 logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="Storm云计算学习摘录总结 logo" class="visible-xs visible-sm">
+                    <span class="sr-only">Storm云计算学习摘录总结 - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Storm云计算学习摘录总结</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2014年4月12日
+                        </i>
+                        |
+                        
+                        由 <a href="https://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        6200字 | 阅读大约需要13分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/linux-%e5%ba%94%e7%94%a8">linux 应用</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/linux-%E5%BA%94%E7%94%A8/"><i>#linux 应用</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <p>本想自己也总结以下，看到这篇文章总结的太好了，直接转载了</p>
+<p>原文：http://my.oschina.net/yilian/blog/175451</p>
+<h2 id="1storm概念">1.Storm概念：</h2>
+<p>是一个分布式的、容错的实时计算系统，它被托管在<a href="https://github.com/nathanmarz/storm/" target="_blank" rel="nofollow">GitHub</a>上，遵循 Eclipse Public License 1.0。Storm是由BackType开发的实时处理系统，BackType现在已在Twitter麾下。GitHub上的最新版本是Storm 0.5.2，基本是用<a href="http://www.oschina.net/p/clojure" rel="nofollow">Clojure</a>写的。</p>
+<p><img src="../../imgs/2014/04/140807_X1DE_12.png" alt="">
+Storm为分布式实时计算提供了一组通用原语，可被用于“流处理”之中，实时处理消息并更新数据库。这是管理队列及工作者集群的另一种方式。 Storm也可被用于“连续计算”（continuous computation），对数据流做连续查询，在计算时就将结果以流的形式输出给用户。它还可被用于“分布式RPC”，以并行的方式运行昂贵的运算。</p>
+<h2 id="2底层实现原理">2.底层实现原理 </h2>
+<p><a href="https://github.com/mvogiatzis/first-stories-twitter/wiki/Algorithm-logic">https://github.com/mvogiatzis/first-stories-twitter/wiki/Algorithm-logic</a></p>
+<h2 id="21-storm-架构">2.1 Storm## 架构</h2>
+<p>Storm集群由一个主节点和多个工作节点组成。主节点运行了一个名为“Nimbus”的守护进程，用于分配代码、布置任务及故障检测。每个工作节点都运行了一个名为“Supervisor”的守护进程，用于监听工作，开始并终止工作进程。Nimbus和Supervisor都能快速失败，而且是无状态的，这样一来它们就变得十分健壮，两者的协调工作是由Zookeeper来完成的。ZooKeeper用于管理集群中的不同组件，ZeroMQ是内部消息系统，JZMQ是ZeroMQMQ的Java Binding。有个名为storm-deploy的子项目，可以在AWS上一键部署Storm集群.</p>
+<h2 id="3概念介绍">3.概念介绍：</h2>
+<h2 id="31-storm-术语解释">3.1 Storm## 术语解释</h2>
+<p>Storm的术语包括Stream、Spout、Bolt、Task、Worker、Stream Grouping和Topology。Stream是被处理的数据。Sprout是数据源。Bolt处理数据。Task是运行于Spout或Bolt中的线程。Worker是运行这些线程的进程。Stream Grouping规定了Bolt接收什么东西作为输入数据。数据可以随机分配（术语为Shuffle），或者根据字段值分配（术语为Fields），或者广播（术语为All），或者总是发给一个Task（术语为Global），也可以不关心该数据（术语为None），或者由自定义逻辑来决定（术语为Direct）。Topology是由Stream Grouping连接起来的Spout和Bolt节点网络.下面进行详细介绍：</p>
+<ol>
+<li>Topologies 用于封装一个实时计算应用程序的逻辑，类似于Hadoop的MapReduce Job</li>
+<li>Stream 消息流，是一个没有边界的tuple序列，这些tuples会被以一种分布式的方式并行地创建和处理</li>
+<li>Spouts 消息源，是消息生产者，他会从一个外部源读取数据并向topology里面面发出消息：tuple</li>
+<li>Bolts 消息处理者，所有的消息处理逻辑被封装在bolts里面，处理输入的数据流并产生输出的新数据流,可执行过滤，聚合，查询数据库等操作</li>
+<li>Task 每一个Spout和Bolt会被当作很多task在整个集群里面执行,每一个task对应到一个线程.</li>
+<li>Stream groupings 消息分发策略,定义一个Topology的其中一步是定义每个tuple接受什么样的流作为输入,stream grouping就是用来定义一个stream应该如果分配给Bolts们.</li>
+</ol>
+<h2 id="32-stream-grouping-分类">3.2 stream grouping## 分类</h2>
+<ol>
+<li>Shuffle Grouping: 随机分组， 随机派发stream里面的tuple，保证每个bolt接收到的tuple数目相同.</li>
+<li>Fields Grouping：按字段分组，比如按userid来分组，具有同样userid的tuple会被分到相同的Bolts，而不同的userid则会被分配到不同的Bolts.</li>
+<li>All Grouping：广播发送， 对于每一个tuple，所有的Bolts都会收到.</li>
+<li>Global Grouping: 全局分组，这个tuple被分配到storm中的一个bolt的其中一个task.再具体一点就是分配给id值最低的那个task.</li>
+<li>Non Grouping: 不分组，意思是说stream不关心到底谁会收到它的tuple.目前他和Shuffle grouping是一样的效果,有点不同的是storm会把这个bolt放到这个bolt的订阅者同一个线程去执行.</li>
+<li>Direct Grouping: 直接分组,这是一种比较特别的分组方法，用这种分组意味着消息的发送者举鼎由消息接收者的哪个task处理这个消息.只有被声明为Direct Stream的消息流可以声明这种分组方法.而且这种消息tuple必须使用emitDirect方法来发射.消息处理者可以通过TopologyContext来或者处理它的消息的taskid (OutputCollector.emit方法也会返回taskid)
+详细介绍：</li>
+</ol>
+<h2 id="33-storm组件-详细介绍">3.3 Storm组件 详细介绍</h2>
+<p>Storm集群主要由一个主节点和一群工作节点（worker node）组成，通过 Zookeeper进行协调。</p>
+<h2 id="331-主节点">3.3.1 主节点：</h2>
+<p>主节点通常运行一个后台程序 —— Nimbus，用于响应分布在集群中的节点，分配任务和监测故障。这个很类似于Hadoop中的Job Tracker。</p>
+<h2 id="332工作节点">3.3.2工作节点：</h2>
+<p>工作节点同样会运行一个后台程序 —— Supervisor，用于收听工作指派并基于要求运行工作进程。每个工作节点都是topology中一个子集的实现。而Nimbus和Supervisor之间的协调则通过Zookeeper系统或者集群。</p>
+<h2 id="333-zookeeper">3.3.3 Zookeeper</h2>
+<p>Zookeeper是完成Supervisor和Nimbus之间协调的服务。而应用程序实现实时的逻辑则被封装进Storm中的“topology”。topology则是一组由Spouts（数据源）和Bolts（数据操作）通过Stream Groupings进行连接的图。下面对出现的术语进行更深刻的解析。</p>
+<h2 id="334-spout">3.3.4 Spout：</h2>
+<p>简而言之，Spout从来源处读取数据并放入topology。Spout分成可靠和不可靠两种；当Storm接收失败时，可靠的Spout会对tuple（元组，数据项组成的列表）进行重发；而不可靠的Spout不会考虑接收成功与否只发射一次。而Spout中最主要的方法就是nextTuple（），该方法会发射一个新的tuple到topology，如果没有新tuple发射则会简单的返回。</p>
+<h2 id="335-bolt">3.3.5 Bolt：</h2>
+<p>Topology中所有的处理都由Bolt完成。Bolt可以完成任何事，比如：连接的过滤、聚合、访问文件/数据库、等等。Bolt从Spout中接收数据并进行处理，如果遇到复杂流的处理也可能将tuple发送给另一个Bolt进行处理。而Bolt中最重要的方法是execute（），以新的tuple作为参数接收。不管是Spout还是Bolt，如果将tuple发射成多个流，这些流都可以通过declareStream（）来声明。</p>
+<h2 id="336stream-groupings">3.3.6Stream Groupings：</h2>
+<p>Stream Grouping定义了一个流在Bolt任务间该如何被切分。这里有<a href="https://github.com/nathanmarz/storm/wiki/Tutorial" target="_blank" rel="nofollow">Storm提供</a>的6个Stream Grouping类型：</p>
+<ol>
+<li>
+<p>随机分组（Shuffle grouping）：随机分发tuple到Bolt的任务，保证每个任务获得相等数量的tuple。</p>
+</li>
+<li>
+<p>字段分组（Fields grouping）：根据指定字段分割数据流，并分组。例如，根据“user-id”字段，相同“user-id”的元组总是分发到同一个任务，不同“user-id”的元组可能分发到不同的任务。</p>
+</li>
+<li>
+<p>全部分组（All grouping）：tuple被复制到bolt的所有任务。这种类型需要谨慎使用。</p>
+</li>
+<li>
+<p>全局分组（Global grouping）：全部流都分配到bolt的同一个任务。明确地说，是分配给ID最小的那个task。</p>
+</li>
+<li>
+<p>无分组（None grouping）：你不需要关心流是如何分组。目前，无分组等效于随机分组。但最终，Storm将把无分组的Bolts放到Bolts或Spouts订阅它们的同一线程去执行（如果可能）。</p>
+</li>
+<li>
+<p>直接分组（Direct grouping）：这是一个特别的分组类型。元组生产者决定tuple由哪个元组处理者任务接收。</p>
+</li>
+</ol>
+<p>当然还可以实现CustomStreamGroupimg接口来定制自己需要的分组。</p>
+<p><img src="../../imgs/2014/04/140921_z3nH_937000.gif" alt=""></p>
+<p>IRichBolt和IRichSpout与IBolt和ISpout的不同在于多了两个接口：</p>
+<p><a href="http://nathanmarz.github.com/storm/doc-0.7.1/backtype/storm/topology/IComponent.html#declareOutputFields(backtype.storm.topology.OutputFieldsDeclarer)" rel="nofollow">declareOutputFields</a>(<a href="http://nathanmarz.github.com/storm/doc-0.7.1/backtype/storm/topology/OutputFieldsDeclarer.html" rel="nofollow">OutputFieldsDeclarer</a> declarer)：声明输出字段</p>
+<p><a href="http://nathanmarz.github.com/storm/doc-0.7.1/backtype/storm/topology/IComponent.html#getComponentConfiguration()" rel="nofollow">getComponentConfiguration</a>() ：该接口是在0.7.0引入的，用于支持组件级的配置，即允许用户针对单个Spout或Bolt进行参数配置。</p>
+<p>实现了这两个接口后，通过调用TopologyBuilder建立起Topology。TopologyBuilder实际上是封装了StormTopology的thrift接口，也就是说Topology实际上是通过thrift定义的一个struct，TopologyBuilder将这个对象建立起来，然后nimbus实际上会运行一个thrift服务器，用于接收用户提交的结构。由于是采用thrift实现，所以用户可以用其他语言建立Topology，这样就提供了比较方便的多语言操作支持。</p>
+<p>对于用户来说，通常需要做的就是提供自己的ISpout和IBlot实现，然后利用TopologyBuilder建立起自己需要的拓扑结构。</p>
+<p>Storm框架会拿到用户提供这个拓扑结构及Spout和Blot对象，驱动整个处理过程。简单介绍下ISpout的那些接口的调用时机，在创建Spout对象时，会调用open函数。对象销毁时调用close()，但是框架并不保证close函数一定会被调用，因为进程可能是通过kill -9被杀死的。activate和deactivate是在spout被activate或deactivate时被调用，这两个动作是由用户从外部触发的，Strom的命令行提供两个命令activate和deactivate，允许用户activate和deactivate一个Topology，当用户执行deactivate时，对应Topology的spout会被deactivate，产生影响就是spout的nextTuple此后将不会被调用，直到用户再调用activate。Spout的核心功能是通过nextTuple实现的，用户通过该函数完成Tuple的发射。该函数会被框架周期性的调用。会有类似如下的一个循环：</p>
+<p>While(true)</p>
+<p>{</p>
+<p>if(…)</p>
+<p>spout.activate();</p>
+<p>if(…)</p>
+<p>sput.deactivate();</p>
+<p>if(…)</p>
+<p>spout.nextTupe();</p>
+<p>}</p>
+<p>首先这三个函数都是在一个线程中，因此不需要同步。其次，nextTuple()不能阻塞，如果没有Tuple可以发射需要立即返回，用户不能提供一个阻塞式的实现，否则可能阻塞整个后台循环。另外，后台可能会调节nextTuple()的调用频率，比如系统有一个配置参数可以控制当前被pending的Tuple最大数目，如果达到这个限制，可能就会做一些流控。</p>
+<p>ack和fail则是两个回调函数。Spout在发射出一个tuple后，该tuple会通过acking机制被acker追踪，除了显式的fail和ack外，每个tuple有一个超时时间，如果超过这个时间还未确定该tuple的状态，那么acker会通知spout，这个tuple处理失败了，然后框架得到这个消息后，就会调用spout的fail函数，如果acker发现这个tuple处理成功了，也会通知spout，然后会调用spout的ack函数。所以通常来说用户在发射tuple时，要确保数据不丢失，都会将已经发射的tuple缓存起来，然后在ack函数中删除对应tuple，在fail函数中重发对应的tuple。</p>
+<p>另外需要注意的一点是，Spout使用的collector是SpoutOutputCollector，Bolt使用的collector是OutputCollector。这两个虽然提供的功能类似，都是负责发送tuple的，但是由于一个是面向Spout，一个是面向Bolt的，它们的接口也略有不同。具体如下：</p>
+<p>public interface ISpoutOutputCollector {</p>
+<p>List&lt;Integer&gt; emit(String streamId, List&lt;Object&gt; tuple, Object messageId);</p>
+<p>void emitDirect(int taskId, String streamId, List&lt;Object&gt; tuple, Object messageId);</p>
+<p>void reportError(Throwable error);</p>
+<p>}</p>
+<p>Spout通过调用ISpoutOutputCollector的emit函数进行tuple的发射，当然实际上emit函数并未完成实际的发送，它主要是根据用户提供的streamId，计算出该tuple需要发送到的目标taskID。emitDirect函数，更裸一些，直接指定目标taskID。它们都只是将&lt;tasked,tuple&gt;组成的序列对放到一个队列中，然后会有另一个线程负责将tuple从队列中取出并发送到目标task。</p>
+<p>public interface IOutputCollector extends IErrorReporter {</p>
+<p>List&lt;Integer&gt; emit(String streamId, Collection&lt;Tuple&gt; anchors, List&lt;Object&gt; tuple);</p>
+<p>void emitDirect(int taskId, String streamId, Collection&lt;Tuple&gt; anchors, List&lt;Object&gt; tuple);</p>
+<p>void ack(Tuple input);</p>
+<p>void fail(Tuple input);</p>
+<p>}</p>
+<p>IOutputCollector是会被Bolt调用的，与ISpoutOutputCollector功能类似。但是区别也很明显，首先我们可以看到它的emit系列函数，多了一个参数Collection&lt;Tuple&gt; anchors，增加这样一个anchors原因在于，对于spout来说，它产生的tuple就是root tuple，但是对于bolt来说，它是通过一个或多个输入tuple，进而产生输出tuple的，这样tuple之间是有一个父子关系的，anchors就是用于指定当前要emit的这个tuple的所有父亲，正是通过它，才建立起tuple树，如果用户给了一个空的anchors，那么这个要emit的tuple将不会被加入tuple树，也就不会被追踪，即使后面它丢失了，也不会被spout感知。</p>
+<p>除了anchors参数外，IOutputCollector还多了ack和fail两个接口。这两个接口，与Spout的ack和fail完全不同，对于Spout来说ack和fail是提供给Spout在tuple发送成功或失败时进行处理的一个机会。而IOutputCollector的ack和fail则是向acker汇报当前tuple的处理状态的，是需要Bolt在处理完tuple后主动调用的。</p>
+<h2 id="5-生命周期过程">5. 生命周期过程</h2>
+<p>1.在提交了一个topology之后(在nimbus所在的机器), 创建spout/bolt实例(spout/bolt在storm中统称为component)并进行序列化.</p>
+<p>2.将序列化的component发送给所有的任务所在的机器
+3.在每一个任务上反序列化component.
+4.在开始执行任务之前, 先执行component的初始化方法(bolt是prepare, spout是open).
+component的初始化操作应该在prepare/open方法中进行, 而不是在实例化component的时候进行.</p>
+<p><a href="http://www.blogjava.net/killme2008/archive/2011/11/17/364112.html">http://www.blogjava.net/killme2008/archive/2011/11/17/364112.html</a></p>
+<h2 id="6保证处理完成">6.保证处理完成</h2>
+<p><a href="http://xumingming.sinaapp.com/127/twitter-storm%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E4%B8%8D%E4%B8%A2%E5%A4%B1/">http://xumingming.sinaapp.com/127/twitter-storm%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E4%B8%8D%E4%B8%A2%E5%A4%B1/</a></p>
+<h2 id="7一些常用的操作-有相应的方法支持-无需自己实现-each-boardcast-聚合-过滤-等等-basefunction">7.一些常用的操作 有相应的方法支持 无需自己实现 each boardCast 聚合 过滤 等等  BaseFunction</h2>
+<p><a href="http://blog.csdn.net/derekjiang/article/details/9126185">http://blog.csdn.net/derekjiang/article/details/9126185</a></p>
+<h2 id="8一些参考资源">8.一些参考资源 ：</h2>
+<p><a href="https://github.com/nathanmarz/storm">https://github.com/nathanmarz/storm</a></p>
+<p><a href="https://github.com/tdunning/storm-counts">https://github.com/tdunning/storm-counts</a></p>
+<p><a href="https://github.com/nathanmarz/storm/wiki/Trident-tutorial">https://github.com/nathanmarz/storm/wiki/Trident-tutorial</a></p>
+<p><a href="https://github.com/nathanmarz/storm-starter">https://github.com/nathanmarz/storm-starter</a></p>
+<p><a href="https://github.com/mvogiatzis/first-stories-twitter/wiki/Algorithm-logic">https://github.com/mvogiatzis/first-stories-twitter/wiki/Algorithm-logic</a></p>
+<p>理解了上面</p>
+<p>Spont 的基本操作的执行顺序 作用  继承相应的ISpont 或其实现</p>
+<p>理解了 上面</p>
+<p>Sbold 的基本操作执行顺序 作用 继承相应的ISbold 或其实现</p>
+<p>理解了上面分组 拓扑的概念</p>
+<p>特别是那个</p>
+<p>OutputCollector emit values 与 declareOutputFields declare Fields 关系后 ，一切都明确了</p>
+<h2 id="9-此文章是摘录网上各类文章总结">9 此文章是摘录网上各类文章总结</h2>
+<p>参考的主要是官方的文档 网上也有好多中文汉化版本</p>
+<p><a href="https://github.com/nathanmarz/storm/wiki/Concepts">https://github.com/nathanmarz/storm/wiki/Concepts</a></p>
+<p><a href="https://github.com/nathanmarz/storm/wiki/Trident-tutorial">https://github.com/nathanmarz/storm/wiki/Trident-tutorial</a></p>
+<p><a href="https://github.com/nathanmarz/storm/wiki/Tutorial">https://github.com/nathanmarz/storm/wiki/Tutorial</a></p>
+<p><a href="https://github.com/nathanmarz/storm/wiki/Guaranteeing-message-processing">https://github.com/nathanmarz/storm/wiki/Guaranteeing-message-processing</a></p>
+<p><a href="https://github.com/mbonaci/mbo-storm/wiki/Storm-setup-in-Eclipse-with-Maven,-Git-and-GitHub">https://github.com/mbonaci/mbo-storm/wiki/Storm-setup-in-Eclipse-with-Maven,-Git-and-GitHub</a></p>
+<p><a href="https://github.com/nathanmarz/storm/wiki/Distributed-RPC">https://github.com/nathanmarz/storm/wiki/Distributed-RPC</a></p>
+<p><a href="https://github.com/nathanmarz/storm/wiki/Serialization">https://github.com/nathanmarz/storm/wiki/Serialization</a></p>
+<p><a href="https://github.com/nathanmarz/storm/wiki/Lifecycle-of-a-topology">https://github.com/nathanmarz/storm/wiki/Lifecycle-of-a-topology</a></p>
+<p><a href="https://github.com/nathanmarz/storm/wiki/Spout-implementations">https://github.com/nathanmarz/storm/wiki/Spout-implementations</a></p>
+<p>10 。可用的## maven源 pom配置</p>
+<center>
+看完本文有收获？请分享给更多人<br>
+<p>关注「黑光技术」，关注大数据+微服务<br></p>
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2014/783/" data-toggle="tooltip" data-placement="top" title="liunx系统分析图解">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2014/798/" data-toggle="tooltip" data-placement="top" title="使用gdb和ps定位程序cpu占用问题">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2014/758/"><i class="fa fa-link"></i>scons学习笔记</a></li>
+         
+        <li><a href="/blog/2014/756/"><i class="fa fa-link"></i>ROMFS文件系统分析</a></li>
+         
+        <li><a href="/blog/2014/754/"><i class="fa fa-link"></i>Ramdisk文件系统的制作-V0.2</a></li>
+         
+        <li><a href="/blog/2014/750/"><i class="fa fa-link"></i>GUN 工具学习</a></li>
+         
+        <li><a href="/blog/2014/744/"><i class="fa fa-link"></i>git使用总结</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

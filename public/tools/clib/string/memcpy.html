@@ -1,0 +1,172 @@
+<html>
+<head>
+  <title>字符串函数 - memcpy</title>
+  <meta http-equiv="Content-Type" contents="text/html;charset=gb2312">
+  <link rel="stylesheet" href="clib.css">
+</head>
+
+<body>
+
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tr><td width=150 valign=top>
+<!-- begin left nav -->
+<!-- begin logo -->
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tbody>
+  <tr>
+    <td><a href="../clib.html"><img border=0 width=150 height=65 src="images/string.gif"></a></td>
+  </tr>
+</tbody>
+</table>
+<!-- end logo -->
+<!-- begin function list -->
+<table border=0 cellpadding=5 cellspacing=0 bgcolor=#FFFFFF width=150>
+<tbody>
+  <tr>
+    <td>
+      请选定要查看的函数
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <ul>
+      <li><a href="bcmp.html">bcmp</li>
+      <li><a href="bcopy.html">bcopy</li>
+      <li><a href="bzero.html">bzero</li>
+      <li><a href="memccpy.html">memccpy</li>
+      <li><a href="memchr.html">memchr</li>
+      <li><a href="memcmp.html">memcmp</li>
+      <font color=red>
+      <li><a href="memcpy.html">memcpy</li>
+      </font>
+      <li><a href="memicmp.html">memicmp</li>
+      <li><a href="memmove.html">memmove</li>
+      <li><a href="memset.html">memset</li>
+      <li><a href="movmem.html">movmem</li>
+      <li><a href="setmem.html">setmem</li>
+      <li><a href="stpcpy.html">stpcpy</li>
+      <li><a href="strcat.html">strcat</li>
+      <li><a href="strchr.html">strchr</li>
+      <li><a href="strcmp.html">strcmp</li>
+      <li><a href="strcmpi.html">strcmpi</li>
+      <li><a href="strcpy.html">strcpy</li>
+      <li><a href="strcspn.html">strcspn</li>
+      <li><a href="strdup.html">strdup</li>
+      <li><a href="stricmp.html">stricmp</li>
+      <li><a href="strlen.html">strlen</li>
+      <li><a href="strlwr.html">strlwr</li>
+      <li><a href="strncat.html">strncat</li>
+      <li><a href="strncmp.html">strncmp</li>
+      <li><a href="strncmpi.html">strncmpi</li>
+      <li><a href="strncpy.html">strncpy</li>
+      <li><a href="strnicmp.html">strnicmp</li>
+      <li><a href="strpbrk.html">strpbrk</li>
+      <li><a href="strrev.html">strrev</li>
+      <li><a href="strset.html">strset</li>
+      <li><a href="strstr.html">strstr</li>
+      <li><a href="strtok.html">strtok</li>
+      <li><a href="strupr.html">strupr</li>
+    </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>目前共有34个函数</td>
+  </tr>
+</tbody>
+</table>
+<!-- end function list -->
+</td>
+
+<td>
+
+
+
+
+
+<table border=0 cellpadding=0 cellspacing=0 width=600>
+<tbody>
+<tr>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+    <td>
+    <!-- beging of middle part -->
+    <div>
+    <table border=0 cellpadding=0 cellspacing=0 width=100% height=650>
+    <tbody>
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+      <tr><td height=62 valign=bottom><b><font size=5>memcpy</font></b></td></tr>
+
+      <tr><td>
+      <table border=0 cellpadding=0 cellspacing=0 height=1 width=100%>
+      <tbody>
+        <tr>
+          <td height=1 width=150 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+          <td height=1 bgcolor=#ffffff><img src="images/null.gif" border=0 width=1 height=1></td>
+        </tr>
+      </tbody>
+      </table>
+      </td></tr>
+
+      <tr><td valign=top>
+      <div>
+      <!-- begin main body -->
+      <table border=0 cellpadding=5 cellspacing=5>
+      <tr><td>
+<pre>
+
+  原型：extern void *memcpy(void *dest, void *src, unsigned int count);
+
+  用法：#include &lt;string.h>
+  
+  功能：由src所指内存区域复制count个字节到dest所指内存区域。
+  
+  说明：src和dest所指内存区域不能重叠，函数返回指向dest的指针。
+  
+  举例：
+
+      // memcpy.c
+      
+      #include &lt;syslib.h>
+      #include &lt;string.h>
+
+      main()
+      {
+        char *s="Golden Global View";
+        char d[20];
+        
+        clrscr();
+        
+        memcpy(d,s,strlen(s));
+        d[strlen(s)]=0;
+        printf("%s",d);
+
+        getchar();
+        return 0;
+      }
+      
+  相关函数：<a href="memccpy.html">memccpy</a>,<a href="memmove.html">memmove</a>,<a href="strcpy.html">strcpy</a>
+
+</pre>
+      </td></tr>
+      </table>
+      
+      <!-- end main body -->
+      </td></tr>
+   
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+    </tbody>
+    </table>
+    </div>
+    <!-- end of middle part -->
+    </td>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+</tr>
+</tbody>
+</table>
+
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

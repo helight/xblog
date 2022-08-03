@@ -1,0 +1,2938 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogs on 黑光技术</title>
+    <link>http://www.helight.cn/blog/</link>
+    <description>Recent content in Blogs on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Tue, 05 Apr 2022 08:45:20 +0800</lastBuildDate><atom:link href="http://www.helight.cn/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>开发了一个技术文章订阅器：TechNews</title>
+      <link>http://www.helight.cn/blog/2022/technews/</link>
+      <pubDate>Tue, 05 Apr 2022 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2022/technews/</guid>
+      <description>TechNews 为什么会出现？ 这几年学习技术基本上都是从国外一些网站找资料，直接看或者翻译一下。找这些资料其实还是比较繁琐。 所以一直在想有一个合适的收集工</description>
+    </item>
+    
+    <item>
+      <title>可观测性:不是你想的那样</title>
+      <link>http://www.helight.cn/blog/2022/what-is-observability/</link>
+      <pubDate>Sat, 26 Mar 2022 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2022/what-is-observability/</guid>
+      <description>本文译自 可观测性:不是你想的那样。 译者：helight。 原文地址：https://www.splunk.com/en_us/blog/dev</description>
+    </item>
+    
+    <item>
+      <title>什么是 PaaS？ PaaS 类型介绍</title>
+      <link>http://www.helight.cn/blog/2022/what-is-paas-type/</link>
+      <pubDate>Sun, 20 Mar 2022 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2022/what-is-paas-type/</guid>
+      <description>本文译自 什么是 PaaS？ PaaS 类型介绍。 译者：helight。 原文地址：https://jelastic.com/blog/what-is-pa</description>
+    </item>
+    
+    <item>
+      <title>什么是 GitOps？</title>
+      <link>http://www.helight.cn/blog/2022/what-is-gitops/</link>
+      <pubDate>Tue, 08 Mar 2022 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2022/what-is-gitops/</guid>
+      <description>本文译自 What is GitOps。 译者：helight。 原文地址：https://www.redhat.com/en/topics/devops/w</description>
+    </item>
+    
+    <item>
+      <title>2022 年 kubernetes 的 5 个发展趋势</title>
+      <link>http://www.helight.cn/blog/2022/5-kubernetes-trends-watch-2022/</link>
+      <pubDate>Tue, 01 Mar 2022 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2022/5-kubernetes-trends-watch-2022/</guid>
+      <description>本文译自 5 Kubernetes trends to watch in 2022。 作者：Kevin Casey， 译者：helight。 原文地址：https://enterprisersproje</description>
+    </item>
+    
+    <item>
+      <title>云原生技术解读3-云原生交付部署：不可变基础设施</title>
+      <link>http://www.helight.cn/blog/2021/cloud-native3/</link>
+      <pubDate>Sun, 26 Dec 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/cloud-native3/</guid>
+      <description>前言 9 月初给 BG 的新人开了一门课，专门来讲云原生技术，云原生技术从出现到现在按最早的时间出现来说也是有 10 多年了。尤其是这几年火热的不得了，但是</description>
+    </item>
+    
+    <item>
+      <title>我们是否真的需要使用服务网格？</title>
+      <link>http://www.helight.cn/blog/2021/need-service-mesh/</link>
+      <pubDate>Fri, 10 Dec 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/need-service-mesh/</guid>
+      <description>译者注：本文作者是 Tigera 产品总监 Phil DiCorpo ，原文地址在这里。作者介绍服务网格的价值和架构设计，并且分析了目前服务网格在落地上挑战点，这些都是非常有价值</description>
+    </item>
+    
+    <item>
+      <title>云原生架构中 Kubernetes 可观测性的挑战和解决思路</title>
+      <link>http://www.helight.cn/blog/2021/kubernetes-observability/</link>
+      <pubDate>Sat, 27 Nov 2021 21:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/kubernetes-observability/</guid>
+      <description>前言 本文是一篇翻译的文章，主要是学习，原文地址在这里. 这篇文章是 Calico 公司的员工写的，思路非常好。可观测性即代码，非常 k8s 范。在我们实际应用中，目</description>
+    </item>
+    
+    <item>
+      <title>必须知道的 Kubernetes 设计模式 Top 10</title>
+      <link>http://www.helight.cn/blog/2021/kubernetes-design-patterns/</link>
+      <pubDate>Sat, 27 Nov 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/kubernetes-design-patterns/</guid>
+      <description>前言 本文是一篇翻译的文章，主要是学习，原文地址在这里. 这篇文章是对 redhat 写的一本书的概述，提炼了很多核心概念。 这篇文章中介绍了和传统《设计模式》</description>
+    </item>
+    
+    <item>
+      <title>使用 eBPF 和 XDP 高速处理数据包</title>
+      <link>http://www.helight.cn/blog/2021/ebpf-and-xdp/</link>
+      <pubDate>Sat, 20 Nov 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/ebpf-and-xdp/</guid>
+      <description>前言 本文是一篇学习翻译文章，原文在这里。 XDP 是一种特殊的 eBPF 程序，在数据包处理上因为在协议栈之前就可以处理数据，所以有非常高的性能。 这篇文章先在</description>
+    </item>
+    
+    <item>
+      <title>云原生技术解读2-云原生运行时：容器和容器编排</title>
+      <link>http://www.helight.cn/blog/2021/cloud-native2/</link>
+      <pubDate>Mon, 08 Nov 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/cloud-native2/</guid>
+      <description>前言 9 月初给 BG 的新人开了一门课，专门来讲云原生技术，云原生技术从出现到现在按最早的时间出现来说也是有 10 多年了。尤其是这几年火热的不得了，但是</description>
+    </item>
+    
+    <item>
+      <title>云原生技术解读1-如何理解云原生</title>
+      <link>http://www.helight.cn/blog/2021/cloud-native/</link>
+      <pubDate>Thu, 04 Nov 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/cloud-native/</guid>
+      <description>前言 9 月初给 BG 的新人开了一门课，专门来讲云原生技术，云原生技术从出现到现在按最早的时间出现来说也是有 10 多年了。尤其是这几年火热的不得了，但是</description>
+    </item>
+    
+    <item>
+      <title>比较 kube-proxy 模式: iptables 或者 IPVS?</title>
+      <link>http://www.helight.cn/blog/2021/kube-proxy-modes-iptables-or-ipvs/</link>
+      <pubDate>Wed, 20 Oct 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/kube-proxy-modes-iptables-or-ipvs/</guid>
+      <description>前言 本文是一篇学习翻译文章，原文在这里。 对任何 Kubernetes 来说 kube-proxy 是一个很关键的组件。它的功能是把流量负载均衡代理（通过集群 IP 和节点端口）到正确的后端 p</description>
+    </item>
+    
+    <item>
+      <title>关于微服务开发平台的思考</title>
+      <link>http://www.helight.cn/blog/2021/ms-thinking/</link>
+      <pubDate>Sun, 11 Apr 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/ms-thinking/</guid>
+      <description>引子 这是一个内部分享会上的一个小分享，整个分享只有6分钟，整理了一下分享出来。这是一个内部分享会上的一个小分享，整个分享只有6分钟，整理了一</description>
+    </item>
+    
+    <item>
+      <title>k8s dashboard 编译测试</title>
+      <link>http://www.helight.cn/blog/2021/k8s-dashboard-build/</link>
+      <pubDate>Wed, 31 Mar 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/k8s-dashboard-build/</guid>
+      <description>前言 minikube install 在 linux 上安装 minikube 在linux上怎么安装minikube看这里： https://minikube.sigs.k8s.io/docs/start/linux/. 很简单，下载安装即可 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \ &amp;amp;&amp;amp; sudo install minikube-linux-amd64 /usr/local/bin/minikube `` ### 启动过程中的一些错误 #### hostname 配置问</description>
+    </item>
+    
+    <item>
+      <title>linux5.3.0编译运行LINUX内核源码中的BPF示例代码</title>
+      <link>http://www.helight.cn/blog/2021/build-kernel-ebpf-sample/</link>
+      <pubDate>Wed, 31 Mar 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/build-kernel-ebpf-sample/</guid>
+      <description>前言 环境：ubuntu 18.04，内核版本 5.3.0。 安装内核： apt-get install linux-image-5.3.0-70-generic apt-get install linux-headers-5.3.0-70-generic apt-get install linux-source-5.3.0 ebpf-tools编译 下面简单记录编译 bpf-tools 时的一些过程。 源</description>
+    </item>
+    
+    <item>
+      <title>envoy filter 开发实践系列 4：envoy filter 原理介绍</title>
+      <link>http://www.helight.cn/blog/2020/build-envoy-filter-what/</link>
+      <pubDate>Tue, 20 Oct 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/build-envoy-filter-what/</guid>
+      <description>1. 前言 在本篇开始我逐步梳理 envoy filter 2. 使用官方 docker 编译镜像来编译 5. 总结 从目前交流的情况来看 envoy 的编译确实是一个大问题，编译环境配置还是比较复杂的，开发</description>
+    </item>
+    
+    <item>
+      <title>envoy filter 开发实践系列 3：编译 envoy 的其它方式</title>
+      <link>http://www.helight.cn/blog/2020/build-envoy-filter-clang/</link>
+      <pubDate>Tue, 13 Oct 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/build-envoy-filter-clang/</guid>
+      <description>1. 前言 前天早上开会还说这个 envoy 1.16 不知道什么时候发布，我们需要的几个新特性都在这个版本中，今天一看已经发布了，所以今天又测试了一波 1.16 上的例子。 2.</description>
+    </item>
+    
+    <item>
+      <title>envoy filter 开发实践系列 2：官网 http filter 示例编译测试</title>
+      <link>http://www.helight.cn/blog/2020/build-envoy-filter-http/</link>
+      <pubDate>Wed, 30 Sep 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/build-envoy-filter-http/</guid>
+      <description>1.前言 这篇文章开始来介绍官网中 http filter 的编译和测试过程，让大家能够知道怎么测试跑通这个例子，虽然官网已经给了代码，但是对于新手来说，这个例子虽</description>
+    </item>
+    
+    <item>
+      <title>envoy filter 开发实践系列 1：官网 echo filter 示例编译测试</title>
+      <link>http://www.helight.cn/blog/2020/build-envoy-filter-echo/</link>
+      <pubDate>Sun, 20 Sep 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/build-envoy-filter-echo/</guid>
+      <description>1. 前言 早就想写一个 envoy filter 开发的文章了，本来在我的 issue 中列了一篇 Venil Noronha 写的文章，想翻译来的，但是感觉那篇文章太简单了，而且没有实际操作过程，让我这种</description>
+    </item>
+    
+    <item>
+      <title>来玩 TencentOS tiny 物联网终端操作系统</title>
+      <link>http://www.helight.cn/blog/2020/tencentos-tiny-test/</link>
+      <pubDate>Sun, 20 Sep 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/tencentos-tiny-test/</guid>
+      <description>前言 公司前段时间发起了一个活动，免费给大家提供开发板，让大家基于 TencentOS tiny 采集数据，通过wifi、以太网、LoRaWAN、NB-IoT、2G、4G</description>
+    </item>
+    
+    <item>
+      <title>k8s 代码走读---client-go 编程交互代码测试</title>
+      <link>http://www.helight.cn/blog/2020/kube-client-go-code-3/</link>
+      <pubDate>Thu, 20 Aug 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/kube-client-go-code-3/</guid>
+      <description>这部分还是以 client-go 为基础的代码测试，今天这里分享的一个是我测试过的 client-go 代码例子</description>
+    </item>
+    
+    <item>
+      <title>k8s 代码走读---client-go 编程之 informers</title>
+      <link>http://www.helight.cn/blog/2020/kube-client-go-code-2/</link>
+      <pubDate>Fri, 14 Aug 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/kube-client-go-code-2/</guid>
+      <description>前言 根据我们社区制定的计划，本周是开始走读 client-go 中的 informers 模块了，但是无奈这周时间是相当的不充裕，公司内的事情也突然多了几当子要紧急赶工的事情，另外</description>
+    </item>
+    
+    <item>
+      <title>k8s 代码走读---client-go 编程交互基础走读</title>
+      <link>http://www.helight.cn/blog/2020/kube-client-go-code-1/</link>
+      <pubDate>Sat, 08 Aug 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/kube-client-go-code-1/</guid>
+      <description>前言 代码 clone 地址：https://github.com/kubernetes/client-go。实际上在 kubernetes 的源码中也包含了这部分代码：ven</description>
+    </item>
+    
+    <item>
+      <title>k8s代码走读---kube-controller-manager</title>
+      <link>http://www.helight.cn/blog/2020/kube-controller-manager-code-1/</link>
+      <pubDate>Thu, 30 Jul 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/kube-controller-manager-code-1/</guid>
+      <description>前言 今天开始走读 k8s 的代码，首先选择的是 controller-manager 这个组件。这几天也看了《kubernetes源码剖析》的前两章，这本书还是不错的，推荐大家阅读。前面</description>
+    </item>
+    
+    <item>
+      <title>内核通信之 Netlink 源码分析和实例分析</title>
+      <link>http://www.helight.cn/blog/2020/netlink/</link>
+      <pubDate>Sat, 25 Jul 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/netlink/</guid>
+      <description>前言 这几天在看 ipvs 相关代码的时候又遇到了 netlink 的事情，所以这两天花了点时间重新把 netlink 的事情梳理了一下。 什么是 netlink linux 内核一直存在的一个严重问题就是内核态</description>
+    </item>
+    
+    <item>
+      <title>【dbaplus社群】线上分享-游戏数据应用的DevOps建设</title>
+      <link>http://www.helight.cn/blog/2020/dbaplus_show/</link>
+      <pubDate>Sun, 12 Jul 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/dbaplus_show/</guid>
+      <description>前言 前段时间本号作为【dbaplus社群】的合作媒体，和他们做了一次大数据领域的话题宣传活动。聊了之后就邀请我来分享一下游戏数据领域内的相关</description>
+    </item>
+    
+    <item>
+      <title>做 API 监控有没有什么方法论？</title>
+      <link>http://www.helight.cn/blog/2020/api-traffic-formulas/</link>
+      <pubDate>Sun, 07 Jun 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/api-traffic-formulas/</guid>
+      <description>做事情还是的有一定的方法论来指导的，今天这里总结的这篇文章目的就在于对 API 的监控方面进行梳理，梳理出了 API 监控的基本层次，常用指标和常见的监控模型。</description>
+    </item>
+    
+    <item>
+      <title>ServiceMesh入门的起点：构建一个微服务网关</title>
+      <link>http://www.helight.cn/blog/2020/getting-started-with-a-service-mesh-starts-with-a-gateway/</link>
+      <pubDate>Sun, 24 May 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/getting-started-with-a-service-mesh-starts-with-a-gateway/</guid>
+      <description>本文是在看了国外 Solo 公司 CTO 的博客之后整理的，本来也是想按原文翻译，但是考虑到我自己在公司实践的思路，还是想把他的思路和我自己的思路做一些结合。</description>
+    </item>
+    
+    <item>
+      <title>如何 60 秒内进行 Linux 性能分析</title>
+      <link>http://www.helight.cn/blog/2020/linux-performance-analysis-in-60-000-milliseconds/</link>
+      <pubDate>Thu, 21 May 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/linux-performance-analysis-in-60-000-milliseconds/</guid>
+      <description>在你登陆一台 Linux 服务器之后，因为一个问题要做性能分析时：你会在第一分钟内做哪些检测呢？</description>
+    </item>
+    
+    <item>
+      <title>如何为 Envoy 构建一个控制面来管理集群网络流量</title>
+      <link>http://www.helight.cn/blog/2020/building-a-control-plane-to-manage-envoy/</link>
+      <pubDate>Sun, 10 May 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/building-a-control-plane-to-manage-envoy/</guid>
+      <description>这篇文章我看了之后非常想翻译，为什么呢？一方面我也在学习 Envoy，并且在公司的实际项目中使用 Envoy，另一方面，我确实也在设计一个控制管理端来统一管控多个集群的所有流量，没错我说的是所有的流量管控。</description>
+    </item>
+    
+    <item>
+      <title>对微服务的一些思考---微服务架构下的挑战和应对策略</title>
+      <link>http://www.helight.cn/blog/2020/what-i-think-about-ms-2/</link>
+      <pubDate>Sun, 03 May 2020 20:57:42 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/what-i-think-about-ms-2/</guid>
+      <description>上一篇中梳理介绍了微服务架构的特点和优势，也明确说微服务架构是现代软件开发中解决生产力的一种模式。微服务可以大家加速现代企业中软件开发效率、软件稳定性，扩展性。</description>
+    </item>
+    
+    <item>
+      <title>对微服务的一些思考---微服务架构的特点和优势</title>
+      <link>http://www.helight.cn/blog/2020/what-i-think-about-ms/</link>
+      <pubDate>Sun, 12 Apr 2020 22:57:42 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/what-i-think-about-ms/</guid>
+      <description>根据这段时间读的书想梳理一下我对微服务的一些思考，部分内容来自一些外文书籍，我感觉这部分内容还是要直接读外文书籍会得到更真实可靠的思路和解读。</description>
+    </item>
+    
+    <item>
+      <title>如何给《Linux内核之旅社区》投稿</title>
+      <link>http://www.helight.cn/blog/2020/submit_pr/</link>
+      <pubDate>Sat, 11 Apr 2020 14:31:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/submit_pr/</guid>
+      <description>Linux 内核之旅的网站我们重构了，这次使用了 github 管理，hugo 作为站点管理工具。目标是能够让更多的同学参与进来，学习，分享，共同建设，让大家更方便高效的走 Linux 内核之旅。</description>
+    </item>
+    
+    <item>
+      <title>【译】基于 eBPF 的 Linux 可观测性</title>
+      <link>http://www.helight.cn/blog/2020/linux-kernel-observability-ebpf/</link>
+      <pubDate>Mon, 30 Mar 2020 20:14:34 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/linux-kernel-observability-ebpf/</guid>
+      <description>最近发布的 Linux 内核带了一个针对内核的能力强大的 Linux 监控框架。它起源于历史上人们所说的的 BPF。</description>
+    </item>
+    
+    <item>
+      <title>微服务的架构适合你吗？微服务为何而来？</title>
+      <link>http://www.helight.cn/blog/2020/what-microservie-should-be/</link>
+      <pubDate>Sat, 28 Mar 2020 18:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/what-microservie-should-be/</guid>
+      <description>最近拾起了基本英文的讲微服务的书，一方面是学习英文，一方面也是想原汁原味的了解一下外国人口中的微服务是怎么样的。所以这篇文章是想聊聊微服务，聊聊我眼中的微服务，和实践微服务中的一些经历。也是这么多年实践微服务的一些思考。</description>
+    </item>
+    
+    <item>
+      <title>ebpf 学习梳理和测试使用</title>
+      <link>http://www.helight.cn/blog/2020/test-bcc/</link>
+      <pubDate>Sat, 21 Mar 2020 23:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/test-bcc/</guid>
+      <description>周五下午在公司的服务网格月度讨论会上，一位同事为大家分享了在服务网格中使用 ebpf 来优化提升 istio 中 sidecar 和 RS 间的通信效率。听过之后手痒难，想测试一把 ebpf。</description>
+    </item>
+    
+    <item>
+      <title>读书总结：Open Life</title>
+      <link>http://www.helight.cn/blog/2020/open-life/</link>
+      <pubDate>Sat, 14 Mar 2020 07:15:43 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/open-life/</guid>
+      <description>这本书从作者身边的生活琐事开始来思考开源这件事，到开源软件发展对社会影响思考，再到开源软件的商业之路，最后到生活中其它方面开源的思考。逐一到来非常有序，让我们对开源的认识从原来只是软件的层面会逐步上升到对生活方式的思考。</description>
+    </item>
+    
+    <item>
+      <title>【译】发布可扩展和改进的 webassembly hub，帮助 envoy 和 Istio 使用 webassembly 的能力</title>
+      <link>http://www.helight.cn/blog/2020/wasm-to-envoy-and-istio/</link>
+      <pubDate>Fri, 13 Mar 2020 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/wasm-to-envoy-and-istio/</guid>
+      <description>就像用户们都想采用基于 Envoy 的基础设施来解决微服务通信带来的挑战，他们都不可避免的呃发现他们必须开发一些定制的技术功能来适配解决内部的限制性问题。</description>
+    </item>
+    
+    <item>
+      <title>【译】重新定义代理的扩展性：介绍 Envoy 和 Istio 中的 WebAssembly 应用</title>
+      <link>http://www.helight.cn/blog/2020/introducing-wasm-to-envoy-and-istio/</link>
+      <pubDate>Sat, 07 Mar 2020 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/introducing-wasm-to-envoy-and-istio/</guid>
+      <description>翻译 Istio 官网 blog 文章，原文：https://istio.io/blog/2020/wasm-announce/。 翻译几天了，不过官网git提交有</description>
+    </item>
+    
+    <item>
+      <title>【译】2020 年的 Istio - 顺风而行</title>
+      <link>http://www.helight.cn/blog/2020/tradewinds-2020/</link>
+      <pubDate>Fri, 06 Mar 2020 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/tradewinds-2020/</guid>
+      <description>在 2020 年 Istio 有更雄伟的目标，并且很多重大工作已经在进行了，但是同时我们也坚信好的基础设施应该是“无知”的。在生产中使用 Istio 应该是一种无缝的体验。</description>
+    </item>
+    
+    <item>
+      <title>API 网关和服务网格功能定位比较</title>
+      <link>http://www.helight.cn/blog/2020/service-mesh-vs-api-gateway/</link>
+      <pubDate>Sat, 08 Feb 2020 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/service-mesh-vs-api-gateway/</guid>
+      <description>上一篇文章介绍了服务网格和 API 网关的使用场景和如何配合使用，这篇文章继续介绍，再把服务网格和 API 网关的区别和应用场景进行挖掘。</description>
+    </item>
+    
+    <item>
+      <title>【译】有了Service Mesh，还需要 API 网关吗？</title>
+      <link>http://www.helight.cn/blog/2020/do-i-need-an-api-gateway/</link>
+      <pubDate>Fri, 07 Feb 2020 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/do-i-need-an-api-gateway/</guid>
+      <description>这篇博文还是围绕 API 网关和服务网格的。虽然现在2020年了，围绕这个话题依然有大量的困惑</description>
+    </item>
+    
+    <item>
+      <title>【译】以 Istio 为例来看什么时候不要拆分微服务</title>
+      <link>http://www.helight.cn/blog/2020/when-not-to-do-microservices/</link>
+      <pubDate>Tue, 04 Feb 2020 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/when-not-to-do-microservices/</guid>
+      <description>&lt;p&gt;作者过去5年来都在投入和帮助团队组织进行云原生开发。优化提升团队（甚至是公司）加速软件交付的技术是严重首人员，过程甚至是技术决策的影响。在应用程序架构成为软件交付瓶颈的时候（由于人员/流程/技术等因素影响），微服务算是一种合适的解决方案，它可以快速的做出修改。但是&lt;a href=&#34;https://blog.christianposta.com/microservices/when-not-to-do-microservices/&#34;&gt;这也不是唯一的途径&lt;/a&gt;。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【译】Kubernetes 服务网格: Istio, Linkerd 和 Consul 大比较</title>
+      <link>http://www.helight.cn/blog/2020/comparison-of-service-mesh/</link>
+      <pubDate>Sun, 02 Feb 2020 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/comparison-of-service-mesh/</guid>
+      <description>&lt;p&gt;云原生应用通常是由一组运行在容器中的分布式微服务架构起来的。目前越来越多的容器应用都是基于 Kubernetes 的，Kubernetes 已经成为了容器编排的事实标准。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>在minikube上安装istio并测试使用</title>
+      <link>http://www.helight.cn/blog/2020/setup-istio-in-minikube/</link>
+      <pubDate>Sat, 18 Jan 2020 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/setup-istio-in-minikube/</guid>
+      <description>只有一台机器，又想玩一下 istio 怎么办呢？本文将介绍如何使用 minikube 来安装 istio。</description>
+    </item>
+    
+    <item>
+      <title>什么是ServiceMesh</title>
+      <link>http://www.helight.cn/blog/2019/servicemesh-intro/</link>
+      <pubDate>Sat, 07 Dec 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/servicemesh-intro/</guid>
+      <description>说到istio就要先说什么是ServiceMesh，从英文直译过来就就叫做“服务网格”，这个技术大概是在10多年前就被提出来的，但是最近2年被炒的异常火热。那什么叫做ServiceMesh呢？</description>
+    </item>
+    
+    <item>
+      <title>Gartner中APM模型的优先级</title>
+      <link>http://www.helight.cn/blog/2019/1274/</link>
+      <pubDate>Fri, 29 Nov 2019 15:33:36 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/1274/</guid>
+      <description>&lt;p&gt;前一段时间对APM的知识点做了一些梳理，对APM的基本概念也做了梳理，对于这个由Gartner提出的东西，在具体的应用落地场景上还是不免有很多不理解的地方。很多人直观的理解为APM就是一个监控，或者就是一个监控告警。就是我最早接触这个概念的时候也是这样认为的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Flink状态监控介绍</title>
+      <link>http://www.helight.cn/blog/2019/flinkmetrics/</link>
+      <pubDate>Tue, 17 Sep 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/flinkmetrics/</guid>
+      <description>对于需要 7 * 24 小时不间断运行的流式计算程序来说，能实时监控程序运行状况、出现异常告警能立即响应并快速定位问题是必须具备的能力。</description>
+    </item>
+    
+    <item>
+      <title>Redis的事件处理模型2：客户端命令执行过程</title>
+      <link>http://www.helight.cn/blog/2019/redis3/</link>
+      <pubDate>Tue, 18 Jun 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/redis3/</guid>
+      <description>Redis的事件处理模型2：客户端命令执行过程</description>
+    </item>
+    
+    <item>
+      <title> Redis源码分析2:Redis的事件处理模型</title>
+      <link>http://www.helight.cn/blog/2019/redis2/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/redis2/</guid>
+      <description>Redis源码分析2:Redis的事件处理模型</description>
+    </item>
+    
+    <item>
+      <title>DataMore数据服务开发系统Xone在服务化的架构实践</title>
+      <link>http://www.helight.cn/blog/2019/datamore/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/datamore/</guid>
+      <description>DataMore数据服务开发系统Xone在服务化的架构实践</description>
+    </item>
+    
+    <item>
+      <title>Gartner整理的未来5年流行技术词</title>
+      <link>http://www.helight.cn/blog/2019/2019new/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/2019new/</guid>
+      <description>Gartner整理的未来5年流行技术词。</description>
+    </item>
+    
+    <item>
+      <title>golang grpc简单使用</title>
+      <link>http://www.helight.cn/blog/2019/grpc/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/grpc/</guid>
+      <description>golang grpc简单使用</description>
+    </item>
+    
+    <item>
+      <title>Golang UnitTest单元测试</title>
+      <link>http://www.helight.cn/blog/2019/golang_unittest/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/golang_unittest/</guid>
+      <description>Golang UnitTest单元测试</description>
+    </item>
+    
+    <item>
+      <title>Golang中 method has pointer receiver 异常</title>
+      <link>http://www.helight.cn/blog/2019/golangfunerror/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/golangfunerror/</guid>
+      <description>Golang中 method has pointer receiver 异常</description>
+    </item>
+    
+    <item>
+      <title>golang单元测试之mock </title>
+      <link>http://www.helight.cn/blog/2019/gomock/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/gomock/</guid>
+      <description>golang单元测试之mock</description>
+    </item>
+    
+    <item>
+      <title>Golang官方依赖管理工具：dep</title>
+      <link>http://www.helight.cn/blog/2019/golangdep/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/golangdep/</guid>
+      <description>Golang官方依赖管理工具：dep</description>
+    </item>
+    
+    <item>
+      <title>helight的github项目</title>
+      <link>http://www.helight.cn/blog/2019/xprojects/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/xprojects/</guid>
+      <description>helight的github项目</description>
+    </item>
+    
+    <item>
+      <title>Redis源码分析1:Redis启动分析</title>
+      <link>http://www.helight.cn/blog/2019/redis/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/redis/</guid>
+      <description>Redis源码分析1:Redis启动分析</description>
+    </item>
+    
+    <item>
+      <title>什么是DevOps的生命周期</title>
+      <link>http://www.helight.cn/blog/2019/what-is-devops/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/what-is-devops/</guid>
+      <description>DevOps是一个持续的过程，是对开发和运营之间活动关系的一种描述。在DevOps中，所有的参与者，包括工程师，都是为了让组织的流程能够更快，越来越高效和持续进行。这篇文章中会讨论DevOps的生命周期和理解DevOps生命周期中的必要阶段。</description>
+    </item>
+    
+    <item>
+      <title>自2013到2019年大数据领域发生了什么变化</title>
+      <link>http://www.helight.cn/blog/2019/bigdata/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/bigdata/</guid>
+      <description>自2013到2019年大数据领域发生了什么变化</description>
+    </item>
+    
+    <item>
+      <title>读《万物重构》</title>
+      <link>http://www.helight.cn/blog/2019/%E8%AF%BB%E4%B8%87%E7%89%A9%E9%87%8D%E6%9E%84/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/%E8%AF%BB%E4%B8%87%E7%89%A9%E9%87%8D%E6%9E%84/</guid>
+      <description>Gartner整理的未来5年流行技术词。</description>
+    </item>
+    
+    <item>
+      <title>Flink分布式运行时环境</title>
+      <link>http://www.helight.cn/blog/2019/flinkruntime/</link>
+      <pubDate>Wed, 20 Feb 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/flinkruntime/</guid>
+      <description>Flink分布式运行时环境</description>
+    </item>
+    
+    <item>
+      <title>Flink数据流编程模型</title>
+      <link>http://www.helight.cn/blog/2019/flinkdatamodle/</link>
+      <pubDate>Mon, 18 Feb 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/flinkdatamodle/</guid>
+      <description>Flink数据流编程模型介绍</description>
+    </item>
+    
+    <item>
+      <title>黑光技术公众号介绍</title>
+      <link>http://www.helight.cn/blog/2019/adoutwx/</link>
+      <pubDate>Thu, 17 Jan 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/adoutwx/</guid>
+      <description>本号主要维护人helight ，毕业于西安邮电大学硕士研究生，现任职于腾讯游戏增值服务部数据中心，主要负责游戏大数据应用服务和游戏数据微服务的架构应用落地。</description>
+    </item>
+    
+    <item>
+      <title>使用gitbook来写文档和文章啦</title>
+      <link>http://www.helight.cn/blog/2018/1146/</link>
+      <pubDate>Sat, 24 Nov 2018 03:47:54 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1146/</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言​&lt;/h2&gt;
+&lt;p&gt;项目中文档管理是一个比较麻烦的事情，一般的做法都是写word文档，或者pdf；针对代码或者接口文档高级一点的可以使用Doxygen或者swagger这样的工具自动生成更新文档。但是项目中还有很多文档有是图文混合的。那这样的文档怎么有效管理呢？&lt;/p&gt;
+&lt;p&gt;​   在找了几个工具之后，发现了一个比较合适的工具gitbook。这个工具之前也接触过，主要是用来书籍编写管理，这方面确实做的非常专业。但是我发现用来做文档管理也是非常好用的，所以拿来测试了一下，效果还是不错的。看看这个效果，也是左右分栏，左边是目录分类列表，右边是内容。还可以直接进行搜索。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Function as a Service介绍</title>
+      <link>http://www.helight.cn/blog/2018/faas/</link>
+      <pubDate>Sun, 18 Nov 2018 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/faas/</guid>
+      <description>本文是在今年梳理的关于FaaS的一个文档，主要目标是梳理FaaS的基本概念，发展势头，应用场景和一些基本的架构设计。</description>
+    </item>
+    
+    <item>
+      <title>golua虚拟机的使用</title>
+      <link>http://www.helight.cn/blog/2018/gopher-lua/</link>
+      <pubDate>Sun, 18 Nov 2018 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/gopher-lua/</guid>
+      <description>&lt;a href=&#34;https://github.com/yuin/gopher-lua&#34;&gt;gopher-lua&lt;/a&gt;这个组件，这个是使用golang重写的支持Lua5.1的虚拟机，在执行上可以直接golang无缝结合，有非常好的go的api接口，在使用上也流畅很多，在实现思路上也采用golang的一些思路，和golang结合更好。</description>
+    </item>
+    
+    <item>
+      <title>使用gitbook来写文档和文章</title>
+      <link>http://www.helight.cn/blog/2018/gitbook/</link>
+      <pubDate>Sun, 18 Nov 2018 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/gitbook/</guid>
+      <description>&lt;pre&gt;&lt;code&gt;gitbook其实是一个nodejs的一个工具软件，是基于nodejs的。gitbook.com就是基于这个工具开发的系统，他是一个提供了在线文档书籍开发管理的系统，它同时打通了github。&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>golang1.8以后yacc安装和使用</title>
+      <link>http://www.helight.cn/blog/2018/1143/</link>
+      <pubDate>Wed, 07 Nov 2018 12:37:34 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1143/</guid>
+      <description>&lt;p&gt;golang在1.8以后的tool工具中默认移除了yacc工具，如果要使用只能自己安装。&lt;/p&gt;
+&lt;p&gt;今天在测试代码中要用一下这个工具，突然发现没有，需要自己安装
+首先这里下载代码：
+&lt;a href=&#34;http://github.com/golang/tools/cmd/goyacc/&#34;&gt;http://github.com/golang/tools/cmd/goyacc/&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>windows10下使用dockerfile制作镜像</title>
+      <link>http://www.helight.cn/blog/2018/1137/</link>
+      <pubDate>Wed, 07 Nov 2018 10:50:40 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1137/</guid>
+      <description>&lt;p&gt;其实操作系统没有关系，主要还是Dockerfile的编写和执行，过程来说比较简单。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../imgs/2018/11/dockerinwin.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;1编写dockerfile&#34;&gt;1.编写Dockerfile&lt;/h2&gt;
+&lt;p&gt;我的dockerfile如下，主要是用于golang和c++的开发，所以相关软件安装都是和这方面有关的。 本来打算使用163的源的，后来看了一下官方源速度也还不错，就直接用官方的源了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Windows10下安装Docker记录</title>
+      <link>http://www.helight.cn/blog/2018/1129/</link>
+      <pubDate>Mon, 05 Nov 2018 08:16:52 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1129/</guid>
+      <description>&lt;p&gt;之前一直使用window安装虚拟机的方式来做linux应用，这次想使用docker来试试，这里顺便记录一下，部分资料来自网上。&lt;/p&gt;
+&lt;h2 id=&#34;一启用hyper-v&#34;&gt;一、启用Hyper-V&lt;/h2&gt;
+&lt;p&gt;打开控制面板 - 程序和功能 - 启用或关闭Windows功能，勾选Hyper-V，然后点击确定即可，如图：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Apache Flink 1.6 Documentation: Jobs and Scheduling</title>
+      <link>http://www.helight.cn/blog/2018/1122/</link>
+      <pubDate>Wed, 15 Aug 2018 07:20:39 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1122/</guid>
+      <description>&lt;p&gt;这边文档简要的描述了Flink怎么样调度作业和Flink在JobManager中如何表述和跟踪作业。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Apache Flink 1.6 Documentation: Component Stack</title>
+      <link>http://www.helight.cn/blog/2018/1120/</link>
+      <pubDate>Tue, 14 Aug 2018 11:49:12 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1120/</guid>
+      <description>&lt;p&gt;Component Stack&lt;a href=&#34;https://ci.apache.org/projects/flink/flink-docs-release-1.6/internals/components.html#component-stack&#34;&gt;https://ci.apache.org/projects/flink/flink-docs-release-1.6/internals/components.html#component-stack&lt;/a&gt;组件栈
+作为一个软件栈，Flink是一个分层设计的系统。不同的层基于底层创建，不断提升程序表现的抽象。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Flink Distributed Runtime Environment</title>
+      <link>http://www.helight.cn/blog/2018/1113/</link>
+      <pubDate>Mon, 13 Aug 2018 12:37:01 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1113/</guid>
+      <description>&lt;h2 id=&#34;flink分布式运行时环境&#34;&gt;Flink分布式运行时环境&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Tasks and Operator Chains 任务和操作链&lt;/li&gt;
+&lt;li&gt;Job Managers, Task Managers, Clients 作业管理器，任务管理器，客户端&lt;/li&gt;
+&lt;li&gt;Task Slots and Resources 任务执行槽和资源&lt;/li&gt;
+&lt;li&gt;State Backends 转态后端&lt;/li&gt;
+&lt;li&gt;Savepoints 保存点&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+    <item>
+      <title>Flink Dataflow Programming Model</title>
+      <link>http://www.helight.cn/blog/2018/1102/</link>
+      <pubDate>Thu, 09 Aug 2018 09:40:13 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1102/</guid>
+      <description>&lt;p&gt;Dataflow Programming Model&lt;/p&gt;
+&lt;h2 id=&#34;数据流编程模型&#34;&gt;数据流编程模型&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Levels of Abstraction ：数据处理层抽象&lt;/li&gt;
+&lt;li&gt;Programs and Dataflows  编程和数据流&lt;/li&gt;
+&lt;li&gt;Parallel Dataflows 并行数据流&lt;/li&gt;
+&lt;li&gt;Windows 窗口&lt;/li&gt;
+&lt;li&gt;Time 时间&lt;/li&gt;
+&lt;li&gt;Stateful Operations 带状态的操作&lt;/li&gt;
+&lt;li&gt;Checkpoints for Fault Tolerance 容错检查点&lt;/li&gt;
+&lt;li&gt;Batch on Streaming 基于流的批处理&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+    <item>
+      <title>golang调度机制学习</title>
+      <link>http://www.helight.cn/blog/2018/1094/</link>
+      <pubDate>Tue, 15 May 2018 03:48:35 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1094/</guid>
+      <description>&lt;h2 id=&#34;1golang的核心之一gorountine&#34;&gt;1.Golang的核心之一gorountine&lt;/h2&gt;
+&lt;p&gt;go语言非常重要的一个特性就是gorountine，有了这个东东，就可以很简单的做并发处理程序，比起c++和java的方式来说可以说简单了很多很多。那么gorountine又是一个什么样的东东呢? 从使用上来看它就是一个函数，使用起来有点像thread，但是实际上又不是，thread我们一般说起是指内核中的调度单元，他也是又用户态传递一个函数给thread，再由内核来调度执行，而gorountine是完全用户态的一个东西，而它要想和thread一样被执行那么就需要设计一个用户态的调度器，来保存它结构，执行现场和调度切换不同的gorountine进行执行。更多的说是一种叫做协程的东西，完全由用户态程序控制。这和C、C++完全不一样，C、C++的语言编译之后执行完全是交给操作系统内核来控制执行，而golang，在编译时会加入自己的调度器代码，在执行上按照自己的调度器进行调度执行。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>golang的struct和interface</title>
+      <link>http://www.helight.cn/blog/2018/1084/</link>
+      <pubDate>Thu, 22 Mar 2018 07:22:03 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1084/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;../../imgs/2018/03/u849181411409596040fm27gp0.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;struct&#34;&gt;struct&lt;/h2&gt;
+&lt;p&gt;struct 用来自定义复杂数据结构，可以包含多个字段（属性），可以嵌套；go中的struct类型理解为类，可以定义方法，和函数定义有些许区别；struct类型是值类型。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Golang信号处理和如何实现进程的优雅退出</title>
+      <link>http://www.helight.cn/blog/2018/1077/</link>
+      <pubDate>Thu, 15 Mar 2018 03:10:39 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1077/</guid>
+      <description>&lt;h2 id=&#34;linux系统中的信号类型&#34;&gt;Linux系统中的信号类型&lt;/h2&gt;
+&lt;p&gt;各操作系统的信号定义或许有些不同。下面列出了POSIX中定义的信号。
+在linux中使用34-64信号用作实时系统中。
+命令 man 7 signal 提供了官方的信号介绍。也可以是用kill -l来快速查看
+列表中，编号为1 ~ 31的信号为传统UNIX支持的信号，是不可靠信号(非实时的)，编号为32 ~ 63的信号是后来扩充的，称做可靠信号(实时信号)。不可靠信号和可靠信号的区别在于前者不支持排队，可能会造成信号丢失，而后者不会。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Goroutine&#43;Channel&#43;WaitGroup使用</title>
+      <link>http://www.helight.cn/blog/2018/1046/</link>
+      <pubDate>Fri, 02 Mar 2018 09:14:13 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1046/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;../../imgs/2018/03/timg.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;介绍&#34;&gt;介绍&lt;/h2&gt;
+&lt;h3 id=&#34;goroutine&#34;&gt;goroutine&lt;/h3&gt;
+&lt;p&gt;golang语言中最有特色之一的东东就是这个goroutine了，很多时候问起别人为什么golang的好用，golang的网络性能可以那么好，一般都会多多少少想到goroutine，提起goroutine。在linux中内核的调度最小单位是就是thread，同一个进程中的多个thread线程就对应内核中的多个thread实体。所以thread是内核级的，而gorountine是一个不同于thread的概念，gorountine是一个用户态，另外一种说法也就携程，是用户态的一种调度粒度，每个gorountine也有自己的栈空间，而且是在用户内存中的。golang中实现了对用户态的一种代码片段的高效调度执行，就目前来看是非常有效的，而且给用户编程带来了极大的方便。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>golang网络编程笔记</title>
+      <link>http://www.helight.cn/blog/2018/1040/</link>
+      <pubDate>Mon, 12 Feb 2018 11:39:39 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1040/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;../../imgs/2018/03/u38050349762904914748fm27gp0.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;网络编程类型&#34;&gt;网络编程类型&lt;/h2&gt;
+&lt;p&gt;我们一般提到的网络编程类型有两种：tcp和udp，都属于网络传输层协议支持下的协议，而且在目前也是网络编程中最基础的。这其中具体说来有有个socket的概念，tcp和udp都是协议，而socket就是一个具体的实现了，所以有tcp socket和udpsocket。golang是自身就带有网络库的net的，使用非常方便。
+同时我这里还会简单介绍一下另外一种协议，用户态的，基于udp的，但是具有tcp的连接回话管理，重传确认等机制-kcp。
+网络编程主要的目的是进行通信，所以就会涉及到至少2个端的通信，一般我们把这两个端分为服务端和客户端，服务端主要是起一个服务，实际上也就是监听一个服务端口，接受客户端的连接请求，并且接受请求命令进行服务功能的执行。客户端主要就是向服务端发起连接请求连接到服务端，并且先服务端发送命令字，让服务端执行服务。所以在后面的介绍中就会有一个客户端程序和服务端程序。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>golang的grpc学习笔记2</title>
+      <link>http://www.helight.cn/blog/2018/1036/</link>
+      <pubDate>Wed, 07 Feb 2018 08:45:39 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1036/</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;上一篇文章简单体验了一下grpc的golang使用，从环境安装到简单demo的编写，编译和测试，感觉还不错，今天再进一步学习分析其用法和一些要注意的坑。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../imgs/2018/03/u849181411409596040fm27gp0.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>golang grpc简单使用</title>
+      <link>http://www.helight.cn/blog/2018/1017/</link>
+      <pubDate>Tue, 06 Feb 2018 10:48:11 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1017/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;../../imgs/2018/03/timg-1.jpg&#34; alt=&#34;&#34;&gt;
+gRPC是一个高性能、通用的开源RPC框架，基于ProtoBuf(Protocol Buffers)序列化协议开发，且支持众多开发语言。&lt;/p&gt;
+&lt;h3 id=&#34;1相关包安装&#34;&gt;1、相关包安装&lt;/h3&gt;
+&lt;h4 id=&#34;1protobuf&#34;&gt;1）protobuf&lt;/h4&gt;
+&lt;p&gt;在下面的链接下载之后源码安装，
+&lt;a href=&#34;https://github.com/google/protobuf&#34;&gt;https://github.com/google/protobuf&lt;/a&gt;
+安装过程也比较简单：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>在Debian 9 安装Docker和Docker基本使用方法</title>
+      <link>http://www.helight.cn/blog/2018/1015/</link>
+      <pubDate>Tue, 06 Feb 2018 03:57:36 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1015/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;../../imgs/2018/03/u2180873048124626712fm27gp0.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;一-安装步骤&#34;&gt;一 安装步骤&lt;/h2&gt;
+&lt;p&gt;1）先清除以前的版本&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo apt-get -y remove docker docker-engine docker.io
+Contents such as volumes, images, and networks under /var/lib/docker/ directory are preserved.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>helight.info域名启用</title>
+      <link>http://www.helight.cn/blog/2018/1009/</link>
+      <pubDate>Mon, 29 Jan 2018 06:49:58 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1009/</guid>
+      <description>&lt;p&gt;纠结了好久，终于定了，启用了helight.info这个域名，同时还申请了helight.cn，helight.com的域名已经被人注册了，还是一个黑科技公司，看产品就很奇怪。&lt;/p&gt;
+&lt;p&gt;这几天已经配置把helight.info配置ok了，整个网站都切换了，zhwen.org还会继续使用，欢迎大家浏览。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>微信小程序开发体验</title>
+      <link>http://www.helight.cn/blog/2018/1003/</link>
+      <pubDate>Thu, 25 Jan 2018 09:30:12 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1003/</guid>
+      <description>&lt;p&gt;一直在想怎么做一个小程序，当然是一个有用的小程序，前天突然想到可以做一个小程序，把我的blog的内容拉去下来，并且在里面可以展示，给自己的blog增加一个移动端的入口，而且可以在每篇文章后面放一个打赏码。自己想着还是挺好的， 所以昨天注册了一个小程序“黑光技术”，现在申请还是比较方便的，不太好的一点就是要每次申请都要用一个不同的邮箱地址，我是用QQ邮箱的域名邮箱来做的，都是一个邮箱，每次申请就增加一个别名。
+做一个这样的一个小程序需要几个方面的配合：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>golang的httpserver优雅重启</title>
+      <link>http://www.helight.cn/blog/2018/984/</link>
+      <pubDate>Wed, 24 Jan 2018 11:27:37 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/984/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;../../imgs/2018/03/u315048364941379819fm27gp0.jpg&#34; alt=&#34;&#34;&gt;
+去年在做golangserver的时候，内部比较头疼的就是在线服务发布的时候，大量用户的请求在发布时候会被重连，在那时候也想了n多的方法，最后还是落在一个github上的项目，facebook的一个golang项目grace，那时候简单研究测试了一下可以就直接在内部使用了起来，这段时间突然想起来，又想仔细研究一下这个项目了。&lt;/p&gt;
+&lt;p&gt;从原理上来说是这样一个过程：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>nginx&#43;php站点配置https</title>
+      <link>http://www.helight.cn/blog/2018/982/</link>
+      <pubDate>Wed, 24 Jan 2018 05:21:17 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/982/</guid>
+      <description>&lt;p&gt;今天准备搞一个小程序测试一下，结果发现如果要链接我的站点，那就必须要站点支持https。所以就顺便鼓捣一下把站点升级一下，增加https的访问支持。
+    首先解决的就是证书问题，一个个人blog就没有必要买证书了，发现证书老贵老贵的。所以找了找免费证书，最后发现腾讯云提供的还是比较好的，很方便申请，这里&lt;a href=&#34;https://buy.cloud.tencent.com/ssl&#34;&gt;https://buy.cloud.tencent.com/ssl&lt;/a&gt; 直接选择免费证书，输入自己的域名就可以申请了，再按照他的流程就可以生效了，最后下载下来就可以用了。阿里云说是有，但是我的申请界面没有看到，所以没法用。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>lex和yacc 学习笔记</title>
+      <link>http://www.helight.cn/blog/2018/977/</link>
+      <pubDate>Sat, 20 Jan 2018 16:01:36 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/977/</guid>
+      <description>&lt;p&gt;前一段时间在项目中要使用一个规则表达式计算的功能，而且想可以任意扩展计算功能，比如计算AUB，A和B都表示一个号码包，计算并集，当然实际使用的公式会更为复杂，这里举例说明。在计算时候要判断如果A包已经计算ok了就可以使用A包，如果没有计算成功就需要发起计算并且等待计算成功，B包也是要同样的处理过程，最后再计算并集。当然这样一个功能自己定义写肯定是没问题的，但是还要想到后面的扩展性和程序代码可移交等问题，还是想有一个通用的方法来解决，所以在最后想到了使用yacc和lex来组织解决。实际上后来发现用yacc和lex非常方便的可以解决这类问题，而且在扩展性上非常好。所以想这里先总结一下yacc和lex使用的一些语法特点和具体我们使用的方式。现在这篇中总体总结一下yacc和lex的语法特点，下一篇再写具体使用中的一些过程。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>如何使用Swagger编写API文档</title>
+      <link>http://www.helight.cn/blog/2018/974/</link>
+      <pubDate>Fri, 19 Jan 2018 15:04:42 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/974/</guid>
+      <description>&lt;p&gt;    最近在梳理内部系统的架构设计，而且前端时间也在kindle上看了一些国外开发在API的架构设计上的一些思考。所以就想着我们内部系统的api也应该梳理梳理了。
+    目前内部使用golang开发是重头，基本上的服务和调度都是使用golang来开发，而且内部模块之间的调用都是http的接口。而且目前golang1.8已经默认支持了http2的协议，在效率上以前顾虑的问题，现在都有所缓解，所以把这块的梳理重点放在了http接口的梳理上。&lt;/p&gt;
+&lt;p&gt;    重点看了soap，json-rpc，restfull。在梳理中发现一个比较有意思的东东，叫 Swagger，中文名字也比较有意思：丝袜哥，哈哈。这个东西是做什么的呢：专门用户规范设计API的，简单用了一下还是非常好用的。在其官网这样介绍的：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch5.2.2安装坑记录</title>
+      <link>http://www.helight.cn/blog/2017/970/</link>
+      <pubDate>Thu, 16 Mar 2017 03:53:38 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2017/970/</guid>
+      <description>&lt;p&gt;部署完成ES之后，如果我们不修改配置，那么默认只有本机可以访问ES的api接口，如果需要给外部机器访问，那么就需要修改ES的配置了。&lt;/p&gt;
+&lt;p&gt;在默认情况下，ES只允许本地访问api接口，如果我们希望在另外一台机器上访问ES的接口的话，需要配置主机地址：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>为游戏分析设计的分布式数据存储系统</title>
+      <link>http://www.helight.cn/blog/2016/967/</link>
+      <pubDate>Tue, 27 Dec 2016 04:07:59 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2016/967/</guid>
+      <description>本文是今年5月在中国云计算大会中的分享内容，主要是介绍腾讯游戏数据分析平台的一些后台架构设计和游戏分析思路。 在“大数据”相对泛滥的今天，我们</description>
+    </item>
+    
+    <item>
+      <title>Spark在腾讯游戏数据分析和营销干预中的应用实践</title>
+      <link>http://www.helight.cn/blog/2016/spark_idata/</link>
+      <pubDate>Sun, 18 Dec 2016 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2016/spark_idata/</guid>
+      <description>Spark在腾讯游戏数据分析和营销干预中的应用实践</description>
+    </item>
+    
+    <item>
+      <title>使用Spark分析网站日志</title>
+      <link>http://www.helight.cn/blog/2016/964/</link>
+      <pubDate>Thu, 29 Sep 2016 08:28:01 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2016/964/</guid>
+      <description>&lt;p&gt;郁闷从昨天开始个人网站不断的发出告警504错误，登录机器看了一下是php-fpm报错，这个错误重启php-fpm后，几个小时就告警，快一年了都没什么问题，奇怪&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>腾讯游戏数据分析平台</title>
+      <link>http://www.helight.cn/blog/2016/idata/</link>
+      <pubDate>Wed, 18 May 2016 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2016/idata/</guid>
+      <description>腾讯游戏数据分析平台</description>
+    </item>
+    
+    <item>
+      <title>Spark分区器HashPartitioner详解和扩展</title>
+      <link>http://www.helight.cn/blog/2015/951/</link>
+      <pubDate>Mon, 30 Nov 2015 08:33:44 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/951/</guid>
+      <description>&lt;p&gt;在Spark中，存在两类分区函数：HashPartitioner和RangePartitioner，它们都是继承自Partitioner，主要提供了每个RDD有几个分区（numPartitions）以及对于给定的值返回一个分区ID（0~numPartitions-1），也就是决定这个值是属于那个分区的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>分布式系统的Raft算法(转)</title>
+      <link>http://www.helight.cn/blog/2015/928/</link>
+      <pubDate>Wed, 14 Oct 2015 07:58:03 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/928/</guid>
+      <description>&lt;p&gt;过去, Paxos一直是分布式协议的标准，但是Paxos难于理解，更难以实现，Google的分布式锁系统Chubby作为Paxos实现曾经遭遇到很多坑。&lt;/p&gt;
+&lt;p&gt;来自Stanford的新的分布式协议研究称为Raft，它是一个为真实世界应用建立的协议，主要注重协议的落地性和可理解性。&lt;/p&gt;
+&lt;p&gt;在了解Raft之前，我们先了解Consensus一致性这个概念，它是指多个服务器在状态达成一致，但是在一个分布式系统中，因为各种意外可能，有的服务器可能会崩溃或变得不可靠，它就不能和其他服务器达成一致状态。这样就需要一种Consensus协议，一致性协议是为了确保容错性，也就是即使系统中有一两个服务器当机，也不会影响其处理过程。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【转载】从Hadoop到Spark的架构实践</title>
+      <link>http://www.helight.cn/blog/2015/918/</link>
+      <pubDate>Tue, 29 Sep 2015 09:53:35 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/918/</guid>
+      <description>&lt;p&gt;当下，Spark已经在国内得到了广泛的认可和支持：2014年，Spark Summit China在北京召开，场面火爆；同年，Spark Meetup在北京、上海、深圳和杭州四个城市举办，其中仅北京就成功举办了5次，内容更涵盖Spark Core、Spark Streaming、Spark MLlib、Spark SQL等众多领域。而作为较早关注和引入Spark的移动互联网大数据综合服务公司，TalkingData也积极地参与到国内Spark社区的各种活动，并多次在Meetup中分享公司的Spark使用经验。本文则主要介绍TalkingData在大数据平台建设过程中，逐渐引入Spark，并且以Hadoop YARN和Spark为基础来构建移动大数据平台的过程。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ubuntu中编译安装protobuf记录</title>
+      <link>http://www.helight.cn/blog/2015/909/</link>
+      <pubDate>Fri, 11 Sep 2015 08:07:49 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/909/</guid>
+      <description>&lt;h2 id=&#34;1下载protobuf&#34;&gt;1.下载protobuf&lt;/h2&gt;
+&lt;p&gt;下载地址：https://github.com/google/protobuf/releases&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Java通过swig调用C&#43;&#43;接口</title>
+      <link>http://www.helight.cn/blog/2015/907/</link>
+      <pubDate>Thu, 10 Sep 2015 11:09:54 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/907/</guid>
+      <description>&lt;p&gt;记录一下过程&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>spark1.3.1单机安装测试备忘</title>
+      <link>http://www.helight.cn/blog/2015/900/</link>
+      <pubDate>Tue, 09 Jun 2015 03:31:45 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/900/</guid>
+      <description>&lt;h2 id=&#34;1下载安装spark和scala&#34;&gt;1.下载,安装spark和scala:&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;http://spark.apache.org/downloads.html&#34;&gt;http://spark.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下载1.3.1的hadoop2.6版本. spark-1.3.1-bin-hadoop2.6.tgz&lt;/p&gt;
+&lt;p&gt;下载到本地之后直接解压即可:&lt;/p&gt;
+&lt;p&gt;helight@helight-xu:/data/spark$ tar zxf spark-1.3.1-bin-hadoop2.6.tgz&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.scala-lang.org/download/&#34;&gt;http://www.scala-lang.org/download/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下载scala,2.11.6,也是直接解压即可:&lt;/p&gt;
+&lt;p&gt;helight@helight-xu:/data/spark$ tar zxf scala-2.11.6.tgz&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>thrift maven编译运行</title>
+      <link>http://www.helight.cn/blog/2015/896/</link>
+      <pubDate>Fri, 22 May 2015 04:46:04 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/896/</guid>
+      <description>&lt;p&gt;dependencies编译，pom.xml中加入build配置：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>zookeeper原理2（转）</title>
+      <link>http://www.helight.cn/blog/2015/891/</link>
+      <pubDate>Thu, 22 Jan 2015 03:06:02 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/891/</guid>
+      <description>&lt;p&gt;ZooKeeper 是一个分布式的，开放源码的分布式应用程序协调服务，它包含一个简单的原语集，分布式应用程序可以基于它实现同步服务，配置维护和命名服务等。 Zookeeper是hadoop的一个子项目，其发展历程无需赘述。在分布式应用中，由于工程师不能很好地使用锁机制，以及基于消息的协调机制不适合在 某些应用中使用，因此需要有一种可靠的、可扩展的、分布式的、可配置的协调机制来统一系统的状态。Zookeeper的目的就在于此。本文简单分析 zookeeper的工作原理，对于如何使用zookeeper不是本文讨论的重点。本文主要是对Zookeeper的是想原理进行分析说明。只有在熟悉实现原理之后才能把Zookeeper使用的更好。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>zookeeper原理</title>
+      <link>http://www.helight.cn/blog/2015/880/</link>
+      <pubDate>Thu, 22 Jan 2015 02:56:49 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/880/</guid>
+      <description>&lt;p&gt;ZooKeeper是Hadoop Ecosystem中非常重要的组件，它的主要功能是为分布式系统提供一致性协调(Coordination)服务，与之对应的Google的类似服务叫Chubby。
+分布式环境中大多数服务是允许部分失败，也允许数据不一致，但有些最基础的服务是需要高可靠性，高一致性的，这些服务是其他分布式服务运转的基础，比如naming service、分布式lock等，这些分布式的基础服务有以下要求：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>docker镜像的创建和下载使用</title>
+      <link>http://www.helight.cn/blog/2015/878/</link>
+      <pubDate>Tue, 20 Jan 2015 09:09:17 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/878/</guid>
+      <description>&lt;h2 id=&#34;首先查看已有的imags&#34;&gt;首先查看已有的imags。 &lt;/h2&gt;
+&lt;p&gt;root@helight-Xu:/data# docker images
+REPOSITORY TAG IMAGE ID CREATED VIRTUAL SIZE
+debian latest 4d6ce913b130 3 days ago 84.98 MB
+ubuntu latest b39b81afc8ca 3 days ago 188.3 MB
+&lt;none&gt; &lt;none&gt; 8eaa4ff06b53 2 weeks ago 188.3 MB
+这个在上一篇文章中介绍了如何下载已经提供的基础image包。&lt;a href=&#34;http://zhwen.org/?p=876&#34; target=&#34;_blank&#34;&gt;&lt;a href=&#34;http://zhwen.org/?p=876&#34;&gt;http://zhwen.org/?p=876&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>docker初体验和使用笔记</title>
+      <link>http://www.helight.cn/blog/2015/876/</link>
+      <pubDate>Tue, 20 Jan 2015 06:29:02 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/876/</guid>
+      <description>&lt;p&gt;在ubuntu13.10上体验docker&lt;/p&gt;
+&lt;p&gt;首先要检测以下你的内核版本&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo uname -a
+Linux helight-Xu 3.11.0-26-generic &lt;span style=&#34;color:#75715e&#34;&gt;#45-Ubuntu SMP Tue Jul 15 04:02:06 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>用户画像数据建模方法(zz)</title>
+      <link>http://www.helight.cn/blog/2015/873/</link>
+      <pubDate>Wed, 14 Jan 2015 07:45:50 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/873/</guid>
+      <description>&lt;p&gt;原文：&lt;a href=&#34;http://blog.baifendian.com/?p=8015&#34;&gt;http://blog.baifendian.com/?p=8015&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;从1991年Tim Berners-Lee发明了万维网（World Wide Web）开始，到20年后2011年，互联网真正走向了一个新的里程碑，进入了“大数据时代”。经历了12、13两年热炒之后，人们逐渐冷静下来，更加聚 焦于如何利用大数据挖掘潜在的商业价值，如何在企业中实实在在的应用大数据技术。伴随着大数据应用的讨论、创新，个性化技术成为了一个重要落地点。相比传 统的线下会员管理、问卷调查、购物篮分析，大数据第一次使得企业能够通过互联网便利地获取用户更为广泛的反馈信息，为进一步精准、快速地分析用户行为习 惯、消费习惯等重要商业信息，提供了足够的数据基础。伴随着对人的了解逐步深入，一个概念悄然而生：用户画像（UserProfile），完美地抽象出一 个用户的信息全貌，可以看作企业应用大数据的根基。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>一种简单的分布式存储系统</title>
+      <link>http://www.helight.cn/blog/2015/862/</link>
+      <pubDate>Mon, 12 Jan 2015 10:46:37 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/862/</guid>
+      <description>&lt;p&gt;三层架构（MetaNodeMonitor+MetaNode+DataNode），核心是下面两层（MetaNode+DataNode），下面两层是可以脱离Monitor独立运行。&lt;/p&gt;
+&lt;p&gt;Monitor的存在主要是作为一个MetaNode的监控和MetaNode出错时进行切换角色，并且通知DataNode进行切换。&lt;/p&gt;
+&lt;p&gt;DataNode在获取主MetaNode的Ip后进行本地缓存，不需要主动询问Monitor，而且DataNode还可以主动从任意MetaNode获取主MetaNode的IP信息。&lt;/p&gt;
+&lt;p&gt;MetaNode作为整个系统的大脑，存储所有的文件元信息，这一点和HDFS的NameNode是有点类似的，但是MetaNode做了主备和自动切换设计，相对有更高的可用性。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>两阶段提交算法</title>
+      <link>http://www.helight.cn/blog/2015/858/</link>
+      <pubDate>Mon, 12 Jan 2015 10:42:24 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/858/</guid>
+      <description>&lt;p&gt;两阶段提交协议是在事务处理、数据库，以及计算机网络中使用的一种原子提交协议(atomic commitment)。它是一个分布式算法，协调在整个分布式原子事务中的参与者的行为(commit或者roll back)。这个协议在一些系统错误发生时仍然能够成功，((两阶段提交协议))但并不能保证对所有错误都能进行容错。为了能做错误恢复，协议的所有参与 者都需要使用日志对协议状态进行记录。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>netty用pb来实现多接口rpc</title>
+      <link>http://www.helight.cn/blog/2014/852/</link>
+      <pubDate>Wed, 17 Dec 2014 08:13:35 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/852/</guid>
+      <description>&lt;p&gt;在netty中使用pb， nettty的pb编解码必须指定要解码和编码的pb结构体，这然做多接口的应用就很不方便，这里采用了一种简单的方式来解决。
+pb定义如下：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>zz MySQL的InnoDB索引原理详解 </title>
+      <link>http://www.helight.cn/blog/2014/833/</link>
+      <pubDate>Mon, 27 Oct 2014 02:10:27 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/833/</guid>
+      <description>&lt;h2 id=&#34;原文地址httpwwwadmin10000comdocument5372html&#34;&gt;原文地址：http://www.admin10000.com/document/5372.html&lt;/h2&gt;
+&lt;h2 id=&#34;摘要&#34;&gt;摘要：&lt;/h2&gt;
+&lt;p&gt;本篇介绍下Mysql的InnoDB索引相关知识，从各种树到索引原理到存储的细节。&lt;/p&gt;
+&lt;p&gt;InnoDB是Mysql的默认存储引擎(Mysql5.5.5之前是MyISAM，&lt;a href=&#34;http://dev.mysql.com/doc/refman/5.5/en/server-options.html#option_mysqld_default-storage-engine&#34;&gt;文档&lt;/a&gt;。本着高效学习的目的，本篇以介绍InnoDB为主，少量涉及MyISAM作为对比。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ngingx访问限制和iptables简单使用</title>
+      <link>http://www.helight.cn/blog/2014/830/</link>
+      <pubDate>Tue, 14 Oct 2014 02:18:34 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/830/</guid>
+      <description>&lt;p&gt;为了方便安装了一个phpmyadmin，结果公司扫描了之后说要做一些安全限制，主要还是用到nginx的访问限制和iptables，这里稍微做一下记录&lt;/p&gt;
+&lt;p&gt;nginx的限制较为简单，在server中添加对phpmyadmin的限制即可&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>hdfs的C&#43;&#43;接口编译测试</title>
+      <link>http://www.helight.cn/blog/2014/821/</link>
+      <pubDate>Fri, 09 May 2014 02:37:59 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/821/</guid>
+      <description>&lt;p&gt;项目中要做一个数据包管理服务，我们主要项目开发都是C++的，所以这个数据包管理也是c++开发的，但是数据包的存储是个问题，最后选择了本地存储和hdfs存储结合。&lt;/p&gt;
+&lt;p&gt;昨天调试了以下hdfs的C++接口，简单这里记录一下：&lt;/p&gt;
+&lt;p&gt;代码程序是网上随处可以搜到的测试代码：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>linux的io栈图</title>
+      <link>http://www.helight.cn/blog/2014/815/</link>
+      <pubDate>Tue, 06 May 2014 10:55:36 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/815/</guid>
+      <description>&lt;p&gt;G+上看到有人画的一个图，非常不错&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title> zz分布式文件系统FastDFS架构剖析</title>
+      <link>http://www.helight.cn/blog/2014/810/</link>
+      <pubDate>Sun, 04 May 2014 09:16:07 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/810/</guid>
+      <description>&lt;p&gt;【本文系外部转贴，原文地址：http://www.programmer.com.cn/4380/】&lt;/p&gt;
+&lt;p&gt;FastDFS是一款类Google FS的开源分布式文件系统，它用纯C语言实现，支持Linux、FreeBSD、AIX等UNIX系统。 它只 能通过专有API对文件进行存取访问，不支持POSIX接口方式，不能mount使用。准确地讲，Google FS以及FastDFS、 mogileFS、HDFS、TFS等类Google FS都不是系统级的分布式文件系统，而是应用级的分布式文件存储服务。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>扩展sawzall代码实现自定义接口</title>
+      <link>http://www.helight.cn/blog/2014/808/</link>
+      <pubDate>Sun, 04 May 2014 09:12:07 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/808/</guid>
+      <description>&lt;p&gt;使用sawzall开发mr程序虽然很快，不过也有不少限制，尤其对于新手来说，比如不能直接像c++一样调用线程的库，不过它提供了一种扩展开发的方式，我们可以自己修改sawzall代码实现新的功能接口，在下载平台的sawzall代码中，我们就扩展了一种聚合器，两个和我们web相关的功能接口：连接我们的domain service进行聚合域名的识别，根据url进行域名提取。这里以使用我们comm库中的url类进行域名提取为例来说明一下sawzall的功能函数扩展。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>海量数据分析：Sawzall并行处理（中文版论文）</title>
+      <link>http://www.helight.cn/blog/2014/800/</link>
+      <pubDate>Sun, 04 May 2014 09:10:33 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/800/</guid>
+      <description>&lt;p&gt;海量数据分析：Sawzall并行处理（中文版论文）
+Google的工程师为了方便内部人员使用MapReduce，研发了一种名为 Sawzall的DSL，同时Hadoop也推出了类似Sawzall的Pig语言，但在语法上面有一定的区别。今天就给大家贴一下Sawall的论文， 值得注意的是其第一作者是UNIX大师之一（Rob Pike）。原文地址，并在这里谢谢译者崮山路上走9遍。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>使用gdb和ps定位程序cpu占用问题</title>
+      <link>http://www.helight.cn/blog/2014/798/</link>
+      <pubDate>Wed, 30 Apr 2014 04:05:35 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/798/</guid>
+      <description>&lt;p&gt;先使用ps获取子进程cpu占用时间，可以看出那个线程cpu占用严重&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Storm云计算学习摘录总结</title>
+      <link>http://www.helight.cn/blog/2014/790/</link>
+      <pubDate>Sat, 12 Apr 2014 03:47:12 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/790/</guid>
+      <description>&lt;p&gt;本想自己也总结以下，看到这篇文章总结的太好了，直接转载了&lt;/p&gt;
+&lt;p&gt;原文：http://my.oschina.net/yilian/blog/175451&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>liunx系统分析图解</title>
+      <link>http://www.helight.cn/blog/2014/783/</link>
+      <pubDate>Fri, 11 Apr 2014 09:51:54 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/783/</guid>
+      <description>看完本文有收获？请分享给更多人 关注「黑光技术」，关注大数据+微服务</description>
+    </item>
+    
+    <item>
+      <title>Sqlite使用笔记</title>
+      <link>http://www.helight.cn/blog/2014/781/</link>
+      <pubDate>Thu, 10 Apr 2014 01:23:12 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/781/</guid>
+      <description>&lt;p&gt;在目前做的元数据节点中，为了保存一些节点的私有数据，选择了本地存储，在选择本地存储的选择上又选择了使用sqlite，sqlite对数据存储和数据解析在使用比较简单。而且编译入当前代码也是比较容易的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>☯道&amp;禅</title>
+      <link>http://www.helight.cn/blog/2014/776/</link>
+      <pubDate>Sun, 06 Apr 2014 05:07:32 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/776/</guid>
+      <description>&lt;p&gt;Tao&amp;hellip; &amp;hellip;
+道生一，一生二，二生三，三生万物。。&lt;/p&gt;
+&lt;p&gt;一花一世界，一叶一菩提！&lt;/p&gt;
+&lt;p&gt;禅曰：依赖导致痛苦！&lt;/p&gt;
+&lt;p&gt;完美之道，不在无可增加，而在无可删减。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Helight.Xu&#39;s GNU/Linux</title>
+      <link>http://www.helight.cn/blog/2014/774/</link>
+      <pubDate>Sun, 06 Apr 2014 05:04:15 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/774/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;http://www.debian.org/logos/openlogo-nd-50.png&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;http://www.debian.org/Pics/debian.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Zhwen Xu(Zhenwen Xu, 许振文 in Chinese), post-graduate student majored in the &lt;a href=&#34;http://cs.xupt.edu.cn&#34;&gt;CS Department&lt;/a&gt; of &lt;a href=&#34;http://www.xupt.edu.cn&#34;&gt;Xi&amp;rsquo;an  University of Post and Telecommunications&lt;/a&gt;. 
+My majore is embedded system.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>scons学习笔记</title>
+      <link>http://www.helight.cn/blog/2014/758/</link>
+      <pubDate>Sun, 06 Apr 2014 03:42:15 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/758/</guid>
+      <description>&lt;p&gt;scons是一个python写的用来编译源码的一个工具，类似于make工具，但是支持的语言更多，灵活性更强。&lt;/p&gt;
+&lt;p&gt;这里来介绍一下scons的使用。下载可以在其官方网站：&lt;a href=&#34;http://www.scons.org/&#34;&gt;&lt;a href=&#34;http://www.scons.org&#34;&gt;http://www.scons.org&lt;/a&gt;&lt;/a&gt;，源码安装就不说了，ubuntu和debian上安装更为方便，直接apt-get install scons就可以了。本文以编译c、c++为例来介绍其使用。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ROMFS文件系统分析</title>
+      <link>http://www.helight.cn/blog/2014/756/</link>
+      <pubDate>Sun, 06 Apr 2014 03:37:03 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/756/</guid>
+      <description>&lt;p&gt;作者：许振文&lt;/p&gt;
+&lt;p&gt;ROMFS是一种简单的只读文件系统，主要是用来当做初始文件系统来使用的，在嵌入式linux或是uclinux中通常使用这中文件系统来作为引导系统的文件系统，甚至uclinux有时就直接把ROMFS作为其根文件系统，而不是将其作为系统启动中的过渡文件系统。在前面我也分析过，linux操作系统启动中一个是要加载内核，另一个就是要加载一个用于系统简单初始化的文件系统。这个文件系统的格式也是经过了很多发展的。现在一般使用的是一中cpio的格式。在嵌入式系统中一般使用romfs＋其它的可读文件系统。romfs由于它的小巧性（其内核编译只有4000字节），所以非常适合作为系统启动初始化的文件系统。本文就是对ROMFS文件系统进行结构上的分析。前面我也曾对其源代码结构进行了简单的分析。关于ROMFS最为权威的资料是内核源代码树下的“Documentation/filesystems/romfs.txt”。本文多数资料就是来自于该文件。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Ramdisk文件系统的制作-V0.2</title>
+      <link>http://www.helight.cn/blog/2014/754/</link>
+      <pubDate>Sun, 06 Apr 2014 03:36:30 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/754/</guid>
+      <description>&lt;p&gt;作者：许振文&lt;/p&gt;
+&lt;h2 id=&#34;ramdisk文件系统&#34;&gt;Ramdisk文件系统:&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;可以利用工具软件&lt;/span&gt;BusyBox制作Ramdisk文件系统.busybox是一个集成了一百多个最常用linux命令和工具的软件,&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;他甚至还集成了&lt;/span&gt;
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;一个&lt;/span&gt;http服务器和一个telnet服务器,&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;而所有这一切功能却只有区区&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;M左右的大小.&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;完整的&lt;/span&gt;BusyBox源代码可以从
+http:&lt;span style=&#34;color:#75715e&#34;&gt;//www.busybox.net下载,压缩包大小为1.3 MB左右。下面是如何使用编译BusyBox的过程。
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>嵌入式开发中NFS调试环境搭建-V0.2</title>
+      <link>http://www.helight.cn/blog/2014/752/</link>
+      <pubDate>Sun, 06 Apr 2014 03:35:29 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/752/</guid>
+      <description>&lt;p&gt;作者：许振文&lt;/p&gt;
+&lt;h2 id=&#34;开发环境s3c4510buclinux24xubuntu710&#34;&gt;开发环境：S3C4510B+uCLinux－2.4.x+ubuntu7.10&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;建立的目的：可以直接在开发板上挂载开发主机上的文件系统，减少程序的烧写次数，提高程序开发速度。&lt;/span&gt;
+
+NFS(Network File System, &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;网络文件系统&lt;/span&gt;)&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;可以通过&lt;/span&gt;NFS把远程主机的目录挂载到本机,&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;使得访问远程主机的目录就像访问本地目&lt;/span&gt;
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;录一样方便快捷。&lt;/span&gt;
+NFS一般是实现linux系统之间实现共享.&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;当然和&lt;/span&gt;unix之间也应该可以使用它来实现共享&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;。但如果需要在&lt;/span&gt;linux和windows系统之间共
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;享&lt;/span&gt;, &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;就得使用&lt;/span&gt;samba了&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，&lt;/span&gt;
+NFS是一个RPC服务程序,&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;所以在使用它之前&lt;/span&gt;, &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;先要映射好端口——通过&lt;/span&gt;portmap设定. &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;比如&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;某个&lt;/span&gt;NFS client发起NFS服务请求时, 
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;它需要先得到一个端口&lt;/span&gt;(port).&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;所以它先通过&lt;/span&gt;portmap得到port number.&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;所以在启动&lt;/span&gt;NFS之前, &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;需要启动&lt;/span&gt;portmap服务&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;！&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>GUN 工具学习</title>
+      <link>http://www.helight.cn/blog/2014/750/</link>
+      <pubDate>Sun, 06 Apr 2014 03:34:43 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/750/</guid>
+      <description>&lt;p&gt;作者：许振文&lt;/p&gt;
+&lt;h2 id=&#34;nm&#34;&gt;nm&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;nm默认的输入文件为a.out，也就是说，如果nm后面没有跟要查看的二进制文件名的话，
+那它会默认读取当前文件夹下的a.out文件作为其输入。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>内核补丁制作与提交</title>
+      <link>http://www.helight.cn/blog/2014/746/</link>
+      <pubDate>Sun, 06 Apr 2014 03:32:04 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/746/</guid>
+      <description>&lt;p&gt;作者：许振文&lt;/p&gt;
+&lt;h2 id=&#34;内核源码下载&#34;&gt;内核源码下载&lt;/h2&gt;
+&lt;p&gt;内核代码的管理是采用的git来管理的，所以要下载内核最新的代码的话就得使用git工具来下载了。git工具的使用我在上一篇文章中已经写了个大概，所以具体可以参考其中的使用说明。
+一般测试可以下载部分或是全部的源代码，我们一般会下载Linus Torvalds的git树下的源码。URL如下：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>git使用总结</title>
+      <link>http://www.helight.cn/blog/2014/744/</link>
+      <pubDate>Sun, 06 Apr 2014 03:30:47 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/744/</guid>
+      <description>&lt;p&gt;作者：许振文&lt;/p&gt;
+&lt;h2 id=&#34;git-介绍&#34;&gt;Git 介绍&lt;/h2&gt;
+&lt;p&gt;最近的小项目想使用git来管理，应为git可以不需要服务器而在任意的Linux机器上管理代码，相对svn和cvs还是有它的优势的，所以我选用了git来管理我的小项目，以后在提供svn的管理。&lt;/p&gt;
+&lt;p&gt;在使用了一段时间后想写一点总结，可能也是和网络上其其它的git的文章差不多。但是作为我的使用总结还是很有必要的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Vim&#43;cscope&#43;ctags&#43;tags阅读源代码</title>
+      <link>http://www.helight.cn/blog/2014/742/</link>
+      <pubDate>Sun, 06 Apr 2014 03:29:08 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/742/</guid>
+      <description>&lt;p&gt;作者：许振文
+linux源代码提供了制作cscope索引文件和tags文件的make命令。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>AutoMake 学习笔记</title>
+      <link>http://www.helight.cn/blog/2014/731/</link>
+      <pubDate>Sat, 05 Apr 2014 11:53:45 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/731/</guid>
+      <description>&lt;p&gt;作者：许振文&lt;/p&gt;
+&lt;h2 id=&#34;过程记录&#34;&gt;过程记录：&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.&lt;/span&gt; autoscan
+&lt;span style=&#34;color:#ae81ff&#34;&gt;2.&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;修改&lt;/span&gt;configure.scan&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，重命名为&lt;/span&gt;configure.in,&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;编辑Ｍａｋｅｆｉｌｅ&lt;/span&gt;.&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;ａｍ&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;3.&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;运行&lt;/span&gt;aclocal
+&lt;span style=&#34;color:#ae81ff&#34;&gt;4.&lt;/span&gt; autoconf
+&lt;span style=&#34;color:#ae81ff&#34;&gt;5.&lt;/span&gt; automake &lt;span style=&#34;color:#f92672&#34;&gt;--&lt;/span&gt;add&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;missing
+&lt;span style=&#34;color:#ae81ff&#34;&gt;6.&lt;/span&gt; .&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;configure &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;　&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;ｍａｋｅ&lt;/span&gt;　&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;　&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;ｍａｋｅ&lt;/span&gt;　&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;ｉｎｓｔａｌｌ了。&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>License</title>
+      <link>http://www.helight.cn/blog/2014/718/</link>
+      <pubDate>Sat, 05 Apr 2014 09:23:32 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/718/</guid>
+      <description>&lt;p&gt;除非特别注明，本站所有原创文章皆采用 &lt;a href=&#34;http://creativecommons.org/licenses/by-nc-sa/2.5/cn/&#34; rel=&#34;license&#34;&gt;知识共享署名-非商业性使用-相同方式共享 2.5 中国大陆许可协议&lt;/a&gt;的创作共用协议。&lt;/p&gt;
+&lt;h2 id=&#34;您可以自由&#34;&gt;您可以自由：&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>Open Source---我自己设立的一些小项目。。。</title>
+      <link>http://www.helight.cn/blog/2014/716/</link>
+      <pubDate>Sat, 05 Apr 2014 09:21:39 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/716/</guid>
+      <description>&lt;h2 id=&#34;openflow&#34;&gt;openflow&lt;/h2&gt;
+&lt;h3 id=&#34;项目简介&#34;&gt;项目简介：&lt;/h3&gt;
+&lt;p&gt;可视化分布式流程控制系统，数据流和业务流控制系统。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>AboutMe</title>
+      <link>http://www.helight.cn/blog/2014/713/</link>
+      <pubDate>Sat, 05 Apr 2014 09:19:31 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/713/</guid>
+      <description>&lt;p&gt;许振文，男，计算机软件与理论的硕士生，现就读于西安邮电学院计算机系.2007年毕业于西安邮电学院，并继续攻读硕士学位。主要的研究方向是嵌入式Linux及相关方面。 目前在深圳腾讯-互动娱乐数据中心从事游戏数据分析后台开发工作。。 个人喜欢: 旅游，photo，ping pong。除此之外比较爱好历史和哲学。喜欢红色，黑色和白色。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>storm安装过程</title>
+      <link>http://www.helight.cn/blog/2014/702/</link>
+      <pubDate>Sun, 30 Mar 2014 12:57:54 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/702/</guid>
+      <description>&lt;p&gt;storm的官方安装说明：&lt;a href=&#34;https://github.com/nathanmarz/storm/wiki/Setting-up-a-Storm-cluster&#34;&gt;&lt;a href=&#34;https://github.com/nathanmarz/storm/wiki/Setting-up-a-Storm-cluster&#34;&gt;https://github.com/nathanmarz/storm/wiki/Setting-up-a-Storm-cluster&lt;/a&gt;&lt;/a&gt;
+本文主要介绍storm的单机版的安装测试，也是学习阶段，还没有机会搭建集群。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Hadoop2.3.0源码编译过程记录</title>
+      <link>http://www.helight.cn/blog/2014/694/</link>
+      <pubDate>Fri, 28 Mar 2014 15:11:49 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/694/</guid>
+      <description>&lt;p&gt;    要在hadoop上作一个mr程序，做一些统计工作。但是发现官网下载的2.3的库只有32位的，而我的机器系统都是64位的。用g++直接指定编译32位的程序又发现头文件依赖有问题，没法编译通过。所以就只能编译hadoop，编译后在服务上启动64位程序，再编译mr程序进行工作。下面是编译的过程和其中遇到的一些问题。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>hadoop2.3单机搭建</title>
+      <link>http://www.helight.cn/blog/2014/691/</link>
+      <pubDate>Sun, 23 Mar 2014 15:06:40 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/691/</guid>
+      <description>&lt;p&gt;没事整理了之前搭建hadoop的过程，这里使用了最新的hadoop版本，想在单机上做一些测试，顺手也就整理了一下这个文档。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>配置SSH无密码登录问题解决记录</title>
+      <link>http://www.helight.cn/blog/2014/689/</link>
+      <pubDate>Sun, 23 Mar 2014 14:34:37 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/689/</guid>
+      <description>&lt;p&gt;在本地测试搭建hadoop玩以下，不想在ssh配置上栽了了，记录以下过程和处理方式：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>stl的内存管理</title>
+      <link>http://www.helight.cn/blog/2014/686/</link>
+      <pubDate>Sat, 15 Feb 2014 12:21:48 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/686/</guid>
+      <description>&lt;p&gt;zz &lt;a href=&#34;http://biancheng.dnbcw.info/c/73875.html&#34;&gt;&lt;a href=&#34;http://biancheng.dnbcw.info/c/73875.html&#34;&gt;http://biancheng.dnbcw.info/c/73875.html&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在你大量使用stl的各种容器时，你确定它们会按你想象的那样释放内存吗？你使用map存放1G的数据，当map clear后，它占用的空间释放了吗？&lt;/p&gt;
+&lt;p&gt;下面是一些统计数据：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>thrift之php客户端使用</title>
+      <link>http://www.helight.cn/blog/2014/682/</link>
+      <pubDate>Thu, 13 Feb 2014 08:57:48 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/682/</guid>
+      <description>&lt;ol start=&#34;0&#34;&gt;
+&lt;li&gt;一方面是测试使用，另一方面还想把server的一些状态和运维信息能够以web的方式展示出来，组内的web框架全是ci，我想使用django，但是组内python的人少，所以还是随大家要使用ci，用php做开发，那么就需要php也能支持使用thrift的rpc方式去访问。&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+    <item>
+      <title>thrift之python客户端使用</title>
+      <link>http://www.helight.cn/blog/2014/675/</link>
+      <pubDate>Thu, 13 Feb 2014 03:53:26 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/675/</guid>
+      <description>&lt;ol start=&#34;0&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;写好了cpp的服务器后，测试是个问题，写cpp程序来测试好像不是很灵活，所以想用python脚本来写测试程序，记录一下过程。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;首先是thrift的python程序库的安装，有些基础库需要安装后才能运行，在thrift的目录库目录中，选择py目录，使用root账户就可以直接安装了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;cd thrift-0.9.0/lib/py
+python setup.py install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;即可完成安装。当然安装完成之后也要记得测试一下，安装是否成功。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Thrift的required和optional源码分析</title>
+      <link>http://www.helight.cn/blog/2014/671/</link>
+      <pubDate>Sat, 11 Jan 2014 11:49:15 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/671/</guid>
+      <description>&lt;p&gt;thrift的数据类型定义的时候和protobuf（后面简称pb）一样也有requried和optional标签，意义是类似的，required标示改消息在序列化之前必须设置该字段值，如果不设置则无法序列化，当然也就更无法反序列化，该标签标示的字段是必填字段；而optional字段则标示该字段可赋值也可以不赋值，当然不赋值的结果是在序列化之后的数据中该字段被标示为无值字段，就是说直接访问获取该值是不行的，必须先判断是否设置了该字段的值，再去读值；这样作的好处是在协议扩充和变更时可以较为灵活的设计程序，而且在传输上也就减少了不必要的字段传输。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>shell字符串的截取</title>
+      <link>http://www.helight.cn/blog/2014/669/</link>
+      <pubDate>Sat, 11 Jan 2014 06:20:33 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/669/</guid>
+      <description>&lt;p&gt;shell字符串的截取的问题：
+一、Linux shell 截取字符变量的前8位，有方法如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;1.expr substr “$a” &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;
+2.echo $a|awk ‘&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;print substr&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;,1,8&lt;span style=&#34;color:#f92672&#34;&gt;)}&lt;/span&gt;’
+3.echo $a|cut -c1-8
+4.echo $
+5.expr $a : ‘&lt;span style=&#34;color:#ae81ff&#34;&gt;\(&lt;/span&gt;.&lt;span style=&#34;color:#ae81ff&#34;&gt;\\&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.*’
+6.echo $a|dd bs&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; count&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt; 2&amp;gt;/dev/null
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>SHELL学习笔记----IF条件判断，判断条件</title>
+      <link>http://www.helight.cn/blog/2014/667/</link>
+      <pubDate>Sat, 11 Jan 2014 06:19:22 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/667/</guid>
+      <description>&lt;p&gt;无论什么编程语言都离不开条件判断。SHELL也不例外。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Thrift学习笔记—IDL基本类型</title>
+      <link>http://www.helight.cn/blog/2014/658/</link>
+      <pubDate>Sun, 05 Jan 2014 10:38:17 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/658/</guid>
+      <description>&lt;p&gt;thrift 采用IDL（Interface Definition Language）来定义通用的服务接口，并通过生成不同的语言代理实现来达到跨语言、平台的功能。在thrift的IDL中可以定义以下一些类型：基本数据类型，结构体，容器，异常、服务&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>scons学习笔记</title>
+      <link>http://www.helight.cn/blog/2014/656/</link>
+      <pubDate>Sun, 05 Jan 2014 02:57:22 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/656/</guid>
+      <description>&lt;p&gt;scons是一个 python写的用来编译源码的一个工具，类似于 make工具，但是支持的语言更多，灵活性更强。&lt;/p&gt;
+&lt;p&gt;这里来介绍一下  scons的使用。下载可以在其官方网站： &lt;a href=&#34;http://www.scons.org/&#34;&gt;  &lt;a href=&#34;http://www.scons.org&#34;&gt;http://www.scons.org&lt;/a&gt;&lt;/a&gt;，源码安装就不说了，  ubuntu和  debian上安装更为方便，直接  apt-get install scons就可以了。本文以编译c   、c++   为例来介绍其使用。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Thrift 学习笔记--概念介绍</title>
+      <link>http://www.helight.cn/blog/2014/652/</link>
+      <pubDate>Sat, 04 Jan 2014 03:33:52 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/652/</guid>
+      <description>&lt;p&gt;Thirft框架有几个比较重要的组成部分，这里简单介绍以下，主要翻译了其官方文档。加入了自己的一些理解。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Thrift http嵌入sever设计实现</title>
+      <link>http://www.helight.cn/blog/2013/646/</link>
+      <pubDate>Mon, 04 Nov 2013 06:16:09 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2013/646/</guid>
+      <description>&lt;h2 id=&#34;背景介绍&#34;&gt;背景介绍&lt;/h2&gt;
+&lt;p&gt;在服务器模块程序种嵌入一个简单的httpserver，再通过网页或是后台再访问这个httpserver，得到一些服务模块的实时运行数据或是运行环境数据，或者在浏览器端调整服务器的实时运行参数，从而达到对后台服务模块的实时监控。 本文所写的是在thrift框架之下如何嵌入一个httpserver模块，并且如何在thrift框架之下使用js和httpserver交互，发送数据到服务器，并且获取展示服务模块的运算结果。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Nginx设置为代理服务器上网</title>
+      <link>http://www.helight.cn/blog/2013/633/</link>
+      <pubDate>Tue, 30 Jul 2013 10:28:06 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2013/633/</guid>
+      <description>&lt;p&gt;公司的网络部门抽风，突然之间不让办公机连接idc上的非80端口了，而内部写的大部分的后台模块都是会起一个非80的http端口，让开发去实时查看模块信息，甚至动态调整模块内的一些flags参数，兄弟们着实痛苦了好几天，本来想简单点直接在任意idc机器上使用w3m来去登录这些页面，但是这些页面偏偏使用了ajax获取数据才进行展示，所以没办法，只好开代理了，上nginx吧，反正想在那台内网机器上安装nginx好久了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Program received signal SIGPIPE, Broken pipe</title>
+      <link>http://www.helight.cn/blog/2013/630/</link>
+      <pubDate>Tue, 21 May 2013 11:50:35 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2013/630/</guid>
+      <description>&lt;p&gt;在gdb调试程序的时候发现一个错误信息， Program received signal SIGPIPE, Broken pipe，原来是客户端程序在给服务器进行写入操作的时候，如果服务器执行了close操作，这时候根据tcp协议规定服务器要给客户端返回一个RST响应，如果client再用之前的fd往这个服务器写数据的时候，系统救护发一个SIGPIPE信号给进程，告诉进程链接已经断开。但是SIGPIPE信号的默认执行动作是terminate，所以客户端会退出，如果要想客户端不响应这个信号，则直接将其屏蔽忽略即可。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>pthread中线程是怎么创建的（2）---glibc到内核</title>
+      <link>http://www.helight.cn/blog/2013/627/</link>
+      <pubDate>Sun, 28 Apr 2013 07:32:38 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2013/627/</guid>
+      <description>&lt;p&gt;在glibc中线程创建是这个文件种来定义的：nptl/pthread_create.c&lt;/p&gt;
+&lt;p&gt;创建过程为，pthread_create 调用__pthread_create_2_0， __pthread_create_2_0调用__pthread_create_2_1， 或者pthread_create直接调用__pthread_create_2_1，在由__pthread_create_2_1调用create_thread来创建。&lt;/p&gt;
+&lt;p&gt;在create_thread中，首先是设置了很多内核clone的标志，因为对内核来说每次创建都是创建一个内核级的线程或是内核级进程。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>pthread中线程是怎么创建的（1）---glibc中的别名机制symver（symbol version）</title>
+      <link>http://www.helight.cn/blog/2013/624/</link>
+      <pubDate>Sun, 28 Apr 2013 05:40:19 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2013/624/</guid>
+      <description>&lt;p&gt;那天看了看glibc的线程相关的代码之后，又想看看线程的创建过程，今天趁着程序还在跑的功夫看了看glibc和内核代码，简单过了一下，也顺便记录下。
+glibc种线程创建是这个文件种来定义的：nptl/pthread_create.c&lt;/p&gt;
+&lt;p&gt;我们平时使用的时候一般是include pthread.h文件就可以使用pthread_create来创建线程了，但是在这个pthread_create.c文件中居然是直接找不到pthread_create函数的定义的，找到的只是：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>线程种的gettid和pthread_self区别</title>
+      <link>http://www.helight.cn/blog/2013/622/</link>
+      <pubDate>Mon, 22 Apr 2013 10:44:47 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2013/622/</guid>
+      <description>&lt;p&gt;这几天写程序老是使用thread来做，所以自己封装了一个threadbase的类来做简单的测试使用，但是在写的过程种发现又两个获取线程id的函数：pthread_self和gettid，那这两个函数有什么区别呢？&lt;/p&gt;
+&lt;p&gt;看gettid的man，这样写道：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>crontab 环境变量导致脚本运行错误</title>
+      <link>http://www.helight.cn/blog/2013/619/</link>
+      <pubDate>Mon, 15 Apr 2013 06:38:57 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2013/619/</guid>
+      <description>&lt;p&gt;1.缺少LANG的ls取值错误
+程序：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;yestoday&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;date +%Y%m%d -d-1day&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;
+ytoday&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;date +%F -d-1day&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;
+pathroot&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/data5/tt_chat/&amp;#34;&lt;/span&gt;
+filelist&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;ls $pathroot/data/ -l|grep $ytoday|awk &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{print $8}&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;
+echo $filelist
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;按时间过滤过滤出昨天一天生成的文件，让后再做处理，本地测试执行，没有问题，加入crontab执行总是没有数据文件过滤出来，但是自己再本地执行，就可以了&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>mysqldb：2014:Commands out of sync; you can&#39;t run this command now</title>
+      <link>http://www.helight.cn/blog/2013/616/</link>
+      <pubDate>Tue, 05 Feb 2013 08:02:19 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2013/616/</guid>
+      <description>&lt;p&gt;自己写了一个python的mysql的访问类，在python的多线程种使用种有了点问题，就是报这个2014的错误，在网上搜了很多资料，基本都是说mysqldb有问题，但是在解决方法上我这里测试通过一种方式：&lt;/p&gt;
+&lt;p&gt;在每次查询或是更新的时候，从新获取一个sql执行结构体cursor，执行完毕之后在close这个cursor，例如在类方法种我这样写：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>python中thread的简单使用</title>
+      <link>http://www.helight.cn/blog/2013/614/</link>
+      <pubDate>Tue, 05 Feb 2013 07:51:43 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2013/614/</guid>
+      <description>&lt;p&gt;今天在整理一个pyton的脚本，功能是以http+json返回数据拉去线上一些模块的状态信息，一般在5分钟以内就可以跑完，昨天开始由于原始数据太多了，结果搞得5分钟跑不完了，后面的数据统计就有点乱了，仔细分析看了看之后是在网络数据拉去上花费的时间比较多，原来是单进程，单线程的，就想着如果修改成多线程会好一点，python种线程使用还是比较简单的了，从threading.thread继承了一个线程类，类里面直接编写__init__, run， __del__方法，这样就是一个基本的线程类了&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>js中使用sort对json数据进行排序</title>
+      <link>http://www.helight.cn/blog/2012/610/</link>
+      <pubDate>Tue, 11 Dec 2012 02:13:07 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/610/</guid>
+      <description>&lt;p&gt;json格式的数据输出的时候一般是没有排序的，在展示的时候需要另外进行排序。这里总结了js对json数据排序的方法。
+js中是弱类型变量，所以一般获取到数据是会按照系统自定义的类型处理，在我的系统中系统默认把数字也转化成了： &amp;ldquo;value&amp;rdquo;:&amp;ldquo;17404&amp;quot;这样的格式，
+所以在处理上如果直接比较排序，它就会按照字符串来排序，所以要强制类型转化一下，转换为整型。
+不说了，直接贴代码吧：&lt;/p&gt;
+&lt;p&gt;字符串比较排序：kdata是一个json数组，里面的有value字段，如下：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>terminate called after throwing an instance of &#39;stdz::logic_error&#39;</title>
+      <link>http://www.helight.cn/blog/2012/607/</link>
+      <pubDate>Tue, 04 Dec 2012 07:27:26 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/607/</guid>
+      <description>程序编译没有问题，突然在测试的时候出了这样的问题。 terminate called after throwing an instance of &amp;lsquo;std::logic_error&amp;rsquo; what(): basic_string::_S_construct NULL not valid 这个问题在我这里是因为调用了getenv，但是在测试的是后get</description>
+    </item>
+    
+    <item>
+      <title>Apache显示有加载php模块却不支持php文件解析问题</title>
+      <link>http://www.helight.cn/blog/2012/603/</link>
+      <pubDate>Mon, 19 Nov 2012 11:21:18 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/603/</guid>
+      <description>&lt;p&gt;在测试环境搭建了一个新的LAMP环境，但是结果比较奇怪，访问页面的时候提示如下：&lt;/p&gt;
+&lt;p&gt; Apache/2.2.9 (Unix) PHP/5.3.3 mod_wsgi/3.3 Python/2.6.4 Server at zhwen.isoso.com Port 80&lt;/p&gt;
+&lt;p&gt;这里显示已经成功加载了php的模块，应该可以支持php了，但是每次遇到php文件，结果还是原文下载了。&lt;/p&gt;
+&lt;p&gt;http.conf中的配置也没有错啊&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>c种内存分配错误：malloc.c:3096: sYSMALLOc: Assertion</title>
+      <link>http://www.helight.cn/blog/2012/600/</link>
+      <pubDate>Mon, 19 Nov 2012 11:20:03 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/600/</guid>
+      <description>今天在学习一个小程序的时候出现了下面的内存分配错误。 rbtest: malloc.c:3096: sYSMALLOc: Assertion `(old_top == (((mbinptr) (((char *) &amp;amp;((av)-&amp;gt;bins[((1) - 1) * 2])) - __builtin_offsetof (struct malloc_chunk, fd)))) &amp;amp;&amp;amp; old_size == 0) || ((unsigned long) (old_size) &amp;gt;= (unsigned long)((((__builtin_offsetof (struct malloc_chunk, fd_nextsize))+((2 * (sizeof(size_t))) - 1)) &amp;amp; ~((2 * (sizeof(size_t))) - 1))) &amp;amp;&amp;amp;</description>
+    </item>
+    
+    <item>
+      <title>nginx模块编程学习笔记3--模块主要数据结构</title>
+      <link>http://www.helight.cn/blog/2012/595/</link>
+      <pubDate>Wed, 31 Oct 2012 11:07:40 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/595/</guid>
+      <description>在nginx模块编写种主要会涉及到下面3个数据结构，这一篇我就先来看看这3个数据结构的作用和意义。 ngx_command_t ngx_module_t ngx_http_module_t 前面这两个是定义在这个文件中：src</description>
+    </item>
+    
+    <item>
+      <title>nginx模块编程学习笔记2--数据类型</title>
+      <link>http://www.helight.cn/blog/2012/592/</link>
+      <pubDate>Wed, 31 Oct 2012 09:42:41 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/592/</guid>
+      <description>在模块种出现了一些nginx特有的数据类型，这里做笔记记录一下。 nginx种数据类型：整型，字符串 src/core/ngx_config.h 种定义了这么集中比较常用的数据类型： typedef intptr_t</description>
+    </item>
+    
+    <item>
+      <title>nginx&#43;uwsgi&#43;django/flask配置</title>
+      <link>http://www.helight.cn/blog/2012/589/</link>
+      <pubDate>Tue, 30 Oct 2012 11:13:24 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/589/</guid>
+      <description>&lt;p&gt;这几天在不断的倒腾nginx的相关东西，今天测试了nginx+uwsgi+django/flask这个组合，配置启动没有问题，后面看有没有什么app可以做。另外之前做过Nginx+mod_wsgi+webpy 的配置开发，但是mod_wsgi感觉好久没有开发维护了，而且据网上说uwsgi的效率很高，倒腾一下。&lt;/p&gt;
+&lt;p&gt;nginx我这几天一直使用的nginx-1.2.0的，nginx的编译就不说了，直接./configure &amp;amp;&amp;amp; make &amp;amp;&amp;amp;make install&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>redis使用----数据类型和操作命令</title>
+      <link>http://www.helight.cn/blog/2012/575/</link>
+      <pubDate>Wed, 24 Oct 2012 08:19:10 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/575/</guid>
+      <description>最简单的就是key&amp;lt;--&amp;gt;value, 就是每条数据都是一个键名一个键值，如下面的操作 在编译之后在源代码目录种就可以启动redis</description>
+    </item>
+    
+    <item>
+      <title>redis学习笔记--编译配置</title>
+      <link>http://www.helight.cn/blog/2012/573/</link>
+      <pubDate>Wed, 24 Oct 2012 06:38:13 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/573/</guid>
+      <description>一直在找个一靠谱的内存数据库，这里所谓的靠谱，是数据能上能下，能在内存中高速的读取写入，而且还能把数据落地保存，下次启动的时候直接先加载磁盘</description>
+    </item>
+    
+    <item>
+      <title>nginx模块编程学习笔记1</title>
+      <link>http://www.helight.cn/blog/2012/571/</link>
+      <pubDate>Tue, 23 Oct 2012 11:40:05 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/571/</guid>
+      <description>&lt;p&gt;这两天在做nginx的模块测试，想做一个可以把记录数据，以日志的形式直接写入到redis数据库中。
+之前只是照猫画虎的写过nginx的模块，都是测试玩以下，这次想写个有用一点的（其实这个东西也不一定有用，先写再说）。
+结果出现一个很异常的情况，也是我对nginx模块熟悉的不够，结果把filter的的模块加到处理模块的变量种&amp;ndash;HTTP_MODULES，导致我的filter模块死活是不工作。这里整理了一下：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>mysql主从又不同步了</title>
+      <link>http://www.helight.cn/blog/2012/569/</link>
+      <pubDate>Thu, 23 Aug 2012 02:29:38 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/569/</guid>
+      <description>做了数据库的主从，以为就这样没事了，一直可以稳定的用下去，但是现实是多变的。 在主库上建了一个临时库，这个库确实不需要备份到从库去，是做数据中</description>
+    </item>
+    
+    <item>
+      <title>mysql数据库主从全机配置</title>
+      <link>http://www.helight.cn/blog/2012/564/</link>
+      <pubDate>Wed, 15 Aug 2012 12:03:13 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/564/</guid>
+      <description>&lt;p&gt;今天倒蹬了一下mysql的数据库主从配置，记录一下&lt;/p&gt;
+&lt;h2 id=&#34;mysql主从配置&#34;&gt;MYSQL主从配置&lt;/h2&gt;
+&lt;h3 id=&#34;master配置&#34;&gt;Master配置&lt;/h3&gt;</description>
+    </item>
+    
+    <item>
+      <title>Apache的proxy配置</title>
+      <link>http://www.helight.cn/blog/2012/560/</link>
+      <pubDate>Fri, 13 Apr 2012 16:24:32 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/560/</guid>
+      <description>&lt;p&gt;最近在做的项目中有这样的需求，就是要在服务器上做一个proxy到另外一个内网机器的服务上，当然这个最多想到的就是nginx，因为nginx在proxy配置上比较简单，关键也是我会配置。但是偏偏那个服务器安装的apache，所以今天又学习了下apache中proxy的配置。&lt;/p&gt;
+&lt;p&gt;一般apache的这些功能我们在编译的时候都是以模块的形式加入的。所以我这里先是看了我的apache中有没有这个模块，结果没有，那么就需要重新编译一下这个模块：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>svn中分支开发实践学习</title>
+      <link>http://www.helight.cn/blog/2012/557/</link>
+      <pubDate>Mon, 26 Mar 2012 15:06:38 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/557/</guid>
+      <description>&lt;p&gt;从去年年中开始，在公司就一直是团队开发作战，代码也是使用svn管理，虽然事用svn管理，但是一直只是把svn作为简单的代码仓库来使用，并没有使用svn的其它功能，所有的人都在master上作修改提交，所以代码的管理十分混乱，上线不好做版本发布包，因为我可能提交了多次，中间其同学也提交了n次，导致最后版本发布包制作极为麻烦。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>也来学习写一下nginx的自定义模块</title>
+      <link>http://www.helight.cn/blog/2012/554/</link>
+      <pubDate>Sun, 19 Feb 2012 14:58:13 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/554/</guid>
+      <description>&lt;p&gt;这几天在家里，学习了一下nginx的一些东西，首先当然就是用编译安装来配置简单的服务了。上一篇也算是学习配置的一点心得，在网上看了nginx的可扩展性后，我也简单研究了一下nginx的自定义模块。并且在晚上代码的参考下，也编译了两个模块来玩了一下，这里先展示一下一个最简单的模块。&lt;/p&gt;
+&lt;p&gt;这个模块主要是这样一个目的，在输入一个指定的url后，会返回自定义的内容：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Nginx和apache共用80端口</title>
+      <link>http://www.helight.cn/blog/2012/552/</link>
+      <pubDate>Sun, 19 Feb 2012 03:07:05 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/552/</guid>
+      <description>&lt;p&gt;这几天在安装了nginx后，老想和apache一起使用，这种搭配，我这里测试使用了3种方式&lt;/p&gt;
+&lt;h2 id=&#34;方法一&#34;&gt;方法一：&lt;/h2&gt;
+&lt;p&gt;使用redirect的方式，nginx运行在80端口，apache运行在8080端口，&lt;/p&gt;
+&lt;p&gt;让后在nginx这边配置到apache8080端口的redirect，&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>我的2011-持续积累</title>
+      <link>http://www.helight.cn/blog/2012/546/</link>
+      <pubDate>Thu, 02 Feb 2012 08:41:40 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/546/</guid>
+      <description>&lt;p&gt;我的2011-持续积累，在年初的时候就想给自己这一年的发展提出一个主题，在继续前年学习敏捷开发、持续集成之后，我想到了持续积累，所以给2011年的主题定为了：辛卯之年，持续积累.&lt;/p&gt;
+&lt;p&gt;过完年了也想梳理一下2011我到底是怎么过的。也想数数这一年我到底积累了什么，对我今后的生活和工作有什么启示，我今后的路该如何走，走什么样的方向。人生总需要这样，不断的去回头看看，看看是否因为走的太远了而偏离了原来那简单的方向。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>svn 提交出现Password for &#39;(null)&#39; GNOME keyring: 错误</title>
+      <link>http://www.helight.cn/blog/2011/544/</link>
+      <pubDate>Fri, 16 Dec 2011 12:13:37 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/544/</guid>
+      <description>新安装了系统之后一直没有给gcode提交过代码了，前天收到一位网友xgcom的patch，我整理了一下，想提交，不想出了这样的问题：在svn</description>
+    </item>
+    
+    <item>
+      <title>Linux 让你的软件支持多国语言</title>
+      <link>http://www.helight.cn/blog/2011/542/</link>
+      <pubDate>Wed, 14 Dec 2011 07:52:36 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/542/</guid>
+      <description>&lt;h2 id=&#34;开头&#34;&gt;开头&lt;/h2&gt;
+&lt;p&gt;Xgcom一直想做成多国语言的支持，但是之前没有仔细研究怎么做，今天有时间，就研究了一下，感觉也挺简单的，这里先做一个测试demo出来，也刚好记录一下。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>gnome3下ibus设置</title>
+      <link>http://www.helight.cn/blog/2011/540/</link>
+      <pubDate>Sun, 04 Dec 2011 05:37:54 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/540/</guid>
+      <description>&lt;p&gt;在gnome3下安装了ibus-pinyin后，安装方式如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;apt-get install ibus ibus-pinyin
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;并且在~/.bashrc文件中加入了以下内容。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;export GTK_IM_MODULE&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;ibus
+
+export XMODIFIERS&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;@im&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;ibus
+
+export QT_IM_MODULE&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;ibus
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>上一张我的gnome3的截屏</title>
+      <link>http://www.helight.cn/blog/2011/537/</link>
+      <pubDate>Thu, 24 Nov 2011 14:17:54 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/537/</guid>
+      <description>看完本文有收获？请分享给更多人 关注「黑光技术」，关注大数据+微服务</description>
+    </item>
+    
+    <item>
+      <title>debian testing&#43;gnome3&#43;ibus&#43;kernel3.08</title>
+      <link>http://www.helight.cn/blog/2011/535/</link>
+      <pubDate>Thu, 24 Nov 2011 13:50:03 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/535/</guid>
+      <description>&lt;p&gt;debian的6.0出来之后，一直就心很痒，又加之之前刚刚从同事那里买了个笔记本，所以老婆把她的本就给我用了，虽然配置是有点底，但是安装debian我想肯定没有问题的，在g+上看到debian的testing中已经加入了gnome3了，所以更想试试了，但是没有想到道路事这么的曲折，我这两周花了好多时间，终于在今晚搞定了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>debian下触摸板使用</title>
+      <link>http://www.helight.cn/blog/2011/532/</link>
+      <pubDate>Thu, 27 Oct 2011 13:26:23 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/532/</guid>
+      <description>之前在本本上安装了debian，但是发现触摸板的点击功能就是用不了，以为是驱动问题，加之有鼠标，而且回家用本本来写程序的时间也是很少，因为小</description>
+    </item>
+    
+    <item>
+      <title>自娱自乐写的linux下音乐播放器</title>
+      <link>http://www.helight.cn/blog/2011/526/</link>
+      <pubDate>Sat, 03 Sep 2011 01:09:15 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/526/</guid>
+      <description>&lt;p&gt;前一段时间周末在家没事做，突然之间就想写一个之前一直想写但是也是一直没有写的小程序－－写一个自己的音乐播放器，现在终于写好了，可以使用，有基本的音乐播放功能，隐藏和tray按钮控制播放等等。小巧，程序了不多，够我自己平时在家里听音乐使用了。。。。下面是截图。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>内核又拒绝挂载fat32的磁盘了,报codepage cp437 not found</title>
+      <link>http://www.helight.cn/blog/2011/523/</link>
+      <pubDate>Thu, 11 Aug 2011 15:19:56 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/523/</guid>
+      <description>&lt;p&gt;前几天从新编译了内核，是应为升级了内核后vbox不能用了，所以又从新编译了内核，并且安装编译了vbox的内核模块，但是也出了问题，在每次shutdown的时候机器总是无法断点，磁盘灯不再亮，说明磁盘也不写了，只是一个锁灯在不断的闪，看了messages总的日志看到这样两句：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>一个json数据格式导致的杯具</title>
+      <link>http://www.helight.cn/blog/2011/520/</link>
+      <pubDate>Tue, 12 Jul 2011 09:30:11 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/520/</guid>
+      <description>&lt;p&gt;今天业务组的同事反馈系统数据入库失败，而且耗时耗力。。。老大说谁上，我主动请缨了。&lt;/p&gt;
+&lt;p&gt;查查查。。。从操作追到代码（这些代码不是我写的哇），最后日志发现了，是数据请求回来的地方出了问题，呃，会不是是请求的服务挂了呢，再日志了请求结果，发现，没有问题，最后发现问题处在了json_decode()这里，数据经过这家伙处理之后，竟然没有了，难道数据黑洞？&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>window.open的referer</title>
+      <link>http://www.helight.cn/blog/2011/518/</link>
+      <pubDate>Mon, 11 Jul 2011 08:22:32 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/518/</guid>
+      <description>&lt;p&gt;今天遇到一个奇怪的问题，一个网站在firefox下可以很好的把我的referer带到服务器去进行验证，但是在ie下面就是不行，服务器怎么都没法获取到referer值，追查追查，发现在这个网站中它使用window.open来打开我的网站，原本的感觉是，这个也没有问题啊，但是事实上它就是没有给我把referer带过去。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Nginx&#43;mod_wsgi&#43;webpy</title>
+      <link>http://www.helight.cn/blog/2011/515/</link>
+      <pubDate>Sun, 03 Apr 2011 04:39:28 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/515/</guid>
+      <description>&lt;p&gt;最近在做一个项目是以结伴开发的模式来作的，最终两个人讨论一两个人都相对熟悉而且开发效率较高的python来开发，在web框架上最终抛弃了较为原始的直接cgi和较为臃肿的django，而选择了介于之间的webpy，webpy在使用了一段时间后发现，我们两个人都很喜欢使用而且用的是相当的顺手，后台环境就使用Nginx+mod_wsgi+webpy，也是非常流畅。现在把这个简单的‘复杂’环境搭建记录一下：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>NF_HOOK点自ipv4中的插入</title>
+      <link>http://www.helight.cn/blog/2011/511/</link>
+      <pubDate>Sun, 20 Feb 2011 15:12:17 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/511/</guid>
+      <description>&lt;p&gt;net/ipv4/af_inet.c文件中对ipv4的协议进行了初始化，
+fs_initcall(inet_init);&lt;/p&gt;
+&lt;p&gt;在inet_init中进行了ipv4相关的协议进行了初始化：tcp,udp，icmp等处理方法的注册，arp，ip，tcp，udp等协议处理流程的建立，proc文件系统中相关文件的建立等处理，这个在之前就分析过了，现在主要分析的呢是，在ip协议处理流程中NF_HOOK是如何插入的，对这个流程的分析可以比较清楚的看到linux对ipv4的一个处理流程，对特殊ip的处理，对路由包的处理等等。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>netfilter在IPV4中的5个HOOK</title>
+      <link>http://www.helight.cn/blog/2011/505/</link>
+      <pubDate>Sat, 19 Feb 2011 15:37:45 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/505/</guid>
+      <description>&lt;p&gt;之前就知道在内核中netfilter的工作原理是：在协议流程中加入hook函数，从而达到对协议流中的数据进行抓取，今天对IPV4中的这几个点在内核中找了下，终于定位了。先在这里分析一下，还需要分析，数据包在内核中是如何路由的！！！哈呵呵&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linux虚拟网卡</title>
+      <link>http://www.helight.cn/blog/2011/503/</link>
+      <pubDate>Sat, 19 Feb 2011 08:58:42 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/503/</guid>
+      <description>&lt;p&gt;昨天研究了下利用虚拟网卡实现两个机器利用一个物理网卡连接外网的内核源码和设置，其实利用虚拟网卡上网的例子在上学 的时候就做过类似的实验，一般可以在一个机器A的一个网卡上配置一个外网ip一个内网ip，另一个内部机器B只配置内网ip，让后B的网关设置为A的内网ip，在A机器上启用netfilter的NAT功能，再启用A机器的路由转发功能，就可以实现B由A上外网的功能了！就如下面这个图。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Django admin搭建简单站点记录</title>
+      <link>http://www.helight.cn/blog/2011/501/</link>
+      <pubDate>Fri, 04 Feb 2011 13:34:48 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/501/</guid>
+      <description>&lt;h2 id=&#34;django-安装&#34;&gt;Django 安装：&lt;/h2&gt;
+&lt;p&gt;从此下载：www.djangoproject.com/download/&lt;/p&gt;
+&lt;p&gt;下载后直接解压到目录：Django-1.2.4&lt;/p&gt;
+&lt;p&gt;然后执行：python setup.py install 进行安装，当然安装需要root用户权限&lt;/p&gt;
+&lt;p&gt;安装完成后则开始建立站点：&lt;/p&gt;
+&lt;p&gt;XiAn_xxx:/data/helight&lt;/p&gt;
+&lt;p&gt;例如在该目录下建立以个xsite的站点，使用如下命令：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Gstyle-Protocol Buffers(protobuf)</title>
+      <link>http://www.helight.cn/blog/2011/496/</link>
+      <pubDate>Fri, 07 Jan 2011 03:35:48 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/496/</guid>
+      <description>&lt;p&gt;部门内部在大行其道Gstyle&amp;mdash;gtest、glog、protobuf。。。。。。所以我也就先学习学习，以备后面使用的时候在手慌脚乱的，上个月对gtest的使用做了一些学习，基本在日常的开发中已经开始慢慢使用了，而且我自己也根据网友的一个项目lcut分了一个分支xcut&amp;ndash;主要是增加了一些我想要的特点。&lt;/p&gt;
+&lt;p&gt;这几天又学习了protobuf，是google的一个广泛的数据包协议，有了这个就可以把这边定义的包发送到对方，对方就可以很简单的解析出来，就类似于xml，json等协议一样，据网上说，该协议效率很高，空间占有量又很小，是一个比xml或是json要好很多的协议，但是一点就是可读性比较差，看不懂数据是怎么排列和各个字段的意思。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>再编译内核</title>
+      <link>http://www.helight.cn/blog/2010/494/</link>
+      <pubDate>Tue, 28 Dec 2010 14:14:41 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/494/</guid>
+      <description>昨天下了内2.6.36的内核，今晚没事，想编译看看，顺便做个记录！ 首先要安装必要的包。 包有：libncurses5-dev（menuconf</description>
+    </item>
+    
+    <item>
+      <title>内核学习</title>
+      <link>http://www.helight.cn/blog/2010/492/</link>
+      <pubDate>Sat, 25 Dec 2010 04:35:12 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/492/</guid>
+      <description>&lt;p&gt;来公司之后就没有怎么好好学习内核方面的东西了，也就是是在师妹们问起的时候查查源码或是搜索一下解答一下。本以为我会在内核这条路上越走越远。。。&lt;/p&gt;
+&lt;p&gt;在公司的一个交流会上，由于发言太过积极被奖励了一张当当的购书卡，回来之后直接上当当就买了本ULK，再此捧起内核的书来看，来学习，现在每天晚上回来看上半小时到一小时，让后睡觉，呵呵，有种踏实的感觉。
+ &lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>C单元测试框架－xcut</title>
+      <link>http://www.helight.cn/blog/2010/483/</link>
+      <pubDate>Sat, 25 Dec 2010 03:15:13 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/483/</guid>
+      <description>&lt;p&gt;今天的网络又可以用了，就这样断断续续的，赶紧的发篇blog。&lt;/p&gt;
+&lt;p&gt;现在给大家推出一款用于C语言的单元测试框架&amp;ndash;&lt;a href=&#34;http://code.google.com/p/xcut&#34;&gt;xcut&lt;/a&gt;，是由&lt;a href=&#34;http://bigwhite.blogbus.com/&#34;&gt;Tony Bai&lt;/a&gt;和helight，就是我啦，一起开发的，当然开端是有tonny开始的，我只不过在后面加入并且开始了另外一个分支，加入了一些我认为比较好的方便的特性。使用基本c写的，可以在linux，windows下跑，但是目前主要是在linux测试使用的，测试系统debian5.0。基本上都是在家里的小本本上开发的，也感谢丁丁的支持，生命中有你真好！
+ &lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>纠结的blog订阅</title>
+      <link>http://www.helight.cn/blog/2010/481/</link>
+      <pubDate>Fri, 24 Dec 2010 01:24:08 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/481/</guid>
+      <description>终于搞定了blog的订阅了。 之前一直可以，但是不知为什么后来一段时间又不行了，昨天有捣鼓了一下终于可以了。通过这个地址就可以订阅了： http://zhwen.org/xlog/?feed=rss2 之前是</description>
+    </item>
+    
+    <item>
+      <title>python中实现ssh自动登录并且执行命令</title>
+      <link>http://www.helight.cn/blog/2010/473/</link>
+      <pubDate>Tue, 21 Dec 2010 08:56:54 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/473/</guid>
+      <description>&lt;p&gt;由于要做一个对大量机器访问并且执行命令的一个操作，一个一个来那肯定不行了，那家伙一个人做要到猴年马月啊。所以想写一个工具来完成，考虑到开发速度、对数据库访问的便捷性等因素，我选择了python开发。查了一下python的ssh库，呃用起来挺简单的。
+ &lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>xgcom0.04.1发布啦</title>
+      <link>http://www.helight.cn/blog/2010/470/</link>
+      <pubDate>Fri, 19 Nov 2010 11:02:38 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/470/</guid>
+      <description>&lt;p&gt; 在发布了xgcom0.04后发现一个makefile文件的错误问题，因为这个问题会影响编译安装所以是一个比较紧急的bug，所以在紧急修复后又发布了xgcom0.04.1，也感谢网友 &lt;a href=&#34;http://code.google.com/u/gump.yang/&#34;&gt;gump.yang&lt;/a&gt; 的支持。感谢大家一直以来的支持！ &lt;/p&gt;
+&lt;p&gt;项目地址：&lt;a href=&#34;https://github.com/helight/xgcom&#34;&gt;xgcom&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Python 2.6 安装mysql支持（备忘）</title>
+      <link>http://www.helight.cn/blog/2010/467/</link>
+      <pubDate>Fri, 19 Nov 2010 10:53:14 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/467/</guid>
+      <description>&lt;p&gt;做这方面的安装最麻烦的就是一些库啊，路劲啊什么的，有时候太费事了，虽然很多时候可以直接扔给运维的同事去给我安装，但是，毕竟不是很方便，尤其是为了自己做个测试，就不用去麻烦人家和浪费人家时间了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>在终端中显示彩色字符</title>
+      <link>http://www.helight.cn/blog/2010/465/</link>
+      <pubDate>Wed, 10 Nov 2010 09:58:58 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/465/</guid>
+      <description>&lt;p&gt;部分转自：http://www.linuxdiyf.com/viewarticle.php?id=182904
+文本终端的颜色可以使用“ANSI非常规字符序列”来生成。举例：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;echo -e &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\033[44;37;5m ME \033[0m COOL&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>mysql客户端编码问题：python</title>
+      <link>http://www.helight.cn/blog/2010/462/</link>
+      <pubDate>Thu, 28 Oct 2010 08:11:41 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/462/</guid>
+      <description>最近在使用python写一些web应用，之前使用一直没什么问题，但是昨天却出了点小问题：用python连接mysql读取数据，显示出来老是？</description>
+    </item>
+    
+    <item>
+      <title>AutoMake 学习笔记</title>
+      <link>http://www.helight.cn/blog/2010/automake/</link>
+      <pubDate>Sat, 18 Sep 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/automake/</guid>
+      <description>AutoMake 学习笔记</description>
+    </item>
+    
+    <item>
+      <title>Gdb&#43;core调试技术</title>
+      <link>http://www.helight.cn/blog/2010/453/</link>
+      <pubDate>Wed, 15 Sep 2010 02:28:03 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/453/</guid>
+      <description>&lt;p&gt;做c方面的开发，免不了要是用gdb来调试程序，最近也是在公司做的时候时常需要使用gdb来分析程序，使用最多的当属使用core来查看程序运行的crash原因。&lt;/p&gt;
+&lt;p&gt;在linux中应用程序运行奔溃之后一般会产生core文件，core文件是core dump来产生，core dump又叫核心转储, 当程序运行过程中发生异常, 程序异常退出时, 由操作系统把程序当前的内存状况存储在一个core文件中。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>debian sid中添加windows下的中英文字体</title>
+      <link>http://www.helight.cn/blog/2010/451/</link>
+      <pubDate>Sat, 11 Sep 2010 11:37:10 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/451/</guid>
+      <description>&lt;p&gt;老是记不住这些命令，干脆就记录到这里吧。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>尊敬，生活</title>
+      <link>http://www.helight.cn/blog/2010/449/</link>
+      <pubDate>Mon, 06 Sep 2010 12:05:39 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/449/</guid>
+      <description>&lt;p&gt;每晚回来，先洗去一身的疲累，再从冰箱拿出一罐冰凉的啤酒，打开了电脑，坐在前面，发呆。。。。。。啤酒的冰凉在冷却这颗浮躁的心，而酒精的刺激却一再的兴奋着大脑，让我得以得以思考。。。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>重回debian怀抱，祝debian17岁生日快乐</title>
+      <link>http://www.helight.cn/blog/2010/445/</link>
+      <pubDate>Sat, 21 Aug 2010 02:24:19 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/445/</guid>
+      <description>&lt;p&gt;debian中支持中文一直是不太好配置，离开学校到现在也是没有在本上安装使用debian，本来打算换个版本再试试，但是最终还是舍不得debian。昨晚在家里安装了一晚上，终于折腾的能使用了，顺便还看了个电影，嘿嘿！！！
+今天早上折腾中文输入，到现在也终于折腾好了，对这个配置还是记录下的好，以后也好再看，或许对其他也有用处呢。资料来自网络，我仅是测试整理而已！&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>《Richard Stallman选集 －－free software,free society》</title>
+      <link>http://www.helight.cn/blog/2010/free-doc/</link>
+      <pubDate>Wed, 18 Aug 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/free-doc/</guid>
+      <description>《Richard Stallman选集 －－free software,free society》。</description>
+    </item>
+    
+    <item>
+      <title>Fastcgi&#43;apache的安装方式</title>
+      <link>http://www.helight.cn/blog/2010/443/</link>
+      <pubDate>Tue, 17 Aug 2010 05:19:56 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/443/</guid>
+      <description>&lt;p&gt;最近因为一个业务需要，需要安装apache+fastcgi的支持，本来可以直接让运维人员给我配置好的，但是想想，这东西还是自己配的好，方便以后调试啊！这里粗浅的学习了一下，做了一个安装记录，分享一下！&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>矢量图表SVG学习</title>
+      <link>http://www.helight.cn/blog/2010/441/</link>
+      <pubDate>Tue, 20 Jul 2010 09:59:59 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/441/</guid>
+      <description>&lt;p&gt;最近在自己做的一个系统中需要图标显示一些信息，在查看学习了前面一些同事的程序后发现了svg这种图像格式比较适合，所以深入学习了一下，现在这里发一个demo程序。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>内核补丁制作与提交</title>
+      <link>http://www.helight.cn/blog/2010/git2/</link>
+      <pubDate>Sun, 18 Jul 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/git2/</guid>
+      <description>内核补丁制作与提交</description>
+    </item>
+    
+    <item>
+      <title>软件的灰度发布</title>
+      <link>http://www.helight.cn/blog/2010/439/</link>
+      <pubDate>Tue, 22 Jun 2010 12:05:54 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/439/</guid>
+      <description>&lt;p&gt;最近一段时间都是在搞我负责的部门数据接口的转换，所以最近一段时间连续升级了自己管理的几个小系统的数据接口。部门服务器的端口是要严格控制的，所以首先也要在我们自己的服务器上去做监控，一旦发现立杀无赦。在端口监控这个项目上是一个C/S的结构，服务器保存规则，客户断请求，但是这些都是线上服务一旦切换错了，那问题可就。。。。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>GUN 工具学习</title>
+      <link>http://www.helight.cn/blog/2010/gnutools/</link>
+      <pubDate>Fri, 18 Jun 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/gnutools/</guid>
+      <description>可以利用工具软件BusyBox制作Ramdisk文件系统。</description>
+    </item>
+    
+    <item>
+      <title>入职的日子里</title>
+      <link>http://www.helight.cn/blog/2010/437/</link>
+      <pubDate>Sat, 22 May 2010 10:43:21 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/437/</guid>
+      <description>&lt;p&gt;如公司以来，先是培训了！培训完了就正式到部门入职了，由于学校的某些问题，真正的入职一直到了5.12才办理，那天带着些许的敬畏之心，毕竟今天是5.12不应该是一个值得开心的日子，但是没有办法，还得去办理入职手续，办理完也就算是一名正式的公司员工了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>git使用总结</title>
+      <link>http://www.helight.cn/blog/2010/git/</link>
+      <pubDate>Tue, 18 May 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/git/</guid>
+      <description>git使用总结</description>
+    </item>
+    
+    <item>
+      <title>scons学习笔记</title>
+      <link>http://www.helight.cn/blog/2010/scons/</link>
+      <pubDate>Tue, 18 May 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/scons/</guid>
+      <description>scons是一个python写的用来编译源码的一个工具，类似于make工具，但是支持的语言更多，灵活性更强。 这里来介绍一下scons的使用。</description>
+    </item>
+    
+    <item>
+      <title>vbox下文件夹共享问题总结</title>
+      <link>http://www.helight.cn/blog/2010/433/</link>
+      <pubDate>Wed, 05 May 2010 06:09:47 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/433/</guid>
+      <description>&lt;p&gt;一直以来就没有把这个问题正真当作一个问题来对待，每次配置的时候百度一下也就ok了！可是安装次数剁了，总是这样查来查去就不是很方便了，所以今天就总结一下。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Ramdisk文件系统的制作-V0.2</title>
+      <link>http://www.helight.cn/blog/2010/ramfs/</link>
+      <pubDate>Sun, 18 Apr 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/ramfs/</guid>
+      <description>可以利用工具软件BusyBox制作Ramdisk文件系统。</description>
+    </item>
+    
+    <item>
+      <title>在内核模块中直接发送数据到网卡</title>
+      <link>http://www.helight.cn/blog/2010/432/</link>
+      <pubDate>Thu, 08 Apr 2010 02:29:00 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/432/</guid>
+      <description>前几天去了一个公司再做什么音频会议系统，他们买了一个音频处理芯片，但是这个芯片和cpu的接口比较奇怪！atm的接口，但是却没有遵循atm的协</description>
+    </item>
+    
+    <item>
+      <title>OOM-killer</title>
+      <link>http://www.helight.cn/blog/2010/430/</link>
+      <pubDate>Tue, 23 Mar 2010 11:55:51 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/430/</guid>
+      <description>&lt;p&gt;Out-of-Memory (OOM) Killer是一种保护机制，用于当内存严重不足时，为了系统的继续运转，内核迫不得已挑选一个进程，将其杀死，以释放内存，缓解内存不足的问题。可以看出这种方式对进程的保护是有限的，不能完全的保护进程的运行。
+OOM Killer的关闭与激活方式：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>The Linux Kernel Device Model</title>
+      <link>http://www.helight.cn/blog/2010/overview/</link>
+      <pubDate>Thu, 18 Mar 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/overview/</guid>
+      <description>The Linux Kernel Device Model</description>
+    </item>
+    
+    <item>
+      <title>乡情依旧。。。</title>
+      <link>http://www.helight.cn/blog/2010/427/</link>
+      <pubDate>Tue, 02 Mar 2010 11:58:47 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/427/</guid>
+      <description>&lt;p&gt;从鼠年过完年到牛年就一直没有回过家，总是种种的借口，种种的理由，在这个即将要离开的城市里晃来晃去。但也总想着回去，想着也就现在自由时间比较多一点，可以回去看看。但是去年的暑假还是没有回去，年跟年了，算这算着就想回去，赶紧的写完了论文就想回家，但是却由于一些原因又多留了一周。最后终于回家了。
+家始终都是一个牵挂的地方。中国人比较讲求根。以前听童安格的《根》就感动的不行，这也确实反应了国人的“根”的情结，就是在这样的文化之下，到现在大部分的中国人还是还是有这样的情结的，我当然也是其中一个。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>白色陶瓷娃娃</title>
+      <link>http://www.helight.cn/blog/2010/414/</link>
+      <pubDate>Fri, 22 Jan 2010 06:20:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/414/</guid>
+      <description>生活 小董婷买草娃娃的时候我也要了一个白色的陶瓷娃娃！虽然有点贵，但是玩么！还是挺不错的！ 回来在水里泡了泡，每天给浇点水，居然这几天开始疯狂的</description>
+    </item>
+    
+    <item>
+      <title>Helight.Xu&#39;s GNU/Linux</title>
+      <link>http://www.helight.cn/blog/2010/helight/</link>
+      <pubDate>Mon, 18 Jan 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/helight/</guid>
+      <description>Zhwen Xu(Zhenwen Xu, 许振文 in Chinese), post-graduate student majored in the &lt;a href=&#34;http://cs.xupt.edu.cn&#34;&gt;CS Department&lt;/a&gt; of &lt;a href=&#34;http://www.xupt.edu.cn&#34;&gt;Xi&amp;rsquo;an  University of Post and Telecommunications&lt;/a&gt;.</description>
+    </item>
+    
+    <item>
+      <title>ROMFS文件系统分析</title>
+      <link>http://www.helight.cn/blog/2010/romfs/</link>
+      <pubDate>Mon, 18 Jan 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/romfs/</guid>
+      <description>ROMFS是一种简单的只读文件系统，主要是用来当做初始文件系统来使用的，在嵌入式linux或是uclinux中通常使用这中文件系统来作为引导系统的文件系统，甚至uclinux有时就直接把ROMFS作为其根文件系统，而不是将其作为系统启动中的过渡文件系统。</description>
+    </item>
+    
+    <item>
+      <title>☯道&amp;禅</title>
+      <link>http://www.helight.cn/blog/2010/tao/</link>
+      <pubDate>Mon, 18 Jan 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/tao/</guid>
+      <description>道生一，一生二，二生三，三生万物。。。</description>
+    </item>
+    
+    <item>
+      <title>嵌入式开发中NFS调试环境搭建-V0.2</title>
+      <link>http://www.helight.cn/blog/2010/nfs/</link>
+      <pubDate>Mon, 18 Jan 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/nfs/</guid>
+      <description>NFS(Network File System, 网络文件系统)可以通过NFS把远程主机的目录挂载到本机,使得访问远程主机的目录就像访问本地目录一样方便快捷。</description>
+    </item>
+    
+    <item>
+      <title> 我学生时代之源代码 </title>
+      <link>http://www.helight.cn/blog/2009/411/</link>
+      <pubDate>Wed, 30 Dec 2009 05:46:23 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/411/</guid>
+      <description>&lt;p&gt;自己的学生时代就要结束了，不管有多么的不舍，终究是要结束的，但还是想做点什么吧！至少是对自己这个浑浑噩噩的前20多年有一个交代，也不用去管到底是好还是不好了。总结历史只是让我们能更清楚的认识自己，认识自己应该走的路。。。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>冬至记事</title>
+      <link>http://www.helight.cn/blog/2009/401/</link>
+      <pubDate>Fri, 25 Dec 2009 14:31:46 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/401/</guid>
+      <description>&lt;p&gt;冬至吃饺子，说是中国的传统习俗了。百度了一下关于冬至的相关知识，冬至还是有着深厚的内涵的。无论从天体行星运行到民族习俗，无一不是表明冬至这个一天的重要。现在，一些地方还把冬至作为一个节日来过。北方地区有冬至宰羊、吃饺子、吃馄饨的习俗，南方地区在这一天则有吃冬至米团、冬至长线面的习惯。各个地区在冬至这一天还有祭天祭祖的习俗。毕竟是一次民俗的节日。我还是一个比较传统的年青人么。对于这些节日我还是感觉文化气息和底蕴要比更为深厚一些。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>一颗不安份的心</title>
+      <link>http://www.helight.cn/blog/2009/399/</link>
+      <pubDate>Sun, 20 Dec 2009 14:29:18 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/399/</guid>
+      <description>&lt;p&gt;就要离开学校了，总想着还应该做点什么事情，做点有意义的事情，做点我力所能及还能对别人都有意义的事情。在这个学校学习生活了6年多了，在这里我们都收获了不少，也应该为她做点什么了。。。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>禅悟凡事</title>
+      <link>http://www.helight.cn/blog/2009/397/</link>
+      <pubDate>Sun, 20 Dec 2009 14:12:53 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/397/</guid>
+      <description>&lt;p&gt;也不知道怎么会写这样以题目！只是它在我脑边一闪而已！&lt;/p&gt;
+&lt;p&gt;听着宗胜大哥的《凡人歌》。。。我就是一个平凡的人，去做着一些平凡的而且自认为有意义的事。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>人生的经历总是有益的</title>
+      <link>http://www.helight.cn/blog/2009/391/</link>
+      <pubDate>Wed, 09 Dec 2009 13:21:47 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/391/</guid>
+      <description>&lt;p&gt;上周四作了一次xhttpd项目开发的讲座，把xhttpd开发所需要的技术和相关知识点都讲了一遍，去讲的也是比较匆忙，因为原计划要简述2个半小再加半小时的互动，结果最后在1个半小时讲完了加了10分钟的一个互动，原因是去的有点迟了，师妹们还要赶着回老校区，所以就。。。讲述的也是有点快了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>日子</title>
+      <link>http://www.helight.cn/blog/2009/389/</link>
+      <pubDate>Wed, 09 Dec 2009 12:55:55 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/389/</guid>
+      <description>&lt;p&gt;也许真是要离开了，总是感觉在离开前应该做点什么，就如我所信奉的信念一样：在可能的情况下尽量做一些对其他人有用的事。在这个学校也有6年多的时间了，也可以说我最为美好青春岁月是在这样一个学校渡过的，当然我也是很享受我这几年的光阴，虽说也有那么点点的遗憾，也感觉那才是正常的生活，况且太完美那就不是真实的我了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>整理了两张linux网络分析的图</title>
+      <link>http://www.helight.cn/blog/2009/383/</link>
+      <pubDate>Tue, 24 Nov 2009 00:51:35 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/383/</guid>
+      <description>整理了两张linux网络分析的图 这里看大图 这里看大图 看完本文有收获？请分享给更多人 关注「黑光技术」，关注大数据+微服务</description>
+    </item>
+    
+    <item>
+      <title>ipv4内核初始化分析-sock的创建</title>
+      <link>http://www.helight.cn/blog/2009/381/</link>
+      <pubDate>Tue, 17 Nov 2009 09:34:14 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/381/</guid>
+      <description>&lt;p&gt;sock创建的主要数据结构是下面这个结构体：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>内核中ipv4分析---协议族的初始化</title>
+      <link>http://www.helight.cn/blog/2009/376/</link>
+      <pubDate>Wed, 11 Nov 2009 13:54:24 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/376/</guid>
+      <description>&lt;p&gt;在内核中ipv4的初始化工作是由这个函数来做的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Debian sid 下安装 Nginx &#43; PHP5</title>
+      <link>http://www.helight.cn/blog/2009/372/</link>
+      <pubDate>Wed, 11 Nov 2009 13:33:02 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/372/</guid>
+      <description>&lt;p&gt;最近在教学生搭建和配置LAMP的服务器。当从网上的资料来看LNMP的性能也是很是传神。所以也想尝试一下，如果可以，也可以给学生教一下！！！果然在查了一些资料后我还是搭建了起来，只是没有安装mysql，数据库我不是太常用，所以没有安装。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ipv4内核初始化相关</title>
+      <link>http://www.helight.cn/blog/2009/368/</link>
+      <pubDate>Tue, 03 Nov 2009 14:11:52 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/368/</guid>
+      <description>&lt;p&gt;所在文件：
+net/ipv4/af_inet.c
+初始化函数定义：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>网卡数据流分析图</title>
+      <link>http://www.helight.cn/blog/2009/365/</link>
+      <pubDate>Sat, 31 Oct 2009 13:28:18 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/365/</guid>
+      <description>&lt;p&gt;以前做网卡程序时的一个数据流图，拿出来晒晒。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>wine一听音乐盒</title>
+      <link>http://www.helight.cn/blog/2009/361/</link>
+      <pubDate>Sun, 25 Oct 2009 05:59:26 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/361/</guid>
+      <description>&lt;p&gt;机子上老是那么些歌曲，每天放来放去我不烦，师弟师妹都已经烦了，我想也找一个好一点的想windwos下的音乐盒之类的软件来试试，最后锁定到了酷狗音乐盒和一听音乐盒。
+不过酷狗老是出现乱码，搞了半天都没法解决，而一听就相对好多了，没有乱码而且非常的流畅。不错不错！！！&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>以ipv4来分析Linux网络的基本运行机制(2) </title>
+      <link>http://www.helight.cn/blog/2009/355/</link>
+      <pubDate>Sat, 17 Oct 2009 13:26:28 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/355/</guid>
+      <description>&lt;p&gt;ipv4协议分析框架图:整理了一个网络接口的大致原理图！&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>以ipv4来分析Linux网络的基本运行机制(1)</title>
+      <link>http://www.helight.cn/blog/2009/351/</link>
+      <pubDate>Fri, 16 Oct 2009 14:26:14 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/351/</guid>
+      <description>&lt;p&gt;在Linux中的网络接口主要的有这么几种：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linux发布版的时间图</title>
+      <link>http://www.helight.cn/blog/2009/345/</link>
+      <pubDate>Fri, 16 Oct 2009 03:41:12 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/345/</guid>
+      <description>&lt;p&gt;之前一直对都对Linux的发布版有错误的理解。今天看了这个图才清楚了。以后给别人讲课也就有依据了！汗那！！！&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>socket内核部分分析</title>
+      <link>http://www.helight.cn/blog/2009/343/</link>
+      <pubDate>Mon, 12 Oct 2009 05:16:00 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/343/</guid>
+      <description>&lt;p&gt;socketcall是所有网络函数请求的系统调用接口函数，所有的网络函数的请求最终都会有这个函数要处理。下面就是这个函数的分析：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>glibc中socket实现分析</title>
+      <link>http://www.helight.cn/blog/2009/333/</link>
+      <pubDate>Sun, 11 Oct 2009 03:49:13 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/333/</guid>
+      <description>&lt;p&gt;glibc-2.9， linux-2.6.32-rc1
+在查看系统调用的时候发现： 关于网络的系统调用只有一个socketcall：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>让firefox也像vim一样简单高效</title>
+      <link>http://www.helight.cn/blog/2009/331/</link>
+      <pubDate>Sat, 10 Oct 2009 10:58:42 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/331/</guid>
+      <description>&lt;p&gt;学校来了两个德国留学生，来的第一天就见他们了，聊了一下！吆！这两个家伙也是使用linux的，当然他们是使用的ubuntu，而我使用的是debian。有一天一个胖胖的来到我们实验室给我说了一堆！说什么他的vbox共享有问题了，看我有什么好的办法，我就去他哪里看了，果然是使用的ubuntu9.04,还设置的非常个性漂亮。就在解决问题的过程中我要上网查资料，但是我发现他的firefox长的比较奇怪，但是整个浏览器很是简洁清爽，这正是我想要的风格阿！但是我却发现我怎么都用不了&amp;mdash;没有url的输入框，没有刷新，没有后退，没有前进和停止。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>icc与gcc测试比较</title>
+      <link>http://www.helight.cn/blog/2009/329/</link>
+      <pubDate>Tue, 29 Sep 2009 03:51:26 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/329/</guid>
+      <description>&lt;h2 id=&#34;编译使用结果&#34;&gt;编译使用结果：&lt;/h2&gt;
+&lt;p&gt;程序：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>哈哈！！三叶草开花了</title>
+      <link>http://www.helight.cn/blog/2009/320/</link>
+      <pubDate>Tue, 29 Sep 2009 01:47:23 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/320/</guid>
+      <description>&lt;p&gt;哈哈！！三叶草开花了！！&lt;/p&gt;
+&lt;p&gt;上学期有一天下雨，看到学校路边的三叶草长的很是可爱！所以就移了两株到实验室，种到了一个小花盆里！上学期种了之后一直长的不是很好！加上暑假去了宝鸡，少人照看，赶头我回来，可怜的三叶草已经是一个叶子也没有了！都有点泄气了！后来想种点别的！但最后还是报了一点希望&amp;ndash;她可能会活过来的。于是又浇了点水。过了几天意外的发现她长出了一片嫩嫩的叶子，亭亭玉立应该说的就是这一个样子吧，漂亮极了！开心。。。。之后的叶子一个个的，雨后的春笋是不是也是这样阿！哈哈。。。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>使用git来管理googlecode</title>
+      <link>http://www.helight.cn/blog/2009/318/</link>
+      <pubDate>Tue, 01 Sep 2009 11:02:23 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/318/</guid>
+      <description>&lt;p&gt;在代码管理工具上我还是比较喜欢一点，但是googlecode是使用的svn来管理的，一开始我也是使用svn来管理的，但是总感觉不是很爽。
+今天试了一下用git来管理googlecode，还是不错的，又有了以前的那种感觉。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>中断号和芯片中断引脚的关系</title>
+      <link>http://www.helight.cn/blog/2009/315/</link>
+      <pubDate>Mon, 17 Aug 2009 03:00:49 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/315/</guid>
+      <description>&lt;p&gt;一直以来搞不懂这个中断号的来历,总以为是中断控制器自己规定的一个号,但是最近在看了s3c2440的中断控制后才发现不是这么一回事.2440的中断处理只能处理32个中断,但是其在内核中出现的中断号却有51,58等.而且它的外部中断INT4~7共享一个中断控制寄存器的一位,INT8~23也是共享控制寄存器的一位.我就好奇了,它怎么区分这些中断呢?而且在内核代码中它又很清楚的区分了这些中断.如下面的代码(2.6.13).&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>编写的dm9000ep驱动(2.6.13)</title>
+      <link>http://www.helight.cn/blog/2009/313/</link>
+      <pubDate>Fri, 14 Aug 2009 12:32:05 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/313/</guid>
+      <description>&lt;p&gt;最近手头刚好有个开发板,也还有点时间,就试着写了一下它上面的网卡驱动,当然也是参考了其现有的驱动再写的,程序如下:&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title> 人生之音乐之旅(2) </title>
+      <link>http://www.helight.cn/blog/2009/311/</link>
+      <pubDate>Thu, 13 Aug 2009 13:34:16 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/311/</guid>
+      <description>&lt;p&gt;大学是一个十分精彩的地方,也应该是接触音乐最佳的地方.每每听到很多音乐是出自大学校园,而也是在大学校园的传播下而走的更广.而大学我也确实接触了一 些,大学还是个好地方,至少这里有学多人在传道授业解惑,对于音乐也是这样的,在大一的时候学校开选修课,就有一门音乐欣赏的课.我也是毫不犹豫的就选 了.去了才知道讲课的不仅是一个美女老师,而且对音乐的讲解也是很了不起(至少我但是感觉很是受用).从国内音乐到国外音乐,从乐器演奏到人声演唱对给我 们做了比较好的解释.而现在在欣赏和理解音乐的时候还常常想起她讲过的那些东西.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title> 人生之音乐之旅(1)</title>
+      <link>http://www.helight.cn/blog/2009/308/</link>
+      <pubDate>Mon, 10 Aug 2009 15:22:55 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/308/</guid>
+      <description>&lt;p&gt;音乐是一种以声音来表达情感的方式,而且我始终也相信一件事,那就是这个世界离不开感情,不论是爱,喜欢,还是讨厌,恨之.这个世界本来就是一个感情的世 界,而人们也在用各种各样的方式在表达着自己的情感.音乐应该是最可以表达情感的一种方式.对于人来说更是如此,人生的生老病死就像是自己在谱写一首音乐 一样,有起始,有起伏,有迂回,有转折,有高潮,也有最终的一段结束.每每在不同的时段我们会因为不同的声音而感动!也会&amp;quot;演奏&amp;quot;不一样的音乐.而在文明 社会里,音乐就是一种能够撼动所有人心灵的文明.我们应该安静的去听一段音乐了&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>生命在于运动</title>
+      <link>http://www.helight.cn/blog/2009/306/</link>
+      <pubDate>Sat, 25 Jul 2009 14:41:40 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/306/</guid>
+      <description>&lt;p&gt;来公司也有一段日子了，每天的生活有点单调，但是很有规律。早上8点上班，12点准时下班吃饭，吃饭还是比较便宜的，公司给了饭票，中午2毛，下午1毛。 有点想起来奶奶给我讲过的她农业社时候的吃饭来，粮票也就是1毛，两毛的。呵呵！不过饭菜还是挺好的。下午2点上班，六点钟就下班。下班之后的时间自由安 排，说自由啊！还是有点太自由了，可就是公司的地方稍微偏了点，去最近的市场或是比较热闹的地方也要走路半小时才能到，要到市区去就要坐大概40分钟的 车。所以一般下班之后也是很少出去了。不过还好，公司有室内的乒乓球室，还有K歌的地方（不过我来这么长时间还没有去唱过呢，其她同事们倒是夜夜歌声飘 摇）。我当然是选择了乒乓球，每天下班之后都要去打个半小时、一小时的，打的浑身是汗了再回来，冲个热水澡。让后去办公室要么学习，要么上网（当然也是上 网居多了）。日子过的也是挺舒服的。运动一下，出出汗也是很爽快的么!尤其在你心情不是很爽的时候，去适当的用运动发泄一下。毕竟生命在于运动。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>开卷总有益</title>
+      <link>http://www.helight.cn/blog/2009/304/</link>
+      <pubDate>Fri, 24 Jul 2009 02:32:40 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/304/</guid>
+      <description>&lt;p&gt;开卷总有益这句话是来自于宋太宗赵光义之口，据说是因为他也组织编写了一本鸿篇巨著《太平御览》，而且他要每天都看一两卷，一年才能看完，当然很辛苦了，但他还是说：看书很好，只要打开书，就总会有好处的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title> 神游钓鱼台</title>
+      <link>http://www.helight.cn/blog/2009/302/</link>
+      <pubDate>Fri, 24 Jul 2009 02:31:45 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/302/</guid>
+      <description>&lt;p&gt;本来这篇文章应该是上周日要写的，但是回来之后一直没有想好怎么来写，所以也就一直在拖了。当然现在来写也不是因为现在我就想的很好了，更多的原因是我想 如果再拖的话就会把很多当时的想法忘却了，所以是不得不来写了。题目定为《神游钓鱼台》也是有两方面的原因的：1钓鱼台是一个美丽神话开始的地方，而且有 很多神鬼拜台；2我那天的精神状态不是很好，基本上我是在神游此地&amp;ndash;心不完全在这里阿。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>一无所有</title>
+      <link>http://www.helight.cn/blog/2009/298/</link>
+      <pubDate>Wed, 08 Jul 2009 03:12:37 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/298/</guid>
+      <description>&lt;p&gt;一无所有。&lt;/p&gt;
+&lt;p&gt;崔健在他25岁的时候以这样的一吼唱出了当时那一代人的心声，使的那一代人骤然之间发现自己真的是一无所有，而且还在茫茫慢慢碌碌中摸爬滚打，背负这生活的艰辛和前途的迷茫，只是一味的，茫然的走。不知道何去何从。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ChinaUnix、IXPUB、ITPUB的西安站沙龙</title>
+      <link>http://www.helight.cn/blog/2009/296/</link>
+      <pubDate>Mon, 22 Jun 2009 10:59:34 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/296/</guid>
+      <description>&lt;p&gt;昨天下午去参加了cu的西安沙龙，12点40多出发的，骑自行车去的，本来预算是要40－50分钟到的，没想到只用了25分钟就到了，呵呵，感觉是有点参加这个沙龙有点心急了。签到后进入会场，那里已经是人头涌动了，居然来了这么多的人。西电和几个同仁们也来了，还有西安理工大学的，还有兰州的，当然也有好多是来自高新区的，我们小组也去了十多个人吧，呵呵！场面还是非常壮观的。当然还有我们西安PHP培训机构的金老师和王老师，现在我也算他们的一个培训讲师了，呵呵。。。。还有uniquelee.cn，和他邮件联系了好长时间了，可就是没有怎么见过面，这天也是终于见面了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>送别linux05级</title>
+      <link>http://www.helight.cn/blog/2009/294/</link>
+      <pubDate>Mon, 22 Jun 2009 10:33:52 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/294/</guid>
+      <description>&lt;p&gt;时间过的还是有点快了，一转眼小组05级的同学们就要走了，周六的晚上他（她）们组织了一次告别宴，在一起聊一聊说一说，集体在一起搞活动还是很热闹的。一个一个有的是高歌一吼，有的是即兴演说小组内的生活感受，还有的英语天下，总之一个个都是玩的不亦乐乎。之后有是去K歌，呵呵，平时不唱歌，一到KTV结果都是麦霸，呵呵！好就是需要唱出来，唱出自己的心情来。。。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>坚持</title>
+      <link>http://www.helight.cn/blog/2009/292/</link>
+      <pubDate>Mon, 08 Jun 2009 11:34:56 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/292/</guid>
+      <description>&lt;p&gt;坚持！&lt;/p&gt;
+&lt;p&gt;最经做的东西老是没有什么进展，老感觉在原地踏步。但还是每天在看一点分析一点，五月过的有点荒诞，有1／2的天里我是喝酒的，有大概1／3的天里我是喝醉的，有大概1／4的天里我是不再实验室的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>关于函数调用的参数传递</title>
+      <link>http://www.helight.cn/blog/2009/290/</link>
+      <pubDate>Tue, 26 May 2009 03:23:37 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/290/</guid>
+      <description>&lt;p&gt;前几天和王老师在调式一个程序，调试结果怎么都不正确。其实形式很简单：
+printf(&amp;quot;%d; %d&amp;quot;, sum(), m); m是一个静态变量，在sum中改变，但是打印结果还是没有变化。
+当然在后来我又作了一个测试发现在gcc编译的程序中他是以左优先的，也就是先打印计算m的结果，让后在计算sum的结果，再打印。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>内核和用户态异步通信实例（netlink）</title>
+      <link>http://www.helight.cn/blog/2009/288/</link>
+      <pubDate>Sat, 16 May 2009 12:06:18 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/288/</guid>
+      <description>&lt;h2 id=&#34;内核版本2626&#34;&gt;内核版本：2.6.26&lt;/h2&gt;
+&lt;p&gt;内核态程序：knetlink.c&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>一条audit日志信息的分析</title>
+      <link>http://www.helight.cn/blog/2009/284/</link>
+      <pubDate>Fri, 15 May 2009 02:17:28 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/284/</guid>
+      <description>&lt;h2 id=&#34;内核版本2630-rc5&#34;&gt;内核版本：2.6.30-rc5&lt;/h2&gt;
+&lt;p&gt;以下是用”demsg｜tail“命令抓取的一段信息：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>2.6.26下添加系统调用</title>
+      <link>http://www.helight.cn/blog/2009/278/</link>
+      <pubDate>Wed, 13 May 2009 08:45:29 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/278/</guid>
+      <description>&lt;p&gt;内核版本：2.6.26&lt;/p&gt;
+&lt;p&gt;以下是要修改的内核文件：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>对audit_context结构的注释</title>
+      <link>http://www.helight.cn/blog/2009/274/</link>
+      <pubDate>Sun, 10 May 2009 08:13:41 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/274/</guid>
+      <description>/* The per-task audit context. */ struct audit_context { int dummy; /* must be the first element */ int in_syscall; /* 1 if task is in a syscall 该值是：1 则表示任务在系统调用中 */ enum audit_state state, current_state; //审计级别 有AUDIT_DIABLED:</description>
+    </item>
+    
+    <item>
+      <title>让人疯狂的”五一“三天（3） </title>
+      <link>http://www.helight.cn/blog/2009/268/</link>
+      <pubDate>Mon, 04 May 2009 02:50:27 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/268/</guid>
+      <description>&lt;p&gt;五月三号：兄弟聚会&lt;/p&gt;
+&lt;p&gt;早上10点半了才起来，洗洗刷刷到了11点，回到学校已经快到12点了，感坐下来，打开电脑，收看了一下邮件。蟋蟀就来电话了“快来，吃饭！”，“好，马上到。”干脆利嗦，没什么好犹豫的，再说说好和小方她们去大唐遗址公园的，不过那要到下午5，6点了才去的，兄弟们的聚会还是一定要参加的。我们高中就是一个班，现在又在同一座城市里。不能回家，也得让我们有点在家的感觉阿。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>让人疯狂的”五一“三天（2） </title>
+      <link>http://www.helight.cn/blog/2009/266/</link>
+      <pubDate>Mon, 04 May 2009 02:29:18 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/266/</guid>
+      <description>&lt;p&gt;五月二号：小方回来&lt;/p&gt;
+&lt;p&gt;前几天小方说要回来了，博士终于考完了，在等成绩，需要放松一下心情，也是故地重游。这一天她是终于来了。不过前几天也是发生了一点小意外。我的手机两天了有信号，但是就是收不到什么电话和信号，以至于把给她买票的事耽误了，最后她只买到5号回去的票。不过我还是心里窃喜的，可以多留几天么。。。呵呵。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>让人疯狂的”五一“三天（1）</title>
+      <link>http://www.helight.cn/blog/2009/262/</link>
+      <pubDate>Sun, 03 May 2009 13:44:32 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/262/</guid>
+      <description>&lt;p&gt;这个五一，过的真是有点疯狂了点，以往的五一，不是在宿舍看电影，就是约人出去溜溜，一般也是比较的平淡。今年的就有点夸张了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>自定义ELF文件中的section</title>
+      <link>http://www.helight.cn/blog/2009/260/</link>
+      <pubDate>Thu, 30 Apr 2009 14:28:24 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/260/</guid>
+      <description>&lt;p&gt;在看内核代码的时候发现，原来ELF文件的section是完全可以自己定义的。当然这只是作新的增加。
+今天请教了王老师，并做了一个简单的测试。但是具体的用意还有点不是很清楚，还有待继续分析ELF文件。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>中国不高兴</title>
+      <link>http://www.helight.cn/blog/2009/258/</link>
+      <pubDate>Thu, 30 Apr 2009 07:18:44 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/258/</guid>
+      <description>&lt;p&gt;昨天晚上没想去做什么事，和师妹们在一齐聊天，当然就是随便说说。小惠拿了一本《狼图腾》。恩，看了看，好像是前几年比较流行的一本书。她突然给我说看过最近的一本书《中国不高兴》。我听了心中一动。百度了一下，果然有这本书，还有电子版的。便下载了下来，今天早上看了一早上，看的我阿，爱国情绪异常高涨。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>自由等于责任</title>
+      <link>http://www.helight.cn/blog/2009/256/</link>
+      <pubDate>Mon, 27 Apr 2009 11:04:04 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/256/</guid>
+      <description>&lt;p&gt;在那看关于Subversion的一本电子译著，当然这本书是一本自由文档。现在我也更多的开始使用自由这个词了。自由，但是什么是自由呢？一个人类追求了几千年的问题！&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>内核审计系统初步分析（1）</title>
+      <link>http://www.helight.cn/blog/2009/254/</link>
+      <pubDate>Mon, 27 Apr 2009 04:41:35 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/254/</guid>
+      <description>&lt;p&gt;最近一段时间在看内核关于审计的东西，今天作一点最近看的整理，内核的审计系统也算是比较新的东西了，还有内核跟踪一类的动西，也是在2。6。30中才看到有独立的目录了。&lt;/p&gt;
+&lt;p&gt;其实内核的审计还是没有跳出对进程的管理，也主要是是对每个进程的活动情况进行记录。在struct thread_info结构中的flags项中有增加了许多的内容，其中就有几个标志就是关于是否启用内核审计的。如下面的几项：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>我自己设计的体恤</title>
+      <link>http://www.helight.cn/blog/2009/250/</link>
+      <pubDate>Mon, 27 Apr 2009 03:59:11 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/250/</guid>
+      <description>&lt;p&gt;很喜欢Debian的系统，她的风格，她的颜色，还有她独特的设计。
+我也自己设计了一件体恤，准备什么时候自己去印一下。也自由的疯狂一下。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>系统调用简单分析</title>
+      <link>http://www.helight.cn/blog/2009/248/</link>
+      <pubDate>Sat, 25 Apr 2009 10:25:47 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/248/</guid>
+      <description>#define CFI_STARTPROC .cfi_startproc //用在每个函数的开始，用于初始化一些内部数据结构 #define CFI_ENDPROC .cfi_endproc //在函数结束的时候使用与.cfi_startproc相配套使用 #define CFI_DEF_CFA .cfi_def_cfa //定义</description>
+    </item>
+    
+    <item>
+      <title>内核的同步和互斥实例学习</title>
+      <link>http://www.helight.cn/blog/2009/235/</link>
+      <pubDate>Tue, 21 Apr 2009 04:49:49 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/235/</guid>
+      <description>#include &amp;lt;linux/module.h&amp;gt;#include &amp;lt;linux/init.h&amp;gt;#include &amp;lt;linux/kernel.h&amp;gt;#include &amp;lt;linux/mutex.h&amp;gt;#include &amp;lt;linux/semaphore.h&amp;gt;#include &amp;lt;linux/sched.h&amp;gt; static DEFINE_MUTEX(mut1); struct semaphore sem1,sem2; int test1(void *p) { down(&amp;amp;sem2); mutex_lock(&amp;amp;mut1); printk(&amp;#34;get out test1\n&amp;#34;); mutex_unlock(&amp;amp;mut1); up(&amp;amp;sem1); return 0; } int test2(void *p) { down(&amp;amp;sem1); mutex_lock(&amp;amp;mut1); printk(&amp;#34;get out test2\n&amp;#34;); mutex_unlock(&amp;amp;mut1); up(&amp;amp;sem2); return 0; } static int __init mutex_init_test() { init_MUTEX(&amp;amp;sem1); init_MUTEX_LOCKED(&amp;amp;sem2); printk(&amp;#34;get out \n&amp;#34;); kernel_thread(test1, test1, CLONE_KERNEL); kernel_thread(test2, test2, CLONE_KERNEL); return 0; } static void __exit mutex_exit_test() { printk(&amp;#34;get out \n&amp;#34;); return; } module_init(mutex_init_test);</description>
+    </item>
+    
+    <item>
+      <title>我的摄影作品之“春意”</title>
+      <link>http://www.helight.cn/blog/2009/228/</link>
+      <pubDate>Fri, 10 Apr 2009 06:21:56 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/228/</guid>
+      <description>无名小草 园角一支 看完本文有收获？请分享给更多人 关注「黑光技术」，关注大数据+微服务</description>
+    </item>
+    
+    <item>
+      <title>为佛家的“色即是空，空即是色”正意</title>
+      <link>http://www.helight.cn/blog/2009/225/</link>
+      <pubDate>Tue, 07 Apr 2009 03:15:40 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/225/</guid>
+      <description>&lt;p&gt;“色即是空，空即是色”这句佛经名言,包含着很深的哲学思想,一般人包括文人  们喜欢以此开玩笑,认为色就是指女人,空就是虚无或乌有.说和尚看破红尘,把女人  看做是虚无或乌有,便出家做和尚了.其实色并非女色,空也非虚无乌有.要认识此言  的真正含义,还得从佛教的基本教义说起. 佛教的教义,主要是所谓的&amp;quot;四谛&amp;quot;,即  苦、集、灭、道。苦、集二谛阐明人生的本质及形成原因；灭、道二谛指明人生解  脱的归宿和解脱之路。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>使用proc来写GPIO驱动</title>
+      <link>http://www.helight.cn/blog/2009/proc-gpio/</link>
+      <pubDate>Tue, 31 Mar 2009 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/proc-gpio/</guid>
+      <description>这是写的一个gpio的驱动，测试完，提好的。</description>
+    </item>
+    
+    <item>
+      <title>截获Linux系统调用</title>
+      <link>http://www.helight.cn/blog/2009/222/</link>
+      <pubDate>Tue, 31 Mar 2009 07:44:47 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/222/</guid>
+      <description>#include &amp;lt;linux/kernel.h&amp;gt; #include &amp;lt;linux/module.h&amp;gt; #include &amp;lt;linux/moduleparam.h&amp;gt; #include &amp;lt;linux/unistd.h&amp;gt; #include &amp;lt;linux/init.h&amp;gt;#include &amp;lt;asm/ptrace.h&amp;gt; #define NRB 2 typedef asmlinkage int (*__routine)(struct pt_regs); __routine old, new; unsigned long *sys_call_table = 0; static int counts = 0; unsigned long* find_sys_call_table(void) { struct { unsigned short limit; unsigned int base; } __attribute__ ( ( packed ) ) idtr; struct { unsigned short offset_low; unsigned short segment_select; unsigned char reserved, flags; unsigned short offset_high; } __attribute__ (</description>
+    </item>
+    
+    <item>
+      <title>我的毕设定题</title>
+      <link>http://www.helight.cn/blog/2009/graduate-work/</link>
+      <pubDate>Fri, 13 Mar 2009 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/graduate-work/</guid>
+      <description>不知不觉之间研究生生活已经过去了一大半了，也到该准备研究生毕业设计的时候了。年前回家之前给陈老师说我想做嵌入式设备的远程监控，陈老师也没有说什么，其实我是知道了，老师一直想我在内核上有所发展。</description>
+    </item>
+    
+    <item>
+      <title>使用valgrind检测内存泄露</title>
+      <link>http://www.helight.cn/blog/2009/valgrind/</link>
+      <pubDate>Fri, 27 Feb 2009 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/valgrind/</guid>
+      <description>Valgrind是x86架构Linux上的多重用途代码剖析和内存调试工具。但它的主要功能还是对内存的调试，默认工具也是启动 memcheck。用户可以在它的环境中运行程序来监视内存的使用情况，比如C语言中的malloc和free或者C++中的new和delete。</description>
+    </item>
+    
+    <item>
+      <title>Xnotebook文本资料管理软件</title>
+      <link>http://www.helight.cn/blog/2009/xnotebook/</link>
+      <pubDate>Thu, 26 Feb 2009 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/xnotebook/</guid>
+      <description>Xnotebook是一款用gtk＋开发的文本资料管理软件，它主要用于个人文本资料的分类管理。</description>
+    </item>
+    
+    <item>
+      <title>Http协议分析</title>
+      <link>http://www.helight.cn/blog/2009/about-http/</link>
+      <pubDate>Tue, 17 Feb 2009 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/about-http/</guid>
+      <description>最简单的例子，就是你的浏览器与网页服务器之间使用的应用层协议。虽然官方文档说HTTP协议可以建立在任何可靠传输的协议之上，但是就我们所见到的，HTTP还是建立在TCP之上的。</description>
+    </item>
+    
+    <item>
+      <title>写在回家之前的话</title>
+      <link>http://www.helight.cn/blog/2009/befor-go-home/</link>
+      <pubDate>Thu, 15 Jan 2009 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/befor-go-home/</guid>
+      <description>又是一年春节了，话题还是一样。对于这样在外飘荡的人来说，没有什么能比回家更让人坐立不安了。常常也是这样的，其实回家也就是那么几天，见见父母，见见亲戚朋友。聊聊家常，扯扯蛋。呵呵，生活好像就是这样。</description>
+    </item>
+    
+    <item>
+      <title>我的二十年感言</title>
+      <link>http://www.helight.cn/blog/2009/my2009/</link>
+      <pubDate>Thu, 15 Jan 2009 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/my2009/</guid>
+      <description>【回忆1989年以前】 那个时候，我在看西瓜，我在跟着小姑姑放羊，跟着小叔叔放牛，在屋后的小河里捞小鱼。。。据我妈说我小时候那是坏的不得了，而且嘴馋。人家刚种的萝卜我会给他拔出来。还隐约记得有个老太太住在一见黑乎乎的屋子里，她可喜欢我了，老是带我去她的黑屋子，然后给我方块糖吃。</description>
+    </item>
+    
+    <item>
+      <title>又是一个岁终年末的随想</title>
+      <link>http://www.helight.cn/blog/2008/end-of-2008/</link>
+      <pubDate>Thu, 25 Dec 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/end-of-2008/</guid>
+      <description>&lt;p&gt;依我个人的观点看，往往岁终年末是一年之中比较乱乱的时候。人们的心情 开始慌乱，急躁。毕竟要过年了。好像是劳累的一年了，也应该休一下了。对待工 作生活是不是开始怠慢了呢？呵呵！！ 也是阿，又是一年的岁终年末了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linux内核中的P，V操作之P</title>
+      <link>http://www.helight.cn/blog/2008/kernel-p/</link>
+      <pubDate>Sat, 29 Nov 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/kernel-p/</guid>
+      <description>最近作辅导讲到了P，V操作，我就在内核中看了一下Linux中的P，V操作的实现。很真是，理解比本科学习的时候深多了。操作系统中的P操作在Linux内核中对应的是down函数，V操作对用up函数。</description>
+    </item>
+    
+    <item>
+      <title>Linux内核中的P，V操作之V</title>
+      <link>http://www.helight.cn/blog/2008/kernel-v/</link>
+      <pubDate>Sat, 29 Nov 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/kernel-v/</guid>
+      <description>最近作辅导讲到了P，V操作，我就在内核中看了一下Linux中的P，V操作的实现。很真是，理解比本科学习的时候深多了。操作系统中的P操作在Linux内核中对应的是down函数，V操作对用up函数。</description>
+    </item>
+    
+    <item>
+      <title>源代码中的中断分析(一)</title>
+      <link>http://www.helight.cn/blog/2008/linux-irq/</link>
+      <pubDate>Thu, 13 Nov 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/linux-irq/</guid>
+      <description>（代码版本2.6.26） 中断描述符数组：irq_desc[]</description>
+    </item>
+    
+    <item>
+      <title>Linux下UML工具和截图工具的使用</title>
+      <link>http://www.helight.cn/blog/2008/linux-tools/</link>
+      <pubDate>Mon, 10 Nov 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/linux-tools/</guid>
+      <description>花了大半天的时间终于把HttpServer的需求文档写完了，其中还用到了UML工具和截图工具，作为一般使用这两个工具我个人认为还是很优秀的。现在就介绍一下。</description>
+    </item>
+    
+    <item>
+      <title>Linux下守护进程认识</title>
+      <link>http://www.helight.cn/blog/2008/linux-daemon/</link>
+      <pubDate>Sat, 25 Oct 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/linux-daemon/</guid>
+      <description>守护进程（Daemon）是运行在后台的一种特殊进程。它独立于控制终端并且周期性地执行某种任务或等待处理某些发生的事件。</description>
+    </item>
+    
+    <item>
+      <title>Linux嵌入式轻量级http服务器</title>
+      <link>http://www.helight.cn/blog/2008/xhttpd/</link>
+      <pubDate>Sat, 25 Oct 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/xhttpd/</guid>
+      <description>编写一个可以在linux嵌入式下轻量级的http服务器软件，能够支持简单的静态页面的传输和cgi技术.目标是可以移植任意操作系统，但是主要针对于嵌入式linux。主要针对于嵌入式系统的web管理的实现。</description>
+    </item>
+    
+    <item>
+      <title>Linux嵌入式轻量级http服务器</title>
+      <link>http://www.helight.cn/blog/2008/xhttpd/</link>
+      <pubDate>Sat, 25 Oct 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/xhttpd/</guid>
+      <description>编写一个可以在linux嵌入式下轻量级的http服务器软件，能够支持简单的静态页面的传输和cgi技术.目标是可以移植任意操作系统，但是主要针对于嵌入式linux。主要针对于嵌入式系统的web管理的实现。</description>
+    </item>
+    
+    <item>
+      <title>2.6.22下基于Netfilter的网络监听程序</title>
+      <link>http://www.helight.cn/blog/2008/linux-netfilter/</link>
+      <pubDate>Sat, 27 Sep 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/linux-netfilter/</guid>
+      <description>在2.6.22中skbuff发生了变化，使得我以前的防火墙程序在新内核中无法使用了，主要是可以当作一个网络数据监视，当然还是不完善的。目前只能监听数据报的源ip和目的ip，还有tcp报的原端口和目的端口。</description>
+    </item>
+    
+    <item>
+      <title>ubuntu下NFS配置和uClinux下NFS远程调试</title>
+      <link>http://www.helight.cn/blog/2008/nfs-ubuntu/</link>
+      <pubDate>Sat, 27 Sep 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/nfs-ubuntu/</guid>
+      <description>NFS(Network File System, 网络文件系统)可以通过NFS把远程主机的目录挂载到本机,使得访问远程主机的目录就像访问本地目录一样方便快捷。</description>
+    </item>
+    
+    <item>
+      <title>守护进程实例</title>
+      <link>http://www.helight.cn/blog/2008/daemon-demo/</link>
+      <pubDate>Thu, 25 Sep 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/daemon-demo/</guid>
+      <description>来自网上一个比较流行的例子，我做了一些修改，可以产生子进程，并且在/tmp/test.log中做了记录。</description>
+    </item>
+    
+    <item>
+      <title>Vim&#43;cscope&#43;ctags&#43;tags阅读源代码</title>
+      <link>http://www.helight.cn/blog/2008/cscope-ctags/</link>
+      <pubDate>Thu, 18 Sep 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/cscope-ctags/</guid>
+      <description>可linux源代码提供了制作cscope索引文件和tags文件的make命令。</description>
+    </item>
+    
+    <item>
+      <title>linux电源节省项目介绍</title>
+      <link>http://www.helight.cn/blog/2008/lesswatts/</link>
+      <pubDate>Fri, 05 Sep 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/lesswatts/</guid>
+      <description>欢迎来到LessWatts.org 在计算机工业上省电是一个热门的话题。对于像如笔记本电脑或是手持设备这样的移动设备，省电可以使它们的电池使用更长时间.而对于其它一些设备,省电则意味 着减少它们数据中心成本提高效率。</description>
+    </item>
+    
+    <item>
+      <title>关于dim4</title>
+      <link>http://www.helight.cn/blog/2008/dim4/</link>
+      <pubDate>Sun, 18 May 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/dim4/</guid>
+      <description>关于dim4 站点名称：Dim4 Web Studio 站点地址：http://dim4.cn/ 团队 目前管理团队:刘庆,姜鸿飞,许振文,张建 建设内容：我们把自己定</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,175 @@
+<html>
+<head>
+  <title>标准库函数 - DispBCD</title>
+  <meta http-equiv="Content-Type" contents="text/html;charset=gb2312">
+  <link rel="stylesheet" href="clib.css">
+</head>
+
+<body>
+
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tr><td width=150 valign=top>
+<!-- begin left nav -->
+<!-- begin logo -->
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tbody>
+  <tr>
+    <td><a href="../clib.html"><img border=0 width=150 height=65 src="images/system.gif"></a></td>
+  </tr>
+</tbody>
+</table>
+<!-- end logo -->
+<!-- begin function list -->
+<table border=0 cellpadding=5 cellspacing=0 bgcolor=#FFFFFF width=150>
+<tbody>
+  <tr>
+    <td>
+      请选定要查看的函数
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <ul>
+      <li><a href="ClearScreen.html">ClearScreen</a></li>
+      <font color=red>
+      <li><a href="DispBCD.html">DispBCD</a></li>
+      </font>
+      <li><a href="SetScrollBar.html">SetScrollBar</a></li>
+      <li><a href="TextOut.html">TextOut</a></li>
+      <li><a href="UpdateLCD.html">UpdateLCD</a></li>
+      <li><a href="bell.html">bell</a></li>
+      <li><a href="block.html">block</a></li>
+      <li><a href="clrscr.html">clrscr</a></li>
+      <li><a href="cursor.html">cursor</a></li>
+      <li><a href="delay.html">delay</a></li>
+      <li><a href="get_chi_font.html">get_chi_font</a></li>
+      <li><a href="get_eng_font.html">get_eng_font</a></li>
+      <li><a href="getkey.html">getkey</a></li>
+      <li><a href="getpixel.html">getpixel</a></li>
+      <li><a href="gotoxy.html">gotoxy</a></li>
+      <li><a href="line.html">line</a></li>
+      <li><a href="move.html">move</a></li>
+      <li><a href="noidle.html">noidle</a></li>
+      <li><a href="outtextxy.html">outtextxy</a></li>
+      <li><a href="putpixel.html">putpixel</a></li>
+      <li><a href="pyfc.html">pyfc</a></li>
+      <li><a href="rectangle.html">rectangle</a></li>
+      <li><a href="sleep.html">sleep</a></li>
+      <li><a href="textmode.html">textmode</a></li>
+      <li><a href="time.html">time</a></li>
+      <li><a href="write_chi_font.html">write_chi_font</a></li>
+      <li><a href="write_eng_font.html">write_eng_font</a></li>
+    </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>目前共有27个函数</td>
+  </tr>
+</tbody>
+</table>
+<!-- end function list -->
+</td>
+
+<td>
+
+
+
+
+
+<table border=0 cellpadding=0 cellspacing=0 width=600 height=500>
+<tbody>
+<tr>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+    <td>
+    <!-- beging of middle part -->
+    <div>
+    <table border=0 cellpadding=0 cellspacing=0 width=100% height=500>
+    <tbody>
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+      <tr><td height=62 valign=bottom><b><font size=5>DispBCD</font></b></td></tr>
+
+      <tr><td>
+      <table border=0 cellpadding=0 cellspacing=0 height=1 width=100%>
+      <tbody>
+        <tr>
+          <td height=1 width=150 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+          <td height=1 bgcolor=#ffffff><img src="images/null.gif" border=0 width=1 height=1></td>
+        </tr>
+      </tbody>
+      </table>
+      </td></tr>
+
+      <tr><td>
+      <div>
+      <!-- begin main body -->
+      <table border=0 cellpadding=5 cellspacing=5>
+      <tr><td>
+<pre>
+
+  原型：extern void DispBCD(int);
+            
+  用法：#include &lt;system.h>
+  
+  功能：显示七段数码管数字
+  
+  说明：调用后在屏幕左侧图标区显示对应数字。
+        显示最大值为999。
+  
+  举例：
+
+      // DispBCD.c
+      
+      #include &lt;system.h>
+
+      main()
+      {
+        int i;
+        
+        i=9;
+        clrscr();
+        printf("Now Display 9");
+        DispBCD(9);
+        getchar();
+        
+        i=99;
+        clrscr();
+        printf("Now Display 99");
+        DispBCD(99);
+        getchar();
+
+        i=999;
+        clrscr();
+        printf("Now Display 99");
+        DispBCD(999);
+        getchar();
+
+        return 0;
+      }
+      
+  相关函数：无
+
+</pre>
+      </td></tr>
+      </table>
+      
+      <!-- end main body -->
+      </td></tr>
+   
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+    </tbody>
+    </table>
+    </div>
+    <!-- end of middle part -->
+    </td>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+</tr>
+</tbody>
+</table>
+
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

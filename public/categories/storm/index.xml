@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>storm on 黑光技术</title>
+    <link>http://www.helight.cn/categories/storm/</link>
+    <description>Recent content in storm on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Fri, 28 Mar 2014 15:11:49 +0800</lastBuildDate><atom:link href="http://www.helight.cn/categories/storm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hadoop2.3.0源码编译过程记录</title>
+      <link>http://www.helight.cn/blog/2014/694/</link>
+      <pubDate>Fri, 28 Mar 2014 15:11:49 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/694/</guid>
+      <description>&lt;p&gt;    要在hadoop上作一个mr程序，做一些统计工作。但是发现官网下载的2.3的库只有32位的，而我的机器系统都是64位的。用g++直接指定编译32位的程序又发现头文件依赖有问题，没法编译通过。所以就只能编译hadoop，编译后在服务上启动64位程序，再编译mr程序进行工作。下面是编译的过程和其中遇到的一些问题。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>hadoop2.3单机搭建</title>
+      <link>http://www.helight.cn/blog/2014/691/</link>
+      <pubDate>Sun, 23 Mar 2014 15:06:40 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/691/</guid>
+      <description>&lt;p&gt;没事整理了之前搭建hadoop的过程，这里使用了最新的hadoop版本，想在单机上做一些测试，顺手也就整理了一下这个文档。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

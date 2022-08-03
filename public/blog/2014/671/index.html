@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>Thrift的required和optional源码分析</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, scons, django">
+  
+  
+  <meta name="description" content="完美之道，不在无可增加，而在无可删减。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="Thrift的required和optional源码分析">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2014/671/" />
+  <meta property="og:description" content="完美之道，不在无可增加，而在无可删减。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/banner-2.jpg">
+  <meta property="og:image:type" content="image/jpg">
+  
+  
+  
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="375">
+  
+  
+  <meta property="og:updated_time" content="2014-01-11T11:49:15&#43;0800">
+  
+    
+    
+    <meta property="article:section" content="linux 应用">
+    <meta property="article:tag" content="scons">
+    <meta property="article:tag" content="django">
+    
+    
+    <meta property="article:published_time" content="2014-01-11T11:49:15&#43;0800">
+    <meta property="article:modified_time" content="2014-01-11T11:49:15&#43;0800">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="Thrift的required和optional源码分析">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/banner-2.jpg">
+  
+  <meta name="twitter:description" content="完美之道，不在无可增加，而在无可删减。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="Thrift的required和optional源码分析 logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="Thrift的required和optional源码分析 logo" class="visible-xs visible-sm">
+                    <span class="sr-only">Thrift的required和optional源码分析 - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Thrift的required和optional源码分析</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2014年1月11日
+                        </i>
+                        |
+                        
+                        由 <a href="https://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        1300字 | 阅读大约需要3分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/linux-%e5%ba%94%e7%94%a8">linux 应用</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/scons/"><i>#scons</i></a>
+                        
+                        <a style="text-transform:capitalize" href="/tags/django/"><i>#django</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <p>thrift的数据类型定义的时候和protobuf（后面简称pb）一样也有requried和optional标签，意义是类似的，required标示改消息在序列化之前必须设置该字段值，如果不设置则无法序列化，当然也就更无法反序列化，该标签标示的字段是必填字段；而optional字段则标示该字段可赋值也可以不赋值，当然不赋值的结果是在序列化之后的数据中该字段被标示为无值字段，就是说直接访问获取该值是不行的，必须先判断是否设置了该字段的值，再去读值；这样作的好处是在协议扩充和变更时可以较为灵活的设计程序，而且在传输上也就减少了不必要的字段传输。</p>
+<p>pb是必须选择requied或optional之一，如不没有标示，用proto编译是会报错的：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">protoc --cpp_out ./ test.proto
+
+test.proto:4:5: Expected <span style="color:#e6db74">&#34;required&#34;</span>, <span style="color:#e6db74">&#34;optional&#34;</span>, or <span style="color:#e6db74">&#34;repeated&#34;</span>.
+
+<span style="color:#ae81ff">1</span> message Person <span style="color:#f92672">{</span>
+
+<span style="color:#ae81ff">2</span> required string name <span style="color:#f92672">=</span> 1;
+
+<span style="color:#ae81ff">3</span> required int32 id <span style="color:#f92672">=</span> 2;
+
+<span style="color:#ae81ff">4</span> string email <span style="color:#f92672">=</span> 3;
+
+<span style="color:#ae81ff">5</span> <span style="color:#f92672">}</span>
+</code></pre></div><p>    但是thrift还有无标签类型数据，也是因为thrift支持了跟多的协议，而pb可以说只是支持一种数据传输协议。thrift的无标签字段如果没有赋值那么就是空的，在传输过程中也会继续传输该值，今天来分析一下。首先写一个测试的thrift文件来编译：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">namespace cpp xlight
+
+<span style="color:#66d9ef">struct</span> StUser {
+
+<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span> required i32 userId;
+
+<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span> optional string userName;
+
+<span style="color:#ae81ff">4</span><span style="color:#f92672">:</span> string language;
+
+}
+</code></pre></div><p>/// 编译</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">helight:rpc$thrift --gen cpp -out ./ test.thrift
+</code></pre></div><p>上面的测试文件可以看出，有些字段设置了requied，有些字段设置了optional，有些字段是什么也没有设置，就只是字段类型和字段名。先看看编译后的文件：test_types.h</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> _StUser__isset {
+
+_StUser__isset() <span style="color:#f92672">:</span> userName(false), language(false) {}
+
+<span style="color:#66d9ef">bool</span> userName;
+
+<span style="color:#66d9ef">bool</span> language;
+
+} _StUser__isset;
+
+
+
+class StUser {
+
+public:
+
+
+
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> ascii_fingerprint; <span style="color:#75715e">// = &#34;76285C3D933C871361DFACF1222DDAAE&#34;;
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">uint8_t</span> binary_fingerprint[<span style="color:#ae81ff">16</span>]; <span style="color:#75715e">// = {0x76,0x28,0x5C,0x3D,0x93,0x3C,0x87,0x13,0x61,0xDF,0xAC,0xF1,0x22,0x2D,0xDA,0xAE};
+</span><span style="color:#75715e"></span>
+
+
+StUser() <span style="color:#f92672">:</span> userId(<span style="color:#ae81ff">0</span>), userName(), language() {
+
+}
+
+
+
+virtual <span style="color:#f92672">~</span>StUser() throw() {}
+
+
+
+<span style="color:#66d9ef">int32_t</span> userId;
+
+std<span style="color:#f92672">::</span>string userName;
+
+std<span style="color:#f92672">::</span>string language;
+
+_StUser__isset __isset;
+
+
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">__set_userId</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int32_t</span> val) {
+
+userId <span style="color:#f92672">=</span> val;
+
+}
+
+
+
+<span style="color:#66d9ef">void</span> __set_userName(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span>amp; val) {
+
+userName <span style="color:#f92672">=</span> val;
+
+__isset.userName <span style="color:#f92672">=</span> true;
+
+}
+
+
+
+<span style="color:#66d9ef">void</span> __set_language(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span>amp; val) {
+
+language <span style="color:#f92672">=</span> val;
+
+}
+
+<span style="color:#66d9ef">bool</span> operator <span style="color:#f92672">==</span> (<span style="color:#66d9ef">const</span> StUser <span style="color:#f92672">&amp;</span>amp; rhs) <span style="color:#66d9ef">const</span>
+
+{
+
+<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>(userId <span style="color:#f92672">==</span> rhs.userId))
+
+<span style="color:#66d9ef">return</span> false;
+
+<span style="color:#66d9ef">if</span> (__isset.userName <span style="color:#f92672">!=</span> rhs.__isset.userName)
+
+<span style="color:#66d9ef">return</span> false;
+
+<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (__isset.userName <span style="color:#f92672">&amp;</span>amp;<span style="color:#f92672">&amp;</span>amp; <span style="color:#f92672">!</span>(userName <span style="color:#f92672">==</span> rhs.userName))
+
+<span style="color:#66d9ef">return</span> false;
+
+<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>(language <span style="color:#f92672">==</span> rhs.language))
+
+<span style="color:#66d9ef">return</span> false;
+
+<span style="color:#66d9ef">return</span> true;
+
+}
+
+<span style="color:#66d9ef">bool</span> operator <span style="color:#f92672">!=</span> (<span style="color:#66d9ef">const</span> StUser <span style="color:#f92672">&amp;</span>amp;rhs) <span style="color:#66d9ef">const</span> {
+
+<span style="color:#66d9ef">return</span> <span style="color:#f92672">!</span>(<span style="color:#f92672">*</span>this <span style="color:#f92672">==</span> rhs);
+
+}
+
+
+
+<span style="color:#66d9ef">bool</span> operator <span style="color:#f92672">&lt;</span> (<span style="color:#66d9ef">const</span> StUser <span style="color:#f92672">&amp;</span>amp; ) <span style="color:#66d9ef">const</span>;
+
+
+
+<span style="color:#66d9ef">uint32_t</span> <span style="color:#a6e22e">read</span>(<span style="color:#f92672">::</span>apache<span style="color:#f92672">::</span>thrift<span style="color:#f92672">::</span>protocol<span style="color:#f92672">::</span>TProtocol<span style="color:#f92672">*</span> iprot);
+
+<span style="color:#66d9ef">uint32_t</span> <span style="color:#a6e22e">write</span>(<span style="color:#f92672">::</span>apache<span style="color:#f92672">::</span>thrift<span style="color:#f92672">::</span>protocol<span style="color:#f92672">::</span>TProtocol<span style="color:#f92672">*</span> oprot) <span style="color:#66d9ef">const</span>;
+
+
+
+};
+</code></pre></div><p>可以看出thrift在cpp中把struct转换成了class，生成的代码中都把成员变量进行初始化设置，同时在代码中引入了另外一个结构体_StUser__isset 来记录这些字段的标签行为，对于requried的字段isset中没有bool变量标示，但是对于optional和无标签字段都有，然后我们再来看看它的序列化和反序列化函数—write和read函数。在test_types.cpp：</p>
+<p>    代码过多就不粘贴了：主要是在write的时候会判断optional是否被设置，如果没有被设置则不进行序列化。其它两种字段都会序列化。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span> (this<span style="color:#f92672">-&gt;</span>__isset.userName) {
+
+xfer <span style="color:#f92672">+=</span> oprot<span style="color:#f92672">-&gt;</span>writeFieldBegin(<span style="color:#e6db74">&#34;userName&#34;</span>, <span style="color:#f92672">::</span>apache<span style="color:#f92672">::</span>thrift<span style="color:#f92672">::</span>protocol<span style="color:#f92672">::</span>T_STRING, <span style="color:#ae81ff">2</span>);
+
+xfer <span style="color:#f92672">+=</span> oprot<span style="color:#f92672">-&gt;</span>writeString(this<span style="color:#f92672">-&gt;</span>userName);
+
+xfer <span style="color:#f92672">+=</span> oprot<span style="color:#f92672">-&gt;</span>writeFieldEnd();
+
+}
+</code></pre></div><p>在反序列化函数中：对requried字段做了标示，如果这个字段没有则会抛出异常，其它两个字段在反序列化之后都会设置其isset变量。从代码中可以看出thrift对requried的字段只是作了默认值处理，让它在数据结构初始化的时候就有值，避免在序列化的时候无值。而pb对这块的处理是如果不设置requried字段，程序运行会失败。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>
+
+<span style="color:#66d9ef">if</span> (ftype <span style="color:#f92672">==</span> <span style="color:#f92672">::</span>apache<span style="color:#f92672">::</span>thrift<span style="color:#f92672">::</span>protocol<span style="color:#f92672">::</span>T_I32) {
+
+xfer <span style="color:#f92672">+=</span> iprot<span style="color:#f92672">-&gt;</span>readI32(this<span style="color:#f92672">-&gt;</span>userId);
+
+isset_userId <span style="color:#f92672">=</span> true;
+
+} <span style="color:#66d9ef">else</span> {
+
+xfer <span style="color:#f92672">+=</span> iprot<span style="color:#f92672">-&gt;</span>skip(ftype);
+
+}
+
+<span style="color:#66d9ef">break</span>;
+
+<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>
+
+<span style="color:#66d9ef">if</span> (ftype <span style="color:#f92672">==</span> <span style="color:#f92672">::</span>apache<span style="color:#f92672">::</span>thrift<span style="color:#f92672">::</span>protocol<span style="color:#f92672">::</span>T_STRING) {
+
+xfer <span style="color:#f92672">+=</span> iprot<span style="color:#f92672">-&gt;</span>readString(this<span style="color:#f92672">-&gt;</span>userName);
+
+this<span style="color:#f92672">-&gt;</span>__isset.userName <span style="color:#f92672">=</span> true;
+
+} <span style="color:#66d9ef">else</span> {
+
+xfer <span style="color:#f92672">+=</span> iprot<span style="color:#f92672">-&gt;</span>skip(ftype);
+
+}
+
+<span style="color:#66d9ef">break</span>;
+
+<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">:</span>
+
+<span style="color:#66d9ef">if</span> (ftype <span style="color:#f92672">==</span> <span style="color:#f92672">::</span>apache<span style="color:#f92672">::</span>thrift<span style="color:#f92672">::</span>protocol<span style="color:#f92672">::</span>T_STRING) {
+
+xfer <span style="color:#f92672">+=</span> iprot<span style="color:#f92672">-&gt;</span>readString(this<span style="color:#f92672">-&gt;</span>language);
+
+this<span style="color:#f92672">-&gt;</span>__isset.language <span style="color:#f92672">=</span> true;
+
+} <span style="color:#66d9ef">else</span> {
+
+xfer <span style="color:#f92672">+=</span> iprot<span style="color:#f92672">-&gt;</span>skip(ftype);
+
+}
+
+<span style="color:#66d9ef">break</span>;
+
+<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+
+xfer <span style="color:#f92672">+=</span> iprot<span style="color:#f92672">-&gt;</span>skip(ftype);
+
+<span style="color:#66d9ef">break</span>;
+
+<span style="color:#960050;background-color:#1e0010">。。。</span>
+
+<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>isset_userId)
+
+throw TProtocolException(TProtocolException<span style="color:#f92672">::</span>INVALID_DATA);
+</code></pre></div><center>
+看完本文有收获？请分享给更多人<br>
+<p>关注「黑光技术」，关注大数据+微服务<br></p>
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2014/669/" data-toggle="tooltip" data-placement="top" title="shell字符串的截取">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2014/675/" data-toggle="tooltip" data-placement="top" title="thrift之python客户端使用">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2014/658/"><i class="fa fa-link"></i>Thrift学习笔记—IDL基本类型</a></li>
+         
+        <li><a href="/blog/2013/646/"><i class="fa fa-link"></i>Thrift http嵌入sever设计实现</a></li>
+         
+        <li><a href="/blog/2012/607/"><i class="fa fa-link"></i>terminate called after throwing an instance of &#39;stdz::logic_error&#39;</a></li>
+         
+        <li><a href="/blog/2012/600/"><i class="fa fa-link"></i>c种内存分配错误：malloc.c:3096: sYSMALLOc: Assertion</a></li>
+         
+        <li><a href="/blog/2011/496/"><i class="fa fa-link"></i>Gstyle-Protocol Buffers(protobuf)</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>Redis源码分析1:Redis启动分析</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, redis, db, 事件驱动, client">
+  
+  
+  <meta name="description" content="完美之道，不在无可增加，而在无可删减。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="Redis源码分析1:Redis启动分析">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2019/redis/" />
+  <meta property="og:description" content="完美之道，不在无可增加，而在无可删减。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/redis.png">
+  <meta property="og:image:type" content="image/png">
+  
+  
+  
+    <meta property="og:image:width" content="300">
+    <meta property="og:image:height" content="253">
+  
+  
+  <meta property="og:updated_time" content="2019-05-18T13:47:08&#43;0200">
+  
+    
+    
+    <meta property="article:section" content="redis">
+    <meta property="article:tag" content="redis">
+    <meta property="article:tag" content="db">
+    
+    
+    <meta property="article:published_time" content="2019-05-18T13:47:08&#43;0200">
+    <meta property="article:modified_time" content="2019-05-18T13:47:08&#43;0200">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="Redis源码分析1:Redis启动分析">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/redis.png">
+  
+  <meta name="twitter:description" content="完美之道，不在无可增加，而在无可删减。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="Redis源码分析1:Redis启动分析 logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="Redis源码分析1:Redis启动分析 logo" class="visible-xs visible-sm">
+                    <span class="sr-only">Redis源码分析1:Redis启动分析 - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Redis源码分析1:Redis启动分析</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2019年5月18日
+                        </i>
+                        |
+                        
+                        由 <a href="https://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        4100字 | 阅读大约需要9分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/redis">redis</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/redis/"><i>#redis</i></a>
+                        
+                        <a style="text-transform:capitalize" href="/tags/db/"><i>#db</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <h1 id="前言">前言</h1>
+<p>近期决定把redis的源码阅读分析一下，在<a href="http://redis.io">官网</a>下载了最新稳定版本5.0.3。整个代码包还是比较小的，下载之后整个包才9M，解压之后看src文件夹也才3.7M，也就是说redis的源码就这么点，其它占空间的主要是几个依赖组件:hiredis(redis的C客户端), lua, jemalloc（内存池）, linenoise（配置文件解析），这些代码占了大概6.3M.</p>
+<p>看了redis的代码首先直观感觉就是：规范，非常规范。代码格式，缩紧，注释，命名都是非常规范的，可以说又是一个C代码的软件的典型。所以读起来也相对比较舒服。</p>
+<p>计划从这几个方面开始</p>
+<ol>
+<li>基本的代码结构和服务启动过程</li>
+<li>redis的网络模型</li>
+<li>主要数据类型
+<ol>
+<li>kv</li>
+<li>set</li>
+<li>zset</li>
+</ol>
+</li>
+<li>持久化和复制</li>
+</ol>
+<h1 id="基本的代码结构">基本的代码结构</h1>
+<p>这里首先就开始一部分的分析，这里先介绍一下redis的主体结构，文件的分类，服务的基本编译，测试和启动流程。</p>
+<p>从目录结构和文件的组织形式，我感觉redis也做的非常好；任何一个软件项目，源码组织形式都是非常重要的，而且也能从侧面反映出软件的组织架构。所以这里也想介绍一下redis的目录结构和源码组织形式。</p>
+<p>解压redis源码压缩包之后，主要的目录有这样几个：deps，src，utils，tests。基本上看目录名就知道做什么的了。
+deps主要是redis以来的一些第三方库:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">HELIGHTXU-MB0:redis-5.0.3 helightxu$ ls deps/
+Makefile           README.md          hiredis            jemalloc           linenoise          lua   update-jemalloc.sh
+HELIGHTXU-MB0:redis-5.0.3 helightxu$ 
+</code></pre></div><p>hiredis是redis的一个c客户端库，jemalloc是内存池库，linenoise是一个文本行读取解析库，lua文件夹内是lua5.1的一个c实现。
+utils主要放一些工具包，直接看里面是有hashtable，hyperloglog，lru等，不过从我读代码的过程来看，这里面的内容貌似用的很少。
+tests主要是针对redis的测试脚本。
+src就是redis的全部源码了，这里面的代码组织也是非常简洁的，至少代码阅读起来比较便利</p>
+<h2 id="服务启动过程">服务启动过程</h2>
+<h2 id="编译运行">编译运行</h2>
+<p>解压之后直接进入首目录，直接make即可，redis的代码很规范，编译过程也写的非常好，很流程，包括测试用例。</p>
+<p>可以进入src目录，使用lldb（我使用mac，在mac上gdb使用起来不是很方便）启动redis-server这个程序，再在另外一个终端中启动客户端redis-cli，发送指令和server进行交互和调用过程分析。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">HELIGHTXU-MB0:src helightxu$ sudo lldb ./redis-server 
+Password:
+<span style="color:#f92672">(</span>lldb<span style="color:#f92672">)</span> target create <span style="color:#e6db74">&#34;./redis-server&#34;</span>
+Current executable set to <span style="color:#e6db74">&#39;./redis-server&#39;</span> <span style="color:#f92672">(</span>x86_64<span style="color:#f92672">)</span>.
+<span style="color:#f92672">(</span>lldb<span style="color:#f92672">)</span> b readQueryFromClient
+Breakpoint 1: where <span style="color:#f92672">=</span> redis-server<span style="color:#e6db74">`</span>readQueryFromClient + <span style="color:#ae81ff">17</span> at networking.c:1508, address <span style="color:#f92672">=</span> 0x0000000100019e91
+<span style="color:#f92672">(</span>lldb<span style="color:#f92672">)</span> r
+Process <span style="color:#ae81ff">33656</span> launched: <span style="color:#e6db74">&#39;./redis-server&#39;</span> <span style="color:#f92672">(</span>x86_64<span style="color:#f92672">)</span>
+33656:C <span style="color:#ae81ff">06</span> Mar <span style="color:#ae81ff">2019</span> 18:04:46.253 <span style="color:#75715e"># oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span>
+33656:C <span style="color:#ae81ff">06</span> Mar <span style="color:#ae81ff">2019</span> 18:04:46.253 <span style="color:#75715e"># Redis version=5.0.3, bits=64, commit=00000000, modified=0, pid=33656, just started</span>
+33656:C <span style="color:#ae81ff">06</span> Mar <span style="color:#ae81ff">2019</span> 18:04:46.253 <span style="color:#75715e"># Warning: no config file specified, using the default config. In order to specify a config file use ./redis-server /path/to/redis.conf</span>
+33656:M <span style="color:#ae81ff">06</span> Mar <span style="color:#ae81ff">2019</span> 18:04:46.254 * Increased maximum number of open files to <span style="color:#ae81ff">10032</span> <span style="color:#f92672">(</span>it was originally set to 256<span style="color:#f92672">)</span>.
+   _._           
+           _.-<span style="color:#e6db74">``</span>__ <span style="color:#e6db74">&#39;&#39;</span>-._      
+      _.-<span style="color:#e6db74">``</span>    <span style="color:#e6db74">`</span>.  <span style="color:#e6db74">`</span>_.  <span style="color:#e6db74">&#39;&#39;</span>-._           Redis 5.0.3 <span style="color:#f92672">(</span>00000000/0<span style="color:#f92672">)</span> <span style="color:#ae81ff">64</span> bit
+  .-<span style="color:#e6db74">``</span> .-<span style="color:#e6db74">```</span>.  <span style="color:#e6db74">```</span><span style="color:#ae81ff">\/</span>    _.,_ <span style="color:#e6db74">&#39;&#39;</span>-._         
+ <span style="color:#f92672">(</span>    <span style="color:#e6db74">&#39;      ,       .-`  | `,    )     Running in standalone mode
+</span><span style="color:#e6db74"> |`-._`-...-` __...-.``-._|&#39;</span><span style="color:#e6db74">`</span> _.-<span style="color:#e6db74">&#39;|     Port: 6379
+</span><span style="color:#e6db74"> |    `-._   `._    /     _.-&#39;</span>    |     PID: <span style="color:#ae81ff">33656</span>
+  <span style="color:#e6db74">`</span>-._    <span style="color:#e6db74">`</span>-._  <span style="color:#e6db74">`</span>-./  _.-<span style="color:#e6db74">&#39;    _.-&#39;</span>         
+ |<span style="color:#e6db74">`</span>-._<span style="color:#e6db74">`</span>-._    <span style="color:#e6db74">`</span>-.__.-<span style="color:#e6db74">&#39;    _.-&#39;</span>_.-<span style="color:#e6db74">&#39;|        
+</span><span style="color:#e6db74"> |    `-._`-._        _.-&#39;</span>_.-<span style="color:#e6db74">&#39;    |           http://redis.io        
+</span><span style="color:#e6db74">  `-._    `-._`-.__.-&#39;</span>_.-<span style="color:#e6db74">&#39;    _.-&#39;</span>         
+ |<span style="color:#e6db74">`</span>-._<span style="color:#e6db74">`</span>-._    <span style="color:#e6db74">`</span>-.__.-<span style="color:#e6db74">&#39;    _.-&#39;</span>_.-<span style="color:#e6db74">&#39;|        
+</span><span style="color:#e6db74"> |    `-._`-._        _.-&#39;</span>_.-<span style="color:#e6db74">&#39;    |        
+</span><span style="color:#e6db74">  `-._    `-._`-.__.-&#39;</span>_.-<span style="color:#e6db74">&#39;    _.-&#39;</span>         
+      <span style="color:#e6db74">`</span>-._    <span style="color:#e6db74">`</span>-.__.-<span style="color:#e6db74">&#39;    _.-&#39;</span>
+          <span style="color:#e6db74">`</span>-._        _.-<span style="color:#e6db74">&#39;    
+</span><span style="color:#e6db74"> `-.__.-&#39;</span>        
+
+33656:M <span style="color:#ae81ff">06</span> Mar <span style="color:#ae81ff">2019</span> 18:04:46.255 <span style="color:#75715e"># Server initialized</span>
+33656:M <span style="color:#ae81ff">06</span> Mar <span style="color:#ae81ff">2019</span> 18:04:46.255 * Ready to accept connections
+Process <span style="color:#ae81ff">33656</span> stopped
+</code></pre></div><p>这里看到我在readQueryFromClient这个函数上设置了一个断点，主要是想看服务端接受客户端请求时的处理过程。后面基本的调试方式都是使用上面类似的方式，在某个函数上设置断点，在用客户端去链接服务端，发送命令分析服务端的执行过程。这样分析起来还是非常方便的。</p>
+<p>下面时客户端发起链接之后的一个处理过程，在调用这个函数的时候就停下来了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">* thread <span style="color:#75715e">#1, queue = &#39;com.apple.main-thread&#39;, stop reason = breakpoint 1.1</span>
+    frame <span style="color:#75715e">#0: 0x0000000100019e91 redis-server`readQueryFromClient(el=0x000000010052f240, fd=8, privdata=0x000000010200be00, mask=1) at networking.c:1508</span>
+   1505	     * at the risk of requiring more read<span style="color:#f92672">(</span>2<span style="color:#f92672">)</span> calls. This way the <span style="color:#66d9ef">function</span>
+   1506	     * processMultiBulkBuffer<span style="color:#f92672">()</span> can avoid copying buffers to create the
+   1507	     * Redis Object representing the argument. */
+-&gt; 1508	    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>c-&gt;reqtype <span style="color:#f92672">==</span> PROTO_REQ_MULTIBULK <span style="color:#f92672">&amp;&amp;</span> c-&gt;multibulklen <span style="color:#f92672">&amp;&amp;</span> c-&gt;bulklen !<span style="color:#f92672">=</span> -1
+   1509	        <span style="color:#f92672">&amp;&amp;</span> c-&gt;bulklen &gt;<span style="color:#f92672">=</span> PROTO_MBULK_BIG_ARG<span style="color:#f92672">)</span>
+   1510	    <span style="color:#f92672">{</span>
+   1511	        ssize_t remaining <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>size_t<span style="color:#f92672">)(</span>c-&gt;bulklen+2<span style="color:#f92672">)</span>-sdslen<span style="color:#f92672">(</span>c-&gt;querybuf<span style="color:#f92672">)</span>;
+Target 0: <span style="color:#f92672">(</span>redis-server<span style="color:#f92672">)</span> stopped.
+</code></pre></div><p>再可以使用bt来看堆栈来整个调用过程。采用这种方式来</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">(</span>lldb<span style="color:#f92672">)</span> bt
+* thread <span style="color:#75715e">#1, queue = &#39;com.apple.main-thread&#39;, stop reason = breakpoint 1.1</span>
+  * frame <span style="color:#75715e">#0: 0x0000000100019e91 redis-server`readQueryFromClient(el=0x000000010052f240, fd=8, privdata=0x000000010200be00, mask=1) at networking.c:1508</span>
+    frame <span style="color:#75715e">#1: 0x00000001000046bc redis-server`aeProcessEvents(eventLoop=0x000000010052f240, flags=11) at ae.c:443</span>
+    frame <span style="color:#75715e">#2: 0x00000001000049db redis-server`aeMain(eventLoop=0x000000010052f240) at ae.c:501</span>
+    frame <span style="color:#75715e">#3: 0x00000001000105be redis-server`main(argc=1, argv=0x00007ffeefbffb88) at server.c:4197</span>
+    frame <span style="color:#75715e">#4: 0x00007fff5d3e108d libdyld.dylib`start + 1</span>
+    frame <span style="color:#75715e">#5: 0x00007fff5d3e108d libdyld.dylib`start + 1</span>
+<span style="color:#f92672">(</span>lldb<span style="color:#f92672">)</span> 
+
+</code></pre></div><p>以上是简答的调试，那么接下来我想想从redis的启动上做一个简单的分析，之后在对其基本网络模型进行分析。</p>
+<h1 id="redis的核心">redis的核心</h1>
+<p>看了redis的代码，发现整个redis都是围绕一个数据结构来的，这个结构就是<code>struct redisServer server</code>，这个结构是整个redis的核心，不夸张的说，只要看懂了整个数据结构基本上redis的代码也就看到了一大半了，所以这里介绍的时候，首先介绍一下整个数据结构。</p>
+<p>在redis中server这个结构体变量是一个全局的变量，有点单例的感觉，全局只有一个。这也是C语言中的一个特点吧，在server.h文件是把server这变量设置为extern的。redis的定义是在server.c中的。server这个变量是redis中最终要的一个结构体了，这个结构体也非常庞大，同样是定义在server.h这个文件中</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// server.c 70行之后       
+</span><span style="color:#75715e"></span><span style="color:#75715e">/* Global vars */</span>     
+<span style="color:#66d9ef">struct</span> redisServer server; <span style="color:#75715e">/* Server global state */</span>         
+<span style="color:#66d9ef">volatile</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> lru_clock; <span style="color:#75715e">/* Server global current LRU time. */</span>  
+</code></pre></div><p>server.h中的定义。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// server.h 928行之后
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> redisServer {
+    <span style="color:#75715e">/* General */</span>
+    pid_t pid;     <span style="color:#75715e">/* Main process pid. */</span>
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>configfile;           <span style="color:#75715e">/* Absolute config file path, or NULL */</span>
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>executable;           <span style="color:#75715e">/* Absolute executable file path. */</span>
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>exec_argv;           <span style="color:#75715e">/* Executable argv vector (copy). */</span>
+    <span style="color:#66d9ef">int</span> dynamic_hz;<span style="color:#75715e">/* Change hz value depending on # of clients. */</span>
+    <span style="color:#66d9ef">int</span> config_hz; <span style="color:#75715e">/* Configured HZ value. May be different than
+</span><span style="color:#75715e">         the actual &#39;hz&#39; field value if dynamic-hz
+</span><span style="color:#75715e">         is enabled. */</span>
+    <span style="color:#66d9ef">int</span> hz;        <span style="color:#75715e">/* serverCron() calls frequency in hertz */</span>
+    redisDb <span style="color:#f92672">*</span>db;
+    dict <span style="color:#f92672">*</span>commands;<span style="color:#75715e">/* Command table */</span>
+    dict <span style="color:#f92672">*</span>orig_commands;        <span style="color:#75715e">/* Command table before command renaming. */</span>
+    aeEventLoop <span style="color:#f92672">*</span>el;
+    ...
+}
+<span style="color:#75715e">// ...
+</span><span style="color:#75715e">// server.h 1368行之后
+</span><span style="color:#75715e"></span><span style="color:#75715e">/*-----------------------------------------------------------------------------
+</span><span style="color:#75715e"> * Extern declarations
+</span><span style="color:#75715e"> *----------------------------------------------------------------------------*/</span>
+
+<span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">struct</span> redisServer server;
+<span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">struct</span> sharedObjectsStruct shared;
+</code></pre></div><p>redisServer这个结构体我大概看了一下，成员变量在5.0.3这个版本中大概有300多个成员，非常庞大呀。因为redis中的注释做的非常好，所以这个结构体中大部分的成员都有注释的，所以现对都好理解，我这就不过多介绍了。</p>
+<h1 id="redis启动过程">redis启动过程</h1>
+<p>redis的main函数是在src的server.c这个文件中，在文件的最后面，所以它的启动就可以从这个点开始。</p>
+<p>从main函数中看来，redis启动的过程可以分为一下9个过程</p>
+<ol>
+<li>基本设置</li>
+<li>配置初始化</li>
+<li>module初始化</li>
+<li>哨兵设置</li>
+<li>从配置文件加载配置</li>
+<li>deamon</li>
+<li>初始化服务</li>
+<li>启动检测，加载模块和数据</li>
+<li>最后进入事件循环阶段，服务启动等待客户端连接，并根据命令字处理</li>
+</ol>
+<h2 id="1-基本设置">1. 基本设置</h2>
+<p>main函数开始是一些基本的设置，包括了环境变量设置，时区设置，hash种子设置，还有一个哨兵模式的设置，这个设置是只要参数中包含了sentinel这个关键字，就会把redis设置为哨兵模式。哨兵模式主要是针对redis高可用中主备的监控和自动切换。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv) {      
+    <span style="color:#66d9ef">struct</span> timeval tv;    
+    <span style="color:#66d9ef">int</span> j;       
+    <span style="color:#75715e">/* We need to initialize our libraries, and the server configuration. */</span>  
+<span style="color:#75715e">#ifdef INIT_SETPROCTITLE_REPLACEMENT   
+</span><span style="color:#75715e"></span>    spt_init(argc, argv); 
+<span style="color:#75715e">#endif       
+</span><span style="color:#75715e"></span>    setlocale(LC_COLLATE,<span style="color:#e6db74">&#34;&#34;</span>);          
+    tzset(); <span style="color:#75715e">/* Populates &#39;timezone&#39; global. */</span>     
+    zmalloc_set_oom_handler(redisOutOfMemoryHandler);            
+    srand(time(NULL)<span style="color:#f92672">^</span>getpid());        
+    gettimeofday(<span style="color:#f92672">&amp;</span>tv,NULL); 
+    <span style="color:#66d9ef">char</span> hashseed[<span style="color:#ae81ff">16</span>];
+    getRandomHexChars(hashseed,<span style="color:#66d9ef">sizeof</span>(hashseed));            
+    dictSetHashFunctionSeed((<span style="color:#66d9ef">uint8_t</span><span style="color:#f92672">*</span>)hashseed);
+    server.sentinel_mode <span style="color:#f92672">=</span> checkForSentinelMode(argc,argv);  
+    ...
+</code></pre></div><h2 id="2配置初始化">2.配置初始化</h2>
+<p>接下来主要的还有就是配置初始化设置：<code>initServerConfig()</code>。<code>initServerConfig</code>这个函数中的大部分作用就是给<code>server</code>这个变量中的成员赋值，算是配置参数初始化为默认值。比如时间，配置文件地址，配置的服务模式，日志级别，复制模式，基本命令，集群配置，落地方式等等等等。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initServerConfig</span>(<span style="color:#66d9ef">void</span>) {      
+    <span style="color:#66d9ef">int</span> j;            
+         
+    pthread_mutex_init(<span style="color:#f92672">&amp;</span>server.next_client_id_mutex,NULL);   
+    pthread_mutex_init(<span style="color:#f92672">&amp;</span>server.lruclock_mutex,NULL);         
+    pthread_mutex_init(<span style="color:#f92672">&amp;</span>server.unixtime_mutex,NULL);         
+         
+    updateCachedTime();            
+    getRandomHexChars(server.runid,CONFIG_RUN_ID_SIZE);      
+    server.runid[CONFIG_RUN_ID_SIZE] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;    
+    changeReplicationId();         
+    clearReplicationId2();         
+    server.timezone <span style="color:#f92672">=</span> getTimeZone(); <span style="color:#75715e">/* Initialized by tzset(). */</span>        
+    server.configfile <span style="color:#f92672">=</span> NULL;      
+    server.executable <span style="color:#f92672">=</span> NULL;      
+    server.hz <span style="color:#f92672">=</span> server.config_hz <span style="color:#f92672">=</span> CONFIG_DEFAULT_HZ;        
+...
+</code></pre></div><p>这里参数太多了看看就可以了，这里都是设置服务参数的默认值，相当于是在做参数初始化。</p>
+<h2 id="3-module初始化">3. module初始化</h2>
+<p>接下来还有一个<code>moduleInitModulesSystem()</code>，redis有个<code>module</code>扩展机制，实际上各种数据结构都是按照这个规范来接入到redis服务里面的，当然我们也可以扩展自己的数据结构和命令字。后面有时间也想测试一下这个看怎么按照一些业务特点来扩展功能。</p>
+<p>这里列出了关键函数，可以看出通过这个初始化，它把已有的redis的api都注册到了server上了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// module.c
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">moduleRegisterApi</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>funcname, <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>funcptr) { 
+    <span style="color:#66d9ef">return</span> dictAdd(server.moduleapi, (<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span>)funcname, funcptr);           
+}        
+         
+<span style="color:#75715e">#define REGISTER_API(name) \       
+</span><span style="color:#75715e"></span>    moduleRegisterApi(<span style="color:#e6db74">&#34;RedisModule_&#34;</span> <span style="color:#960050;background-color:#1e0010">#</span>name, (<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>)(<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span>)RM_ <span style="color:#960050;background-color:#1e0010">##</span> name) 
+...
+<span style="color:#66d9ef">void</span> moduleInitModulesSystem(<span style="color:#66d9ef">void</span>) {            
+    moduleUnblockedClients <span style="color:#f92672">=</span> listCreate();      
+    server.loadmodule_queue <span style="color:#f92672">=</span> listCreate();     
+    modules <span style="color:#f92672">=</span> dictCreate(<span style="color:#f92672">&amp;</span>modulesDictType,NULL);
+    ...     
+    moduleRegisterCoreAPI();    <span style="color:#75715e">// 这里注册了已有的module结构
+</span><span style="color:#75715e"></span>    ...          
+}    
+...
+<span style="color:#75715e">/* Register all the APIs we export. Keep this function at the end of the      
+</span><span style="color:#75715e"> * file so that&#39;s easy to seek it to add new entries. */</span>         
+<span style="color:#66d9ef">void</span> moduleRegisterCoreAPI(<span style="color:#66d9ef">void</span>) {     
+    server.moduleapi <span style="color:#f92672">=</span> dictCreate(<span style="color:#f92672">&amp;</span>moduleAPIDictType,NULL);      
+    REGISTER_API(Alloc);    
+    ...           
+    REGISTER_API(ZsetAdd);         
+    REGISTER_API(ZsetIncrby);      
+    REGISTER_API(ZsetScore);       
+    ...           
+    REGISTER_API(ZsetRangeEndReached);          
+    REGISTER_API(HashSet);         
+    REGISTER_API(HashGet); 
+    ...
+}
+
+</code></pre></div><h2 id="4-哨兵设置">4. 哨兵设置</h2>
+<p>接下来在main函数中比较重要的就是根据上面哨兵的配置，进行哨兵模式的初始化设置。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#75715e">/* We need to init sentinel right now as parsing the configuration file            
+</span><span style="color:#75715e">     * in sentinel mode will have the effect of populating the sentinel   
+</span><span style="color:#75715e">     * data structures with master nodes to monitor. */</span>      
+    <span style="color:#66d9ef">if</span> (server.sentinel_mode) {    
+        initSentinelConfig();      
+        initSentinel();            
+    }      
+</code></pre></div><h2 id="5-从配置文件加载配置">5. 从配置文件加载配置</h2>
+<p>接下来比较重要的就是加载配置文件<code>loadServerConfig</code>，并且根据配置文件中的配置，对服务器参数进行更新。这块的代码较多，现对容易读，就不过多解析了。因为这里面就是一堆的ifelse语句。</p>
+<h2 id="6-deamon化">6. deamon化</h2>
+<p>redis的deamon函数写的也是非常小巧，如果有需要写后台服务的同学可以借鉴一下。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">daemonize</span>(<span style="color:#66d9ef">void</span>) {
+    <span style="color:#66d9ef">int</span> fd;           
+
+    <span style="color:#66d9ef">if</span> (fork() <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) exit(<span style="color:#ae81ff">0</span>); <span style="color:#75715e">/* parent exits */</span>    
+    setsid(); <span style="color:#75715e">/* create a new session */</span>            
+
+    <span style="color:#75715e">/* Every output goes to /dev/null. If Redis is daemonized but
+</span><span style="color:#75715e">     * the &#39;logfile&#39; is set to &#39;stdout&#39; in the configuration file
+</span><span style="color:#75715e">     * it will not log at all. */</span>      
+    <span style="color:#66d9ef">if</span> ((fd <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#34;/dev/null&#34;</span>, O_RDWR, <span style="color:#ae81ff">0</span>)) <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+        dup2(fd, STDIN_FILENO);        
+        dup2(fd, STDOUT_FILENO);   
+        dup2(fd, STDERR_FILENO);   
+        <span style="color:#66d9ef">if</span> (fd <span style="color:#f92672">&gt;</span> STDERR_FILENO) close(fd);      
+    }    
+}  
+</code></pre></div><h2 id="7-初始化服务">7. 初始化服务</h2>
+<p>再下来也是非常重要的一个函数<code>initServer</code>，这个函数中是对Server进行启动前的初始化工作，这个函数就正式到服务的启动阶段了，主要有一下一些事情：</p>
+<ol>
+<li>服务信号处理函数设置</li>
+<li>一些服务和客户端参数的初始化</li>
+<li>创建共享对象，调整打开文件限制</li>
+<li>创建事件驱动循环处理器</li>
+<li>端口监听，</li>
+<li>数据库文件初始化，</li>
+<li>状态、统计数据初始化，</li>
+<li>定时器事件添加</li>
+<li>tcp连接事件处理器添加</li>
+<li>管道事件处理器添加，设置最大内存，默认是3G。</li>
+<li>复制初始化等等。</li>
+<li>一些lua虚拟机和脚本添加</li>
+<li>一些后台任务线程创建</li>
+<li>其它慢日志等初始化
+redis的事件驱动框架也是redis中非常重要的一个设计，下次分析网络的时候会梳理这块。</li>
+</ol>
+<h2 id="8-启动检测加载模块和数据">8. 启动检测，加载模块和数据</h2>
+<p>这里如果设置了哨兵模式，则会启动哨兵服务进程；在非哨兵模式下会加载服务module和数据。这里比较简单就不多介绍了。</p>
+<h2 id="9-最后进入事件循环阶段服务启动等待客户端连接并根据命令字处理">9. 最后进入事件循环阶段，服务启动等待客户端连接，并根据命令字处理</h2>
+<p>最后就是做一些检测，启动哨兵，进入网络事件监听状态了，在<code>aeMain</code>中就进入事件驱动的网络事件处理了，在监听到网络请求之后就在这个主循环中进行处理了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// server.c 4194行之后
+</span><span style="color:#75715e"></span>    ...       
+    aeSetBeforeSleepProc(server.el,beforeSleep);    
+    aeSetAfterSleepProc(server.el,afterSleep);      
+    aeMain(server.el);    
+    aeDeleteEventLoop(server.el);      
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}        
+         
+<span style="color:#75715e">/* The End */</span>    
+</code></pre></div><h1 id="总结">总结</h1>
+<p>以上对redis的启动代码做了一个初步的分析，只是梳理出来redis的基本启动过程，但是每个参数、事件驱动、哨兵等机制和功能到底是怎么样的，还没有具体的分析，这个放到后面逐步分析。看了redis的代码总体的感觉有2个：1）代码整体上非常整洁，读起来非常舒服，模块的设计也非常到位，阅读理解相对没有那么难。2）代码中有大量的注释，这个更加方便了代码阅读。</p>
+<p>今年上半年的计划就是在工作之余能够挤点事件把redis的代码梳理梳理，下次应该画几个脑图就更能帮助理解了。</p>
+<center>
+看完本文有收获？请分享给更多人
+<p>关注「黑光技术」，关注大数据+微服务</p>
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2019/what-is-devops/" data-toggle="tooltip" data-placement="top" title="什么是DevOps的生命周期">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2019/xprojects/" data-toggle="tooltip" data-placement="top" title="helight的github项目">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2019/redis2/"><i class="fa fa-link"></i> Redis源码分析2:Redis的事件处理模型</a></li>
+         
+        <li><a href="/blog/2012/575/"><i class="fa fa-link"></i>redis使用----数据类型和操作命令</a></li>
+         
+        <li><a href="/blog/2012/573/"><i class="fa fa-link"></i>redis学习笔记--编译配置</a></li>
+         
+        <li><a href="/blog/2012/557/"><i class="fa fa-link"></i>svn中分支开发实践学习</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

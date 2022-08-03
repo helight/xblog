@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tools on 黑光技术</title>
+    <link>http://www.helight.cn/categories/tools/</link>
+    <description>Recent content in tools on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Sun, 18 Nov 2018 13:47:08 +0200</lastBuildDate><atom:link href="http://www.helight.cn/categories/tools/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用gitbook来写文档和文章</title>
+      <link>http://www.helight.cn/blog/2018/gitbook/</link>
+      <pubDate>Sun, 18 Nov 2018 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/gitbook/</guid>
+      <description>&lt;pre&gt;&lt;code&gt;gitbook其实是一个nodejs的一个工具软件，是基于nodejs的。gitbook.com就是基于这个工具开发的系统，他是一个提供了在线文档书籍开发管理的系统，它同时打通了github。&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Xnotebook文本资料管理软件</title>
+      <link>http://www.helight.cn/blog/2009/xnotebook/</link>
+      <pubDate>Thu, 26 Feb 2009 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/xnotebook/</guid>
+      <description>Xnotebook是一款用gtk＋开发的文本资料管理软件，它主要用于个人文本资料的分类管理。</description>
+    </item>
+    
+  </channel>
+</rss>

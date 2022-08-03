@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>ebpf 学习梳理和测试使用</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, ebpf, trace">
+  
+  
+  <meta name="description" content="在 ubuntu 系统中测试 ebpf 程序。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="ebpf 学习梳理和测试使用">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2020/test-bcc/" />
+  <meta property="og:description" content="在 ubuntu 系统中测试 ebpf 程序。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/linux_ebpf_support.png">
+  <meta property="og:image:type" content="image/png">
+  
+  
+  
+    <meta property="og:image:width" content="1500">
+    <meta property="og:image:height" content="1050">
+  
+  
+  <meta property="og:updated_time" content="2020-03-21T23:47:08&#43;0200">
+  
+    
+    
+    <meta property="article:section" content="kernel">
+    <meta property="article:tag" content="kernel">
+    <meta property="article:tag" content="ebpf">
+    
+    
+    <meta property="article:published_time" content="2020-03-21T23:47:08&#43;0200">
+    <meta property="article:modified_time" content="2020-03-21T23:47:08&#43;0200">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="ebpf 学习梳理和测试使用">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/linux_ebpf_support.png">
+  
+  <meta name="twitter:description" content="在 ubuntu 系统中测试 ebpf 程序。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="ebpf 学习梳理和测试使用 logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="ebpf 学习梳理和测试使用 logo" class="visible-xs visible-sm">
+                    <span class="sr-only">ebpf 学习梳理和测试使用 - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>ebpf 学习梳理和测试使用</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2020年3月21日
+                        </i>
+                        |
+                        
+                        由 <a href="http://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        3800字 | 阅读大约需要8分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/kernel">kernel</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/kernel/"><i>#kernel</i></a>
+                        
+                        <a style="text-transform:capitalize" href="/tags/ebpf/"><i>#ebpf</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <h2 id="前言">前言</h2>
+<p>周五下午在公司的服务网格月度讨论会上，一位同事为大家分享了在服务网格中使用 ebpf 来优化提升 istio 中 sidecar 和 RS 间的通信效率。听过之后手痒难，想测试一把 ebpf。当这位同事在这方面做的还是比较深入的，而且给内核和 istio 中提交了pr。有兴趣的同学可以看看他的 github:<a href="https://github.com/ChenLingPeng">https://github.com/ChenLingPeng</a> 还有他的 <a href="http://chenlingpeng.github.io/">blog</a>。</p>
+<p>我前几天也在测试这块，本来是想在公司的 dev 机器上测试一把，但是因为内核还是 3.xx 的版本，无奈放弃了。如果大家想体验功能较为完善的 ebpf，那么至少是 4.xx 以上的版本，随着内核版本的发展支持的功能也越来越丰富，相关函数支持大家可以在这里看：<a href="https://github.com/iovisor/bcc/blob/master/docs/kernel-versions.md">https://github.com/iovisor/bcc/blob/master/docs/kernel-versions.md</a>。</p>
+<p>下午事情不多，所以又想测试搞起一把。也刚好是年前买了一个台腾讯云的主机，一直没有怎么使用，今天看了，可以升级操作系统到 ubuntu 18.04，18.04 的内核模式就是 4.15 了，基本可以玩 ebpf，不过安装好之后发现可以直接升级内核到 5.3，到 5.3 就有很多函数功能了。一下面先做了一些操作流水帐，记录整个过程。</p>
+<h2 id="ebpf-简单介绍">ebpf 简单介绍</h2>
+<p>这里介绍也主要是从昨天分享得到，虽然之前也看过，但是毕竟没有使用过这玩意，所以认知还是不够深入。另外从今天下午<a href="http://opensourceway.community/">建盛大哥</a>组织的技术写作分享课上学到的 learning by doing。所以这东西不做，理解始终是不够深入的。今天就实际操刀做了一遍。理论学习千百遍，不如实操来一遍。所以搞起。</p>
+<h3 id="ebpf-是什么">ebpf 是什么</h3>
+<ol>
+<li>eBPF: extended Berkeley Packet Filter， BPF 提供了强大的网络包过滤规则，可以确定应该检查哪些流量、忽略哪些流量等，而内核近几年发展的 Extended BPF, eBPF 实际上将应用范围，处理效率进行了更新。通过一个内核内置的字节码虚拟机，完成数据包过滤、调用栈跟踪、耗时统计、热点分析等等高级功能。</li>
+<li>‘内核虚拟机’，内核内置JIT，这个虚拟机除了借助于 llvm 的技术实现了 jit 之外，最主要要的就是实现了规定指令的检测了安全执行。不会因为应用层下发的指令而导致内核效率异常低下或者奔溃。</li>
+<li>C语言编写，llvm+clang编译，这个其实是和上面一条是一致的，这个 jit 的实际上就是 llvm 提供的，多年前我们在大数据多维计算引擎的实时就用过这种技术，非常灵活高效</li>
+<li>Map types： 多种类型的存储，程序间共享，用户态内核态共享</li>
+<li>Program Types：不同类型的 bpf 程序完成不同的事，不同的类型具有不同的功能，有点像模版的概念。</li>
+<li>helper functions: 与内核数据交互，这里可以看到目前的：http://man7.org/linux/man-pages/man7/bpf-helpers.7.html。
+<img src="./imgs/linux_ebpf_internals.png" alt=""></li>
+</ol>
+<p>这里面编程更重要的是后面的 3 点：Map types ，Program Types，helper functions。下面先学习一下基本理论，虽然上面那么说，但是毕竟不经过理论的实操，那就成瞎操作了。所以还是理论上先看看。</p>
+<h4 id="map-types">Map types</h4>
+<p>Map types 是 ebpf 中主要的数据存储类型，目前随着内核的发展已经有 20 多种的类型，通用型的，针对 CPU，socket，cgroup 等。很多 map 类型都有一些特殊的使用方式。BPF 程序可以通过 helper function 读写 map，用户态程序也可以通过 bpf(&hellip;)系统调用读写 map，因此可以通过 map 来达到 BPF 程序之间，BPF 程序与用户态程序之间的数据交互与控制。具体的类型定义可以看这个文件中定义：
+<a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/uapi/linux/bpf.h">include/uapi/linux/bpf.h</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">enum</span> bpf_map_type {
+	BPF_MAP_TYPE_UNSPEC,
+	BPF_MAP_TYPE_HASH,
+	BPF_MAP_TYPE_ARRAY,
+	BPF_MAP_TYPE_PROG_ARRAY,
+	BPF_MAP_TYPE_PERF_EVENT_ARRAY,
+	BPF_MAP_TYPE_PERCPU_HASH,
+	BPF_MAP_TYPE_PERCPU_ARRAY,
+	BPF_MAP_TYPE_STACK_TRACE,
+	BPF_MAP_TYPE_CGROUP_ARRAY,
+	BPF_MAP_TYPE_LRU_HASH,
+	BPF_MAP_TYPE_LRU_PERCPU_HASH,
+	BPF_MAP_TYPE_LPM_TRIE,
+	BPF_MAP_TYPE_ARRAY_OF_MAPS,
+	BPF_MAP_TYPE_HASH_OF_MAPS,
+	BPF_MAP_TYPE_DEVMAP,
+	BPF_MAP_TYPE_SOCKMAP,
+	BPF_MAP_TYPE_CPUMAP,
+	BPF_MAP_TYPE_XSKMAP,
+	BPF_MAP_TYPE_SOCKHASH,
+	BPF_MAP_TYPE_CGROUP_STORAGE,
+	BPF_MAP_TYPE_REUSEPORT_SOCKARRAY,
+	BPF_MAP_TYPE_PERCPU_CGROUP_STORAGE,
+	BPF_MAP_TYPE_QUEUE,
+	BPF_MAP_TYPE_STACK,
+	BPF_MAP_TYPE_SK_STORAGE,
+	BPF_MAP_TYPE_DEVMAP_HASH,
+	BPF_MAP_TYPE_STRUCT_OPS,
+};
+</code></pre></div><h4 id="program-types">Program Types</h4>
+<p>每个BPF程序都属于某个特定的程序类型，目前内核支持20+不同类型的BPF程序类型，可以大致分为网络，跟踪，安全等几大类，BPF程序的输入参数也根据类型有所不同。
+具体的定义可以看这个文件中定义：
+<a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/uapi/linux/bpf.h">include/uapi/linux/bpf.h</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">enum</span> bpf_prog_type {
+	BPF_PROG_TYPE_UNSPEC,
+	BPF_PROG_TYPE_SOCKET_FILTER,
+	BPF_PROG_TYPE_KPROBE,
+	BPF_PROG_TYPE_SCHED_CLS,
+	BPF_PROG_TYPE_SCHED_ACT,
+	BPF_PROG_TYPE_TRACEPOINT,
+	BPF_PROG_TYPE_XDP,
+	BPF_PROG_TYPE_PERF_EVENT,
+	BPF_PROG_TYPE_CGROUP_SKB,
+	BPF_PROG_TYPE_CGROUP_SOCK,
+	BPF_PROG_TYPE_LWT_IN,
+	BPF_PROG_TYPE_LWT_OUT,
+	BPF_PROG_TYPE_LWT_XMIT,
+	BPF_PROG_TYPE_SOCK_OPS,
+	BPF_PROG_TYPE_SK_SKB,
+	BPF_PROG_TYPE_CGROUP_DEVICE,
+	BPF_PROG_TYPE_SK_MSG,
+	BPF_PROG_TYPE_RAW_TRACEPOINT,
+	BPF_PROG_TYPE_CGROUP_SOCK_ADDR,
+	BPF_PROG_TYPE_LWT_SEG6LOCAL,
+	BPF_PROG_TYPE_LIRC_MODE2,
+	BPF_PROG_TYPE_SK_REUSEPORT,
+	BPF_PROG_TYPE_FLOW_DISSECTOR,
+	BPF_PROG_TYPE_CGROUP_SYSCTL,
+	BPF_PROG_TYPE_RAW_TRACEPOINT_WRITABLE,
+	BPF_PROG_TYPE_CGROUP_SOCKOPT,
+	BPF_PROG_TYPE_TRACING,
+	BPF_PROG_TYPE_STRUCT_OPS,
+	BPF_PROG_TYPE_EXT,
+};
+</code></pre></div><h4 id="helper-functions">helper functions</h4>
+<p>具体的定义可以看这个文件中定义：
+<a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/uapi/linux/bpf.h">include/uapi/linux/bpf.h</a>，在文件的几乎最下面，可以检索 <code>FN(</code> 这个关键字来搜索。不同的内核版本支持的也是不一样的。从函数看出来主要是就是协助处理用户空间和内核空间的交互。比如从内核获取数据（PID，GID，时间，处理器ID等），操作内核的对象。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define __BPF_FUNC_MAPPER(FN)		\
+</span><span style="color:#75715e">	FN(unspec),			\
+</span><span style="color:#75715e">	FN(map_lookup_elem),		\
+</span><span style="color:#75715e">	FN(map_update_elem),		\
+</span><span style="color:#75715e">	FN(map_delete_elem),		\
+</span><span style="color:#75715e">	FN(probe_read),			\
+</span><span style="color:#75715e">	FN(ktime_get_ns),		\
+</span><span style="color:#75715e">	FN(trace_printk),		\
+</span><span style="color:#75715e">	FN(get_prandom_u32),		\
+</span><span style="color:#75715e">	FN(get_smp_processor_id),	\
+</span><span style="color:#75715e">	FN(skb_store_bytes),		\
+</span><span style="color:#75715e">	FN(l3_csum_replace),		\
+</span><span style="color:#75715e">	FN(l4_csum_replace),		\
+</span><span style="color:#75715e">	FN(tail_call),			\
+</span><span style="color:#75715e">	FN(clone_redirect),		\
+</span><span style="color:#75715e">	FN(get_current_pid_tgid),	\
+</span><span style="color:#75715e">	FN(get_current_uid_gid),	\
+</span><span style="color:#75715e">	FN(get_current_comm),		\
+</span><span style="color:#75715e">	FN(get_cgroup_classid),		\
+</span><span style="color:#75715e">	FN(skb_vlan_push),		\
+</span><span style="color:#75715e">	FN(skb_vlan_pop),		\
+</span><span style="color:#75715e">	FN(skb_get_tunnel_key),		\
+</span><span style="color:#75715e">	FN(skb_set_tunnel_key),		\
+</span><span style="color:#75715e">	FN(perf_event_read),		\
+</span><span style="color:#75715e">  ......
+</span></code></pre></div><h3 id="ebpf-主要有哪些功能">ebpf 主要有哪些功能</h3>
+<ol>
+<li>Tracing: kprobe/uprobe/tracepoint</li>
+<li>Security: seccomp</li>
+<li>Net: bpfilter, tc, sockmap, XDP</li>
+</ol>
+<p>可以从这张图上看看不同版本的内核和其支持的功能。
+<img src="./imgs/linux_ebpf_support.png" alt=""></p>
+<h2 id="ubuntu-升级内核版本到-53">ubuntu 升级内核版本到 5.3</h2>
+<p>在腾讯云可以自助重新安装操作系统，这个具体怎么操作就不说了哈，如果真不会可以发邮件或者微信问我。我根据内核版本和自己的熟悉程度，选择了 ubuntu 18.04 的镜像。重新安装非常快。</p>
+<p>18.04 默认安装的内核镜像是 4.15，但是我们还可以根据自己的需要自己升级内核版本，我根据当前的的信息升级到了 5.3 的内核。下面这个命令可以看目前还可以支持安装的内核版本。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">apt-cache search linux-image
+....
+linux-image-5.0.0-1010-oem-osp1 - Signed kernel image oem-osp1
+linux-image-5.0.0-1012-oem-osp1 - Signed kernel image oem-osp1
+linux-image-5.0.0-1013-gke - Signed kernel image GKE
+linux-image-5.0.0-1015-oem-osp1 - Signed kernel image oem-osp1
+linux-image-5.0.0-1033-oem-osp1 - Signed kernel image oem-osp1
+linux-image-5.3.0-1011-gke - Signed kernel image GKE
+linux-image-unsigned-5.0.0-1010-oem-osp1 - Linux kernel image <span style="color:#66d9ef">for</span> version 5.0.0 on <span style="color:#ae81ff">64</span> bit x86 SMP
+linux-image-unsigned-5.0.0-1012-oem-osp1 - Linux kernel image <span style="color:#66d9ef">for</span> version 5.0.0 on <span style="color:#ae81ff">64</span> bit x86 SMP
+linux-image-unsigned-5.0.0-1013-gke - Linux kernel image <span style="color:#66d9ef">for</span> version 5.0.0 on <span style="color:#ae81ff">64</span> bit x86 SMP
+linux-image-unsigned-5.0.0-1015-oem-osp1 - Linux kernel image <span style="color:#66d9ef">for</span> version 5.0.0 on <span style="color:#ae81ff">64</span> bit x86 SMP
+linux-image-unsigned-5.0.0-1033-oem-osp1 - Linux kernel image <span style="color:#66d9ef">for</span> version 5.0.0 on <span style="color:#ae81ff">64</span> bit x86 SMP
+linux-image-unsigned-5.3.0-1011-gke - Linux kernel image <span style="color:#66d9ef">for</span> version 5.3.0 on <span style="color:#ae81ff">64</span> bit x86 SMP
+linux-modules-nvidia-390-5.0.0-1033-oem-osp1 - Linux kernel nvidia modules <span style="color:#66d9ef">for</span> version 5.0.0-1033
+linux-modules-nvidia-418-5.0.0-1033-oem-osp1 - Linux kernel nvidia modules <span style="color:#66d9ef">for</span> version 5.0.0-1033
+</code></pre></div><p>目前腾讯的源中的内核版本还是比较多的，最高的是 5.3.0， 所以我就选了这个最高版本：linux-image-5.3.0-42-generic。这个是个通用版本，其中看还有 gke，aws 等等内核。</p>
+<p>安装过程就非常简单了，直接执行下面的命令。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">apt-get install linux-image-5.3.0-42-generic
+</code></pre></div><p>安装完成之后直接重启就可以了。重启之后可以使用 uname 命令看目前使用的内核版本。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">reboot
+uname -a
+Linux VM-0-13-ubuntu 5.3.0-42-generic <span style="color:#75715e">#34~18.04.1-Ubuntu SMP Fri Feb 28 13:42:26 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux</span>
+</code></pre></div><h2 id="安装-ebpf-的相关库和工具">安装 ebpf 的相关库和工具</h2>
+<p>接下来就可以进行 ebpf 的相关库和工具安装了，这部分安装也比较简单，我直接使用了二进制安装方式，没有使用源码安装，因为目前根据版本不一样，所需要的相关库和工具的代码也有所不一样，这块 ebpf 做的还是不够好的。安装过程参考这里 <a href="https://github.com/iovisor/bcc/blob/master/INSTALL.md#ubuntu---binary">https://github.com/iovisor/bcc/blob/master/INSTALL.md#ubuntu&mdash;binary</a>。</p>
+<h3 id="build-tools-install">build tools install</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># For Bionic (18.04 LTS)</span>
+apt-get -y install bison build-essential cmake flex git libedit-dev <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  libllvm6.0 llvm-6.0-dev libclang-6.0-dev python zlib1g-dev libelf-dev
+</code></pre></div><h3 id="install--bcc">Install  BCC</h3>
+<p>Upstream Stable and Signed Packages</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4052245BD4284CDD
+echo <span style="color:#e6db74">&#34;deb https://repo.iovisor.org/apt/</span><span style="color:#66d9ef">$(</span>lsb_release -cs<span style="color:#66d9ef">)</span><span style="color:#e6db74"> </span><span style="color:#66d9ef">$(</span>lsb_release -cs<span style="color:#66d9ef">)</span><span style="color:#e6db74"> main&#34;</span> | sudo tee /etc/apt/sources.list.d/iovisor.list
+apt-get update
+apt-get install bcc-tools libbcc-examples linux-headers-<span style="color:#66d9ef">$(</span>uname -r<span style="color:#66d9ef">)</span>
+apt-get install bpfcc-tools python-bpfcc libbpfcc
+</code></pre></div><h2 id="开始测试使用了哈">开始测试使用了哈</h2>
+<p>激动不激动，兴喜不兴喜，一起安装顺利，接下来就要测试验证了。程序员学习的老规矩，首先来一波 hello world 测试，再来高级的。如果 hello world 都过不了，说明有问题，更别说其它的高级测试了。</p>
+<h3 id="hello-world-测试">hello world 测试</h3>
+<p>这个例子来自：https://github.com/iovisor/bcc，python 写的例子，git clone bcc 的代码后，就可以直接使用下面这个例子。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@VM-0-13-ubuntu:/data/ebpf/bcc# ./examples/hello_world.py
+     barad_agent-1567  <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2487.213681: 0: Hello, World!
+     barad_agent-10789 <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2487.214536: 0: Hello, World!
+              sh-10790 <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2487.216496: 0: Hello, World!
+              sh-10790 <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2487.216720: 0: Hello, World!
+              sh-10790 <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2487.216849: 0: Hello, World!
+     barad_agent-1549  <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2487.221836: 0: Hello, World!
+              sh-10794 <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2487.224820: 0: Hello, World!
+              sh-10794 <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2487.225282: 0: Hello, World!
+              sh-10794 <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2487.225745: 0: Hello, World!
+        nslookup-10795 <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2487.233478: 0: Hello, World!
+        nslookup-10795 <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2487.233754: 0: Hello, World!
+        nslookup-10795 <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2487.233921: 0: Hello, World!
+     barad_agent-1567  <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2488.213850: 0: Hello, World!
+            sshd-1332  <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2489.585280: 0: Hello, World!
+            sshd-10802 <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2489.590194: 0: Hello, World!
+     barad_agent-1567  <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2490.213807: 0: Hello, World!
+     barad_agent-10804 <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2490.214692: 0: Hello, World!
+              sh-10805 <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2490.216457: 0: Hello, World!
+              sh-10805 <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2490.216655: 0: Hello, World!
+            sshd-1332  <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2491.263759: 0: Hello, World!
+            sshd-1332  <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2491.432832: 0: Hello, World!
+            sshd-10808 <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2491.495384: 0: Hello, World!
+            sshd-10809 <span style="color:#f92672">[</span>000<span style="color:#f92672">]</span> ....  2491.728332: 0: Hello, World!
+</code></pre></div><p>执行顺利，看到结果，那再来看看这个例子的源代码。非常简单，实际代码只有一行，目的是对 clone 系统调用进行跟踪，如果有 clone 系统调用就打印 “Hello, World!”。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/python</span>
+<span style="color:#75715e"># Copyright (c) PLUMgrid, Inc.</span>
+<span style="color:#75715e"># Licensed under the Apache License, Version 2.0 (the &#34;License&#34;)</span>
+
+<span style="color:#75715e"># run in project examples directory with:</span>
+<span style="color:#75715e"># sudo ./hello_world.py&#34;</span>
+<span style="color:#75715e"># see trace_fields.py for a longer example</span>
+
+<span style="color:#f92672">from</span> bcc <span style="color:#f92672">import</span> BPF
+
+<span style="color:#75715e"># This may not work for 4.17 on x64, you need replace kprobe__sys_clone with kprobe____x64_sys_clone</span>
+BPF(text<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;int kprobe__sys_clone(void *ctx) { bpf_trace_printk(&#34;Hello, World!</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">n&#34;); return 0; }&#39;</span>)<span style="color:#f92672">.</span>trace_print()
+
+</code></pre></div><h2 id="gobpf-中的例子编译使用">gobpf 中的例子编译&amp;使用</h2>
+<p>接下来测试一个稍微高级一点的，我目前主要使用 go 语言，所以偏向于使用 go 的库来做这方面的事情，使用的是 gobpf 这个库，也是先 git clone 下来。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git clone https://github.com/iovisor/gobpf
+</code></pre></div><p>这里使用的例子是其 examples 中的一个例子 bash_readline，直接拷贝出来，作为独立项目编译执行。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@VM-0-13-ubuntu:/data/ebpf# cp -rf gobpf/examples/bcc/bash_readline ./
+root@VM-0-13-ubuntu:/data/ebpf# cd bash_readline/
+root@VM-0-13-ubuntu:/data/ebpf/bash_readline# ls
+bash_readline.go
+</code></pre></div><p>因为墙的原因，这里要设置一下 GOPROXY，在腾讯云的机器上也是一样的，具体设置和编译如下。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@VM-0-13-ubuntu:/data/ebpf/bash_readline# export GOPROXY<span style="color:#f92672">=</span>https://goproxy.io
+root@VM-0-13-ubuntu:/data/ebpf/bash_readline# go mod init bash_readline
+go: creating new go.mod: module bash_readline
+root@VM-0-13-ubuntu:/data/ebpf/bash_readline# go build bash_readline.go
+go: finding module <span style="color:#66d9ef">for</span> package github.com/iovisor/gobpf/bcc
+go: found github.com/iovisor/gobpf/bcc in github.com/iovisor/gobpf v0.0.0-20200311173154-8078b203833d
+root@VM-0-13-ubuntu:/data/ebpf/bash_readline# ls
+bash_readline  bash_readline.go  go.mod  go.sum
+</code></pre></div><p>接下来是执行程序，这个程序主要做的就获取 bash 命令行的输入命令。在一个终端执行这个程序，在另外一个终端中随便输入命令，就会获取执行命令的 PID 和命令。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@VM-0-13-ubuntu:/data/ebpf/bash_readline# ./bash_readline
+       PID	COMMAND
+as
+
+      5264	sudo
+      5264	ls
+      5264	asfasdf
+</code></pre></div><h2 id="总结">总结</h2>
+<p>目前来说 ebpf 的开发门槛是越来越低了，现在有 go 的库，python 的库，很快的就可以开发测试。在开发体验上是有非常大的进步。所以这里关键就是要找合适你的应用场景了，目前最合适的仍然是内核调试，安全，网络数据转发等。</p>
+<p>我从本文开始的时候提出的解决 istio 中 sidecar 和 RS 之间的传输效率提升也是可以的，基本的解决思路这里也简单说一下：
+在 sidcar 和 RS 之间的通信是经过了本地网络协议栈的，这部分可以利用 ebpf 来进行优化。
+原本的通行方式是这样的
+<img src="./imgs/meshnet.png" alt=""></p>
+<p>我们可以利用 ebpf 的能力进行 socket 映射，使用 socketmap 和 sockethash 进行发送和接受端口映射。形成如下的数据通信方式。
+<img src="./imgs/meshnet2.png" alt=""></p>
+<p>这个方案在实际操作上是没有问题的，<strong>但是我们同事得出的最终结论是</strong>：</p>
+<ol>
+<li>从整体上来说效率提升并不明显，在有些情况下来要低一些，因为这块并不是服务网格的最大瓶颈，使用量不多，所以优化效果提升有限。</li>
+<li>但是在高并发请求的场景下还是有不少的提升的。</li>
+</ol>
+<p>所以 ebpf 最大的用途目前应该还是在上面提到的几个方面：内核调试，安全，网络数据转发。比如目前 facebook 发布的 l4LB 和 DDoS 防护，Google 的用于追踪分析的 BPFd。</p>
+<h2 id="参考">参考</h2>
+<ol>
+<li><a href="http://www.brendangregg.com/ebpf.html">http://www.brendangregg.com/ebpf.html</a></li>
+<li><a href="http://chenlingpeng.github.io/2020/01/07/ebpf-intro/">http://chenlingpeng.github.io/2020/01/07/ebpf-intro/</a></li>
+<li><a href="https://github.com/zoidbergwill/awesome-ebpf">https://github.com/zoidbergwill/awesome-ebpf</a></li>
+</ol>
+<center>
+看完本文有收获？请分享给更多人
+<p>关注「黑光技术」，关注大数据+微服务</p>
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2020/open-life/" data-toggle="tooltip" data-placement="top" title="读书总结：Open Life">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2020/what-microservie-should-be/" data-toggle="tooltip" data-placement="top" title="微服务的架构适合你吗？微服务为何而来？">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2015/918/"><i class="fa fa-link"></i>【转载】从Hadoop到Spark的架构实践</a></li>
+         
+        <li><a href="/blog/2014/815/"><i class="fa fa-link"></i>linux的io栈图</a></li>
+         
+        <li><a href="/blog/2014/783/"><i class="fa fa-link"></i>liunx系统分析图解</a></li>
+         
+        <li><a href="/blog/2014/746/"><i class="fa fa-link"></i>内核补丁制作与提交</a></li>
+         
+        <li><a href="/blog/2013/622/"><i class="fa fa-link"></i>线程种的gettid和pthread_self区别</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

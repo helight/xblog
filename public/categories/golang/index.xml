@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>golang on 黑光技术</title>
+    <link>http://www.helight.cn/categories/golang/</link>
+    <description>Recent content in golang on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Tue, 05 Apr 2022 08:45:20 +0800</lastBuildDate><atom:link href="http://www.helight.cn/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>开发了一个技术文章订阅器：TechNews</title>
+      <link>http://www.helight.cn/blog/2022/technews/</link>
+      <pubDate>Tue, 05 Apr 2022 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2022/technews/</guid>
+      <description>TechNews 为什么会出现？ 这几年学习技术基本上都是从国外一些网站找资料，直接看或者翻译一下。找这些资料其实还是比较繁琐。 所以一直在想有一个合适的收集工</description>
+    </item>
+    
+    <item>
+      <title>golang grpc简单使用</title>
+      <link>http://www.helight.cn/blog/2019/grpc/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/grpc/</guid>
+      <description>golang grpc简单使用</description>
+    </item>
+    
+    <item>
+      <title>Golang UnitTest单元测试</title>
+      <link>http://www.helight.cn/blog/2019/golang_unittest/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/golang_unittest/</guid>
+      <description>Golang UnitTest单元测试</description>
+    </item>
+    
+    <item>
+      <title>Golang中 method has pointer receiver 异常</title>
+      <link>http://www.helight.cn/blog/2019/golangfunerror/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/golangfunerror/</guid>
+      <description>Golang中 method has pointer receiver 异常</description>
+    </item>
+    
+    <item>
+      <title>golang单元测试之mock </title>
+      <link>http://www.helight.cn/blog/2019/gomock/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/gomock/</guid>
+      <description>golang单元测试之mock</description>
+    </item>
+    
+    <item>
+      <title>Golang官方依赖管理工具：dep</title>
+      <link>http://www.helight.cn/blog/2019/golangdep/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/golangdep/</guid>
+      <description>Golang官方依赖管理工具：dep</description>
+    </item>
+    
+    <item>
+      <title>golua虚拟机的使用</title>
+      <link>http://www.helight.cn/blog/2018/gopher-lua/</link>
+      <pubDate>Sun, 18 Nov 2018 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/gopher-lua/</guid>
+      <description>&lt;a href=&#34;https://github.com/yuin/gopher-lua&#34;&gt;gopher-lua&lt;/a&gt;这个组件，这个是使用golang重写的支持Lua5.1的虚拟机，在执行上可以直接golang无缝结合，有非常好的go的api接口，在使用上也流畅很多，在实现思路上也采用golang的一些思路，和golang结合更好。</description>
+    </item>
+    
+    <item>
+      <title>golang1.8以后yacc安装和使用</title>
+      <link>http://www.helight.cn/blog/2018/1143/</link>
+      <pubDate>Wed, 07 Nov 2018 12:37:34 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1143/</guid>
+      <description>&lt;p&gt;golang在1.8以后的tool工具中默认移除了yacc工具，如果要使用只能自己安装。&lt;/p&gt;
+&lt;p&gt;今天在测试代码中要用一下这个工具，突然发现没有，需要自己安装
+首先这里下载代码：
+&lt;a href=&#34;http://github.com/golang/tools/cmd/goyacc/&#34;&gt;http://github.com/golang/tools/cmd/goyacc/&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>golang调度机制学习</title>
+      <link>http://www.helight.cn/blog/2018/1094/</link>
+      <pubDate>Tue, 15 May 2018 03:48:35 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1094/</guid>
+      <description>&lt;h2 id=&#34;1golang的核心之一gorountine&#34;&gt;1.Golang的核心之一gorountine&lt;/h2&gt;
+&lt;p&gt;go语言非常重要的一个特性就是gorountine，有了这个东东，就可以很简单的做并发处理程序，比起c++和java的方式来说可以说简单了很多很多。那么gorountine又是一个什么样的东东呢? 从使用上来看它就是一个函数，使用起来有点像thread，但是实际上又不是，thread我们一般说起是指内核中的调度单元，他也是又用户态传递一个函数给thread，再由内核来调度执行，而gorountine是完全用户态的一个东西，而它要想和thread一样被执行那么就需要设计一个用户态的调度器，来保存它结构，执行现场和调度切换不同的gorountine进行执行。更多的说是一种叫做协程的东西，完全由用户态程序控制。这和C、C++完全不一样，C、C++的语言编译之后执行完全是交给操作系统内核来控制执行，而golang，在编译时会加入自己的调度器代码，在执行上按照自己的调度器进行调度执行。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>golang的struct和interface</title>
+      <link>http://www.helight.cn/blog/2018/1084/</link>
+      <pubDate>Thu, 22 Mar 2018 07:22:03 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1084/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;../../imgs/2018/03/u849181411409596040fm27gp0.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;struct&#34;&gt;struct&lt;/h2&gt;
+&lt;p&gt;struct 用来自定义复杂数据结构，可以包含多个字段（属性），可以嵌套；go中的struct类型理解为类，可以定义方法，和函数定义有些许区别；struct类型是值类型。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Golang信号处理和如何实现进程的优雅退出</title>
+      <link>http://www.helight.cn/blog/2018/1077/</link>
+      <pubDate>Thu, 15 Mar 2018 03:10:39 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1077/</guid>
+      <description>&lt;h2 id=&#34;linux系统中的信号类型&#34;&gt;Linux系统中的信号类型&lt;/h2&gt;
+&lt;p&gt;各操作系统的信号定义或许有些不同。下面列出了POSIX中定义的信号。
+在linux中使用34-64信号用作实时系统中。
+命令 man 7 signal 提供了官方的信号介绍。也可以是用kill -l来快速查看
+列表中，编号为1 ~ 31的信号为传统UNIX支持的信号，是不可靠信号(非实时的)，编号为32 ~ 63的信号是后来扩充的，称做可靠信号(实时信号)。不可靠信号和可靠信号的区别在于前者不支持排队，可能会造成信号丢失，而后者不会。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Goroutine&#43;Channel&#43;WaitGroup使用</title>
+      <link>http://www.helight.cn/blog/2018/1046/</link>
+      <pubDate>Fri, 02 Mar 2018 09:14:13 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1046/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;../../imgs/2018/03/timg.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;介绍&#34;&gt;介绍&lt;/h2&gt;
+&lt;h3 id=&#34;goroutine&#34;&gt;goroutine&lt;/h3&gt;
+&lt;p&gt;golang语言中最有特色之一的东东就是这个goroutine了，很多时候问起别人为什么golang的好用，golang的网络性能可以那么好，一般都会多多少少想到goroutine，提起goroutine。在linux中内核的调度最小单位是就是thread，同一个进程中的多个thread线程就对应内核中的多个thread实体。所以thread是内核级的，而gorountine是一个不同于thread的概念，gorountine是一个用户态，另外一种说法也就携程，是用户态的一种调度粒度，每个gorountine也有自己的栈空间，而且是在用户内存中的。golang中实现了对用户态的一种代码片段的高效调度执行，就目前来看是非常有效的，而且给用户编程带来了极大的方便。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>golang网络编程笔记</title>
+      <link>http://www.helight.cn/blog/2018/1040/</link>
+      <pubDate>Mon, 12 Feb 2018 11:39:39 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1040/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;../../imgs/2018/03/u38050349762904914748fm27gp0.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;网络编程类型&#34;&gt;网络编程类型&lt;/h2&gt;
+&lt;p&gt;我们一般提到的网络编程类型有两种：tcp和udp，都属于网络传输层协议支持下的协议，而且在目前也是网络编程中最基础的。这其中具体说来有有个socket的概念，tcp和udp都是协议，而socket就是一个具体的实现了，所以有tcp socket和udpsocket。golang是自身就带有网络库的net的，使用非常方便。
+同时我这里还会简单介绍一下另外一种协议，用户态的，基于udp的，但是具有tcp的连接回话管理，重传确认等机制-kcp。
+网络编程主要的目的是进行通信，所以就会涉及到至少2个端的通信，一般我们把这两个端分为服务端和客户端，服务端主要是起一个服务，实际上也就是监听一个服务端口，接受客户端的连接请求，并且接受请求命令进行服务功能的执行。客户端主要就是向服务端发起连接请求连接到服务端，并且先服务端发送命令字，让服务端执行服务。所以在后面的介绍中就会有一个客户端程序和服务端程序。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>golang的grpc学习笔记2</title>
+      <link>http://www.helight.cn/blog/2018/1036/</link>
+      <pubDate>Wed, 07 Feb 2018 08:45:39 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1036/</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;上一篇文章简单体验了一下grpc的golang使用，从环境安装到简单demo的编写，编译和测试，感觉还不错，今天再进一步学习分析其用法和一些要注意的坑。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../imgs/2018/03/u849181411409596040fm27gp0.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>golang grpc简单使用</title>
+      <link>http://www.helight.cn/blog/2018/1017/</link>
+      <pubDate>Tue, 06 Feb 2018 10:48:11 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1017/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;../../imgs/2018/03/timg-1.jpg&#34; alt=&#34;&#34;&gt;
+gRPC是一个高性能、通用的开源RPC框架，基于ProtoBuf(Protocol Buffers)序列化协议开发，且支持众多开发语言。&lt;/p&gt;
+&lt;h3 id=&#34;1相关包安装&#34;&gt;1、相关包安装&lt;/h3&gt;
+&lt;h4 id=&#34;1protobuf&#34;&gt;1）protobuf&lt;/h4&gt;
+&lt;p&gt;在下面的链接下载之后源码安装，
+&lt;a href=&#34;https://github.com/google/protobuf&#34;&gt;https://github.com/google/protobuf&lt;/a&gt;
+安装过程也比较简单：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>golang的httpserver优雅重启</title>
+      <link>http://www.helight.cn/blog/2018/984/</link>
+      <pubDate>Wed, 24 Jan 2018 11:27:37 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/984/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;../../imgs/2018/03/u315048364941379819fm27gp0.jpg&#34; alt=&#34;&#34;&gt;
+去年在做golangserver的时候，内部比较头疼的就是在线服务发布的时候，大量用户的请求在发布时候会被重连，在那时候也想了n多的方法，最后还是落在一个github上的项目，facebook的一个golang项目grace，那时候简单研究测试了一下可以就直接在内部使用了起来，这段时间突然想起来，又想仔细研究一下这个项目了。&lt;/p&gt;
+&lt;p&gt;从原理上来说是这样一个过程：&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

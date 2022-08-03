@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>GUN 工具学习</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, linux 应用">
+  
+  
+  <meta name="description" content="完美之道，不在无可增加，而在无可删减。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="GUN 工具学习">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2014/750/" />
+  <meta property="og:description" content="完美之道，不在无可增加，而在无可删减。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/banner-2.jpg">
+  <meta property="og:image:type" content="image/jpg">
+  
+  
+  
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="375">
+  
+  
+  <meta property="og:updated_time" content="2014-04-06T03:34:43&#43;0800">
+  
+    
+    
+    <meta property="article:section" content="linux 应用">
+    <meta property="article:tag" content="linux 应用">
+    
+    
+    <meta property="article:published_time" content="2014-04-06T03:34:43&#43;0800">
+    <meta property="article:modified_time" content="2014-04-06T03:34:43&#43;0800">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="GUN 工具学习">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/banner-2.jpg">
+  
+  <meta name="twitter:description" content="完美之道，不在无可增加，而在无可删减。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="GUN 工具学习 logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="GUN 工具学习 logo" class="visible-xs visible-sm">
+                    <span class="sr-only">GUN 工具学习 - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>GUN 工具学习</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2014年4月6日
+                        </i>
+                        |
+                        
+                        由 <a href="https://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        4300字 | 阅读大约需要9分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/linux-%e5%ba%94%e7%94%a8">linux 应用</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/linux-%E5%BA%94%E7%94%A8/"><i>#linux 应用</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <p>作者：许振文</p>
+<h2 id="nm">nm</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">nm默认的输入文件为a.out，也就是说，如果nm后面没有跟要查看的二进制文件名的话，
+那它会默认读取当前文件夹下的a.out文件作为其输入。
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">在使用nm中会有一下几种表示符号类型的标识：
+A：符号值是绝对的，不会被后面的连接所修改
+B：符号在未初始数据段中
+C：是一个在未初始数据段中的普通符号
+D：符号在初始化后的数据段中
+G：在初始化数据段中小对象的符号
+I：一个符号的间接符号
+N：这个符号是调试符号
+R：只读符号
+S：未初始化数据段中小对象符号
+T：代码段中的符号
+U：为定义符号
+V：这个符号是一个弱对象，当一个普通定义了的符号连接到一个弱定义符号，是没错的，但是一个没有定义的符
+号接到弱未定义符号，那弱符号就变成没错的零了。
+-：
+？：符号类型未知，或是文件具体格式未知
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">该工具使用格式：nm option<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> file
+option<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>：取自下面所罗列的参数
+file：要查看的二进制文件名称
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">helight@Zhwen:~$ nm -h
+Usage: nm <span style="color:#f92672">[</span>option<span style="color:#f92672">(</span>s<span style="color:#f92672">)]</span> <span style="color:#f92672">[</span>file<span style="color:#f92672">(</span>s<span style="color:#f92672">)]</span>
+List symbols in <span style="color:#f92672">[</span>file<span style="color:#f92672">(</span>s<span style="color:#f92672">)]</span> <span style="color:#f92672">(</span>a.out by default<span style="color:#f92672">)</span>.
+The options are:
+ -a, --debug-syms       Display debugger-only symbols
+显示所有符号，也包括调式符号
+ -A, --print-file-name  Print name of the input file before every symbol
+在每一个符号前面都显示符号所在文件的名称。主要是用在查看多个文件符号时。
+ -B                     Same as --format<span style="color:#f92672">=</span>bsd
+显示格式为BSD格式
+ -C, --demangle<span style="color:#f92672">[=</span>STYLE<span style="color:#f92672">]</span> Decode low-level symbol names into user-level names
+                         The STYLE, <span style="color:#66d9ef">if</span> specified, can be <span style="color:#e6db74">`</span>auto<span style="color:#e6db74">&#39; (the default),
+</span><span style="color:#e6db74">                         `gnu&#39;</span>, <span style="color:#e6db74">`</span>lucid<span style="color:#e6db74">&#39;, `arm&#39;</span>, <span style="color:#e6db74">`</span>hp<span style="color:#e6db74">&#39;, `edg&#39;</span>, <span style="color:#e6db74">`</span>gnu-v3<span style="color:#e6db74">&#39;, `java&#39;</span>
+                         or <span style="color:#e6db74">`</span>gnat<span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">未初始化数据总的符号
+</span><span style="color:#e6db74">     --no-demangle      Do not demangle low-level symbol names
+</span><span style="color:#e6db74"> -D, --dynamic          Display dynamic symbols instead of normal symbols
+</span><span style="color:#e6db74">     --defined-only     Display only defined symbols
+</span><span style="color:#e6db74">显示动态连接符号信息
+</span><span style="color:#e6db74"> -e                     (ignored)
+</span><span style="color:#e6db74"> -f, --format=FORMAT    Use the output format FORMAT.  FORMAT can be `bsd&#39;</span>,
+                          <span style="color:#e6db74">`</span>sysv<span style="color:#e6db74">&#39; or `posix&#39;</span>.  The default is <span style="color:#e6db74">`</span>bsd<span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">指定显示格式
+</span><span style="color:#e6db74"> -g, --extern-only      Display only external symbols
+</span><span style="color:#e6db74">显示外来符号
+</span><span style="color:#e6db74"> -l, --line-numbers     Use debugging information to find a filename and line number for each symbol
+</span><span style="color:#e6db74">使用调试信息找到每个符号的文件名和行号
+</span><span style="color:#e6db74"> -n, --numeric-sort     Sort symbols numerically by address
+</span><span style="color:#e6db74">将符号按照其地址排序
+</span><span style="color:#e6db74"> -o                     Same as -A
+</span><span style="color:#e6db74">和-A的功能是一样的
+</span><span style="color:#e6db74"> -p, --no-sort          Do not sort the symbols
+</span><span style="color:#e6db74">不排序
+</span><span style="color:#e6db74"> -P, --portability      Same as --format=posix
+</span><span style="color:#e6db74">使用posix格式显示
+</span><span style="color:#e6db74"> -r, --reverse-sort    Reverse the sense of the sort
+</span><span style="color:#e6db74">使用倒序排列
+</span><span style="color:#e6db74"> -S, --print-size       Print size of defined symbols
+</span><span style="color:#e6db74">打印出定义符号的大小
+</span><span style="color:#e6db74"> -s, --print-armap      Include index for symbols from archive members
+</span><span style="color:#e6db74">     --size-sort        Sort symbols by size
+</span><span style="color:#e6db74">     --special-syms     Include special symbols in the output
+</span><span style="color:#e6db74">     --synthetic        Display synthetic symbols as well
+</span><span style="color:#e6db74">显示归档文件中的符号索引，安符号大小排序，显示特别符号，显示人为添加的符号
+</span><span style="color:#e6db74"> -t, --radix=RADIX      Use RADIX for printing symbol values
+</span><span style="color:#e6db74">     --target=BFDNAME   Specify the target object format as BFDNAME
+</span><span style="color:#e6db74">使用RADIX来显示符号值，使用BFDNAME格式来区分目标对象
+</span><span style="color:#e6db74"> -u, --undefined-only   Display only undefined symbols
+</span><span style="color:#e6db74">显示未定义的符号
+</span><span style="color:#e6db74"> -X 32_64               (ignored)
+</span><span style="color:#e6db74"> @FILE                  Read options from FILE
+</span><span style="color:#e6db74">从后面这个文件中读取参数
+</span><span style="color:#e6db74"> -h, --help             Display this information
+</span><span style="color:#e6db74">显示帮助信息
+</span><span style="color:#e6db74"> -V, --version          Display this program&#39;</span>s version number
+显示nm这个工具本身的版本信息
+
+nm: supported targets: elf32-i386 a.out-i386-linux efi-app-ia32 elf32-little elf32-big elf64-x86-64 
+efi-app-x86_64 elf64-little elf64-big srec symbolsrec tekhex binary ihex trad-core
+Report bugs to &lt;http://www.sourceware.org/bugzilla/&gt;.
+以上是nm所能够支持的文件格式。<span style="color:#e6db74">```</span>
+
+<span style="color:#75715e">## readelf</span>
+<span style="color:#e6db74">```</span>sh
+readelf工具使用来显示一个或多个ELF格式文件信息的GNU工具。使用不同的参数可以查看ELF文件不同的的信息。
+该工具使用格式：readelf option<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> elffile
+option<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>：取自下面所罗列的参数
+elffile：要查看的ELF文件名称
+$readelf --help
+Usage: readelf &lt;option<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>&gt; elf-file<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>
+Display information about the contents of ELF format files
+Options are:
+ -a --all               Equivalent to: -h -l -S -s -r -d -V -A -I
+//显示所有ELF文件的信息。相当于在readelf后面加上参数-h, -l, -S, -s, -r, -d, -V, -A,
+ -h --file-header       Display the ELF file header
+//显示ELF文件的文件头
+ -l --program-headers   Display the program headers
+    --segments          An alias <span style="color:#66d9ef">for</span> --program-headers
+//显示程序头（program-header）和程序段（segment）和段下面的节，不止一个文件头哦！
+ -S --section-headers   Display the sections<span style="color:#960050;background-color:#1e0010">&#39;</span> header
+    --sections          An alias <span style="color:#66d9ef">for</span> --section-headers
+//显示较为详细的节信息（section）
+ -g --section-groups    Display the section groups
+//显示节组成的群（这个不一定有）
+ -t --section-details   Display the section details
+//也是显示较为详细的节信息，和－S差不多一样，个人喜欢使用－S（这个显示的信息比较整齐）
+ -e --headers           Equivalent to: -h -l -S
+//显示头信息：包括ELF文件头，程序头，段，和节信息，相当于-h -l -S
+ -s --syms              Display the symbol table
+     --symbols          An alias <span style="color:#66d9ef">for</span> --syms
+//显示符号信息，
+ -n --notes             Display the core notes <span style="color:#f92672">(</span><span style="color:#66d9ef">if</span> present<span style="color:#f92672">)</span>
+//显示标识信息（如果有）
+ -r --relocs            Display the relocations <span style="color:#f92672">(</span><span style="color:#66d9ef">if</span> present<span style="color:#f92672">)</span>
+//显示重定位信息<span style="color:#f92672">(</span>如果有<span style="color:#f92672">)</span>
+ -u --unwind            Display the unwind info <span style="color:#f92672">(</span><span style="color:#66d9ef">if</span> present<span style="color:#f92672">)</span>
+//显示展开函数信息（如果有）
+ -d --dynamic           Display the dynamic section <span style="color:#f92672">(</span><span style="color:#66d9ef">if</span> present<span style="color:#f92672">)</span>
+//显示动态节信息，一般是动态库的信息
+ -V --version-info      Display the version sections <span style="color:#f92672">(</span><span style="color:#66d9ef">if</span> present<span style="color:#f92672">)</span>
+//显示版本节点信息。ELF文件中有一些节点专门用来说明文件或是系统的版本信息的
+ -A --arch-specific     Display architecture specific information <span style="color:#f92672">(</span><span style="color:#66d9ef">if</span> any<span style="color:#f92672">)</span>.
+//显示体系结构相关的信息
+ -D --use-dynamic       Use the dynamic section info when displaying symbols
+//在显示符号时使用动态节信息
+ -x --hex-dump<span style="color:#f92672">=</span>&lt;number&gt; Dump the contents of section &lt;number&gt;
+
+ -w<span style="color:#f92672">[</span>liaprmfFsoR<span style="color:#f92672">]</span> or
+ --debug-dump<span style="color:#f92672">[=</span>line,<span style="color:#f92672">=</span>info,<span style="color:#f92672">=</span>abbrev,<span style="color:#f92672">=</span>pubnames,<span style="color:#f92672">=</span>aranges,<span style="color:#f92672">=</span>macro,<span style="color:#f92672">=</span>frames,<span style="color:#f92672">=</span>str,<span style="color:#f92672">=</span>loc,<span style="color:#f92672">=</span>Ranges<span style="color:#f92672">]</span>
+                        Display the contents of DWARF2 debug sections
+ -I --histogram         Display histogram of bucket list lengths
+ -W --wide              Allow output width to exceed <span style="color:#ae81ff">80</span> characters
+//允许显示一行超过80个字符
+ @&lt;file&gt;                Read options from &lt;file&gt;
+//从后面这个文件中读取参数
+ -H --help              Display this information
+//显示帮助信息
+ -v --version           Display the version number of readelf
+//显示readelf这个工具的版本信息
+</code></pre></div><h2 id="objdump">objdump</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">/*未完成*/
+ogjdump工具使用来查看一个或是多个目标文件信息的一种工具，具体的参数控制显示不同的信息。
+这个工具主要对编程人员比较有用。
+
+helight@Zhwen:test$ objdump -H
+Usage: objdump &lt;option<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>&gt; &lt;file<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>&gt;
+Display information from object &lt;file<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>&gt;.
+以下是在使用objdump工具时必须要加的参数（至少一个）
+At least one of the following switches must be given:
+ -a, --archive-headers    Display archive header information
+
+ -f, --file-headers       Display the contents of the overall file header
+ -p, --private-headers    Display object format specific file header contents
+ -h, --<span style="color:#f92672">[</span>section-<span style="color:#f92672">]</span>headers  Display the contents of the section headers
+ -x, --all-headers        Display the contents of all headers
+ -d, --disassemble        Display assembler contents of executable sections
+ -D, --disassemble-all    Display assembler contents of all sections
+ -S, --source             Intermix source code with disassembly
+ -s, --full-contents      Display the full contents of all sections requested
+ -g, --debugging          Display debug information in object file
+ -e, --debugging-tags     Display debug information using ctags style
+ -G, --stabs              Display <span style="color:#f92672">(</span>in raw form<span style="color:#f92672">)</span> any STABS info in the file
+ -W, --dwarf              Display DWARF info in the file
+ -t, --syms               Display the contents of the symbol table<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>
+ -T, --dynamic-syms       Display the contents of the dynamic symbol table
+ -r, --reloc              Display the relocation entries in the file
+ -R, --dynamic-reloc      Display the dynamic relocation entries in the file
+ @&lt;file&gt;                  Read options from &lt;file&gt;
+ -v, --version            Display this program<span style="color:#e6db74">&#39;s version number
+</span><span style="color:#e6db74"> -i, --info               List object formats and architectures supported
+</span><span style="color:#e6db74"> -H, --help               Display this information
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">``````sh
+</span><span style="color:#e6db74">以下是可选参数
+</span><span style="color:#e6db74">The following switches are optional:
+</span><span style="color:#e6db74"> -b, --target=BFDNAME           Specify the target object format as BFDNAME
+</span><span style="color:#e6db74"> -m, --architecture=MACHINE     Specify the target architecture as MACHINE
+</span><span style="color:#e6db74"> -j, --section=NAME             Only display information for section NAME
+</span><span style="color:#e6db74"> -M, --disassembler-options=OPT Pass text OPT on to the disassembler
+</span><span style="color:#e6db74"> -EB --endian=big               Assume big endian format when disassembling
+</span><span style="color:#e6db74"> -EL --endian=little            Assume little endian format when disassembling
+</span><span style="color:#e6db74">     --file-start-context       Include context from start of file (with -S)
+</span><span style="color:#e6db74"> -I, --include=DIR              Add DIR to search list for source files
+</span><span style="color:#e6db74"> -l, --line-numbers             Include line numbers and filenames in output
+</span><span style="color:#e6db74"> -C, --demangle[=STYLE]         Decode mangled/processed symbol names
+</span><span style="color:#e6db74">                                 The STYLE, if specified, can be `auto&#39;</span>, <span style="color:#e6db74">`</span>gnu<span style="color:#e6db74">&#39;,
+</span><span style="color:#e6db74">                                 `lucid&#39;</span>, <span style="color:#e6db74">`</span>arm<span style="color:#e6db74">&#39;, `hp&#39;</span>, <span style="color:#e6db74">`</span>edg<span style="color:#e6db74">&#39;, `gnu-v3&#39;</span>, <span style="color:#e6db74">`</span>java<span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">                                 or `gnat&#39;</span>
+ -w, --wide                     Format output <span style="color:#66d9ef">for</span> more than <span style="color:#ae81ff">80</span> columns
+ -z, --disassemble-zeroes       Do not skip blocks of zeroes when disassembling
+     --start-address<span style="color:#f92672">=</span>ADDR       Only process data whose address is &gt;<span style="color:#f92672">=</span> ADDR
+     --stop-address<span style="color:#f92672">=</span>ADDR        Only process data whose address is &lt;<span style="color:#f92672">=</span> ADDR
+     --prefix-addresses         Print complete address alongside disassembly
+     --<span style="color:#f92672">[</span>no-<span style="color:#f92672">]</span>show-raw-insn       Display hex alongside symbolic disassembly
+     --adjust-vma<span style="color:#f92672">=</span>OFFSET        Add OFFSET to all displayed section addresses
+     --special-syms             Include special symbols in symbol dumps
+
+objdump: supported targets: elf32-i386 a.out-i386-linux efi-app-ia32 elf32-little elf32-big elf64-x86-64 
+efi-app-x86_64 elf64-little elf64-big srec   symbolsrec tekhex binary ihex trad-core
+objdump: supported architectures: i386 i386:x86-64 i8086 i386:intel i386:x86-64:intel
+这是objdump工具所能够支持的文件格式。
+<span style="color:#e6db74">``````</span>sh
+The following i386/x86-64 specific disassembler options are supported <span style="color:#66d9ef">for</span> use
+with the -M switch <span style="color:#f92672">(</span>multiple options should be separated by commas<span style="color:#f92672">)</span>:
+下面是针对于i386/x86-64中具体的反汇编格式的选择，使用-M来选择。多个参数使用逗号隔开。
+ x86-64      Disassemble in 64bit mode
+ i386        Disassemble in 32bit mode
+ i8086       Disassemble in 16bit mode
+ att         Display instruction in AT&amp;T syntax
+ intel       Display instruction in Intel syntax
+ addr64      Assume 64bit address size
+ addr32      Assume 32bit address size
+ addr16      Assume 16bit address size
+ data32      Assume 32bit data size
+ data16      Assume 16bit data size
+ suffix      Always display instruction suffix in AT&amp;T syntax
+Report bugs to &lt;http://www.sourceware.org/bugzilla/&gt;.
+helight@Zhwen:test$
+</code></pre></div><h2 id="ctags">ctags</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">用于生成符号索引，我主要用来阅读源代码。先在源代码文件夹中生成函数，变量等的索引，然后就可以是用”ctrl+<span style="color:#f92672">]</span>“和“ctrl＋o”在函数
+或是变量的定义和调用之间进行切换。
+
+注意：这里说的查看是在vim,emasc,gvim等文本工具中查看。
+
+一般使用一下几个命令：
+
+“ctags -R”：创建符号索引。要在源代码文件夹内执行。在执行完之后会在所在文件夹产生一个“tags”的
+
+文件，这个文件就是索引文件，在查找是都是以这个索引文件中的索引去在函数间转跳的。
+
+“ctrl＋<span style="color:#f92672">]</span>”是对某个函数或是变量定义的查找， “ctrl＋o”是返回上一个查找处。
+<span style="color:#e6db74">``````</span>sh
+helight@Zhwen:~$ ctags --help
+Exuberant Ctags 5.7, Copyright <span style="color:#f92672">(</span>C<span style="color:#f92672">)</span> 1996-2007 Darren Hiebert
+ Compiled: Jun  <span style="color:#ae81ff">9</span> 2008, 09:07:41
+ Addresses: &lt;dhiebert@users.sourceforge.net&gt;, http://ctags.sourceforge.net
+ Optional compiled features: +wildcards, +regex
+<span style="color:#e6db74">``````</span>sh
+Usage: ctags <span style="color:#f92672">[</span>options<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>file<span style="color:#f92672">(</span>s<span style="color:#f92672">)]</span>
+<span style="color:#e6db74">``````</span>sh
+ -a   Append the tags to an existing tag file.
+将一个tags文件追加到一个已经存在的tags文件中
+ -B   Use backward searching patterns <span style="color:#f92672">(</span>?...?<span style="color:#f92672">)</span>.
+使用向后搜索匹配
+ -e   Output tag file <span style="color:#66d9ef">for</span> use with Emacs.
+指定生成Emacs所使用的tags文件
+ -f &lt;name&gt;
+      Write tags to specified file. Value of <span style="color:#e6db74">&#34;-&#34;</span> writes tags to stdout
+      <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;tags&#34;</span>; or <span style="color:#e6db74">&#34;TAGS&#34;</span> when -e supplied<span style="color:#f92672">]</span>.
+将要生成的索引文件输出到这里指定的文件。
+ -F   Use forward searching patterns <span style="color:#f92672">(</span>/.../<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>default<span style="color:#f92672">)</span>.
+使用向前搜索匹配
+ -h &lt;list&gt;
+      Specify list of file extensions to be treated as include files.
+      <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;.h.H.hh.hpp.hxx.h++&#34;</span><span style="color:#f92672">]</span>.
+处理指定列表中文件，即只是对指定列表中的文件生成索引。
+ -I &lt;list|@file&gt;
+      A list of tokens to be specially handled is read from either the
+      command line or the specified file.
+要处理的指定符号，符号可以是在文件中指定的或是命令行中的。
+ -L &lt;file&gt;
+      A list of source file names are read from the specified file.
+      If specified as <span style="color:#e6db74">&#34;-&#34;</span>, <span style="color:#66d9ef">then</span> standard input is read.
+ -n   Equivalent to --excmd<span style="color:#f92672">=</span>number.
+这个是在索引中是否一定标注行号
+ -N   Equivalent to --excmd<span style="color:#f92672">=</span>pattern.
+
+ -o   Alternative <span style="color:#66d9ef">for</span> -f.
+-f 的另一种表示
+ -R   Equivalent to --recurse.
+这里是说递归将子文件夹中的文件也进行操作
+ -u   Equivalent to --sort<span style="color:#f92672">=</span>no.
+相当于参数“--sort<span style="color:#f92672">=</span>no”就是不将索引符号排序，这样查找比价慢
+ -V   Equivalent to --verbose.
+是否对每个源文件使用描述
+ -x   Print a tabular cross reference file to standard output.
+将索引信息的表格打印到标准输出
+ --append<span style="color:#f92672">=[</span>yes|no<span style="color:#f92672">]</span>
+      Should tags should be appended to existing tag file <span style="color:#f92672">[</span>no<span style="color:#f92672">]</span>?
+是否将要生成的tags文件追加到已经存在的tags文件中。
+ --etags-include<span style="color:#f92672">=</span>file
+     Include reference to <span style="color:#e6db74">&#39;file&#39;</span> in Emacs-style tag file <span style="color:#f92672">(</span>requires -e<span style="color:#f92672">)</span>.
+ --exclude<span style="color:#f92672">=</span>pattern
+     Exclude files and directories matching <span style="color:#e6db74">&#39;pattern&#39;</span>.
+包含指定匹配的文件或是目录
+ --excmd<span style="color:#f92672">=</span>number|pattern|mix
+      Uses the specified type of EX command to locate tags <span style="color:#f92672">[</span>mix<span style="color:#f92672">]</span>.
+对当地tags文件使用指定的命令。
+ --extra<span style="color:#f92672">=[</span>+|-<span style="color:#f92672">]</span>flags
+     Include extra tag entries <span style="color:#66d9ef">for</span> selected information <span style="color:#f92672">(</span>flags: <span style="color:#e6db74">&#34;fq&#34;</span><span style="color:#f92672">)</span>.
+包含外加的tag文件
+ --fields<span style="color:#f92672">=[</span>+|-<span style="color:#f92672">]</span>flags
+     Include selected extension fields <span style="color:#f92672">(</span>flags: <span style="color:#e6db74">&#34;afmikKlnsStz&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">[</span>fks<span style="color:#f92672">]</span>.
+ --file-scope<span style="color:#f92672">=[</span>yes|no<span style="color:#f92672">]</span>
+      Should tags scoped only <span style="color:#66d9ef">for</span> a single file <span style="color:#f92672">(</span>e.g. <span style="color:#e6db74">&#34;static&#34;</span> tags
+      be included in the output <span style="color:#f92672">[</span>yes<span style="color:#f92672">]</span>?
+ --filter<span style="color:#f92672">=[</span>yes|no<span style="color:#f92672">]</span>
+      Behave as a filter, reading file names from standard input and
+      writing tags to standard output <span style="color:#f92672">[</span>no<span style="color:#f92672">]</span>.
+ --filter-terminator<span style="color:#f92672">=</span>string
+      Specify string to print to stdout following the tags <span style="color:#66d9ef">for</span> each file
+      parsed when --filter is enabled.
+ --format<span style="color:#f92672">=</span>level
+      Force output of specified tag file format <span style="color:#f92672">[</span>2<span style="color:#f92672">]</span>.
+ --help
+      Print this option summary.
+显示所支持的参数及其信息
+ --if0<span style="color:#f92672">=[</span>yes|no<span style="color:#f92672">]</span>
+      Should C code within <span style="color:#75715e">#if 0 conditional branches be parsed [no]?</span>
+ --&lt;LANG&gt;-kinds<span style="color:#f92672">=[</span>+|-<span style="color:#f92672">]</span>kinds
+      Enable/disable tag kinds <span style="color:#66d9ef">for</span> language &lt;LANG&gt;.
+ --langdef<span style="color:#f92672">=</span>name
+      Define a new language to be parsed with regular expressions.
+ --langmap<span style="color:#f92672">=</span>map<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>
+      Override default mapping of language to source file extension.
+ --language-force<span style="color:#f92672">=</span>language
+      Force all files to be interpreted using specified language.
+强制使用指定的语言
+ --languages<span style="color:#f92672">=[</span>+|-<span style="color:#f92672">]</span>list
+      Restrict files scanned <span style="color:#66d9ef">for</span> tags to those mapped to langauges
+      specified in the comma-separated <span style="color:#e6db74">&#39;list&#39;</span>. The list can contain any
+      built-in or user-defined language <span style="color:#f92672">[</span>all<span style="color:#f92672">]</span>.
+ --license
+      Print details of software license.
+显示这个工具的许可证
+ --line-directives<span style="color:#f92672">=[</span>yes|no<span style="color:#f92672">]</span>
+      Should <span style="color:#75715e">#line directives be processed [no]?</span>
+ --links<span style="color:#f92672">=[</span>yes|no<span style="color:#f92672">]</span>
+      Indicate whether symbolic links should be followed <span style="color:#f92672">[</span>yes<span style="color:#f92672">]</span>.
+ --list-kinds<span style="color:#f92672">=[</span>language|all<span style="color:#f92672">]</span>
+      Output a list of all tag kinds <span style="color:#66d9ef">for</span> specified language or all.
+ --list-languages
+      Output list of supported languages.
+ --list-maps<span style="color:#f92672">=[</span>language|all<span style="color:#f92672">]</span>
+      Output list of language mappings.
+ --options<span style="color:#f92672">=</span>file
+      Specify file from which command line options should be read.
+ --recurse<span style="color:#f92672">=[</span>yes|no<span style="color:#f92672">]</span>
+      Recurse into directories supplied on command line <span style="color:#f92672">[</span>no<span style="color:#f92672">]</span>.
+ --regex-&lt;LANG&gt;<span style="color:#f92672">=</span>/line_pattern/name_pattern/<span style="color:#f92672">[</span>flags<span style="color:#f92672">]</span>
+      Define regular expression <span style="color:#66d9ef">for</span> locating tags in specific language.
+ --sort<span style="color:#f92672">=[</span>yes|no|foldcase<span style="color:#f92672">]</span>
+      Should tags be sorted <span style="color:#f92672">(</span>optionally ignoring <span style="color:#66d9ef">case</span><span style="color:#f92672">)</span> <span style="color:#f92672">[</span>yes<span style="color:#f92672">]</span>?.
+是否将索引符号排序
+ --tag-relative<span style="color:#f92672">=[</span>yes|no<span style="color:#f92672">]</span>
+      Should paths be relative to location of tag file <span style="color:#f92672">[</span>no; yes when -e<span style="color:#f92672">]</span>?
+是否件路径信息和tag文件相联系
+ --totals<span style="color:#f92672">=[</span>yes|no<span style="color:#f92672">]</span>
+      Print statistics about source and tag files <span style="color:#f92672">[</span>no<span style="color:#f92672">]</span>.
+显示源文件和tag文件的统计信息
+ --verbose<span style="color:#f92672">=[</span>yes|no<span style="color:#f92672">]</span>
+      Enable verbose messages describing actions on each source file.
+使用对源文件描述
+ --version
+      Print version identifier to standard output.
+显示版本信息
+helight@Zhwen:~$
+</code></pre></div><h2 id="man">man</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">你会使用Linux操作系统下的MAN命令吗？
+
+（1）所有的手册页都属于一个特定的领域，用一个字符来表示。
+Linux下最通用的领域及其名称及说明如下：
+领域 名称 说明
+<span style="color:#ae81ff">1</span> 用户命令， 可由任何人启动的。
+<span style="color:#ae81ff">2</span> 系统调用， 即由内核提供的函数。
+<span style="color:#ae81ff">3</span> 例程， 即库函数。
+<span style="color:#ae81ff">4</span> 设备， 即/dev目录下的特殊文件。
+<span style="color:#ae81ff">5</span> 文件格式描述， 例如/etc/passwd。
+<span style="color:#ae81ff">6</span> 游戏， 不用解释啦！
+<span style="color:#ae81ff">7</span> 杂项， 例如宏命令包、惯例等。
+<span style="color:#ae81ff">8</span> 系统管理员工具， 只能由root启动。
+<span style="color:#ae81ff">9</span> 其他（Linux特定的）， 用来存放内核例行程序的文档。
+n 新文档， 可能要移到更适合的领域。
+o 老文档， 可能会在一段期限内保留。
+l 本地文档， 与本特定系统有关的。
+例如：man ls就会有LS<span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>
+
+（2）man的一些常用参数和用法
+man -a cmd
+打开所有领域内的同名帮助，例如 man fam ，你首先会进入一个fam<span style="color:#f92672">(</span>1M<span style="color:#f92672">)</span>的命令版fam帮助，你再按q键
+就会进入FAM<span style="color:#f92672">(</span>3X<span style="color:#f92672">)</span>，库函数版的帮助
+man -aw cmd
+显示所有cmd的所有手册文件的路径，如 man -aw fam 就是
+/usr/share/man/man1/fam.1m.gz
+/usr/share/man/man3/fam.3x.gz
+man 领域代号 cmd
+直接指定特定领域内搜索手册页，如 man <span style="color:#ae81ff">3</span> fam 直接进入库函数版的帮助
+man -M cmd
+指定手册文件的搜索路径，如 man -M /home/mysql/man mysql 显示的就是你安装的mysql的帮助，
+而不是系统自带的旧版mysql的帮助
+man cmd| col -b &gt; cmd.txt
+把man手册信息输出到文本文件
+LANG<span style="color:#f92672">=</span>语言代号
+man -w cmd
+man 特定语言manpage文件的路径
+查看特定语言版本的手册页
+例如，要查看mplayer的中文man
+shell&gt; LANG<span style="color:#f92672">=</span>zh
+shell&gt; man -w mplayer
+/usr/share/man/zh/man1/mplayer.1.gz
+新开一个shell窗口（或在原窗口 shell&gt; LANG<span style="color:#f92672">=</span>en_US.UTF-8<span style="color:#f92672">)</span>
+shell&gt; man /usr/share/man/zh/man1/mplayer.1.gz
+
+（3）man的配置文件/etc/man.config
+如果你不想每次man cmd都要用-M指定路径，那么可以通过修改配置文件，添加内容如
+MANPATH /home/mysql/man
+man在各领域的搜索次序可以通过修改
+MANSECT 1:8:2:3:4:5:6:7:9:tcl:n:l:p
+实现，一般不推荐修改。
+</code></pre></div><center>
+看完本文有收获？请分享给更多人<br>
+<p>关注「黑光技术」，关注大数据+微服务<br></p>
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2014/746/" data-toggle="tooltip" data-placement="top" title="内核补丁制作与提交">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2014/752/" data-toggle="tooltip" data-placement="top" title="嵌入式开发中NFS调试环境搭建-V0.2">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2014/744/"><i class="fa fa-link"></i>git使用总结</a></li>
+         
+        <li><a href="/blog/2014/742/"><i class="fa fa-link"></i>Vim&#43;cscope&#43;ctags&#43;tags阅读源代码</a></li>
+         
+        <li><a href="/blog/2014/731/"><i class="fa fa-link"></i>AutoMake 学习笔记</a></li>
+         
+        <li><a href="/blog/2014/689/"><i class="fa fa-link"></i>配置SSH无密码登录问题解决记录</a></li>
+         
+        <li><a href="/blog/2011/532/"><i class="fa fa-link"></i>debian下触摸板使用</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

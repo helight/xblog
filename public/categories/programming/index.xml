@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>programming on 黑光技术</title>
+    <link>http://www.helight.cn/categories/programming/</link>
+    <description>Recent content in programming on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Tue, 05 Apr 2022 08:45:20 +0800</lastBuildDate><atom:link href="http://www.helight.cn/categories/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>开发了一个技术文章订阅器：TechNews</title>
+      <link>http://www.helight.cn/blog/2022/technews/</link>
+      <pubDate>Tue, 05 Apr 2022 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2022/technews/</guid>
+      <description>TechNews 为什么会出现？ 这几年学习技术基本上都是从国外一些网站找资料，直接看或者翻译一下。找这些资料其实还是比较繁琐。 所以一直在想有一个合适的收集工</description>
+    </item>
+    
+    <item>
+      <title>helight的github项目</title>
+      <link>http://www.helight.cn/blog/2019/xprojects/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/xprojects/</guid>
+      <description>helight的github项目</description>
+    </item>
+    
+    <item>
+      <title>Function as a Service介绍</title>
+      <link>http://www.helight.cn/blog/2018/faas/</link>
+      <pubDate>Sun, 18 Nov 2018 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/faas/</guid>
+      <description>本文是在今年梳理的关于FaaS的一个文档，主要目标是梳理FaaS的基本概念，发展势头，应用场景和一些基本的架构设计。</description>
+    </item>
+    
+    <item>
+      <title>微信小程序开发体验</title>
+      <link>http://www.helight.cn/blog/2018/1003/</link>
+      <pubDate>Thu, 25 Jan 2018 09:30:12 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1003/</guid>
+      <description>&lt;p&gt;一直在想怎么做一个小程序，当然是一个有用的小程序，前天突然想到可以做一个小程序，把我的blog的内容拉去下来，并且在里面可以展示，给自己的blog增加一个移动端的入口，而且可以在每篇文章后面放一个打赏码。自己想着还是挺好的， 所以昨天注册了一个小程序“黑光技术”，现在申请还是比较方便的，不太好的一点就是要每次申请都要用一个不同的邮箱地址，我是用QQ邮箱的域名邮箱来做的，都是一个邮箱，每次申请就增加一个别名。
+做一个这样的一个小程序需要几个方面的配合：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>AutoMake 学习笔记</title>
+      <link>http://www.helight.cn/blog/2010/automake/</link>
+      <pubDate>Sat, 18 Sep 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/automake/</guid>
+      <description>AutoMake 学习笔记</description>
+    </item>
+    
+    <item>
+      <title>《Richard Stallman选集 －－free software,free society》</title>
+      <link>http://www.helight.cn/blog/2010/free-doc/</link>
+      <pubDate>Wed, 18 Aug 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/free-doc/</guid>
+      <description>《Richard Stallman选集 －－free software,free society》。</description>
+    </item>
+    
+    <item>
+      <title>内核补丁制作与提交</title>
+      <link>http://www.helight.cn/blog/2010/git2/</link>
+      <pubDate>Sun, 18 Jul 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/git2/</guid>
+      <description>内核补丁制作与提交</description>
+    </item>
+    
+    <item>
+      <title>GUN 工具学习</title>
+      <link>http://www.helight.cn/blog/2010/gnutools/</link>
+      <pubDate>Fri, 18 Jun 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/gnutools/</guid>
+      <description>可以利用工具软件BusyBox制作Ramdisk文件系统。</description>
+    </item>
+    
+    <item>
+      <title>git使用总结</title>
+      <link>http://www.helight.cn/blog/2010/git/</link>
+      <pubDate>Tue, 18 May 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/git/</guid>
+      <description>git使用总结</description>
+    </item>
+    
+    <item>
+      <title>scons学习笔记</title>
+      <link>http://www.helight.cn/blog/2010/scons/</link>
+      <pubDate>Tue, 18 May 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/scons/</guid>
+      <description>scons是一个python写的用来编译源码的一个工具，类似于make工具，但是支持的语言更多，灵活性更强。 这里来介绍一下scons的使用。</description>
+    </item>
+    
+    <item>
+      <title>Ramdisk文件系统的制作-V0.2</title>
+      <link>http://www.helight.cn/blog/2010/ramfs/</link>
+      <pubDate>Sun, 18 Apr 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/ramfs/</guid>
+      <description>可以利用工具软件BusyBox制作Ramdisk文件系统。</description>
+    </item>
+    
+    <item>
+      <title>The Linux Kernel Device Model</title>
+      <link>http://www.helight.cn/blog/2010/overview/</link>
+      <pubDate>Thu, 18 Mar 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/overview/</guid>
+      <description>The Linux Kernel Device Model</description>
+    </item>
+    
+    <item>
+      <title>ROMFS文件系统分析</title>
+      <link>http://www.helight.cn/blog/2010/romfs/</link>
+      <pubDate>Mon, 18 Jan 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/romfs/</guid>
+      <description>ROMFS是一种简单的只读文件系统，主要是用来当做初始文件系统来使用的，在嵌入式linux或是uclinux中通常使用这中文件系统来作为引导系统的文件系统，甚至uclinux有时就直接把ROMFS作为其根文件系统，而不是将其作为系统启动中的过渡文件系统。</description>
+    </item>
+    
+    <item>
+      <title>嵌入式开发中NFS调试环境搭建-V0.2</title>
+      <link>http://www.helight.cn/blog/2010/nfs/</link>
+      <pubDate>Mon, 18 Jan 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/nfs/</guid>
+      <description>NFS(Network File System, 网络文件系统)可以通过NFS把远程主机的目录挂载到本机,使得访问远程主机的目录就像访问本地目录一样方便快捷。</description>
+    </item>
+    
+    <item>
+      <title>使用proc来写GPIO驱动</title>
+      <link>http://www.helight.cn/blog/2009/proc-gpio/</link>
+      <pubDate>Tue, 31 Mar 2009 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/proc-gpio/</guid>
+      <description>这是写的一个gpio的驱动，测试完，提好的。</description>
+    </item>
+    
+    <item>
+      <title>使用valgrind检测内存泄露</title>
+      <link>http://www.helight.cn/blog/2009/valgrind/</link>
+      <pubDate>Fri, 27 Feb 2009 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/valgrind/</guid>
+      <description>Valgrind是x86架构Linux上的多重用途代码剖析和内存调试工具。但它的主要功能还是对内存的调试，默认工具也是启动 memcheck。用户可以在它的环境中运行程序来监视内存的使用情况，比如C语言中的malloc和free或者C++中的new和delete。</description>
+    </item>
+    
+    <item>
+      <title>Http协议分析</title>
+      <link>http://www.helight.cn/blog/2009/about-http/</link>
+      <pubDate>Tue, 17 Feb 2009 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/about-http/</guid>
+      <description>最简单的例子，就是你的浏览器与网页服务器之间使用的应用层协议。虽然官方文档说HTTP协议可以建立在任何可靠传输的协议之上，但是就我们所见到的，HTTP还是建立在TCP之上的。</description>
+    </item>
+    
+    <item>
+      <title>Linux内核中的P，V操作之P</title>
+      <link>http://www.helight.cn/blog/2008/kernel-p/</link>
+      <pubDate>Sat, 29 Nov 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/kernel-p/</guid>
+      <description>最近作辅导讲到了P，V操作，我就在内核中看了一下Linux中的P，V操作的实现。很真是，理解比本科学习的时候深多了。操作系统中的P操作在Linux内核中对应的是down函数，V操作对用up函数。</description>
+    </item>
+    
+    <item>
+      <title>Linux内核中的P，V操作之V</title>
+      <link>http://www.helight.cn/blog/2008/kernel-v/</link>
+      <pubDate>Sat, 29 Nov 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/kernel-v/</guid>
+      <description>最近作辅导讲到了P，V操作，我就在内核中看了一下Linux中的P，V操作的实现。很真是，理解比本科学习的时候深多了。操作系统中的P操作在Linux内核中对应的是down函数，V操作对用up函数。</description>
+    </item>
+    
+    <item>
+      <title>源代码中的中断分析(一)</title>
+      <link>http://www.helight.cn/blog/2008/linux-irq/</link>
+      <pubDate>Thu, 13 Nov 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/linux-irq/</guid>
+      <description>（代码版本2.6.26） 中断描述符数组：irq_desc[]</description>
+    </item>
+    
+    <item>
+      <title>Linux下UML工具和截图工具的使用</title>
+      <link>http://www.helight.cn/blog/2008/linux-tools/</link>
+      <pubDate>Mon, 10 Nov 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/linux-tools/</guid>
+      <description>花了大半天的时间终于把HttpServer的需求文档写完了，其中还用到了UML工具和截图工具，作为一般使用这两个工具我个人认为还是很优秀的。现在就介绍一下。</description>
+    </item>
+    
+    <item>
+      <title>Linux下守护进程认识</title>
+      <link>http://www.helight.cn/blog/2008/linux-daemon/</link>
+      <pubDate>Sat, 25 Oct 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/linux-daemon/</guid>
+      <description>守护进程（Daemon）是运行在后台的一种特殊进程。它独立于控制终端并且周期性地执行某种任务或等待处理某些发生的事件。</description>
+    </item>
+    
+    <item>
+      <title>Linux嵌入式轻量级http服务器</title>
+      <link>http://www.helight.cn/blog/2008/xhttpd/</link>
+      <pubDate>Sat, 25 Oct 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/xhttpd/</guid>
+      <description>编写一个可以在linux嵌入式下轻量级的http服务器软件，能够支持简单的静态页面的传输和cgi技术.目标是可以移植任意操作系统，但是主要针对于嵌入式linux。主要针对于嵌入式系统的web管理的实现。</description>
+    </item>
+    
+    <item>
+      <title>Linux嵌入式轻量级http服务器</title>
+      <link>http://www.helight.cn/blog/2008/xhttpd/</link>
+      <pubDate>Sat, 25 Oct 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/xhttpd/</guid>
+      <description>编写一个可以在linux嵌入式下轻量级的http服务器软件，能够支持简单的静态页面的传输和cgi技术.目标是可以移植任意操作系统，但是主要针对于嵌入式linux。主要针对于嵌入式系统的web管理的实现。</description>
+    </item>
+    
+    <item>
+      <title>2.6.22下基于Netfilter的网络监听程序</title>
+      <link>http://www.helight.cn/blog/2008/linux-netfilter/</link>
+      <pubDate>Sat, 27 Sep 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/linux-netfilter/</guid>
+      <description>在2.6.22中skbuff发生了变化，使得我以前的防火墙程序在新内核中无法使用了，主要是可以当作一个网络数据监视，当然还是不完善的。目前只能监听数据报的源ip和目的ip，还有tcp报的原端口和目的端口。</description>
+    </item>
+    
+    <item>
+      <title>ubuntu下NFS配置和uClinux下NFS远程调试</title>
+      <link>http://www.helight.cn/blog/2008/nfs-ubuntu/</link>
+      <pubDate>Sat, 27 Sep 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/nfs-ubuntu/</guid>
+      <description>NFS(Network File System, 网络文件系统)可以通过NFS把远程主机的目录挂载到本机,使得访问远程主机的目录就像访问本地目录一样方便快捷。</description>
+    </item>
+    
+    <item>
+      <title>守护进程实例</title>
+      <link>http://www.helight.cn/blog/2008/daemon-demo/</link>
+      <pubDate>Thu, 25 Sep 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/daemon-demo/</guid>
+      <description>来自网上一个比较流行的例子，我做了一些修改，可以产生子进程，并且在/tmp/test.log中做了记录。</description>
+    </item>
+    
+    <item>
+      <title>Vim&#43;cscope&#43;ctags&#43;tags阅读源代码</title>
+      <link>http://www.helight.cn/blog/2008/cscope-ctags/</link>
+      <pubDate>Thu, 18 Sep 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/cscope-ctags/</guid>
+      <description>可linux源代码提供了制作cscope索引文件和tags文件的make命令。</description>
+    </item>
+    
+    <item>
+      <title>linux电源节省项目介绍</title>
+      <link>http://www.helight.cn/blog/2008/lesswatts/</link>
+      <pubDate>Fri, 05 Sep 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/lesswatts/</guid>
+      <description>欢迎来到LessWatts.org 在计算机工业上省电是一个热门的话题。对于像如笔记本电脑或是手持设备这样的移动设备，省电可以使它们的电池使用更长时间.而对于其它一些设备,省电则意味 着减少它们数据中心成本提高效率。</description>
+    </item>
+    
+  </channel>
+</rss>

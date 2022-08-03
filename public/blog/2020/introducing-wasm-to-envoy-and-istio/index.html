@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>【译】重新定义代理的扩展性：介绍 Envoy 和 Istio 中的 WebAssembly 应用</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, istio, wasm, extensibility, performance, operator">
+  
+  
+  <meta name="description" content="Istio 的扩展中使用 WASM 的前景">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="【译】重新定义代理的扩展性：介绍 Envoy 和 Istio 中的 WebAssembly 应用">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2020/introducing-wasm-to-envoy-and-istio/" />
+  <meta property="og:description" content="Istio 的扩展中使用 WASM 的前景">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/istio.png">
+  <meta property="og:image:type" content="image/png">
+  
+  
+  
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="375">
+  
+  
+  <meta property="og:updated_time" content="2020-03-07T13:47:08&#43;0200">
+  
+    
+    
+    <meta property="article:section" content="sevicemesh">
+    <meta property="article:tag" content="istio">
+    <meta property="article:tag" content="wasm">
+    
+    
+    <meta property="article:published_time" content="2020-03-07T13:47:08&#43;0200">
+    <meta property="article:modified_time" content="2020-03-07T13:47:08&#43;0200">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="【译】重新定义代理的扩展性：介绍 Envoy 和 Istio 中的 WebAssembly 应用">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/istio.png">
+  
+  <meta name="twitter:description" content="Istio 的扩展中使用 WASM 的前景">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="【译】重新定义代理的扩展性：介绍 Envoy 和 Istio 中的 WebAssembly 应用 logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="【译】重新定义代理的扩展性：介绍 Envoy 和 Istio 中的 WebAssembly 应用 logo" class="visible-xs visible-sm">
+                    <span class="sr-only">【译】重新定义代理的扩展性：介绍 Envoy 和 Istio 中的 WebAssembly 应用 - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>【译】重新定义代理的扩展性：介绍 Envoy 和 Istio 中的 WebAssembly 应用</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2020年3月7日
+                        </i>
+                        |
+                        
+                        由 <a href="http://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        3300字 | 阅读大约需要7分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/sevicemesh">sevicemesh</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/istio/"><i>#istio</i></a>
+                        
+                        <a style="text-transform:capitalize" href="/tags/wasm/"><i>#wasm</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <p>翻译 Istio 官网 blog 文章，原文：<a href="https://istio.io/blog/2020/wasm-announce/">https://istio.io/blog/2020/wasm-announce/</a>。</p>
+<pre><code>翻译几天了，不过官网git提交有点问题，大家还在努力解决中，先发这里了。
+</code></pre>
+<p>自 2016 年使用 <a href="https://www.envoyproxy.io/">Envoy</a> 以后，Istio 项目一直想提供一个平台，在此平台上可以构建丰富的扩展，以满足用户多样化的需求。 有很多要向服务网格的数据平面增加功能的理由 &mdash; 比如：支持更新的协议，与专有安全控件集成，或是通过自定义度量来增强可观察性。</p>
+<p>在过去的一年半中，我们在Google的团队一直在努力用 <a href="https://webassembly.org/">WebAssembly</a> 来为 Envoy 代理添加动态扩展。 今天我们很高兴与大家分享这项工作，并推出 <a href="https://github.com/proxy-wasm/spec">针对代理的 WebAssembly (Wasm)</a> (Proxy-Wasm)：包括一个会标准化的ABI，SDK，以及它的第一个重点实现：新的，低延迟的 <a href="https://istio.io/zh/docs/reference/config/telemetry">Istio 遥测系统</a>。</p>
+<p>我们还与社区紧密合作，以确保为用户提供良好的开发者体验，帮助他们快速上手。 Google 团队一直与 <a href="https://solo.io">Solo.io</a> 团队紧密合作，Solo 他们已经建立了 <a href="https://webassemblyhub.io/">WebAssembly Hub</a> 服务，用于构建，共享，发现和部署 Wasm 扩展。 有了 WebAssembly Hub，Wasm 扩展就会像容器一样易于管理，安装和运行。</p>
+<p>这个项目现在发布了 Alpha 版本，仍然还有很多<a href="#next-steps">工作要做</a>，但是我们很高兴将其交提供给开发者，以便他们可以开始尝试由此带来的巨大可能性。</p>
+<h2 id="background">背景</h2>
+<p>可扩展需求一直都是 Istio 和 Envoy 项目的基本原则，但是两个项目采用了不同的实现方式。 Istio 项目的做法是启用一个通用的进程外扩展模型，叫做 <a href="https://istio.io/zh/docs/reference/config/policy-and-telemetry/mixer-overview/">Mixer</a>，以此带来轻量级的开发者体验，而 Envoy 则专注于代理内<a href="https://www.envoyproxy.io/docs/envoy/latest/extending/extending">扩展</a>。</p>
+<p>每种方法都各有利弊。 Istio 模型导致明显的资源效率低下，从而影响了尾部延迟和资源利用率。 该模型在根本上来说是有局限性的 - 例如，它永远不会支持实现<a href="https://blog.envoyproxy.io/how-to-write-envoy-filters-like-a-ninja-part-1-d166e5abec09">自定义协议处理</a>。</p>
+<p>Envoy 模型强化了单体构建过程，并要求使用 C++ 编写扩展，从而限制了开发者的生态。给集群发布新的扩展需要下发新的二进制文件并滚动重启，这可能很难协调，并有可能会导致停机。这也促使了开发者向 Envoy 上游提交他们的扩展，而这些扩展仅由一小部分生产环境使用，更多仅仅是为了利用其发布机制。</p>
+<p>随着时间的流逝，Istio 的一些对性能最敏感的功能已合进了上游的 Envoy - 例如<a href="https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/security/rbac_filter">流量检查策略</a>和例如<a href="https://istio.io/zh/docs/reference/config/telemetry/metrics/">遥测上报</a>。 尽管如此，我们一直想把扩展汇聚在一个技术栈上，从而减少两者之间犹豫折衷：这使 Envoy 版本与其扩展生态系统脱钩，使开发者能够使用他们选择的语言进行工作，并使 Istio 可靠地推出新功能而不必有停机风险。</p>
+<h2 id="what-is-WebAssembly">什么是 WebAssembly</h2>
+<p><a href="https://webassembly.org/">WebAssembly</a>（Wasm）是一种由<a href="https://github.com/appcypher/awesome-wasm-langs">多种语言</a>编写的，可移植的字节码格式，它能以以接近本机的速度执行。 其最初的<a href="https://webassembly.org/docs/high-level-goals/">设计目标</a>与上述挑战很相符，并且在其背后得到了相当大的行业支持。 Wasm 是在所有主流浏览器中可以本地运行的第四种标准语言（继HTML，CSS 和 JavaScript 之后），于 2019 年 12 月成为 <a href="https://www.w3.org/TR/wasm-core-1/">W3C 正式建议</a>。这使我们有信心对其进行战略下注。</p>
+<p>尽管 WebAssembly 最初是作为客户端技术而诞生，但它在服务器上用也有很多优势。运行时是内存安全的，并且以沙盒方式运行以确保安全。 它有一个很大的工具生态系统，用于以文本或二进制格式编译和调试 Wasm。 <a href="https://www.w3.org/">W3C</a> 和 <a href="https://bytecodealliance.org/">BytecodeAlliance</a> 已成为其它服务器端工作的活跃中心。比如，Wasm 社区正在 W3C 中标准化 <a href="https://hacks.mozilla.org/2019/03/standardizing-wasi-a-webassembly-system-interface/">&ldquo;WebAssembly 系统接口 Interface&rdquo; (WASI)</a>，并通过一个示例实现，它为 Wasm “程序” 提供了一个类似 OS 的抽象。</p>
+<h2 id="bringing-WebAssembly-to-Envoy">把 WebAssembly 引入 Envoy</h2>
+<p><a href="https://github.com/envoyproxy/envoy/issues/4272">在过去的18个月中</a>，我们一直与 Envoy 社区合作把 Wasm 的扩展引入 Envoy，并其贡献到上游。我们很高兴地宣布，此特性在 <a href="/news/releases/1.5.x/announcing-1.5/">Istio 1.5</a> 中带的 Envoy 中以 Alpha 版本可用了，其源代码在<a href="https://github.com/envoyproxy/envoy-wasm/"><code>envoy-wasm</code></a> 开发分支中，并且正在努力将其合并到 Envoy 主干上。该实现使用了 Google 高性能 <a href="https://v8.dev/">V8 引擎</a> 中内置的 WebAssembly 运行时。</p>
+<p>除了构建底层的运行时，我们还构建了：</p>
+<ul>
+<li>把 Wasm 嵌入代理的通用应用程序二进制接口（ABI），这意味着编译后的扩展将可以在不同版本的 Envoy 中工作，甚至其它代理也可以，当然他们应该实现了前面的 ABI应</li>
+<li>用 <a href="https://github.com/proxy-wasm/proxy-wasm-cpp-sdk">C++</a>,
+<a href="https://github.com/proxy-wasm/proxy-wasm-rust-sdk">Rust</a> 和 <a href="https://github.com/solo-io/proxy-runtime">AssemblyScript</a> 可以方便进行扩展开发的 SDK，后续还有很多语言支持</li>
+<li>全面的<a href="https://docs.solo.io/web-assembly-hub/latest/tutorial_code/">示例和说明</a>介绍如何在 Istio 和独立的 Envoy 中部署</li>
+<li>允许使用其它 Wasm 运行时的抽象，包括把本地把扩展直接编译进 Envoy 中 “null” 运行时，这对于测试和调试非常有用</li>
+</ul>
+<p>使用 Wasm 扩展 Envoy 带来了几个主要好处：</p>
+<ul>
+<li>敏捷性：可以用 Istio 控制平面在运行时下发和重载扩展。这就可以快速的进行扩展开发→测试→发布周期，而无需重启 Envoy。</li>
+<li>发布库：一旦完成合并到主树中之后，Istio 和其它程序将能够使用 Envoy 的发布库，而不是自己构建。这也方便 Envoy 社区迁移某些内置扩展到这个模型，从而减少他们的工作。</li>
+<li>可靠性和隔离性：扩展部署在具有资源限制的沙箱中，这意味着它们现在可以崩溃或泄漏内存，但不会让整个 Envoy 挂掉。CPU 和内存使用率也可以受到限制。</li>
+<li>安全性：沙盒具有一个明确定义的 API，用于和 Envoy 通信，因此扩展只能访问和修改链接或者请求中有限数量的属性。此外，由于 Envoy 协调整个交互，因此它可以隐藏或清除扩展中的敏感信息（例如，HTTP 头中的 “Authorization”和“Cookie”，或者客户端的 IP 地址）。</li>
+<li>灵活性：<a href="https://github.com/appcypher/awesome-wasm-langs">可以将超过 30 种编程语言编译为 WebAssembly</a>，可以让各种技术背景的开发人员都可以用他们选择的语言来编写 Envoy 扩展，比如：C++，Go，Rust，Java，TypeScript 等。</li>
+</ul>
+<p>“看到 Envoy 上支持了 WASM，我感到非常兴奋；这是 Envoy 可扩展的未来。Envoy 的 WASM 支持与社区驱动的 hub 相结合，将在服务网格和 API 网关用例中开启出令人难以置信的网络创新。 我迫不及待地想看到社区构建的向前发展。” – Envoy 创造者 Matt Klein。</p>
+<p>有关实现的技术细节，请关注即将在 <a href="https://blog.envoyproxy.io/">Envoy 博客</a>上发的文章。</p>
+<p>主机环境和扩展之间的 <a href="https://github.com/proxy-wasm">Proxy-Wasm</a>接口有意设计为代理无感知的。 我们已将其内置到了 Envoy 中，但它是为其它代理供应商设计的。我们希望看为 Istio 和 Envoy 编写的扩展也可以在其它基础设施中运行。很快就会有更多相关的设计和实现了。</p>
+<h2 id="building-on-WebAssembly-in-Istio">Istio 中的 WebAssembly 构建</h2>
+<p>为了显著提高性能，Istio 在 1.5 的发布中，把它的几个扩展内置到了 Envoy中。在执行此工作时，我们把这些同样的扩展可以作为 Proxy-Wasm 模块进行编译和运行，测试确保其行为没有异常。考虑到我们认为 Wasm 支持还是 Alpha 版本，我们还没有完全准备好将这个设置设为默认设置；然而，在我们的通用实现和主机环境还是给了我们不少信心，至少 ABI 和 SDK 已经开发完成了。</p>
+<p>我们还是要小心地确保 Istio 控制平面及其 <a href="https://istio.io/zh/docs/reference/config/networking/envoy-filter/">Envoy 配置 API</a> 已经可以支持 Wasm。 我们有一些示例来展示几种常见的定制，例如定制头解码或程序中路由，这是用户的常见要求。当将这个支持发展到 Beta 版本时，将会看到 Istio 中使用 Wasm 最佳实践的文档。</p>
+<p>最后，我们正在与许多编写了 <a href="https://istio.io/zh/docs/reference/config/policy-and-telemetry/adapters/">Mixer 适配器</a>的供应商合作，帮助他们迁移到 Wasm — 如果这是前行的最佳方式。 Mixer 将在未来的版本中转为社区项目，它将仍可用于老系统。</p>
+<h2 id="developer-experience">开发者体验</h2>
+<p>没有出色的开发者体验，再强大的工具也毫无用处。 Solo.io<a href="https://www.solo.io/blog/an-extended-and-improved-webassembly-hub-to-helps-bring-the-power-of-webassembly-to-envoy-and-istio/">最近宣布</a>发布 <a href="https://webassemblyhub.io/">WebAssembly Hub</a>，这是一套为 Envoy 和 Istio 做的，用于构建，部署，共享和发现 Envoy Proxy Wasm 扩展的工具和仓库。</p>
+<p>WebAssembly Hub 把为开发和部署 Wasm 扩展所需的许多步骤都完全自动化了。 使用 WebAssembly Hub 工具，用户可以轻松地把任何受支持语言开发的代码编译为 Wasm 扩展。可以将这些扩展上传到 Hub 仓库，并且用单个命令就将其在 Istio 中部署和删除。</p>
+<p>在后台，Hub 处理了很多细节问题，例如：引入正确的工具链、ABI 版本验证、权限控制等等。该工作流程还通过自动化扩展部署，消除了跨 Istio 服务代理的配置更改带来的麻烦。此工具帮助用户和操作员避免由于配置错误或版本不匹配而导致的意外行为。</p>
+<p>WebAssembly Hub 工具提供了功能强大的 CLI 和优雅且易于使用的图形用户界面。WebAssembly Hub 的一个重要目标是简化围绕构建 Wasm 模块的体验，并为开发者提供共享和发现有用扩展的协作场所。</p>
+<p>请查看<a href="https://docs.solo.io/web-assembly-hub/latest/tutorial_code/">入门指南</a>，以创建您的第一个 Proxy-Wasm 扩展。</p>
+<h2 id="next-steps">下一步</h2>
+<p>除了努力发布 Beta 版，我们还致力于确保围绕 Proxy-Wasm 有一个持久的社区。ABI需要最终确定，而将其转变为标准的工作将会在适当的标准机构内获得更广泛的反馈后完成。完成向 Envoy 主干提供上游支持的工作仍在进行中。我们还在为工具和 WebAssembly Hub 寻找合适的社区。</p>
+<h2 id="learn-more">了解更多</h2>
+<ul>
+<li>WebAssembly SF talk (视频): <a href="https://www.youtube.com/watch?v=OIUPf8m7CGA">网络代理扩展</a>, by John Plevyak</li>
+<li><a href="https://www.solo.io/blog/an-extended-and-improved-webassembly-hub-to-helps-bring-the-power-of-webassembly-to-envoy-and-istio/">Solo 博客</a></li>
+<li><a href="https://github.com/proxy-wasm/spec">Proxy-Wasm ABI 说明</a></li>
+<li><a href="https://github.com/proxy-wasm/proxy-wasm-cpp-sdk/blob/master/docs/wasm_filter.md">Proxy-Wasm C++ SDK</a> 和其 <a href="https://github.com/proxy-wasm/proxy-wasm-cpp-sdk/blob/master/docs/wasm_filter.md">开发者文档</a></li>
+<li><a href="https://github.com/proxy-wasm/proxy-wasm-rust-sdk">Proxy-Wasm Rust SDK</a></li>
+<li><a href="https://github.com/solo-io/proxy-runtime">Proxy-Wasm AssemblyScript SDK</a></li>
+<li><a href="https://docs.solo.io/web-assembly-hub/latest/tutorial_code/">指南</a></li>
+<li><a href="https://www.youtube.com/channel/UCuketWAG3WqYjjxtQ9Q8ApQ">Solo.io Youtube 频道</a>上的视频</li>
+</ul>
+<center>
+看完本文有收获？请分享给更多人
+<p>关注「黑光技术」，关注大数据+微服务</p>
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2020/tradewinds-2020/" data-toggle="tooltip" data-placement="top" title="【译】2020 年的 Istio - 顺风而行">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2020/wasm-to-envoy-and-istio/" data-toggle="tooltip" data-placement="top" title="【译】发布可扩展和改进的 webassembly hub，帮助 envoy 和 Istio 使用 webassembly 的能力">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2020/tradewinds-2020/"><i class="fa fa-link"></i>【译】2020 年的 Istio - 顺风而行</a></li>
+         
+        <li><a href="/blog/2020/service-mesh-vs-api-gateway/"><i class="fa fa-link"></i>API 网关和服务网格功能定位比较</a></li>
+         
+        <li><a href="/blog/2020/do-i-need-an-api-gateway/"><i class="fa fa-link"></i>【译】有了Service Mesh，还需要 API 网关吗？</a></li>
+         
+        <li><a href="/blog/2020/when-not-to-do-microservices/"><i class="fa fa-link"></i>【译】以 Istio 为例来看什么时候不要拆分微服务</a></li>
+         
+        <li><a href="/blog/2020/comparison-of-service-mesh/"><i class="fa fa-link"></i>【译】Kubernetes 服务网格: Istio, Linkerd 和 Consul 大比较</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

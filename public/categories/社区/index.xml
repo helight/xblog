@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>社区 on 黑光技术</title>
+    <link>http://www.helight.cn/categories/%E7%A4%BE%E5%8C%BA/</link>
+    <description>Recent content in 社区 on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Sat, 11 Apr 2020 14:31:20 +0800</lastBuildDate><atom:link href="http://www.helight.cn/categories/%E7%A4%BE%E5%8C%BA/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何给《Linux内核之旅社区》投稿</title>
+      <link>http://www.helight.cn/blog/2020/submit_pr/</link>
+      <pubDate>Sat, 11 Apr 2020 14:31:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/submit_pr/</guid>
+      <description>Linux 内核之旅的网站我们重构了，这次使用了 github 管理，hugo 作为站点管理工具。目标是能够让更多的同学参与进来，学习，分享，共同建设，让大家更方便高效的走 Linux 内核之旅。</description>
+    </item>
+    
+  </channel>
+</rss>

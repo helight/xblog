@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Envoy on 黑光技术</title>
+    <link>http://www.helight.cn/categories/envoy/</link>
+    <description>Recent content in Envoy on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Tue, 20 Oct 2020 08:45:20 +0800</lastBuildDate><atom:link href="http://www.helight.cn/categories/envoy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>envoy filter 开发实践系列 4：envoy filter 原理介绍</title>
+      <link>http://www.helight.cn/blog/2020/build-envoy-filter-what/</link>
+      <pubDate>Tue, 20 Oct 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/build-envoy-filter-what/</guid>
+      <description>1. 前言 在本篇开始我逐步梳理 envoy filter 2. 使用官方 docker 编译镜像来编译 5. 总结 从目前交流的情况来看 envoy 的编译确实是一个大问题，编译环境配置还是比较复杂的，开发</description>
+    </item>
+    
+    <item>
+      <title>envoy filter 开发实践系列 3：编译 envoy 的其它方式</title>
+      <link>http://www.helight.cn/blog/2020/build-envoy-filter-clang/</link>
+      <pubDate>Tue, 13 Oct 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/build-envoy-filter-clang/</guid>
+      <description>1. 前言 前天早上开会还说这个 envoy 1.16 不知道什么时候发布，我们需要的几个新特性都在这个版本中，今天一看已经发布了，所以今天又测试了一波 1.16 上的例子。 2.</description>
+    </item>
+    
+    <item>
+      <title>envoy filter 开发实践系列 2：官网 http filter 示例编译测试</title>
+      <link>http://www.helight.cn/blog/2020/build-envoy-filter-http/</link>
+      <pubDate>Wed, 30 Sep 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/build-envoy-filter-http/</guid>
+      <description>1.前言 这篇文章开始来介绍官网中 http filter 的编译和测试过程，让大家能够知道怎么测试跑通这个例子，虽然官网已经给了代码，但是对于新手来说，这个例子虽</description>
+    </item>
+    
+    <item>
+      <title>envoy filter 开发实践系列 1：官网 echo filter 示例编译测试</title>
+      <link>http://www.helight.cn/blog/2020/build-envoy-filter-echo/</link>
+      <pubDate>Sun, 20 Sep 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/build-envoy-filter-echo/</guid>
+      <description>1. 前言 早就想写一个 envoy filter 开发的文章了，本来在我的 issue 中列了一篇 Venil Noronha 写的文章，想翻译来的，但是感觉那篇文章太简单了，而且没有实际操作过程，让我这种</description>
+    </item>
+    
+  </channel>
+</rss>

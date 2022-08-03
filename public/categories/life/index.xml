@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>life on 黑光技术</title>
+    <link>http://www.helight.cn/categories/life/</link>
+    <description>Recent content in life on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Sat, 14 Mar 2020 07:15:43 +0800</lastBuildDate><atom:link href="http://www.helight.cn/categories/life/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>读书总结：Open Life</title>
+      <link>http://www.helight.cn/blog/2020/open-life/</link>
+      <pubDate>Sat, 14 Mar 2020 07:15:43 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/open-life/</guid>
+      <description>这本书从作者身边的生活琐事开始来思考开源这件事，到开源软件发展对社会影响思考，再到开源软件的商业之路，最后到生活中其它方面开源的思考。逐一到来非常有序，让我们对开源的认识从原来只是软件的层面会逐步上升到对生活方式的思考。</description>
+    </item>
+    
+    <item>
+      <title>用户画像数据建模方法(zz)</title>
+      <link>http://www.helight.cn/blog/2015/873/</link>
+      <pubDate>Wed, 14 Jan 2015 07:45:50 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/873/</guid>
+      <description>&lt;p&gt;原文：&lt;a href=&#34;http://blog.baifendian.com/?p=8015&#34;&gt;http://blog.baifendian.com/?p=8015&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;从1991年Tim Berners-Lee发明了万维网（World Wide Web）开始，到20年后2011年，互联网真正走向了一个新的里程碑，进入了“大数据时代”。经历了12、13两年热炒之后，人们逐渐冷静下来，更加聚 焦于如何利用大数据挖掘潜在的商业价值，如何在企业中实实在在的应用大数据技术。伴随着大数据应用的讨论、创新，个性化技术成为了一个重要落地点。相比传 统的线下会员管理、问卷调查、购物篮分析，大数据第一次使得企业能够通过互联网便利地获取用户更为广泛的反馈信息，为进一步精准、快速地分析用户行为习 惯、消费习惯等重要商业信息，提供了足够的数据基础。伴随着对人的了解逐步深入，一个概念悄然而生：用户画像（UserProfile），完美地抽象出一 个用户的信息全貌，可以看作企业应用大数据的根基。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title> zz分布式文件系统FastDFS架构剖析</title>
+      <link>http://www.helight.cn/blog/2014/810/</link>
+      <pubDate>Sun, 04 May 2014 09:16:07 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/810/</guid>
+      <description>&lt;p&gt;【本文系外部转贴，原文地址：http://www.programmer.com.cn/4380/】&lt;/p&gt;
+&lt;p&gt;FastDFS是一款类Google FS的开源分布式文件系统，它用纯C语言实现，支持Linux、FreeBSD、AIX等UNIX系统。 它只 能通过专有API对文件进行存取访问，不支持POSIX接口方式，不能mount使用。准确地讲，Google FS以及FastDFS、 mogileFS、HDFS、TFS等类Google FS都不是系统级的分布式文件系统，而是应用级的分布式文件存储服务。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>扩展sawzall代码实现自定义接口</title>
+      <link>http://www.helight.cn/blog/2014/808/</link>
+      <pubDate>Sun, 04 May 2014 09:12:07 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/808/</guid>
+      <description>&lt;p&gt;使用sawzall开发mr程序虽然很快，不过也有不少限制，尤其对于新手来说，比如不能直接像c++一样调用线程的库，不过它提供了一种扩展开发的方式，我们可以自己修改sawzall代码实现新的功能接口，在下载平台的sawzall代码中，我们就扩展了一种聚合器，两个和我们web相关的功能接口：连接我们的domain service进行聚合域名的识别，根据url进行域名提取。这里以使用我们comm库中的url类进行域名提取为例来说明一下sawzall的功能函数扩展。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>海量数据分析：Sawzall并行处理（中文版论文）</title>
+      <link>http://www.helight.cn/blog/2014/800/</link>
+      <pubDate>Sun, 04 May 2014 09:10:33 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/800/</guid>
+      <description>&lt;p&gt;海量数据分析：Sawzall并行处理（中文版论文）
+Google的工程师为了方便内部人员使用MapReduce，研发了一种名为 Sawzall的DSL，同时Hadoop也推出了类似Sawzall的Pig语言，但在语法上面有一定的区别。今天就给大家贴一下Sawall的论文， 值得注意的是其第一作者是UNIX大师之一（Rob Pike）。原文地址，并在这里谢谢译者崮山路上走9遍。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>嵌入式开发中NFS调试环境搭建-V0.2</title>
+      <link>http://www.helight.cn/blog/2014/752/</link>
+      <pubDate>Sun, 06 Apr 2014 03:35:29 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/752/</guid>
+      <description>&lt;p&gt;作者：许振文&lt;/p&gt;
+&lt;h2 id=&#34;开发环境s3c4510buclinux24xubuntu710&#34;&gt;开发环境：S3C4510B+uCLinux－2.4.x+ubuntu7.10&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;建立的目的：可以直接在开发板上挂载开发主机上的文件系统，减少程序的烧写次数，提高程序开发速度。&lt;/span&gt;
+
+NFS(Network File System, &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;网络文件系统&lt;/span&gt;)&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;可以通过&lt;/span&gt;NFS把远程主机的目录挂载到本机,&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;使得访问远程主机的目录就像访问本地目&lt;/span&gt;
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;录一样方便快捷。&lt;/span&gt;
+NFS一般是实现linux系统之间实现共享.&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;当然和&lt;/span&gt;unix之间也应该可以使用它来实现共享&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;。但如果需要在&lt;/span&gt;linux和windows系统之间共
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;享&lt;/span&gt;, &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;就得使用&lt;/span&gt;samba了&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，&lt;/span&gt;
+NFS是一个RPC服务程序,&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;所以在使用它之前&lt;/span&gt;, &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;先要映射好端口——通过&lt;/span&gt;portmap设定. &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;比如&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;某个&lt;/span&gt;NFS client发起NFS服务请求时, 
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;它需要先得到一个端口&lt;/span&gt;(port).&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;所以它先通过&lt;/span&gt;portmap得到port number.&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;所以在启动&lt;/span&gt;NFS之前, &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;需要启动&lt;/span&gt;portmap服务&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;！&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>License</title>
+      <link>http://www.helight.cn/blog/2014/718/</link>
+      <pubDate>Sat, 05 Apr 2014 09:23:32 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/718/</guid>
+      <description>&lt;p&gt;除非特别注明，本站所有原创文章皆采用 &lt;a href=&#34;http://creativecommons.org/licenses/by-nc-sa/2.5/cn/&#34; rel=&#34;license&#34;&gt;知识共享署名-非商业性使用-相同方式共享 2.5 中国大陆许可协议&lt;/a&gt;的创作共用协议。&lt;/p&gt;
+&lt;h2 id=&#34;您可以自由&#34;&gt;您可以自由：&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>Open Source---我自己设立的一些小项目。。。</title>
+      <link>http://www.helight.cn/blog/2014/716/</link>
+      <pubDate>Sat, 05 Apr 2014 09:21:39 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/716/</guid>
+      <description>&lt;h2 id=&#34;openflow&#34;&gt;openflow&lt;/h2&gt;
+&lt;h3 id=&#34;项目简介&#34;&gt;项目简介：&lt;/h3&gt;
+&lt;p&gt;可视化分布式流程控制系统，数据流和业务流控制系统。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>AboutMe</title>
+      <link>http://www.helight.cn/blog/2014/713/</link>
+      <pubDate>Sat, 05 Apr 2014 09:19:31 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/713/</guid>
+      <description>&lt;p&gt;许振文，男，计算机软件与理论的硕士生，现就读于西安邮电学院计算机系.2007年毕业于西安邮电学院，并继续攻读硕士学位。主要的研究方向是嵌入式Linux及相关方面。 目前在深圳腾讯-互动娱乐数据中心从事游戏数据分析后台开发工作。。 个人喜欢: 旅游，photo，ping pong。除此之外比较爱好历史和哲学。喜欢红色，黑色和白色。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>storm安装过程</title>
+      <link>http://www.helight.cn/blog/2014/702/</link>
+      <pubDate>Sun, 30 Mar 2014 12:57:54 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/702/</guid>
+      <description>&lt;p&gt;storm的官方安装说明：&lt;a href=&#34;https://github.com/nathanmarz/storm/wiki/Setting-up-a-Storm-cluster&#34;&gt;&lt;a href=&#34;https://github.com/nathanmarz/storm/wiki/Setting-up-a-Storm-cluster&#34;&gt;https://github.com/nathanmarz/storm/wiki/Setting-up-a-Storm-cluster&lt;/a&gt;&lt;/a&gt;
+本文主要介绍storm的单机版的安装测试，也是学习阶段，还没有机会搭建集群。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>svn中分支开发实践学习</title>
+      <link>http://www.helight.cn/blog/2012/557/</link>
+      <pubDate>Mon, 26 Mar 2012 15:06:38 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2012/557/</guid>
+      <description>&lt;p&gt;从去年年中开始，在公司就一直是团队开发作战，代码也是使用svn管理，虽然事用svn管理，但是一直只是把svn作为简单的代码仓库来使用，并没有使用svn的其它功能，所有的人都在master上作修改提交，所以代码的管理十分混乱，上线不好做版本发布包，因为我可能提交了多次，中间其同学也提交了n次，导致最后版本发布包制作极为麻烦。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>一个json数据格式导致的杯具</title>
+      <link>http://www.helight.cn/blog/2011/520/</link>
+      <pubDate>Tue, 12 Jul 2011 09:30:11 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/520/</guid>
+      <description>&lt;p&gt;今天业务组的同事反馈系统数据入库失败，而且耗时耗力。。。老大说谁上，我主动请缨了。&lt;/p&gt;
+&lt;p&gt;查查查。。。从操作追到代码（这些代码不是我写的哇），最后日志发现了，是数据请求回来的地方出了问题，呃，会不是是请求的服务挂了呢，再日志了请求结果，发现，没有问题，最后发现问题处在了json_decode()这里，数据经过这家伙处理之后，竟然没有了，难道数据黑洞？&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Helight.Xu&#39;s GNU/Linux</title>
+      <link>http://www.helight.cn/blog/2010/helight/</link>
+      <pubDate>Mon, 18 Jan 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/helight/</guid>
+      <description>Zhwen Xu(Zhenwen Xu, 许振文 in Chinese), post-graduate student majored in the &lt;a href=&#34;http://cs.xupt.edu.cn&#34;&gt;CS Department&lt;/a&gt; of &lt;a href=&#34;http://www.xupt.edu.cn&#34;&gt;Xi&amp;rsquo;an  University of Post and Telecommunications&lt;/a&gt;.</description>
+    </item>
+    
+    <item>
+      <title>☯道&amp;禅</title>
+      <link>http://www.helight.cn/blog/2010/tao/</link>
+      <pubDate>Mon, 18 Jan 2010 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/tao/</guid>
+      <description>道生一，一生二，二生三，三生万物。。。</description>
+    </item>
+    
+    <item>
+      <title>我的毕设定题</title>
+      <link>http://www.helight.cn/blog/2009/graduate-work/</link>
+      <pubDate>Fri, 13 Mar 2009 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/graduate-work/</guid>
+      <description>不知不觉之间研究生生活已经过去了一大半了，也到该准备研究生毕业设计的时候了。年前回家之前给陈老师说我想做嵌入式设备的远程监控，陈老师也没有说什么，其实我是知道了，老师一直想我在内核上有所发展。</description>
+    </item>
+    
+    <item>
+      <title>写在回家之前的话</title>
+      <link>http://www.helight.cn/blog/2009/befor-go-home/</link>
+      <pubDate>Thu, 15 Jan 2009 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/befor-go-home/</guid>
+      <description>又是一年春节了，话题还是一样。对于这样在外飘荡的人来说，没有什么能比回家更让人坐立不安了。常常也是这样的，其实回家也就是那么几天，见见父母，见见亲戚朋友。聊聊家常，扯扯蛋。呵呵，生活好像就是这样。</description>
+    </item>
+    
+    <item>
+      <title>我的二十年感言</title>
+      <link>http://www.helight.cn/blog/2009/my2009/</link>
+      <pubDate>Thu, 15 Jan 2009 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/my2009/</guid>
+      <description>【回忆1989年以前】 那个时候，我在看西瓜，我在跟着小姑姑放羊，跟着小叔叔放牛，在屋后的小河里捞小鱼。。。据我妈说我小时候那是坏的不得了，而且嘴馋。人家刚种的萝卜我会给他拔出来。还隐约记得有个老太太住在一见黑乎乎的屋子里，她可喜欢我了，老是带我去她的黑屋子，然后给我方块糖吃。</description>
+    </item>
+    
+    <item>
+      <title>又是一个岁终年末的随想</title>
+      <link>http://www.helight.cn/blog/2008/end-of-2008/</link>
+      <pubDate>Thu, 25 Dec 2008 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2008/end-of-2008/</guid>
+      <description>&lt;p&gt;依我个人的观点看，往往岁终年末是一年之中比较乱乱的时候。人们的心情 开始慌乱，急躁。毕竟要过年了。好像是劳累的一年了，也应该休一下了。对待工 作生活是不是开始怠慢了呢？呵呵！！ 也是阿，又是一年的岁终年末了。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

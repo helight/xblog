@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>linux5.3.0编译运行LINUX内核源码中的BPF示例代码</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, ebpf">
+  
+  
+  <meta name="description" content="完美之道，不在无可增加，而在无可删减。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="linux5.3.0编译运行LINUX内核源码中的BPF示例代码">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2021/build-kernel-ebpf-sample/" />
+  <meta property="og:description" content="完美之道，不在无可增加，而在无可删减。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/linux_ebpf_support.png">
+  <meta property="og:image:type" content="image/png">
+  
+  
+  
+    <meta property="og:image:width" content="1500">
+    <meta property="og:image:height" content="1050">
+  
+  
+  <meta property="og:updated_time" content="2021-03-31T08:45:20&#43;0800">
+  
+    
+    
+    <meta property="article:section" content="kernel">
+    <meta property="article:tag" content="kernel">
+    <meta property="article:tag" content="ebpf">
+    
+    
+    <meta property="article:published_time" content="2021-03-31T08:45:20&#43;0800">
+    <meta property="article:modified_time" content="2021-03-31T08:45:20&#43;0800">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="linux5.3.0编译运行LINUX内核源码中的BPF示例代码">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/linux_ebpf_support.png">
+  
+  <meta name="twitter:description" content="完美之道，不在无可增加，而在无可删减。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="linux5.3.0编译运行LINUX内核源码中的BPF示例代码 logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="linux5.3.0编译运行LINUX内核源码中的BPF示例代码 logo" class="visible-xs visible-sm">
+                    <span class="sr-only">linux5.3.0编译运行LINUX内核源码中的BPF示例代码 - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>linux5.3.0编译运行LINUX内核源码中的BPF示例代码</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2021年3月31日
+                        </i>
+                        |
+                        
+                        由 <a href="http://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        1100字 | 阅读大约需要3分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/kernel">kernel</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/kernel/"><i>#kernel</i></a>
+                        
+                        <a style="text-transform:capitalize" href="/tags/ebpf/"><i>#ebpf</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <h2 id="前言">前言</h2>
+<p>环境：ubuntu 18.04，内核版本 5.3.0。
+安装内核：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">apt-get install linux-image-5.3.0-70-generic
+apt-get install linux-headers-5.3.0-70-generic
+apt-get install linux-source-5.3.0
+</code></pre></div><h2 id="ebpf-tools编译">ebpf-tools编译</h2>
+<p>下面简单记录编译 bpf-tools 时的一些过程。
+源码解压到<code>/data/linux-source-5.3.0/</code>目录下，进行工具编译。直接进入工具目录进行编译：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd /data/linux-source-5.3.0/tools/bpf/
+make oldconfig <span style="color:#f92672">&amp;&amp;</span> make prepare
+make scripts
+make M<span style="color:#f92672">=</span>samples/bpf
+</code></pre></div><h3 id="问题1">问题1</h3>
+<h4 id="bpf_prog_type_raw_tracepoint-undeclared">BPF_PROG_TYPE_RAW_TRACEPOINT’ undeclared</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">samples/bpf/bpf_load.c: In <span style="color:#66d9ef">function</span> ‘load_and_attach’:
+samples/bpf/bpf_load.c:108:15: error: ‘BPF_PROG_TYPE_RAW_TRACEPOINT’ undeclared <span style="color:#f92672">(</span>first use in this <span style="color:#66d9ef">function</span><span style="color:#f92672">)</span>; did you mean ‘BPF_PROG_TYPE_TRACEPOINT’?
+   prog_type <span style="color:#f92672">=</span> BPF_PROG_TYPE_RAW_TRACEPOINT;
+               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+               BPF_PROG_TYPE_TRACEPOINT
+samples/bpf/bpf_load.c:122:15: error: ‘BPF_PROG_TYPE_SK_MSG’ undeclared <span style="color:#f92672">(</span>first use in this <span style="color:#66d9ef">function</span><span style="color:#f92672">)</span>; did you mean ‘BPF_PROG_TYPE_SK_SKB’?
+   prog_type <span style="color:#f92672">=</span> BPF_PROG_TYPE_SK_MSG;
+               ^~~~~~~~~~~~~~~~~~~~
+               BPF_PROG_TYPE_SK_SKB
+scripts/Makefile.host:107: recipe <span style="color:#66d9ef">for</span> target <span style="color:#e6db74">&#39;samples/bpf/bpf_load.o&#39;</span> failed
+make<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>: *** <span style="color:#f92672">[</span>samples/bpf/bpf_load.o<span style="color:#f92672">]</span> Error <span style="color:#ae81ff">1</span>
+Makefile:1667: recipe <span style="color:#66d9ef">for</span> target <span style="color:#e6db74">&#39;_module_samples/bpf&#39;</span> failed
+make: *** <span style="color:#f92672">[</span>_module_samples/bpf<span style="color:#f92672">]</span> Error <span style="color:#ae81ff">2</span>
+root@VM-74-51-ubuntu:/data/linux-source-5.3.0# ls samples/bpf/
+</code></pre></div><h4 id="解决">解决</h4>
+<p>把内核源码文件：include/uapi/linux/bpf.h 中的定义拷贝到系统头文件：/usr/include/linux/bpf.h
+拷贝内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">enum</span> bpf_prog_type {
+        BPF_PROG_TYPE_UNSPEC,
+        BPF_PROG_TYPE_SOCKET_FILTER,
+        BPF_PROG_TYPE_KPROBE,
+        BPF_PROG_TYPE_SCHED_CLS,
+        BPF_PROG_TYPE_SCHED_ACT,
+        BPF_PROG_TYPE_TRACEPOINT,
+        BPF_PROG_TYPE_XDP,
+        BPF_PROG_TYPE_PERF_EVENT,
+        BPF_PROG_TYPE_CGROUP_SKB,
+        BPF_PROG_TYPE_CGROUP_SOCK,
+        BPF_PROG_TYPE_LWT_IN,
+        BPF_PROG_TYPE_LWT_OUT,
+        BPF_PROG_TYPE_LWT_XMIT,
+        BPF_PROG_TYPE_SOCK_OPS,
+        BPF_PROG_TYPE_SK_SKB,
+        BPF_PROG_TYPE_CGROUP_DEVICE,
+        BPF_PROG_TYPE_SK_MSG,
+        BPF_PROG_TYPE_RAW_TRACEPOINT,
+        BPF_PROG_TYPE_CGROUP_SOCK_ADDR,
+        BPF_PROG_TYPE_LWT_SEG6LOCAL,
+        BPF_PROG_TYPE_LIRC_MODE2,
+        BPF_PROG_TYPE_SK_REUSEPORT,
+        BPF_PROG_TYPE_FLOW_DISSECTOR,
+        BPF_PROG_TYPE_CGROUP_SYSCTL,
+        BPF_PROG_TYPE_RAW_TRACEPOINT_WRITABLE,
+        BPF_PROG_TYPE_CGROUP_SOCKOPT,
+};
+</code></pre></div><h3 id="问题2">问题2</h3>
+<h4 id="usrincludelinuxiph1022-error-unknown-type-name-__sum16">/usr/include/linux/ip.h:102:2: error: unknown type name ‘__sum16’</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  LINK     libbpf.so.0.0.4
+  LINK     test_libbpf
+  HOSTCC  samples/bpf/test_lru_dist
+  HOSTCC  samples/bpf/sock_example
+In file included from samples/bpf/sock_example.c:27:0:
+/usr/include/linux/ip.h:102:2: error: unknown type name ‘__sum16’
+  __sum16 check;
+  ^~~~~~~
+scripts/Makefile.host:90: recipe <span style="color:#66d9ef">for</span> target <span style="color:#e6db74">&#39;samples/bpf/sock_example&#39;</span> failed
+make<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>: *** <span style="color:#f92672">[</span>samples/bpf/sock_example<span style="color:#f92672">]</span> Error <span style="color:#ae81ff">1</span>
+Makefile:1667: recipe <span style="color:#66d9ef">for</span> target <span style="color:#e6db74">&#39;_module_samples/bpf&#39;</span> failed
+make: *** <span style="color:#f92672">[</span>_module_samples/bpf<span style="color:#f92672">]</span> Error <span style="color:#ae81ff">2</span>
+root@VM-74-51-ubuntu:/data/linux-source-5.3.0# 
+</code></pre></div><h4 id="解决-1">解决</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">vim tools/include/linux/types.h
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> __u16 __bitwise __le16;
+<span style="color:#66d9ef">typedef</span> __u16 __bitwise __be16;
+<span style="color:#66d9ef">typedef</span> __u32 __bitwise __le32;
+<span style="color:#66d9ef">typedef</span> __u32 __bitwise __be32;
+<span style="color:#66d9ef">typedef</span> __u64 __bitwise __le64;
+<span style="color:#66d9ef">typedef</span> __u64 __bitwise __be64;
+
+<span style="color:#66d9ef">typedef</span> __u16 __bitwise __sum16;  <span style="color:#75715e">//这里加入
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> __u32 __bitwise __wsum;   <span style="color:#75715e">//这里加入
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {
+        <span style="color:#66d9ef">int</span> counter;
+} atomic_t;
+</code></pre></div><h3 id="问题3">问题3</h3>
+<h4 id="error-test_attr__enabled-undeclared-first-use-in-this-function">error: ‘test_attr__enabled’ undeclared (first use in this function)</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">/tools/perf/perf-sys.h: In <span style="color:#66d9ef">function</span> ‘sys_perf_event_open’:
+./tools/perf/perf-sys.h:68:15: error: ‘test_attr__enabled’ undeclared <span style="color:#f92672">(</span>first use in this <span style="color:#66d9ef">function</span><span style="color:#f92672">)</span>
+  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>unlikely<span style="color:#f92672">(</span>test_attr__enabled<span style="color:#f92672">))</span>
+               ^
+./tools/include/linux/compiler.h:74:43: note: in definition of macro ‘unlikely’
+ <span style="color:#75715e"># define unlikely(x)  __builtin_expect(!!(x), 0)</span>
+                                           ^
+./tools/perf/perf-sys.h:68:15: note: each undeclared identifier is reported only once <span style="color:#66d9ef">for</span> each <span style="color:#66d9ef">function</span> it appears in
+  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>unlikely<span style="color:#f92672">(</span>test_attr__enabled<span style="color:#f92672">))</span>
+               ^
+./tools/include/linux/compiler.h:74:43: note: in definition of macro ‘unlikely’
+ <span style="color:#75715e"># define unlikely(x)  __builtin_expect(!!(x), 0)</span>
+                                           ^
+In file included from samples/bpf/bpf_load.c:28:0:
+./tools/perf/perf-sys.h:69:3: warning: implicit declaration of <span style="color:#66d9ef">function</span> ‘test_attr__open’ <span style="color:#f92672">[</span>-Wimplicit-function-declaration<span style="color:#f92672">]</span>
+   test_attr__open<span style="color:#f92672">(</span>attr, pid, cpu, fd, group_fd, flags<span style="color:#f92672">)</span>;
+   ^~~~~~~~~~~~~~~
+scripts/Makefile.host:107: recipe <span style="color:#66d9ef">for</span> target <span style="color:#e6db74">&#39;samples/bpf/bpf_load.o&#39;</span> failed
+make<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>: *** <span style="color:#f92672">[</span>samples/bpf/bpf_load.o<span style="color:#f92672">]</span> Error <span style="color:#ae81ff">1</span>
+Makefile:1667: recipe <span style="color:#66d9ef">for</span> target <span style="color:#e6db74">&#39;_module_samples/bpf&#39;</span> failed
+make: *** <span style="color:#f92672">[</span>_module_samples/bpf<span style="color:#f92672">]</span> Error <span style="color:#ae81ff">2</span>
+</code></pre></div><h4 id="解决-2">解决</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">vim ./tools/perf/perf-sys.h
+</code></pre></div><p>编辑这个文件，注视相关代码。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">int</span>
+<span style="color:#a6e22e">sys_perf_event_open</span>(<span style="color:#66d9ef">struct</span> perf_event_attr <span style="color:#f92672">*</span>attr,
+                      pid_t pid, <span style="color:#66d9ef">int</span> cpu, <span style="color:#66d9ef">int</span> group_fd,
+                      <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> flags)
+{
+        <span style="color:#66d9ef">int</span> fd;
+
+        fd <span style="color:#f92672">=</span> syscall(__NR_perf_event_open, attr, pid, cpu,
+                     group_fd, flags);
+<span style="color:#75715e">// 注视掉以下代码
+</span><span style="color:#75715e">// #ifdef HAVE_ATTR_TEST
+</span><span style="color:#75715e">//      if (unlikely(test_attr__enabled)) // 
+</span><span style="color:#75715e">//              test_attr__open(attr, pid, cpu, fd, group_fd, flags);
+</span><span style="color:#75715e">// #endif
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> fd;
+}
+</code></pre></div><h3 id="问题4">问题4</h3>
+<h4 id="binsh-1-flex-not-found">/bin/sh: 1: flex: not found</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@VM-74-51-ubuntu:/data/linux-source-5.3.0/tools/bpf# make
+  BISON    bpf_exp.yacc.c
+  CC       bpf_exp.yacc.o
+  FLEX     bpf_exp.lex.c
+/bin/sh: 1: flex: not found
+Makefile:54: recipe <span style="color:#66d9ef">for</span> target <span style="color:#e6db74">&#39;bpf_exp.lex.c&#39;</span> failed
+make: *** <span style="color:#f92672">[</span>bpf_exp.lex.c<span style="color:#f92672">]</span> Error <span style="color:#ae81ff">127</span>
+root@VM-74-51-ubuntu:/data/linux-source-5.3.0/tools/bpf# 
+</code></pre></div><h4 id="解决-3">解决</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">int</span>
+<span style="color:#a6e22e">sys_perf_event_open</span>(<span style="color:#66d9ef">struct</span> perf_event_attr <span style="color:#f92672">*</span>attr,
+                      pid_t pid, <span style="color:#66d9ef">int</span> cpu, <span style="color:#66d9ef">int</span> group_fd,
+                      <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> flags)
+{
+        <span style="color:#66d9ef">int</span> fd;
+
+        fd <span style="color:#f92672">=</span> syscall(__NR_perf_event_open, attr, pid, cpu,
+                     group_fd, flags);
+
+<span style="color:#75715e">// #ifdef HAVE_ATTR_TEST
+</span><span style="color:#75715e">//      if (unlikely(test_attr__enabled))
+</span><span style="color:#75715e">//              test_attr__open(attr, pid, cpu, fd, group_fd, flags);
+</span><span style="color:#75715e">// #endif
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> fd;
+}
+</code></pre></div><h3 id="问题5">问题5</h3>
+<h4 id="no-libelf-found">No libelf found</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@VM-74-51-ubuntu:/data/linux-source-5.3.0/tools/bpf# make
+  BISON    bpf_exp.yacc.c
+  CC       bpf_exp.yacc.o
+  FLEX     bpf_exp.lex.c
+  ......
+Auto-detecting system features:
+...                        libelf: <span style="color:#f92672">[</span> OFF <span style="color:#f92672">]</span>
+...                           bpf: <span style="color:#f92672">[</span> on  <span style="color:#f92672">]</span>
+
+No libelf found
+Makefile:269: recipe <span style="color:#66d9ef">for</span> target <span style="color:#e6db74">&#39;elfdep&#39;</span> failed
+make<span style="color:#f92672">[</span>2<span style="color:#f92672">]</span>: *** <span style="color:#f92672">[</span>elfdep<span style="color:#f92672">]</span> Error <span style="color:#ae81ff">1</span>
+Makefile:30: recipe <span style="color:#66d9ef">for</span> target <span style="color:#e6db74">&#39;/data/linux-source-5.3.0/tools/lib/bpf/libbpf.a&#39;</span> failed
+make<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>: *** <span style="color:#f92672">[</span>/data/linux-source-5.3.0/tools/lib/bpf/libbpf.a<span style="color:#f92672">]</span> Error <span style="color:#ae81ff">2</span>
+Makefile:99: recipe <span style="color:#66d9ef">for</span> target <span style="color:#e6db74">&#39;bpftool&#39;</span> failed
+make: *** <span style="color:#f92672">[</span>bpftool<span style="color:#f92672">]</span> Error <span style="color:#ae81ff">2</span>
+root@VM-74-51-ubuntu:/data/linux-source-5.3.0/tools/bpf# 
+</code></pre></div><h4 id="解决-4">解决</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">apt-get install libelf-dev
+</code></pre></div><h2 id="ebpf-编译">ebpf 编译</h2>
+<h3 id="编译环境安装">编译环境安装</h3>
+<p>clang 安装，这里为了未来还可以编译 envoy，所以安装了 clang-10。</p>
+<pre tabindex="0"><code>apt-get install clang-10
+</code></pre><center>
+看完本文有收获？请分享给更多人
+<p>关注「黑光技术」，关注大数据+微服务</p>
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2020/build-envoy-filter-what/" data-toggle="tooltip" data-placement="top" title="envoy filter 开发实践系列 4：envoy filter 原理介绍">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2021/k8s-dashboard-build/" data-toggle="tooltip" data-placement="top" title="k8s dashboard 编译测试">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2020/linux-kernel-observability-ebpf/"><i class="fa fa-link"></i>【译】基于 eBPF 的 Linux 可观测性</a></li>
+         
+        <li><a href="/blog/2020/test-bcc/"><i class="fa fa-link"></i>ebpf 学习梳理和测试使用</a></li>
+         
+        <li><a href="/blog/2020/netlink/"><i class="fa fa-link"></i>内核通信之 Netlink 源码分析和实例分析</a></li>
+         
+        <li><a href="/blog/2015/918/"><i class="fa fa-link"></i>【转载】从Hadoop到Spark的架构实践</a></li>
+         
+        <li><a href="/blog/2014/815/"><i class="fa fa-link"></i>linux的io栈图</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

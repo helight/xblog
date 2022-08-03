@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>分布式 on 黑光技术</title>
+    <link>http://www.helight.cn/categories/%E5%88%86%E5%B8%83%E5%BC%8F/</link>
+    <description>Recent content in 分布式 on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Wed, 14 Oct 2015 07:58:03 +0800</lastBuildDate><atom:link href="http://www.helight.cn/categories/%E5%88%86%E5%B8%83%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>分布式系统的Raft算法(转)</title>
+      <link>http://www.helight.cn/blog/2015/928/</link>
+      <pubDate>Wed, 14 Oct 2015 07:58:03 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/928/</guid>
+      <description>&lt;p&gt;过去, Paxos一直是分布式协议的标准，但是Paxos难于理解，更难以实现，Google的分布式锁系统Chubby作为Paxos实现曾经遭遇到很多坑。&lt;/p&gt;
+&lt;p&gt;来自Stanford的新的分布式协议研究称为Raft，它是一个为真实世界应用建立的协议，主要注重协议的落地性和可理解性。&lt;/p&gt;
+&lt;p&gt;在了解Raft之前，我们先了解Consensus一致性这个概念，它是指多个服务器在状态达成一致，但是在一个分布式系统中，因为各种意外可能，有的服务器可能会崩溃或变得不可靠，它就不能和其他服务器达成一致状态。这样就需要一种Consensus协议，一致性协议是为了确保容错性，也就是即使系统中有一两个服务器当机，也不会影响其处理过程。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>zookeeper原理2（转）</title>
+      <link>http://www.helight.cn/blog/2015/891/</link>
+      <pubDate>Thu, 22 Jan 2015 03:06:02 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/891/</guid>
+      <description>&lt;p&gt;ZooKeeper 是一个分布式的，开放源码的分布式应用程序协调服务，它包含一个简单的原语集，分布式应用程序可以基于它实现同步服务，配置维护和命名服务等。 Zookeeper是hadoop的一个子项目，其发展历程无需赘述。在分布式应用中，由于工程师不能很好地使用锁机制，以及基于消息的协调机制不适合在 某些应用中使用，因此需要有一种可靠的、可扩展的、分布式的、可配置的协调机制来统一系统的状态。Zookeeper的目的就在于此。本文简单分析 zookeeper的工作原理，对于如何使用zookeeper不是本文讨论的重点。本文主要是对Zookeeper的是想原理进行分析说明。只有在熟悉实现原理之后才能把Zookeeper使用的更好。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>zookeeper原理</title>
+      <link>http://www.helight.cn/blog/2015/880/</link>
+      <pubDate>Thu, 22 Jan 2015 02:56:49 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/880/</guid>
+      <description>&lt;p&gt;ZooKeeper是Hadoop Ecosystem中非常重要的组件，它的主要功能是为分布式系统提供一致性协调(Coordination)服务，与之对应的Google的类似服务叫Chubby。
+分布式环境中大多数服务是允许部分失败，也允许数据不一致，但有些最基础的服务是需要高可靠性，高一致性的，这些服务是其他分布式服务运转的基础，比如naming service、分布式lock等，这些分布式的基础服务有以下要求：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>一种简单的分布式存储系统</title>
+      <link>http://www.helight.cn/blog/2015/862/</link>
+      <pubDate>Mon, 12 Jan 2015 10:46:37 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/862/</guid>
+      <description>&lt;p&gt;三层架构（MetaNodeMonitor+MetaNode+DataNode），核心是下面两层（MetaNode+DataNode），下面两层是可以脱离Monitor独立运行。&lt;/p&gt;
+&lt;p&gt;Monitor的存在主要是作为一个MetaNode的监控和MetaNode出错时进行切换角色，并且通知DataNode进行切换。&lt;/p&gt;
+&lt;p&gt;DataNode在获取主MetaNode的Ip后进行本地缓存，不需要主动询问Monitor，而且DataNode还可以主动从任意MetaNode获取主MetaNode的IP信息。&lt;/p&gt;
+&lt;p&gt;MetaNode作为整个系统的大脑，存储所有的文件元信息，这一点和HDFS的NameNode是有点类似的，但是MetaNode做了主备和自动切换设计，相对有更高的可用性。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>两阶段提交算法</title>
+      <link>http://www.helight.cn/blog/2015/858/</link>
+      <pubDate>Mon, 12 Jan 2015 10:42:24 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2015/858/</guid>
+      <description>&lt;p&gt;两阶段提交协议是在事务处理、数据库，以及计算机网络中使用的一种原子提交协议(atomic commitment)。它是一个分布式算法，协调在整个分布式原子事务中的参与者的行为(commit或者roll back)。这个协议在一些系统错误发生时仍然能够成功，((两阶段提交协议))但并不能保证对所有错误都能进行容错。为了能做错误恢复，协议的所有参与 者都需要使用日志对协议状态进行记录。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

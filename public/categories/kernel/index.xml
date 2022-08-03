@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kernel on 黑光技术</title>
+    <link>http://www.helight.cn/categories/kernel/</link>
+    <description>Recent content in kernel on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Sat, 20 Nov 2021 08:45:20 +0800</lastBuildDate><atom:link href="http://www.helight.cn/categories/kernel/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 eBPF 和 XDP 高速处理数据包</title>
+      <link>http://www.helight.cn/blog/2021/ebpf-and-xdp/</link>
+      <pubDate>Sat, 20 Nov 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/ebpf-and-xdp/</guid>
+      <description>前言 本文是一篇学习翻译文章，原文在这里。 XDP 是一种特殊的 eBPF 程序，在数据包处理上因为在协议栈之前就可以处理数据，所以有非常高的性能。 这篇文章先在</description>
+    </item>
+    
+    <item>
+      <title>linux5.3.0编译运行LINUX内核源码中的BPF示例代码</title>
+      <link>http://www.helight.cn/blog/2021/build-kernel-ebpf-sample/</link>
+      <pubDate>Wed, 31 Mar 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/build-kernel-ebpf-sample/</guid>
+      <description>前言 环境：ubuntu 18.04，内核版本 5.3.0。 安装内核： apt-get install linux-image-5.3.0-70-generic apt-get install linux-headers-5.3.0-70-generic apt-get install linux-source-5.3.0 ebpf-tools编译 下面简单记录编译 bpf-tools 时的一些过程。 源</description>
+    </item>
+    
+    <item>
+      <title>来玩 TencentOS tiny 物联网终端操作系统</title>
+      <link>http://www.helight.cn/blog/2020/tencentos-tiny-test/</link>
+      <pubDate>Sun, 20 Sep 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/tencentos-tiny-test/</guid>
+      <description>前言 公司前段时间发起了一个活动，免费给大家提供开发板，让大家基于 TencentOS tiny 采集数据，通过wifi、以太网、LoRaWAN、NB-IoT、2G、4G</description>
+    </item>
+    
+    <item>
+      <title>内核通信之 Netlink 源码分析和实例分析</title>
+      <link>http://www.helight.cn/blog/2020/netlink/</link>
+      <pubDate>Sat, 25 Jul 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/netlink/</guid>
+      <description>前言 这几天在看 ipvs 相关代码的时候又遇到了 netlink 的事情，所以这两天花了点时间重新把 netlink 的事情梳理了一下。 什么是 netlink linux 内核一直存在的一个严重问题就是内核态</description>
+    </item>
+    
+    <item>
+      <title>如何 60 秒内进行 Linux 性能分析</title>
+      <link>http://www.helight.cn/blog/2020/linux-performance-analysis-in-60-000-milliseconds/</link>
+      <pubDate>Thu, 21 May 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/linux-performance-analysis-in-60-000-milliseconds/</guid>
+      <description>在你登陆一台 Linux 服务器之后，因为一个问题要做性能分析时：你会在第一分钟内做哪些检测呢？</description>
+    </item>
+    
+    <item>
+      <title>【译】基于 eBPF 的 Linux 可观测性</title>
+      <link>http://www.helight.cn/blog/2020/linux-kernel-observability-ebpf/</link>
+      <pubDate>Mon, 30 Mar 2020 20:14:34 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/linux-kernel-observability-ebpf/</guid>
+      <description>最近发布的 Linux 内核带了一个针对内核的能力强大的 Linux 监控框架。它起源于历史上人们所说的的 BPF。</description>
+    </item>
+    
+    <item>
+      <title>ebpf 学习梳理和测试使用</title>
+      <link>http://www.helight.cn/blog/2020/test-bcc/</link>
+      <pubDate>Sat, 21 Mar 2020 23:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/test-bcc/</guid>
+      <description>周五下午在公司的服务网格月度讨论会上，一位同事为大家分享了在服务网格中使用 ebpf 来优化提升 istio 中 sidecar 和 RS 间的通信效率。听过之后手痒难，想测试一把 ebpf。</description>
+    </item>
+    
+    <item>
+      <title>linux的io栈图</title>
+      <link>http://www.helight.cn/blog/2014/815/</link>
+      <pubDate>Tue, 06 May 2014 10:55:36 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/815/</guid>
+      <description>&lt;p&gt;G+上看到有人画的一个图，非常不错&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>liunx系统分析图解</title>
+      <link>http://www.helight.cn/blog/2014/783/</link>
+      <pubDate>Fri, 11 Apr 2014 09:51:54 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/783/</guid>
+      <description>看完本文有收获？请分享给更多人 关注「黑光技术」，关注大数据+微服务</description>
+    </item>
+    
+    <item>
+      <title>内核补丁制作与提交</title>
+      <link>http://www.helight.cn/blog/2014/746/</link>
+      <pubDate>Sun, 06 Apr 2014 03:32:04 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2014/746/</guid>
+      <description>&lt;p&gt;作者：许振文&lt;/p&gt;
+&lt;h2 id=&#34;内核源码下载&#34;&gt;内核源码下载&lt;/h2&gt;
+&lt;p&gt;内核代码的管理是采用的git来管理的，所以要下载内核最新的代码的话就得使用git工具来下载了。git工具的使用我在上一篇文章中已经写了个大概，所以具体可以参考其中的使用说明。
+一般测试可以下载部分或是全部的源代码，我们一般会下载Linus Torvalds的git树下的源码。URL如下：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>pthread中线程是怎么创建的（2）---glibc到内核</title>
+      <link>http://www.helight.cn/blog/2013/627/</link>
+      <pubDate>Sun, 28 Apr 2013 07:32:38 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2013/627/</guid>
+      <description>&lt;p&gt;在glibc中线程创建是这个文件种来定义的：nptl/pthread_create.c&lt;/p&gt;
+&lt;p&gt;创建过程为，pthread_create 调用__pthread_create_2_0， __pthread_create_2_0调用__pthread_create_2_1， 或者pthread_create直接调用__pthread_create_2_1，在由__pthread_create_2_1调用create_thread来创建。&lt;/p&gt;
+&lt;p&gt;在create_thread中，首先是设置了很多内核clone的标志，因为对内核来说每次创建都是创建一个内核级的线程或是内核级进程。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>pthread中线程是怎么创建的（1）---glibc中的别名机制symver（symbol version）</title>
+      <link>http://www.helight.cn/blog/2013/624/</link>
+      <pubDate>Sun, 28 Apr 2013 05:40:19 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2013/624/</guid>
+      <description>&lt;p&gt;那天看了看glibc的线程相关的代码之后，又想看看线程的创建过程，今天趁着程序还在跑的功夫看了看glibc和内核代码，简单过了一下，也顺便记录下。
+glibc种线程创建是这个文件种来定义的：nptl/pthread_create.c&lt;/p&gt;
+&lt;p&gt;我们平时使用的时候一般是include pthread.h文件就可以使用pthread_create来创建线程了，但是在这个pthread_create.c文件中居然是直接找不到pthread_create函数的定义的，找到的只是：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>线程种的gettid和pthread_self区别</title>
+      <link>http://www.helight.cn/blog/2013/622/</link>
+      <pubDate>Mon, 22 Apr 2013 10:44:47 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2013/622/</guid>
+      <description>&lt;p&gt;这几天写程序老是使用thread来做，所以自己封装了一个threadbase的类来做简单的测试使用，但是在写的过程种发现又两个获取线程id的函数：pthread_self和gettid，那这两个函数有什么区别呢？&lt;/p&gt;
+&lt;p&gt;看gettid的man，这样写道：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>debian testing&#43;gnome3&#43;ibus&#43;kernel3.08</title>
+      <link>http://www.helight.cn/blog/2011/535/</link>
+      <pubDate>Thu, 24 Nov 2011 13:50:03 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/535/</guid>
+      <description>&lt;p&gt;debian的6.0出来之后，一直就心很痒，又加之之前刚刚从同事那里买了个笔记本，所以老婆把她的本就给我用了，虽然配置是有点底，但是安装debian我想肯定没有问题的，在g+上看到debian的testing中已经加入了gnome3了，所以更想试试了，但是没有想到道路事这么的曲折，我这两周花了好多时间，终于在今晚搞定了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>内核又拒绝挂载fat32的磁盘了,报codepage cp437 not found</title>
+      <link>http://www.helight.cn/blog/2011/523/</link>
+      <pubDate>Thu, 11 Aug 2011 15:19:56 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/523/</guid>
+      <description>&lt;p&gt;前几天从新编译了内核，是应为升级了内核后vbox不能用了，所以又从新编译了内核，并且安装编译了vbox的内核模块，但是也出了问题，在每次shutdown的时候机器总是无法断点，磁盘灯不再亮，说明磁盘也不写了，只是一个锁灯在不断的闪，看了messages总的日志看到这样两句：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>NF_HOOK点自ipv4中的插入</title>
+      <link>http://www.helight.cn/blog/2011/511/</link>
+      <pubDate>Sun, 20 Feb 2011 15:12:17 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/511/</guid>
+      <description>&lt;p&gt;net/ipv4/af_inet.c文件中对ipv4的协议进行了初始化，
+fs_initcall(inet_init);&lt;/p&gt;
+&lt;p&gt;在inet_init中进行了ipv4相关的协议进行了初始化：tcp,udp，icmp等处理方法的注册，arp，ip，tcp，udp等协议处理流程的建立，proc文件系统中相关文件的建立等处理，这个在之前就分析过了，现在主要分析的呢是，在ip协议处理流程中NF_HOOK是如何插入的，对这个流程的分析可以比较清楚的看到linux对ipv4的一个处理流程，对特殊ip的处理，对路由包的处理等等。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>netfilter在IPV4中的5个HOOK</title>
+      <link>http://www.helight.cn/blog/2011/505/</link>
+      <pubDate>Sat, 19 Feb 2011 15:37:45 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/505/</guid>
+      <description>&lt;p&gt;之前就知道在内核中netfilter的工作原理是：在协议流程中加入hook函数，从而达到对协议流中的数据进行抓取，今天对IPV4中的这几个点在内核中找了下，终于定位了。先在这里分析一下，还需要分析，数据包在内核中是如何路由的！！！哈呵呵&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linux虚拟网卡</title>
+      <link>http://www.helight.cn/blog/2011/503/</link>
+      <pubDate>Sat, 19 Feb 2011 08:58:42 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2011/503/</guid>
+      <description>&lt;p&gt;昨天研究了下利用虚拟网卡实现两个机器利用一个物理网卡连接外网的内核源码和设置，其实利用虚拟网卡上网的例子在上学 的时候就做过类似的实验，一般可以在一个机器A的一个网卡上配置一个外网ip一个内网ip，另一个内部机器B只配置内网ip，让后B的网关设置为A的内网ip，在A机器上启用netfilter的NAT功能，再启用A机器的路由转发功能，就可以实现B由A上外网的功能了！就如下面这个图。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>再编译内核</title>
+      <link>http://www.helight.cn/blog/2010/494/</link>
+      <pubDate>Tue, 28 Dec 2010 14:14:41 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/494/</guid>
+      <description>昨天下了内2.6.36的内核，今晚没事，想编译看看，顺便做个记录！ 首先要安装必要的包。 包有：libncurses5-dev（menuconf</description>
+    </item>
+    
+    <item>
+      <title>内核学习</title>
+      <link>http://www.helight.cn/blog/2010/492/</link>
+      <pubDate>Sat, 25 Dec 2010 04:35:12 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/492/</guid>
+      <description>&lt;p&gt;来公司之后就没有怎么好好学习内核方面的东西了，也就是是在师妹们问起的时候查查源码或是搜索一下解答一下。本以为我会在内核这条路上越走越远。。。&lt;/p&gt;
+&lt;p&gt;在公司的一个交流会上，由于发言太过积极被奖励了一张当当的购书卡，回来之后直接上当当就买了本ULK，再此捧起内核的书来看，来学习，现在每天晚上回来看上半小时到一小时，让后睡觉，呵呵，有种踏实的感觉。
+ &lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Gdb&#43;core调试技术</title>
+      <link>http://www.helight.cn/blog/2010/453/</link>
+      <pubDate>Wed, 15 Sep 2010 02:28:03 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/453/</guid>
+      <description>&lt;p&gt;做c方面的开发，免不了要是用gdb来调试程序，最近也是在公司做的时候时常需要使用gdb来分析程序，使用最多的当属使用core来查看程序运行的crash原因。&lt;/p&gt;
+&lt;p&gt;在linux中应用程序运行奔溃之后一般会产生core文件，core文件是core dump来产生，core dump又叫核心转储, 当程序运行过程中发生异常, 程序异常退出时, 由操作系统把程序当前的内存状况存储在一个core文件中。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Fastcgi&#43;apache的安装方式</title>
+      <link>http://www.helight.cn/blog/2010/443/</link>
+      <pubDate>Tue, 17 Aug 2010 05:19:56 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/443/</guid>
+      <description>&lt;p&gt;最近因为一个业务需要，需要安装apache+fastcgi的支持，本来可以直接让运维人员给我配置好的，但是想想，这东西还是自己配的好，方便以后调试啊！这里粗浅的学习了一下，做了一个安装记录，分享一下！&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>软件的灰度发布</title>
+      <link>http://www.helight.cn/blog/2010/439/</link>
+      <pubDate>Tue, 22 Jun 2010 12:05:54 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/439/</guid>
+      <description>&lt;p&gt;最近一段时间都是在搞我负责的部门数据接口的转换，所以最近一段时间连续升级了自己管理的几个小系统的数据接口。部门服务器的端口是要严格控制的，所以首先也要在我们自己的服务器上去做监控，一旦发现立杀无赦。在端口监控这个项目上是一个C/S的结构，服务器保存规则，客户断请求，但是这些都是线上服务一旦切换错了，那问题可就。。。。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>vbox下文件夹共享问题总结</title>
+      <link>http://www.helight.cn/blog/2010/433/</link>
+      <pubDate>Wed, 05 May 2010 06:09:47 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/433/</guid>
+      <description>&lt;p&gt;一直以来就没有把这个问题正真当作一个问题来对待，每次配置的时候百度一下也就ok了！可是安装次数剁了，总是这样查来查去就不是很方便了，所以今天就总结一下。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>在内核模块中直接发送数据到网卡</title>
+      <link>http://www.helight.cn/blog/2010/432/</link>
+      <pubDate>Thu, 08 Apr 2010 02:29:00 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/432/</guid>
+      <description>前几天去了一个公司再做什么音频会议系统，他们买了一个音频处理芯片，但是这个芯片和cpu的接口比较奇怪！atm的接口，但是却没有遵循atm的协</description>
+    </item>
+    
+    <item>
+      <title>OOM-killer</title>
+      <link>http://www.helight.cn/blog/2010/430/</link>
+      <pubDate>Tue, 23 Mar 2010 11:55:51 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2010/430/</guid>
+      <description>&lt;p&gt;Out-of-Memory (OOM) Killer是一种保护机制，用于当内存严重不足时，为了系统的继续运转，内核迫不得已挑选一个进程，将其杀死，以释放内存，缓解内存不足的问题。可以看出这种方式对进程的保护是有限的，不能完全的保护进程的运行。
+OOM Killer的关闭与激活方式：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>整理了两张linux网络分析的图</title>
+      <link>http://www.helight.cn/blog/2009/383/</link>
+      <pubDate>Tue, 24 Nov 2009 00:51:35 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/383/</guid>
+      <description>整理了两张linux网络分析的图 这里看大图 这里看大图 看完本文有收获？请分享给更多人 关注「黑光技术」，关注大数据+微服务</description>
+    </item>
+    
+    <item>
+      <title>ipv4内核初始化分析-sock的创建</title>
+      <link>http://www.helight.cn/blog/2009/381/</link>
+      <pubDate>Tue, 17 Nov 2009 09:34:14 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/381/</guid>
+      <description>&lt;p&gt;sock创建的主要数据结构是下面这个结构体：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>内核中ipv4分析---协议族的初始化</title>
+      <link>http://www.helight.cn/blog/2009/376/</link>
+      <pubDate>Wed, 11 Nov 2009 13:54:24 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/376/</guid>
+      <description>&lt;p&gt;在内核中ipv4的初始化工作是由这个函数来做的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Debian sid 下安装 Nginx &#43; PHP5</title>
+      <link>http://www.helight.cn/blog/2009/372/</link>
+      <pubDate>Wed, 11 Nov 2009 13:33:02 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/372/</guid>
+      <description>&lt;p&gt;最近在教学生搭建和配置LAMP的服务器。当从网上的资料来看LNMP的性能也是很是传神。所以也想尝试一下，如果可以，也可以给学生教一下！！！果然在查了一些资料后我还是搭建了起来，只是没有安装mysql，数据库我不是太常用，所以没有安装。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ipv4内核初始化相关</title>
+      <link>http://www.helight.cn/blog/2009/368/</link>
+      <pubDate>Tue, 03 Nov 2009 14:11:52 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/368/</guid>
+      <description>&lt;p&gt;所在文件：
+net/ipv4/af_inet.c
+初始化函数定义：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>网卡数据流分析图</title>
+      <link>http://www.helight.cn/blog/2009/365/</link>
+      <pubDate>Sat, 31 Oct 2009 13:28:18 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/365/</guid>
+      <description>&lt;p&gt;以前做网卡程序时的一个数据流图，拿出来晒晒。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>以ipv4来分析Linux网络的基本运行机制(2) </title>
+      <link>http://www.helight.cn/blog/2009/355/</link>
+      <pubDate>Sat, 17 Oct 2009 13:26:28 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/355/</guid>
+      <description>&lt;p&gt;ipv4协议分析框架图:整理了一个网络接口的大致原理图！&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>以ipv4来分析Linux网络的基本运行机制(1)</title>
+      <link>http://www.helight.cn/blog/2009/351/</link>
+      <pubDate>Fri, 16 Oct 2009 14:26:14 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/351/</guid>
+      <description>&lt;p&gt;在Linux中的网络接口主要的有这么几种：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linux发布版的时间图</title>
+      <link>http://www.helight.cn/blog/2009/345/</link>
+      <pubDate>Fri, 16 Oct 2009 03:41:12 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/345/</guid>
+      <description>&lt;p&gt;之前一直对都对Linux的发布版有错误的理解。今天看了这个图才清楚了。以后给别人讲课也就有依据了！汗那！！！&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>socket内核部分分析</title>
+      <link>http://www.helight.cn/blog/2009/343/</link>
+      <pubDate>Mon, 12 Oct 2009 05:16:00 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/343/</guid>
+      <description>&lt;p&gt;socketcall是所有网络函数请求的系统调用接口函数，所有的网络函数的请求最终都会有这个函数要处理。下面就是这个函数的分析：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>glibc中socket实现分析</title>
+      <link>http://www.helight.cn/blog/2009/333/</link>
+      <pubDate>Sun, 11 Oct 2009 03:49:13 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/333/</guid>
+      <description>&lt;p&gt;glibc-2.9， linux-2.6.32-rc1
+在查看系统调用的时候发现： 关于网络的系统调用只有一个socketcall：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>让firefox也像vim一样简单高效</title>
+      <link>http://www.helight.cn/blog/2009/331/</link>
+      <pubDate>Sat, 10 Oct 2009 10:58:42 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/331/</guid>
+      <description>&lt;p&gt;学校来了两个德国留学生，来的第一天就见他们了，聊了一下！吆！这两个家伙也是使用linux的，当然他们是使用的ubuntu，而我使用的是debian。有一天一个胖胖的来到我们实验室给我说了一堆！说什么他的vbox共享有问题了，看我有什么好的办法，我就去他哪里看了，果然是使用的ubuntu9.04,还设置的非常个性漂亮。就在解决问题的过程中我要上网查资料，但是我发现他的firefox长的比较奇怪，但是整个浏览器很是简洁清爽，这正是我想要的风格阿！但是我却发现我怎么都用不了&amp;mdash;没有url的输入框，没有刷新，没有后退，没有前进和停止。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>icc与gcc测试比较</title>
+      <link>http://www.helight.cn/blog/2009/329/</link>
+      <pubDate>Tue, 29 Sep 2009 03:51:26 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/329/</guid>
+      <description>&lt;h2 id=&#34;编译使用结果&#34;&gt;编译使用结果：&lt;/h2&gt;
+&lt;p&gt;程序：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>使用git来管理googlecode</title>
+      <link>http://www.helight.cn/blog/2009/318/</link>
+      <pubDate>Tue, 01 Sep 2009 11:02:23 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/318/</guid>
+      <description>&lt;p&gt;在代码管理工具上我还是比较喜欢一点，但是googlecode是使用的svn来管理的，一开始我也是使用svn来管理的，但是总感觉不是很爽。
+今天试了一下用git来管理googlecode，还是不错的，又有了以前的那种感觉。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>中断号和芯片中断引脚的关系</title>
+      <link>http://www.helight.cn/blog/2009/315/</link>
+      <pubDate>Mon, 17 Aug 2009 03:00:49 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/315/</guid>
+      <description>&lt;p&gt;一直以来搞不懂这个中断号的来历,总以为是中断控制器自己规定的一个号,但是最近在看了s3c2440的中断控制后才发现不是这么一回事.2440的中断处理只能处理32个中断,但是其在内核中出现的中断号却有51,58等.而且它的外部中断INT4~7共享一个中断控制寄存器的一位,INT8~23也是共享控制寄存器的一位.我就好奇了,它怎么区分这些中断呢?而且在内核代码中它又很清楚的区分了这些中断.如下面的代码(2.6.13).&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>编写的dm9000ep驱动(2.6.13)</title>
+      <link>http://www.helight.cn/blog/2009/313/</link>
+      <pubDate>Fri, 14 Aug 2009 12:32:05 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/313/</guid>
+      <description>&lt;p&gt;最近手头刚好有个开发板,也还有点时间,就试着写了一下它上面的网卡驱动,当然也是参考了其现有的驱动再写的,程序如下:&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>关于函数调用的参数传递</title>
+      <link>http://www.helight.cn/blog/2009/290/</link>
+      <pubDate>Tue, 26 May 2009 03:23:37 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/290/</guid>
+      <description>&lt;p&gt;前几天和王老师在调式一个程序，调试结果怎么都不正确。其实形式很简单：
+printf(&amp;quot;%d; %d&amp;quot;, sum(), m); m是一个静态变量，在sum中改变，但是打印结果还是没有变化。
+当然在后来我又作了一个测试发现在gcc编译的程序中他是以左优先的，也就是先打印计算m的结果，让后在计算sum的结果，再打印。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>内核和用户态异步通信实例（netlink）</title>
+      <link>http://www.helight.cn/blog/2009/288/</link>
+      <pubDate>Sat, 16 May 2009 12:06:18 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/288/</guid>
+      <description>&lt;h2 id=&#34;内核版本2626&#34;&gt;内核版本：2.6.26&lt;/h2&gt;
+&lt;p&gt;内核态程序：knetlink.c&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>一条audit日志信息的分析</title>
+      <link>http://www.helight.cn/blog/2009/284/</link>
+      <pubDate>Fri, 15 May 2009 02:17:28 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/284/</guid>
+      <description>&lt;h2 id=&#34;内核版本2630-rc5&#34;&gt;内核版本：2.6.30-rc5&lt;/h2&gt;
+&lt;p&gt;以下是用”demsg｜tail“命令抓取的一段信息：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>2.6.26下添加系统调用</title>
+      <link>http://www.helight.cn/blog/2009/278/</link>
+      <pubDate>Wed, 13 May 2009 08:45:29 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/278/</guid>
+      <description>&lt;p&gt;内核版本：2.6.26&lt;/p&gt;
+&lt;p&gt;以下是要修改的内核文件：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>对audit_context结构的注释</title>
+      <link>http://www.helight.cn/blog/2009/274/</link>
+      <pubDate>Sun, 10 May 2009 08:13:41 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/274/</guid>
+      <description>/* The per-task audit context. */ struct audit_context { int dummy; /* must be the first element */ int in_syscall; /* 1 if task is in a syscall 该值是：1 则表示任务在系统调用中 */ enum audit_state state, current_state; //审计级别 有AUDIT_DIABLED:</description>
+    </item>
+    
+    <item>
+      <title>自定义ELF文件中的section</title>
+      <link>http://www.helight.cn/blog/2009/260/</link>
+      <pubDate>Thu, 30 Apr 2009 14:28:24 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/260/</guid>
+      <description>&lt;p&gt;在看内核代码的时候发现，原来ELF文件的section是完全可以自己定义的。当然这只是作新的增加。
+今天请教了王老师，并做了一个简单的测试。但是具体的用意还有点不是很清楚，还有待继续分析ELF文件。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>内核审计系统初步分析（1）</title>
+      <link>http://www.helight.cn/blog/2009/254/</link>
+      <pubDate>Mon, 27 Apr 2009 04:41:35 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/254/</guid>
+      <description>&lt;p&gt;最近一段时间在看内核关于审计的东西，今天作一点最近看的整理，内核的审计系统也算是比较新的东西了，还有内核跟踪一类的动西，也是在2。6。30中才看到有独立的目录了。&lt;/p&gt;
+&lt;p&gt;其实内核的审计还是没有跳出对进程的管理，也主要是是对每个进程的活动情况进行记录。在struct thread_info结构中的flags项中有增加了许多的内容，其中就有几个标志就是关于是否启用内核审计的。如下面的几项：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>系统调用简单分析</title>
+      <link>http://www.helight.cn/blog/2009/248/</link>
+      <pubDate>Sat, 25 Apr 2009 10:25:47 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/248/</guid>
+      <description>#define CFI_STARTPROC .cfi_startproc //用在每个函数的开始，用于初始化一些内部数据结构 #define CFI_ENDPROC .cfi_endproc //在函数结束的时候使用与.cfi_startproc相配套使用 #define CFI_DEF_CFA .cfi_def_cfa //定义</description>
+    </item>
+    
+    <item>
+      <title>内核的同步和互斥实例学习</title>
+      <link>http://www.helight.cn/blog/2009/235/</link>
+      <pubDate>Tue, 21 Apr 2009 04:49:49 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/235/</guid>
+      <description>#include &amp;lt;linux/module.h&amp;gt;#include &amp;lt;linux/init.h&amp;gt;#include &amp;lt;linux/kernel.h&amp;gt;#include &amp;lt;linux/mutex.h&amp;gt;#include &amp;lt;linux/semaphore.h&amp;gt;#include &amp;lt;linux/sched.h&amp;gt; static DEFINE_MUTEX(mut1); struct semaphore sem1,sem2; int test1(void *p) { down(&amp;amp;sem2); mutex_lock(&amp;amp;mut1); printk(&amp;#34;get out test1\n&amp;#34;); mutex_unlock(&amp;amp;mut1); up(&amp;amp;sem1); return 0; } int test2(void *p) { down(&amp;amp;sem1); mutex_lock(&amp;amp;mut1); printk(&amp;#34;get out test2\n&amp;#34;); mutex_unlock(&amp;amp;mut1); up(&amp;amp;sem2); return 0; } static int __init mutex_init_test() { init_MUTEX(&amp;amp;sem1); init_MUTEX_LOCKED(&amp;amp;sem2); printk(&amp;#34;get out \n&amp;#34;); kernel_thread(test1, test1, CLONE_KERNEL); kernel_thread(test2, test2, CLONE_KERNEL); return 0; } static void __exit mutex_exit_test() { printk(&amp;#34;get out \n&amp;#34;); return; } module_init(mutex_init_test);</description>
+    </item>
+    
+    <item>
+      <title>截获Linux系统调用</title>
+      <link>http://www.helight.cn/blog/2009/222/</link>
+      <pubDate>Tue, 31 Mar 2009 07:44:47 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2009/222/</guid>
+      <description>#include &amp;lt;linux/kernel.h&amp;gt; #include &amp;lt;linux/module.h&amp;gt; #include &amp;lt;linux/moduleparam.h&amp;gt; #include &amp;lt;linux/unistd.h&amp;gt; #include &amp;lt;linux/init.h&amp;gt;#include &amp;lt;asm/ptrace.h&amp;gt; #define NRB 2 typedef asmlinkage int (*__routine)(struct pt_regs); __routine old, new; unsigned long *sys_call_table = 0; static int counts = 0; unsigned long* find_sys_call_table(void) { struct { unsigned short limit; unsigned int base; } __attribute__ ( ( packed ) ) idtr; struct { unsigned short offset_low; unsigned short segment_select; unsigned char reserved, flags; unsigned short offset_high; } __attribute__ (</description>
+    </item>
+    
+  </channel>
+</rss>

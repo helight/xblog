@@ -1,0 +1,162 @@
+<html>
+<head>
+  <title>数学函数 - acos</title>
+  <meta http-equiv="Content-Type" contents="text/html;charset=gb2312">
+  <link rel="stylesheet" href="clib.css">
+</head>
+
+<body>
+
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tr><td width=150 valign=top>
+<!-- begin left nav -->
+<!-- begin logo -->
+<table border=0 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+<tbody>
+  <tr>
+    <td><a href="../clib.html"><img border=0 width=150 height=65 src="images/math.gif"></a></td>
+  </tr>
+</tbody>
+</table>
+<!-- end logo -->
+<!-- begin function list -->
+<table border=0 cellpadding=5 cellspacing=0 bgcolor=#FFFFFF width=150>
+<tbody>
+  <tr>
+    <td>
+      请选定要查看的函数
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <ul>
+      <li><a href="abs.html">abs</a></li>
+      <font color=red>
+      <li><a href="acos.html">acos</a></li>
+      </font>
+      <li><a href="asin.html">asin</a></li>
+      <li><a href="atan.html">atan</a></li>
+      <li><a href="atan2.html">atan2</a></li>
+      <li><a href="ceil.html">ceil</a></li>
+      <li><a href="cos.html">cos</a></li>
+      <li><a href="cosh.html">cosh</a></li>
+      <li><a href="exp.html">exp</a></li>
+      <li><a href="fabs.html">fabs</a></li>
+      <li><a href="floor.html">floor</a></li>
+      <li><a href="fmod.html">fmod</a></li>
+      <li><a href="frexp.html">frexp</a></li>
+      <li><a href="hypot.html">hypot</a></li>
+      <li><a href="ldexp.html">ldexp</a></li>
+      <li><a href="log.html">log</a></li>
+      <li><a href="log10.html">log10</a></li>
+      <li><a href="modf.html">modf</a></li>
+      <li><a href="pow.html">pow</a></li>
+      <li><a href="pow10.html">pow10</a></li>
+      <li><a href="sin.html">sin</a></li>
+      <li><a href="sinh.html">sinh</a></li>
+      <li><a href="sqrt.html">sqrt</a></li>
+      <li><a href="tan.html">tan</a></li>
+      <li><a href="tanh.html">tanh</a></li>
+    </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>目前共有25个函数</td>
+  </tr>
+</tbody>
+</table>
+<!-- end function list -->
+</td>
+
+<td>
+
+
+
+
+
+<table border=0 cellpadding=0 cellspacing=0 width=600 height=500>
+<tbody>
+<tr>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+    <td>
+    <!-- beging of middle part -->
+    <div>
+    <table border=0 cellpadding=0 cellspacing=0 width=100% height=500>
+    <tbody>
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+      <tr><td height=62 valign=bottom><b><font size=5>acos</font></b></td></tr>
+
+      <tr><td>
+      <table border=0 cellpadding=0 cellspacing=0 height=1 width=100%>
+      <tbody>
+        <tr>
+          <td height=1 width=150 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+          <td height=1 bgcolor=#ffffff><img src="images/null.gif" border=0 width=1 height=1></td>
+        </tr>
+      </tbody>
+      </table>
+      </td></tr>
+
+      <tr><td>
+      <div>
+      <!-- begin main body -->
+      <table border=0 cellpadding=5 cellspacing=5>
+      <tr><td>
+<pre>
+
+  原型：extern float acos(float x);
+  
+  用法：#include &lt;math.h>
+  
+  功能：求x（弧度表示）的反余弦值
+  
+  说明：x的定义域为[-1.0，1.0]，值域为[0，π]。
+  
+  举例：
+
+      // acos.c
+      
+      #include &lt;syslib.h>
+      #include &lt;math.h>
+
+      main()
+      {
+        float x;
+        
+        clrscr();        // clear screen
+        textmode(0x00);  // 6 lines per LCD screen
+        
+        x=0.32;
+        printf("acos(%.2f)=%.4f",x,acos(x));
+        
+        getchar();
+        return 0;
+      }
+      
+  相关函数：<a href="asin.html">asin</a>,<a href="atan.html">atan</a>,<a href="atan2.html">atan2</a>,<a href="sin.html">sin</a>,<a href="cos.html">cos</a>,<a href="tan.html">tan</a>
+
+</pre>
+      </td></tr>
+      </table>
+      
+      <!-- end main body -->
+      </td></tr>
+   
+      <tr><td height=1 width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td></tr>
+    </tbody>
+    </table>
+    </div>
+    <!-- end of middle part -->
+    </td>
+    <td width=1 bgcolor=#649ACC><img border=0 width=1 height=1 src="images/null.gif"></td>
+</tr>
+</tbody>
+</table>
+
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

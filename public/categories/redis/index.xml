@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>redis on 黑光技术</title>
+    <link>http://www.helight.cn/categories/redis/</link>
+    <description>Recent content in redis on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Tue, 18 Jun 2019 13:47:08 +0200</lastBuildDate><atom:link href="http://www.helight.cn/categories/redis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Redis的事件处理模型2：客户端命令执行过程</title>
+      <link>http://www.helight.cn/blog/2019/redis3/</link>
+      <pubDate>Tue, 18 Jun 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/redis3/</guid>
+      <description>Redis的事件处理模型2：客户端命令执行过程</description>
+    </item>
+    
+    <item>
+      <title> Redis源码分析2:Redis的事件处理模型</title>
+      <link>http://www.helight.cn/blog/2019/redis2/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/redis2/</guid>
+      <description>Redis源码分析2:Redis的事件处理模型</description>
+    </item>
+    
+    <item>
+      <title>Redis源码分析1:Redis启动分析</title>
+      <link>http://www.helight.cn/blog/2019/redis/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/redis/</guid>
+      <description>Redis源码分析1:Redis启动分析</description>
+    </item>
+    
+  </channel>
+</rss>

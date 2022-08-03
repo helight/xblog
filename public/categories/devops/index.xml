@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DevOps on 黑光技术</title>
+    <link>http://www.helight.cn/categories/devops/</link>
+    <description>Recent content in DevOps on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Sat, 26 Mar 2022 08:45:20 +0800</lastBuildDate><atom:link href="http://www.helight.cn/categories/devops/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>可观测性:不是你想的那样</title>
+      <link>http://www.helight.cn/blog/2022/what-is-observability/</link>
+      <pubDate>Sat, 26 Mar 2022 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2022/what-is-observability/</guid>
+      <description>本文译自 可观测性:不是你想的那样。 译者：helight。 原文地址：https://www.splunk.com/en_us/blog/dev</description>
+    </item>
+    
+    <item>
+      <title>什么是 PaaS？ PaaS 类型介绍</title>
+      <link>http://www.helight.cn/blog/2022/what-is-paas-type/</link>
+      <pubDate>Sun, 20 Mar 2022 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2022/what-is-paas-type/</guid>
+      <description>本文译自 什么是 PaaS？ PaaS 类型介绍。 译者：helight。 原文地址：https://jelastic.com/blog/what-is-pa</description>
+    </item>
+    
+    <item>
+      <title>什么是 GitOps？</title>
+      <link>http://www.helight.cn/blog/2022/what-is-gitops/</link>
+      <pubDate>Tue, 08 Mar 2022 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2022/what-is-gitops/</guid>
+      <description>本文译自 What is GitOps。 译者：helight。 原文地址：https://www.redhat.com/en/topics/devops/w</description>
+    </item>
+    
+    <item>
+      <title>什么是DevOps的生命周期</title>
+      <link>http://www.helight.cn/blog/2019/what-is-devops/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/what-is-devops/</guid>
+      <description>DevOps是一个持续的过程，是对开发和运营之间活动关系的一种描述。在DevOps中，所有的参与者，包括工程师，都是为了让组织的流程能够更快，越来越高效和持续进行。这篇文章中会讨论DevOps的生命周期和理解DevOps生命周期中的必要阶段。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>ROMFS文件系统分析</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, linux 应用">
+  
+  
+  <meta name="description" content="完美之道，不在无可增加，而在无可删减。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="ROMFS文件系统分析">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2014/756/" />
+  <meta property="og:description" content="完美之道，不在无可增加，而在无可删减。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/banner-2.jpg">
+  <meta property="og:image:type" content="image/jpg">
+  
+  
+  
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="375">
+  
+  
+  <meta property="og:updated_time" content="2014-04-06T03:37:03&#43;0800">
+  
+    
+    
+    <meta property="article:section" content="linux 应用">
+    <meta property="article:tag" content="linux 应用">
+    
+    
+    <meta property="article:published_time" content="2014-04-06T03:37:03&#43;0800">
+    <meta property="article:modified_time" content="2014-04-06T03:37:03&#43;0800">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="ROMFS文件系统分析">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/banner-2.jpg">
+  
+  <meta name="twitter:description" content="完美之道，不在无可增加，而在无可删减。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="ROMFS文件系统分析 logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="ROMFS文件系统分析 logo" class="visible-xs visible-sm">
+                    <span class="sr-only">ROMFS文件系统分析 - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>ROMFS文件系统分析</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2014年4月6日
+                        </i>
+                        |
+                        
+                        由 <a href="https://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        2000字 | 阅读大约需要4分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/linux-%e5%ba%94%e7%94%a8">linux 应用</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/linux-%E5%BA%94%E7%94%A8/"><i>#linux 应用</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <p>作者：许振文</p>
+<p>ROMFS是一种简单的只读文件系统，主要是用来当做初始文件系统来使用的，在嵌入式linux或是uclinux中通常使用这中文件系统来作为引导系统的文件系统，甚至uclinux有时就直接把ROMFS作为其根文件系统，而不是将其作为系统启动中的过渡文件系统。在前面我也分析过，linux操作系统启动中一个是要加载内核，另一个就是要加载一个用于系统简单初始化的文件系统。这个文件系统的格式也是经过了很多发展的。现在一般使用的是一中cpio的格式。在嵌入式系统中一般使用romfs＋其它的可读文件系统。romfs由于它的小巧性（其内核编译只有4000字节），所以非常适合作为系统启动初始化的文件系统。本文就是对ROMFS文件系统进行结构上的分析。前面我也曾对其源代码结构进行了简单的分析。关于ROMFS最为权威的资料是内核源代码树下的“Documentation/filesystems/romfs.txt”。本文多数资料就是来自于该文件。</p>
+<h3 id="romfs文件系统的制作">ROMFS文件系统的制作</h3>
+<p>一般我们可以使用一些工具来制作ROMFS的文件系统。制作好之后其实也就是一个二进制的文件。制作工具一般使用”genromfs“，这个工具在网上就可下载到，其源代码并不是很多，只有不到900行。</p>
+<p>以下是genromfs工具所支持的参数：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">xux<span style="color:#960050;background-color:#1e0010">@</span>zhwen:<span style="color:#f92672">~/</span>fs<span style="color:#f92672">-</span>sys<span style="color:#960050;background-color:#1e0010">$</span> genromfs <span style="color:#f92672">-</span>h
+genromfs <span style="color:#ae81ff">0.5.2</span>
+Usage: genromfs [OPTIONS] <span style="color:#f92672">-</span>f IMAGE
+Create a romfs filesystem image from a directory
+
+  <span style="color:#f92672">-</span>f IMAGE               Output the image into this file
+  <span style="color:#f92672">-</span>d DIRECTORY           Use this directory as source
+  <span style="color:#f92672">-</span>v                     (Too) verbose operation
+  <span style="color:#f92672">-</span>V VOLUME              Use the specified volume name
+  <span style="color:#f92672">-</span>a ALIGN               Align regular file data to ALIGN bytes
+  <span style="color:#f92672">-</span>A ALIGN,PATTERN       Align all objects matching pattern to at least ALIGN bytes
+  <span style="color:#f92672">-</span>x PATTERN             Exclude all objects matching pattern
+  <span style="color:#f92672">-</span>h                     Show this help
+
+Report bugs to chexum<span style="color:#960050;background-color:#1e0010">@</span>shadow.banki.hu
+xux<span style="color:#960050;background-color:#1e0010">@</span>zhwen:<span style="color:#f92672">~/</span>fs<span style="color:#f92672">-</span>sys<span style="color:#960050;background-color:#1e0010">$</span> 
+</code></pre></div><p>参数解释：</p>
+<p>-f IMAGE     指定输出romfs映像的名字</p>
+<p>-d DIRECTORY 指定源目录（将该目录制作成romfs文件系统）</p>
+<p>-v           显示详细的创建过程</p>
+<p>-V VOLUME    指定卷标</p>
+<p>-a ALIGN     指定普通文件的对齐边界（默认为16字节）</p>
+<p>-A ALIGN,PATTERN 匹配参数PATTERN的对象对齐在ALIGN边界上</p>
+<p>-x PATTERN 不包括匹配PATTERN的对象。</p>
+<p>-h 显示帮助文档。</p>
+<p>以下是如何制作生成一个romfs的文件系统：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">xux<span style="color:#960050;background-color:#1e0010">@</span>zhwen:<span style="color:#f92672">~/</span>fs<span style="color:#f92672">-</span>sys<span style="color:#960050;background-color:#1e0010">$</span> ls
+test  
+xux<span style="color:#960050;background-color:#1e0010">@</span>zhwen:<span style="color:#f92672">~/</span>fs<span style="color:#f92672">-</span>sys<span style="color:#960050;background-color:#1e0010">$</span> ls test<span style="color:#f92672">/</span>
+test  xux  zhwen
+xux<span style="color:#960050;background-color:#1e0010">@</span>zhwen:<span style="color:#f92672">~/</span>fs<span style="color:#f92672">-</span>sys<span style="color:#960050;background-color:#1e0010">$</span> genromfs <span style="color:#f92672">-</span>V <span style="color:#e6db74">&#34;xromfs&#34;</span> <span style="color:#f92672">-</span>f romfs.img <span style="color:#f92672">-</span>d test
+xux<span style="color:#960050;background-color:#1e0010">@</span>zhwen:<span style="color:#f92672">~/</span>fs<span style="color:#f92672">-</span>sys<span style="color:#960050;background-color:#1e0010">$</span> ls
+romfs.img  test 
+xux<span style="color:#960050;background-color:#1e0010">@</span>zhwen:<span style="color:#f92672">~/</span>fs<span style="color:#f92672">-</span>sys<span style="color:#960050;background-color:#1e0010">$</span> file romfs.img 
+romfs.img: romfs filesystem, version <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">592</span> bytes, named xromfs.
+xux<span style="color:#960050;background-color:#1e0010">@</span>zhwen:<span style="color:#f92672">~/</span>fs<span style="color:#f92672">-</span>sys<span style="color:#960050;background-color:#1e0010">$</span> sudo mount romfs.img <span style="color:#f92672">/</span>mnt <span style="color:#f92672">-</span>o loop
+xux<span style="color:#960050;background-color:#1e0010">@</span>zhwen:<span style="color:#f92672">~/</span>fs<span style="color:#f92672">-</span>sys<span style="color:#960050;background-color:#1e0010">$</span> ls <span style="color:#f92672">/</span>mnt<span style="color:#f92672">/</span>
+test  xux  zhwen
+xux<span style="color:#960050;background-color:#1e0010">@</span>zhwen:<span style="color:#f92672">~/</span>fs<span style="color:#f92672">-</span>sys<span style="color:#960050;background-color:#1e0010">$</span> 
+</code></pre></div><h3 id="romfs文件系统结构分析">ROMFS文件系统结构分析</h3>
+<p>ROMFS系统中最大文件的大小理论上可以达到4G，文件名的大小一般小于16字节，而且整个文件系统都是以16字节来对齐。</p>
+<p>其结构如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">offset      content
+        <span style="color:#f92672">+---+---+---+---+</span>
+  <span style="color:#ae81ff">0</span>     <span style="color:#f92672">|</span>  <span style="color:#f92672">-</span>  <span style="color:#f92672">|</span>  r  <span style="color:#f92672">|</span>  o  <span style="color:#f92672">|</span> m  <span style="color:#f92672">|</span>  \
+        <span style="color:#f92672">+---+---+---+---+</span>    The ASCII representation of those bytes
+  <span style="color:#ae81ff">4</span>     <span style="color:#f92672">|</span>  <span style="color:#ae81ff">1</span>  <span style="color:#f92672">|</span>  f  <span style="color:#f92672">|</span>  s  <span style="color:#f92672">|</span>  <span style="color:#f92672">-</span>  <span style="color:#f92672">|</span>  <span style="color:#f92672">/</span>    (i.e. <span style="color:#e6db74">&#34;-rom1fs-&#34;</span>)
+        <span style="color:#f92672">+---+---+---+---+</span>
+  <span style="color:#ae81ff">8</span>     <span style="color:#f92672">|</span>     full size       <span style="color:#f92672">|</span>    The number of accessible bytes in this fs.
+        <span style="color:#f92672">+---+---+---+---+</span>
+ <span style="color:#ae81ff">12</span>     <span style="color:#f92672">|</span>    checksum   <span style="color:#f92672">|</span>       The checksum of the FIRST <span style="color:#ae81ff">512</span> BYTES.
+        <span style="color:#f92672">+---+---+---+---+</span>
+ <span style="color:#ae81ff">16</span>     <span style="color:#f92672">|</span>  volume name     <span style="color:#f92672">|</span>    The zero terminated name of the volume,
+        <span style="color:#f92672">:</span>               <span style="color:#f92672">:</span>       padded to <span style="color:#ae81ff">16</span> byte boundary.
+        <span style="color:#f92672">+---+---+---+---+</span>
+ xx     <span style="color:#f92672">|</span>     file      <span style="color:#f92672">|</span>
+        <span style="color:#f92672">:</span>    headers    :
+</code></pre></div><h4>File headers之前的字节由如下的数据结构来控制：include/linux/romfs_fs.h</h4>
+```c
+/* On-disk "super block" */
+struct romfs_super_block {
+        __be32 word0;
+        __be32 word1;
+        __be32 size;
+        __be32 checksum;
+        char name[0];           /* volume name */
+};
+```
+（1）这个数据结构中的word0和word1的是固定的值：“-rom1fs-”，由如下的宏定义说明:
+<p>include/linux/romfs_fs.h</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define ROMSB_WORD0 __mk4(&#39;-&#39;,&#39;r&#39;,&#39;o&#39;,&#39;m&#39;)
+</span><span style="color:#75715e">#define ROMSB_WORD1 __mk4(&#39;1&#39;,&#39;f&#39;,&#39;s&#39;,&#39;-&#39;)
+</span></code></pre></div><p>（2）而size是对整个文件系统的大小的说明。</p>
+<p>（3）checksum是对前512个字节的校验和（如果小于512，就以实际大小计算）。</p>
+<p>（4）name是当前这个文件系统的名称。</p>
+<h4>下面在来看文件的堆放格式</h4>
+```c
+offset      content
+        +---+---+---+---+
+        |     file header    ｜      
+        +---+---+---+---+      
+        |      file date     ｜      
+        +---+---+---+---+      
+        |     file header    ｜      
+        +---+---+---+---+      
+        |      file date     ｜      
+        |     file header    ｜      
+        +---+---+---+---+      
+        |      file date     ｜      
+        +---+---+---+---+      
+        |      …….        ｜      
+        +---+---+---+---+      
+```
+<h4>File header的格式如下</h4>
+```c
+offset      content
+        +---+---+---+---+
+  0     | next filehdr   | X  |       The offset of the next file header
+        +---+---+---+---+         (zero if no more files)
+  4     |   spec.info       |       Info for directories/hard links/devices
+        +---+---+---+---+
+  8     |        size       |       The size of this file in bytes
+        +---+---+---+---+
+ 12     |    checksum     |       Covering the meta data, including the file
+        +---+---+---+---+         name, and padding
+ 16     |    file name      |       The zero terminated name of the file,
+        :                    :       padded to 16 byte boundary
+```
+在内核源代码中如下：include/linux/romfs_fs.h
+```c
+/* On disk inode */
+struct romfs_inode {
+        __be32 next;            /* low 4 bits see ROMFH_ */
+        __be32 spec;
+        __be32 size;
+        __be32 checksum;
+        char name[0];
+};
+```
+（1）其中next的前面28位是指向下一个文件的地址，应为整个文件系统以16字节对齐，所以任何一个文件的起始地址的最后4位始终为“0”。
+<p>而这最后的4位并没就此浪费，而是进行了新的利用－－指定文件的类型和是否可执行。在linux下文件的类型分为：目录，一般文件，链接文件，管道文件，设备文件等。
+所以这4位中的最高一位使用来表示该文件是否可执行，而其余三位使用来表示该文件的类型。</p>
+<p>include/linux/romfs_fs.h</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define ROMFH_TYPE 7
+</span><span style="color:#75715e">#define ROMFH_HRD 0
+</span><span style="color:#75715e">#define ROMFH_DIR 1
+</span><span style="color:#75715e">#define ROMFH_REG 2
+</span><span style="color:#75715e">#define ROMFH_SYM 3
+</span><span style="color:#75715e">#define ROMFH_BLK 4
+</span><span style="color:#75715e">#define ROMFH_CHR 5
+</span><span style="color:#75715e">#define ROMFH_SCK 6
+</span><span style="color:#75715e">#define ROMFH_FIF 7
+</span><span style="color:#75715e">#define ROMFH_EXEC 8
+</span></code></pre></div><p>（2）spec这个字段存放的是目录／硬链接／设备文件的相关信息：</p>
+<p>这个域是文件类型相关的，也就是说对于不同的文件类型，这个域表示的含义是不一样的。下面是具体的说明；来自“Documentation/filesystems/romfs.txt”。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">          mapping               spec.info means
+ <span style="color:#ae81ff">0</span>      hard link       link destination [file header]
+ <span style="color:#ae81ff">1</span>      directory       first file<span style="color:#960050;background-color:#1e0010">&#39;</span>s header
+ <span style="color:#ae81ff">2</span>      regular file    unused, must be zero [MBZ]
+ <span style="color:#ae81ff">3</span>      symbolic link   unused, MBZ (file data is the link content)
+ <span style="color:#ae81ff">4</span>      block device    <span style="color:#ae81ff">16</span><span style="color:#f92672">/</span><span style="color:#ae81ff">16</span> bits major<span style="color:#f92672">/</span>minor number
+ <span style="color:#ae81ff">5</span>      <span style="color:#66d9ef">char</span> device                 <span style="color:#f92672">-</span> <span style="color:#e6db74">&#34; -</span>
+ <span style="color:#ae81ff">6</span>      socket          unused, MBZ
+ <span style="color:#ae81ff">7</span>      fifo            unused, MBZ
+</code></pre></div><p>（3）size是这个文件的大小。</p>
+<p>（4）checksum这个域只是文件头和文件名的校验和。</p>
+<p>（5）name是文件的名称。</p>
+<center>
+看完本文有收获？请分享给更多人<br>
+<p>关注「黑光技术」，关注大数据+微服务<br></p>
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2014/754/" data-toggle="tooltip" data-placement="top" title="Ramdisk文件系统的制作-V0.2">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2014/758/" data-toggle="tooltip" data-placement="top" title="scons学习笔记">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2014/754/"><i class="fa fa-link"></i>Ramdisk文件系统的制作-V0.2</a></li>
+         
+        <li><a href="/blog/2014/750/"><i class="fa fa-link"></i>GUN 工具学习</a></li>
+         
+        <li><a href="/blog/2014/744/"><i class="fa fa-link"></i>git使用总结</a></li>
+         
+        <li><a href="/blog/2014/742/"><i class="fa fa-link"></i>Vim&#43;cscope&#43;ctags&#43;tags阅读源代码</a></li>
+         
+        <li><a href="/blog/2014/731/"><i class="fa fa-link"></i>AutoMake 学习笔记</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

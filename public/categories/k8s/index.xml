@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>k8s on 黑光技术</title>
+    <link>http://www.helight.cn/categories/k8s/</link>
+    <description>Recent content in k8s on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Sat, 27 Nov 2021 21:45:20 +0800</lastBuildDate><atom:link href="http://www.helight.cn/categories/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>云原生架构中 Kubernetes 可观测性的挑战和解决思路</title>
+      <link>http://www.helight.cn/blog/2021/kubernetes-observability/</link>
+      <pubDate>Sat, 27 Nov 2021 21:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/kubernetes-observability/</guid>
+      <description>前言 本文是一篇翻译的文章，主要是学习，原文地址在这里. 这篇文章是 Calico 公司的员工写的，思路非常好。可观测性即代码，非常 k8s 范。在我们实际应用中，目</description>
+    </item>
+    
+    <item>
+      <title>必须知道的 Kubernetes 设计模式 Top 10</title>
+      <link>http://www.helight.cn/blog/2021/kubernetes-design-patterns/</link>
+      <pubDate>Sat, 27 Nov 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/kubernetes-design-patterns/</guid>
+      <description>前言 本文是一篇翻译的文章，主要是学习，原文地址在这里. 这篇文章是对 redhat 写的一本书的概述，提炼了很多核心概念。 这篇文章中介绍了和传统《设计模式》</description>
+    </item>
+    
+    <item>
+      <title>比较 kube-proxy 模式: iptables 或者 IPVS?</title>
+      <link>http://www.helight.cn/blog/2021/kube-proxy-modes-iptables-or-ipvs/</link>
+      <pubDate>Wed, 20 Oct 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/kube-proxy-modes-iptables-or-ipvs/</guid>
+      <description>前言 本文是一篇学习翻译文章，原文在这里。 对任何 Kubernetes 来说 kube-proxy 是一个很关键的组件。它的功能是把流量负载均衡代理（通过集群 IP 和节点端口）到正确的后端 p</description>
+    </item>
+    
+    <item>
+      <title>k8s dashboard 编译测试</title>
+      <link>http://www.helight.cn/blog/2021/k8s-dashboard-build/</link>
+      <pubDate>Wed, 31 Mar 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/k8s-dashboard-build/</guid>
+      <description>前言 minikube install 在 linux 上安装 minikube 在linux上怎么安装minikube看这里： https://minikube.sigs.k8s.io/docs/start/linux/. 很简单，下载安装即可 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \ &amp;amp;&amp;amp; sudo install minikube-linux-amd64 /usr/local/bin/minikube `` ### 启动过程中的一些错误 #### hostname 配置问</description>
+    </item>
+    
+    <item>
+      <title>k8s 代码走读---client-go 编程交互代码测试</title>
+      <link>http://www.helight.cn/blog/2020/kube-client-go-code-3/</link>
+      <pubDate>Thu, 20 Aug 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/kube-client-go-code-3/</guid>
+      <description>这部分还是以 client-go 为基础的代码测试，今天这里分享的一个是我测试过的 client-go 代码例子</description>
+    </item>
+    
+    <item>
+      <title>k8s 代码走读---client-go 编程之 informers</title>
+      <link>http://www.helight.cn/blog/2020/kube-client-go-code-2/</link>
+      <pubDate>Fri, 14 Aug 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/kube-client-go-code-2/</guid>
+      <description>前言 根据我们社区制定的计划，本周是开始走读 client-go 中的 informers 模块了，但是无奈这周时间是相当的不充裕，公司内的事情也突然多了几当子要紧急赶工的事情，另外</description>
+    </item>
+    
+    <item>
+      <title>k8s 代码走读---client-go 编程交互基础走读</title>
+      <link>http://www.helight.cn/blog/2020/kube-client-go-code-1/</link>
+      <pubDate>Sat, 08 Aug 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/kube-client-go-code-1/</guid>
+      <description>前言 代码 clone 地址：https://github.com/kubernetes/client-go。实际上在 kubernetes 的源码中也包含了这部分代码：ven</description>
+    </item>
+    
+    <item>
+      <title>k8s代码走读---kube-controller-manager</title>
+      <link>http://www.helight.cn/blog/2020/kube-controller-manager-code-1/</link>
+      <pubDate>Thu, 30 Jul 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/kube-controller-manager-code-1/</guid>
+      <description>前言 今天开始走读 k8s 的代码，首先选择的是 controller-manager 这个组件。这几天也看了《kubernetes源码剖析》的前两章，这本书还是不错的，推荐大家阅读。前面</description>
+    </item>
+    
+  </channel>
+</rss>

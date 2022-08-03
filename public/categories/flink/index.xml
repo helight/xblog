@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>flink on 黑光技术</title>
+    <link>http://www.helight.cn/categories/flink/</link>
+    <description>Recent content in flink on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Tue, 17 Sep 2019 13:47:08 +0200</lastBuildDate><atom:link href="http://www.helight.cn/categories/flink/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Flink状态监控介绍</title>
+      <link>http://www.helight.cn/blog/2019/flinkmetrics/</link>
+      <pubDate>Tue, 17 Sep 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/flinkmetrics/</guid>
+      <description>对于需要 7 * 24 小时不间断运行的流式计算程序来说，能实时监控程序运行状况、出现异常告警能立即响应并快速定位问题是必须具备的能力。</description>
+    </item>
+    
+    <item>
+      <title>Flink分布式运行时环境</title>
+      <link>http://www.helight.cn/blog/2019/flinkruntime/</link>
+      <pubDate>Wed, 20 Feb 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/flinkruntime/</guid>
+      <description>Flink分布式运行时环境</description>
+    </item>
+    
+    <item>
+      <title>Flink数据流编程模型</title>
+      <link>http://www.helight.cn/blog/2019/flinkdatamodle/</link>
+      <pubDate>Mon, 18 Feb 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/flinkdatamodle/</guid>
+      <description>Flink数据流编程模型介绍</description>
+    </item>
+    
+    <item>
+      <title>Apache Flink 1.6 Documentation: Jobs and Scheduling</title>
+      <link>http://www.helight.cn/blog/2018/1122/</link>
+      <pubDate>Wed, 15 Aug 2018 07:20:39 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1122/</guid>
+      <description>&lt;p&gt;这边文档简要的描述了Flink怎么样调度作业和Flink在JobManager中如何表述和跟踪作业。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Apache Flink 1.6 Documentation: Component Stack</title>
+      <link>http://www.helight.cn/blog/2018/1120/</link>
+      <pubDate>Tue, 14 Aug 2018 11:49:12 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1120/</guid>
+      <description>&lt;p&gt;Component Stack&lt;a href=&#34;https://ci.apache.org/projects/flink/flink-docs-release-1.6/internals/components.html#component-stack&#34;&gt;https://ci.apache.org/projects/flink/flink-docs-release-1.6/internals/components.html#component-stack&lt;/a&gt;组件栈
+作为一个软件栈，Flink是一个分层设计的系统。不同的层基于底层创建，不断提升程序表现的抽象。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Flink Distributed Runtime Environment</title>
+      <link>http://www.helight.cn/blog/2018/1113/</link>
+      <pubDate>Mon, 13 Aug 2018 12:37:01 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1113/</guid>
+      <description>&lt;h2 id=&#34;flink分布式运行时环境&#34;&gt;Flink分布式运行时环境&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Tasks and Operator Chains 任务和操作链&lt;/li&gt;
+&lt;li&gt;Job Managers, Task Managers, Clients 作业管理器，任务管理器，客户端&lt;/li&gt;
+&lt;li&gt;Task Slots and Resources 任务执行槽和资源&lt;/li&gt;
+&lt;li&gt;State Backends 转态后端&lt;/li&gt;
+&lt;li&gt;Savepoints 保存点&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+    <item>
+      <title>Flink Dataflow Programming Model</title>
+      <link>http://www.helight.cn/blog/2018/1102/</link>
+      <pubDate>Thu, 09 Aug 2018 09:40:13 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2018/1102/</guid>
+      <description>&lt;p&gt;Dataflow Programming Model&lt;/p&gt;
+&lt;h2 id=&#34;数据流编程模型&#34;&gt;数据流编程模型&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Levels of Abstraction ：数据处理层抽象&lt;/li&gt;
+&lt;li&gt;Programs and Dataflows  编程和数据流&lt;/li&gt;
+&lt;li&gt;Parallel Dataflows 并行数据流&lt;/li&gt;
+&lt;li&gt;Windows 窗口&lt;/li&gt;
+&lt;li&gt;Time 时间&lt;/li&gt;
+&lt;li&gt;Stateful Operations 带状态的操作&lt;/li&gt;
+&lt;li&gt;Checkpoints for Fault Tolerance 容错检查点&lt;/li&gt;
+&lt;li&gt;Batch on Streaming 基于流的批处理&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

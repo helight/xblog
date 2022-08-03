@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>Redis源码分析2:Redis的事件处理模型</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, redis, db, 事件驱动, client">
+  
+  
+  <meta name="description" content="完美之道，不在无可增加，而在无可删减。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="Redis源码分析2:Redis的事件处理模型">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2019/redis2/" />
+  <meta property="og:description" content="完美之道，不在无可增加，而在无可删减。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/redis.png">
+  <meta property="og:image:type" content="image/png">
+  
+  
+  
+    <meta property="og:image:width" content="300">
+    <meta property="og:image:height" content="253">
+  
+  
+  <meta property="og:updated_time" content="2019-05-18T13:47:08&#43;0200">
+  
+    
+    
+    <meta property="article:section" content="redis">
+    <meta property="article:tag" content="redis">
+    <meta property="article:tag" content="db">
+    
+    
+    <meta property="article:published_time" content="2019-05-18T13:47:08&#43;0200">
+    <meta property="article:modified_time" content="2019-05-18T13:47:08&#43;0200">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="Redis源码分析2:Redis的事件处理模型">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/redis.png">
+  
+  <meta name="twitter:description" content="完美之道，不在无可增加，而在无可删减。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt=" Redis源码分析2:Redis的事件处理模型 logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt=" Redis源码分析2:Redis的事件处理模型 logo" class="visible-xs visible-sm">
+                    <span class="sr-only"> Redis源码分析2:Redis的事件处理模型 - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1> Redis源码分析2:Redis的事件处理模型</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2019年5月18日
+                        </i>
+                        |
+                        
+                        由 <a href="https://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        3200字 | 阅读大约需要7分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/redis">redis</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/redis/"><i>#redis</i></a>
+                        
+                        <a style="text-transform:capitalize" href="/tags/db/"><i>#db</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <h1 id="前言">前言</h1>
+<p>上一篇分析了一下redis的大致框架和启动过程，这篇我想分析一下redis的事件处理模型，当然也包含了网络事件的处理模型。redis除了其高效的nosql存储非常有名以外，另外一个比较被称赞的就是其服务效率。像这类服务的是怎么设计的，为什么这么高效。所以我想这里来分析分析。</p>
+<h1 id="事件驱动框架">事件驱动框架</h1>
+<p>redis的代码中有一个ae框架，是整个redis事件框架的基础，所以这里先来看看整个东东。按照ae.c文件中的注释说<code>A simple event-driven programming library. Originally I wrote this code for the Jim's event-loop (Jim is a Tcl interpreter) but later translated it in form of a library for easy reuse.</code> 翻译一下就是：这是一个简单的事件驱动编程库，原本是为Jim的一个事件循环程序，但是后来就变成了要开发一个简单可重用的库。</p>
+<p>来看看ae中的核心数据结构，分析代码，我认为首先要把数据结构理清楚，说的简单点程序就是数据结构和算法逻辑结合。数据结构是骨，算法和逻辑是血肉经脉。所以一般分析代码都是要先看其核型数据结构。</p>
+<h2 id="核心数据结构">核心数据结构</h2>
+<p>在ae这个事件驱动框架的核心数据结构就是下面这个，在上篇分析的代码中创建中就有分析到redis的main函数最后就是启动这个数据结构。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// ae.h
+</span><span style="color:#75715e"></span><span style="color:#75715e">/* State of an event based program */</span>
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> aeEventLoop {
+    <span style="color:#66d9ef">int</span> maxfd;   <span style="color:#75715e">/* highest file descriptor currently registered 注册的最高并发文件描述符*/</span>
+    <span style="color:#66d9ef">int</span> setsize; <span style="color:#75715e">/* max number of file descriptors tracked 最大可跟踪的文件描述符*/</span>
+    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> timeEventNextId;
+    time_t lastTime;     <span style="color:#75715e">/* Used to detect system clock skew 系统时间存储*/</span>
+    aeFileEvent <span style="color:#f92672">*</span>events; <span style="color:#75715e">/* Registered events 注册的事件 这是一个数组，看初始化代码是建立了10128大小的数组*/</span>
+    aeFiredEvent <span style="color:#f92672">*</span>fired; <span style="color:#75715e">/* Fired events */</span>
+    aeTimeEvent <span style="color:#f92672">*</span>timeEventHead;
+    <span style="color:#66d9ef">int</span> stop;
+    <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>apidata; <span style="color:#75715e">/* This is used for polling API specific data*/</span>
+    aeBeforeSleepProc <span style="color:#f92672">*</span>beforesleep;
+    aeBeforeSleepProc <span style="color:#f92672">*</span>aftersleep;
+} aeEventLoop;
+</code></pre></div><p>这个结构体中最重要的就是events这个结构了，里面是注册的所有io相关的事件，有可能是本地接口，有可能是外部请求的接口。</p>
+<h2 id="初始化过程">初始化过程</h2>
+<p>在redis的server.c文件的main函数最后有这样一句函数<code>aeMain(server.el)</code>，其中server.el就是调用ae.c中的函数进行创建的，下面这段代码就在server.c的<code>initServer(void)</code>函数中。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    server.el <span style="color:#f92672">=</span> aeCreateEventLoop(server.maxclients<span style="color:#f92672">+</span>CONFIG_FDSET_INCR);   <span style="color:#75715e">// 这里的参数就制定了上面events这个数组的大小10128.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (server.el <span style="color:#f92672">==</span> NULL) {       
+        serverLog(LL_WARNING,      
+            <span style="color:#e6db74">&#34;Failed creating the event loop. Error message: &#39;%s&#39;&#34;</span>,        
+            strerror(errno));      
+        exit(<span style="color:#ae81ff">1</span>);      
+    }  
+}
+</code></pre></div><p>在<code>aeCreateEventLoop</code>函数中就创建了<code>aeEventLoop</code>结构体，这里面申请了<code>events</code>了空间，并且做了初始化。在写c程序中初始化这个习惯一定要有，因为一般申请的内存单中的值是不确定的，为了避免使用上的意外，都要进行一次初始化操作。</p>
+<h2 id="事件循环调度">事件循环调度</h2>
+<p>数据结构创建好，接下来就看看如何使用这个结构体，就是要看aeMain这个函数的实现过程。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">aeMain</span>(aeEventLoop <span style="color:#f92672">*</span>eventLoop) {           
+    eventLoop<span style="color:#f92672">-&gt;</span>stop <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;           
+    <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>eventLoop<span style="color:#f92672">-&gt;</span>stop) {     <span style="color:#75715e">// 进入事件循环
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (eventLoop<span style="color:#f92672">-&gt;</span>beforesleep <span style="color:#f92672">!=</span> NULL)     
+            eventLoop<span style="color:#f92672">-&gt;</span>beforesleep(eventLoop);  
+        aeProcessEvents(eventLoop, AE_ALL_EVENTS<span style="color:#f92672">|</span>AE_CALL_AFTER_SLEEP);    <span style="color:#75715e">// 这里进行循环处理事件
+</span><span style="color:#75715e"></span>    }    
+}     
+</code></pre></div><p><code>aeProcessEvents</code>这才是整个处理的核心，这里处理定时事件，文件读写事件，这个函数创的最后一个参数决定它可以处理那些类型的事件，也是机制和策略分离的一种设计思路。具体的处理类型在这个函数定义的头部注释中写的非常明白。</p>
+<p>再来看看这个函数的处理过程：</p>
+<ol>
+<li>首先根据flags参数判断，如果没有时间任务和文件输入输入类型的事件处理，则直接返回</li>
+<li>从<code>aeEventLoop</code>的<code>timeEventHead</code>中获取最近要处理的事件，处理函数是<code>aeSearchNearestTimer</code>。这里<code>timeEventHead</code>是一个链表，是使用顺序比较的方式获取最近要处理的事情，算法复杂度O(n)，其实这里可以使用堆或者有序链表来优化的。</li>
+<li>根据最近要处理的事件的时间计算当前时间事件中已经过期的事件的时间差（也有可能没有过期的事件，则后面就不需要处理了）</li>
+<li>获取当前要处理的事件，这里就是根据上面的时间差来获取的<code>numevents = aeApiPoll(eventLoop, tvp);</code></li>
+<li>执行<code>eventLoop-&gt;aftersleep(eventLoop);</code>，这个函数是设置了才执行，和beforesleep是一对，是在<code>server.c</code>的main函数最后设置的，实际上就是进行了一个加锁解锁操作，为了避免在一次操作中对命令执行的线程安全。</li>
+<li>接下来就是根据时间获取到的事件进行文件io的处理，主要处理读写</li>
+<li>最后处理时间事件。</li>
+</ol>
+<h2 id="redis的客户端链接处理">redis的客户端链接处理</h2>
+<p>这里提出2个问题：</p>
+<ol>
+<li>客户端的连接请求那里处理</li>
+<li>怎么和现在的ae处理框架联系起来</li>
+</ol>
+<p>下面跟随这两个问题进行进一步的分析。
+这里我们要回到<code>server.c</code>main函数中的事件注册中来了，如下的注册过程中把<code>acceptTcpHandler</code>注册到事件中，在所有监听端口fd上都绑定了这个处理事件。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#75715e">/* Create an event handler for accepting new connections in TCP and Unix           
+</span><span style="color:#75715e">     * domain sockets. */</span>          
+    <span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> server.ipfd_count; j<span style="color:#f92672">++</span>) {   
+        <span style="color:#66d9ef">if</span> (aeCreateFileEvent(server.el, server.ipfd[j], AE_READABLE,     
+            acceptTcpHandler,NULL) <span style="color:#f92672">==</span> AE_ERR)   
+            {         
+   serverPanic(       
+       <span style="color:#e6db74">&#34;Unrecoverable error creating server.ipfd file event.&#34;</span>);           
+            }         
+    }   
+</code></pre></div><p>在<code>acceptTcpHandler</code>设置断点我们再用客户端连接看看，方法还是和上次的方法一样的。可以看到就是从<code>aeProcessEvents</code>中去调用<code>acceptTcpHandler</code>的。实际上就是根据监听端口fd的事件来处理的。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">(</span>lldb<span style="color:#f92672">)</span> bt
+* thread <span style="color:#75715e">#1, queue = &#39;com.apple.main-thread&#39;, stop reason = breakpoint 1.1</span>
+  * frame <span style="color:#75715e">#0: 0x000000010001bdc0 redis-server`acceptTcpHandler(el=0x000000010042f240, fd=7, privdata=0x0000000000000000, mask=1) at networking.c:728</span>
+    frame <span style="color:#75715e">#1: 0x00000001000046bc redis-server`aeProcessEvents(eventLoop=0x000000010042f240, flags=11) at ae.c:443</span>
+    frame <span style="color:#75715e">#2: 0x00000001000049db redis-server`aeMain(eventLoop=0x000000010042f240) at ae.c:501</span>
+    frame <span style="color:#75715e">#3: 0x00000001000105be redis-server`main(argc=1, argv=0x00007ffeefbffb88) at server.c:4197</span>
+    frame <span style="color:#75715e">#4: 0x00007fff5d3e108d libdyld.dylib`start + 1</span>
+    frame <span style="color:#75715e">#5: 0x00007fff5d3e108d libdyld.dylib`start + 1</span>
+</code></pre></div><p>这里我顺便打印了一下<code>acceptTcpHandler(el=0x000000010042f240...</code>中的el这个结构体，看看目前的最大连接fd是7，setsize是10128等。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">(</span>lldb<span style="color:#f92672">)</span> p *el
+<span style="color:#f92672">(</span>aeEventLoop<span style="color:#f92672">)</span> $1 <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+  maxfd <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>
+  setsize <span style="color:#f92672">=</span> <span style="color:#ae81ff">10128</span>
+  timeEventNextId <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+  lastTime <span style="color:#f92672">=</span> <span style="color:#ae81ff">1553153284</span>
+  events <span style="color:#f92672">=</span> 0x000000010025c000
+  fired <span style="color:#f92672">=</span> 0x000000010100d600
+  timeEventHead <span style="color:#f92672">=</span> 0x0000000100305cb0
+  stop <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  apidata <span style="color:#f92672">=</span> 0x000000010042f290
+  beforesleep <span style="color:#f92672">=</span> 0x0000000100009fc0 <span style="color:#f92672">(</span>redis-server<span style="color:#e6db74">`</span>beforeSleep at server.c:1358<span style="color:#f92672">)</span>
+  aftersleep <span style="color:#f92672">=</span> 0x000000010000a100 <span style="color:#f92672">(</span>redis-server<span style="color:#e6db74">`</span>afterSleep at server.c:1415<span style="color:#f92672">)</span>
+<span style="color:#f92672">}</span>
+<span style="color:#f92672">(</span>lldb<span style="color:#f92672">)</span> 
+</code></pre></div><p>好了回来再看<code>acceptTcpHandler</code>内部的实现，这个函数中主要有2个函数调用非常重要：</p>
+<ol>
+<li><code>anetTcpAccept</code>，它是接受tcp的连接请求</li>
+<li><code>acceptCommonHandler</code>，它是把请求生成客户端对象并放到<code>aeEventLoop</code>对象中。在这个函数中有个一<code>createClient</code>函数，在这里面创建了客户端，并且把连接fd和客户端处理事件放到<code>aeEventLoop</code>对象中，如下面的代码，</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    client <span style="color:#f92672">*</span><span style="color:#a6e22e">createClient</span>(<span style="color:#66d9ef">int</span> fd) {     
+    client <span style="color:#f92672">*</span>c <span style="color:#f92672">=</span> zmalloc(<span style="color:#66d9ef">sizeof</span>(client));        
+         
+    <span style="color:#75715e">/* passing -1 as fd it is possible to create a non connected client.  
+</span><span style="color:#75715e">     * This is useful since all the commands needs to be executed         
+</span><span style="color:#75715e">     * in the context of a client. When commands are executed in other    
+</span><span style="color:#75715e">     * contexts (for instance a Lua script) we need a non connected client. */</span>         
+    <span style="color:#66d9ef">if</span> (fd <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {   
+        anetNonBlock(NULL,fd);     
+        anetEnableTcpNoDelay(NULL,fd);          
+        <span style="color:#66d9ef">if</span> (server.tcpkeepalive)   
+            anetKeepAlive(NULL,fd,server.tcpkeepalive);      
+        <span style="color:#66d9ef">if</span> (aeCreateFileEvent(server.el,fd,AE_READABLE,      
+            readQueryFromClient, c) <span style="color:#f92672">==</span> AE_ERR)  <span style="color:#75715e">// 这里首先是把readQueryFromClient绑定到事件处理对象`aeEventLoop`中
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// readQueryFromClient这里读取客户端请求，进行处理。
+</span><span style="color:#75715e"></span>        {
+            close(fd);
+            zfree(c); 
+            <span style="color:#66d9ef">return</span> NULL;           
+        }
+    }  
+    ......       
+</code></pre></div><p>因为所有的事件都是放到事件处理对象<code>aeEventLoop</code>中，而这个对象的调度执行都是<code>aeProcessEvents</code>函数，所以在我们进行堆栈查看的时候都只会看到这样的调用路径：main-&gt;aeMain-&gt;aeProcessEvents-&gt;xxx。如下面，我把<code>readQueryFromClient</code>打断点之后是这样的调用结果。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">(</span>lldb<span style="color:#f92672">)</span> bt
+* thread <span style="color:#75715e">#1, queue = &#39;com.apple.main-thread&#39;, stop reason = breakpoint 1.1</span>
+  * frame <span style="color:#75715e">#0: 0x0000000100019e91 redis-server`readQueryFromClient(el=0x000000010042ee00, fd=8, privdata=0x0000000100801000, mask=1) at networking.c:1508</span>
+    frame <span style="color:#75715e">#1: 0x00000001000046bc redis-server`aeProcessEvents(eventLoop=0x000000010042ee00, flags=11) at ae.c:443</span>
+    frame <span style="color:#75715e">#2: 0x00000001000049db redis-server`aeMain(eventLoop=0x000000010042ee00) at ae.c:501</span>
+    frame <span style="color:#75715e">#3: 0x00000001000105be redis-server`main(argc=1, argv=0x00007ffeefbffb88) at server.c:4197</span>
+    frame <span style="color:#75715e">#4: 0x00007fff5d3e108d libdyld.dylib`start + 1</span>
+    frame <span style="color:#75715e">#5: 0x00007fff5d3e108d libdyld.dylib`start + 1</span>
+</code></pre></div><p>这里对<code>client</code>这个结构体没有展开分析，这个其实也是非常重要的，要理解redis的客户端和服务端的交互，就要多理解服务端中这个结构体的构成。但是这里不是今天分析的重点。</p>
+<p>这里我们就看清楚了，所有的事件处理请求都会放到<code>aeEventLoop</code>这个核心对象中，而且所有的事件处理都是围绕这个数据结构的。从客户端的连接建立，到客户端请求事件的处理都是由这个结构体调度触发的。</p>
+<h1 id="总结">总结</h1>
+<p>通过上面的分析，我们应该可以理解了redis的基本事件处理模型。<code>aeEventLoop</code>是整个redis的事件处理核心，<code>aeProcessEvents</code>不断的循环处理这个结构，所有的事件都是根据处理方式异步加入到<code>aeEventLoop</code>这个结构中，再由<code>aeProcessEvents</code>调度之心。主要的执行事件就是时间定时事件，IO读写事件。
+最后附上一个分析脑图：</p>
+<p><img src="../20190321/main.png" alt=""></p>
+<center>
+看完本文有收获？请分享给更多人
+<p>关注「黑光技术」，关注大数据+微服务</p>
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2019/datamore/" data-toggle="tooltip" data-placement="top" title="DataMore数据服务开发系统Xone在服务化的架构实践">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2019/redis3/" data-toggle="tooltip" data-placement="top" title="Redis的事件处理模型2：客户端命令执行过程">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2019/redis/"><i class="fa fa-link"></i>Redis源码分析1:Redis启动分析</a></li>
+         
+        <li><a href="/blog/2012/575/"><i class="fa fa-link"></i>redis使用----数据类型和操作命令</a></li>
+         
+        <li><a href="/blog/2012/573/"><i class="fa fa-link"></i>redis学习笔记--编译配置</a></li>
+         
+        <li><a href="/blog/2012/557/"><i class="fa fa-link"></i>svn中分支开发实践学习</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Abouts on 黑光技术</title>
+    <link>http://www.helight.cn/about/</link>
+    <description>Recent content in Abouts on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Sat, 18 May 2019 13:47:08 +0200</lastBuildDate><atom:link href="http://www.helight.cn/about/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>http://www.helight.cn/about/me/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/about/me/</guid>
+      <description>AboutMe 许振文，男，计算机软件与理论的硕士生，腾讯技术专家工程师。 2007年毕业于西安邮电学院，并继续攻读硕士学位。主要的研究方向是嵌入式Linu</description>
+    </item>
+    
+    <item>
+      <title>helight的github项目</title>
+      <link>http://www.helight.cn/about/projects/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/about/projects/</guid>
+      <description>github项目 oneflow 项目简介：可视化分布式流程控制系统，数据流和业务流控制系统。使用golang开发，调度端采用了lua虚拟机，在web端可以</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>【译】Kubernetes 服务网格: Istio, Linkerd 和 Consul 大比较</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, istio, k8s, linkerd, consul">
+  
+  
+  <meta name="description" content="完美之道，不在无可增加，而在无可删减。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="【译】Kubernetes 服务网格: Istio, Linkerd 和 Consul 大比较">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2020/comparison-of-service-mesh/" />
+  <meta property="og:description" content="完美之道，不在无可增加，而在无可删减。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/istio.png">
+  <meta property="og:image:type" content="image/png">
+  
+  
+  
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="375">
+  
+  
+  <meta property="og:updated_time" content="2020-02-02T13:47:08&#43;0200">
+  
+    
+    
+    <meta property="article:section" content="sevicemesh">
+    <meta property="article:tag" content="istio">
+    <meta property="article:tag" content="k8s">
+    
+    
+    <meta property="article:published_time" content="2020-02-02T13:47:08&#43;0200">
+    <meta property="article:modified_time" content="2020-02-02T13:47:08&#43;0200">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="【译】Kubernetes 服务网格: Istio, Linkerd 和 Consul 大比较">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/istio.png">
+  
+  <meta name="twitter:description" content="完美之道，不在无可增加，而在无可删减。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="【译】Kubernetes 服务网格: Istio, Linkerd 和 Consul 大比较 logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="【译】Kubernetes 服务网格: Istio, Linkerd 和 Consul 大比较 logo" class="visible-xs visible-sm">
+                    <span class="sr-only">【译】Kubernetes 服务网格: Istio, Linkerd 和 Consul 大比较 - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>【译】Kubernetes 服务网格: Istio, Linkerd 和 Consul 大比较</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2020年2月2日
+                        </i>
+                        |
+                        
+                        由 <a href="http://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        4300字 | 阅读大约需要9分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/sevicemesh">sevicemesh</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/istio/"><i>#istio</i></a>
+                        
+                        <a style="text-transform:capitalize" href="/tags/k8s/"><i>#k8s</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <p>云原生应用通常是由一组运行在容器中的分布式微服务架构起来的。目前越来越多的容器应用都是基于 Kubernetes 的，Kubernetes 已经成为了容器编排的事实标准。</p>
+<p>大多数采用了微服务架构的公司对微服务架构的影响是没有完全理解的，其中之一就是为服务的延展。就像城市周围的郊区一样，部署的小服务数量在呈现几何增长。在我看来这也是微服务带来的灾难性问题之一。
+<img src="imgs/consul-linkerd-istio.png" alt="">
+微服务的大量增加对如何统一标准化管理服务带来了非常大的挑战，比如多个服务/版本之间的路由、验证和授权、加密，以及在Kubernetes集群内的负载均衡等。</p>
+<p>服务网格就是来帮助解决这些问题的，甚至可以有更多功能。就像容器把应用程序从操作系统上抽象出来，服务网格的目标就是把如何处理进程间通信再抽象出来。</p>
+<h2 id="what-is-service-mesh-什么是服务网格">What is Service Mesh 什么是服务网格</h2>
+<p>虽然服务网格技术出现在Kubernetes之前，但是激增的构建在Kubernetes之上的微服务促使了人们对服务网格解决方案的越来越有兴趣。</p>
+<p>理解微服务最关键的一点就是要理解微服务都是严重依赖网络的。</p>
+<p>服务网格管理服务间的网络流量。其它管理方式需要大量人工、容易出错的工作，并且在长远支持来说这种工作是一种难以忍受的负担，而服务网格提供了一种非常优雅和可扩展的方式来管理。</p>
+<p>一般情况下，服务网格层是在Kubernetes设施之上的，让服务间的网络通信安全可靠。</p>
+<p>可以把服务网格想成一个路由和追踪服务，用来处理邮件中要运送的包裹：保存路由规则路线，并且动态的指挥流量和包裹的路径，以此来加速交付和保证接受。</p>
+<p>服务网格可以通过可观测性，网络和安全策略来分隔应用程序的业务逻辑。通过服务网格可以链接微服务，让微服务更安全，并且可以更好的监控微服务。</p>
+<ol>
+<li>连接：通过服务网格服务可以发现其它服务，并且可以相互通信。它可以智能的路由控制使服务间的流量和API调用。同时也可以支持高级的不部署方式，比如蓝绿发布，金丝雀或者滚动升级，甚至更多。</li>
+<li>安全：服务网格可以让服务间进行安全通信。可以执行安全策略来允许或者拒绝通信，比如，可以配置一个策略来拒绝来自部署环境中的客户服务访问生产服务。</li>
+<li>监控：服务网格可以让分布式的微服务系统具有可观测性。服务网格通常集成开箱即用的监控和追踪工具（比如 Kubernetes 中的 Prometheus 和 Jaeger），这些工具可以发现并可视化服务、流量、API延迟和跟踪之间的依赖关系。</li>
+</ol>
+<p>针对由分布式微服务组成的复杂云原生应用程序，这些关键功能为它的整个网络行为提供了操作控制和可观察性。</p>
+<p>当你处理大型网站或者超大规模微服务系统的时候服务网格就很关键了（比如Netflix，Amazon）。但是如我们下面看到的，在你的系统还在发展的时候，现在已经有很多像框架一样的技术来支持未来的大规模应用了。</p>
+<h2 id="service-mesh-options-for-kuberneteskubernetes-下的服务网格选择">Service Mesh Options for Kubernetes:Kubernetes 下的服务网格选择</h2>
+<p>在 Kubernetes 生态系统中有 3 个领先的服务网格竞争者。这 3 个解决方案都是开源的。每个解决方案都有它的优势和不足，对于一个要开发和管理越来越多微服务的 DevOps 团队来说，采用任何一个都可以让自己的团队有更好的发展。</p>
+<h3 id="consul-connect">Consul Connect</h3>
+<p><img src="imgs/consul.png" alt=""></p>
+<p>Consul 是一个全功能的服务管理框架，在1.2版本中的连接能力加强让它有了服务发现能力，这也让它成为了一个完整的服务网格方案。Consul 是 HashiCorp 公司技术设施管理产品套件的一部分；它开始是为了管理运行在 Nomad 上的服务，后台发展到支持多数据中心和包括 Kubernetes 的容器管理平台。</p>
+<p>Consul Connect 以 DaemonSet 的方式在每个节点上安装 agent，它来和 Envoy sidecar 通信，让 sidecar处理路由并且转发流量。</p>
+<p>架构图和更多产品信息请看 <a href="https://www.consul.io/docs/internals/architecture.html">Consul.io</a>。</p>
+<h3 id="istio">Istio</h3>
+<p><img src="imgs/istio.png" alt=""></p>
+<p>Istio 是一个 Kubernetes 原生的解决方案，由 Lyft 公司创建，有许多主流科技公司已经选择使用 Istio 作为他们的服务网格技术方案。Google， IBM，和 Microsoft 更是把 Istio 作为其默认的服务网格解决方案，并且已经在他们的 Kubernetes 云服务上提供了相应的服务。针对混合环境下的 Istio 完整管理服务将会在 Platform9 上很快可用了，也是基于 Kubernetes 管理的。</p>
+<p>Istio 是第一个有开发人员非常想要的附加功能的，比如深度分析功能。</p>
+<p>Istio 分离了数据平面和控制平面，数据平面使用 sidecar 作为代理，数据平面从控制平面这里加载规则信息并缓存起来，这样数据平面就不需要对每个请求都去访问控制平面了。控制平面也是以多个 pod 的运行在 Kubernetes 集群内，这样让服务网格任何部分出现单个 pod 故障的时候都有较好的弹性。</p>
+<p>允许在服务网格的任何部分出现单个pod故障时具有更好的弹性</p>
+<p>架构图和更多产品信息请看 <a href="https://istio.io/docs/concepts/what-is-istio/#architecture">Istio.io</a>。</p>
+<h3 id="linkerd">Linkerd</h3>
+<p><img src="imgs/linkerd.png" alt=""></p>
+<p>Linkerd 可以说说说 Kubernetes 上第二个最流行的服务网格技术，在它重写的 V2 版本中，它的架构已经和 Istio 的非常相似了，它最初聚焦在简单性而不是灵活性。事实上，它是目前只支持 Kubernetes 的一个方案，导致组件较少，这也意味着 Linkerd 总体并不复杂。Linkerd v1.x 还在支持中，也开始支持了除 Kubernetes 外的其它容器平台。在 v2 版本中主要会考虑新特性（比如蓝绿发布）。</p>
+<p>Linkerd 是唯一一个在 <a href="https://www.cncf.io/">CNCF</a> 上的服务网格解决方案，它也是针对 Kubernetes 的。其它服务网格技术都没有独立的基金会支持。</p>
+<p>架构图和更多产品信息请看 <a href="https://linkerd.io/2/reference/architecture/">Linkerd.io</a>。</p>
+<h2 id="比较-kubernetes-上的服务网格技术istio-linkerd-和-consul-connect">比较 Kubernetes 上的服务网格技术：Istio， Linkerd 和 Consul Connect</h2>
+<ol>
+<li><strong>Supported Workloads</strong>：它是否支持 VM 和 Kubernetes？</li>
+<li><strong>Architecture</strong>：解决方案的架构是否能解决操作的开销，其实也就是是否高可用，系统运维复杂性。</li>
+<li><strong>Secure Communication</strong>：所有服务支持双边 TLS（mTLS）加密，还要支持本地证书管理，这样方便更新证书或者注销证书。</li>
+<li><strong>Communication Protocols</strong>：通信协议支持情况</li>
+<li><strong>Traffic Management</strong>：流量管理策略</li>
+<li><strong>Chaos Monkey-style Testing</strong>：流量管理功能可以引入调用延时或者部分请求失败特性，以此来提升系统的可用性和增强系统运维。</li>
+<li><strong>Observability</strong>：为了识别和解决问题，就需要分布式的监控和追踪能力。</li>
+<li><strong>Multicluster Support</strong>：多集群支持</li>
+<li><strong>Installation</strong>：安装方式</li>
+<li><strong>Operations Complexity</strong>：安装，配置和运维的难易程度。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th><strong>Supported Workloads</strong></th>
+<th>Istio</th>
+<th>Linkerd v2</th>
+<th>Consul</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Workloads</td>
+<td>Kubernetes + VMs</td>
+<td>Kubernetes only</td>
+<td>Kubernetes + VMs</td>
+</tr>
+<tr>
+<td>&ndash;</td>
+<td>&ndash;</td>
+<td>&ndash;</td>
+<td>&ndash;</td>
+</tr>
+<tr>
+<td><strong>Architecture 架构</strong></td>
+<td>Istio</td>
+<td>Linkerd v2</td>
+<td>Consul</td>
+</tr>
+<tr>
+<td>Single point of failure 单点故障</td>
+<td>No – 每个 pod 上都有 sidecar</td>
+<td>No</td>
+<td>No. 但增加了管理HA的复杂性，<br>因为必须按指定数量安装Consul服务，<br>而非用本地K8S master</td>
+</tr>
+<tr>
+<td>Sidecar Proxy</td>
+<td>Yes (Envoy)</td>
+<td>Yes</td>
+<td>Yes (Envoy)</td>
+</tr>
+<tr>
+<td>Per-node agent</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>&ndash;</td>
+<td>&ndash;</td>
+<td>&ndash;</td>
+<td>&ndash;</td>
+</tr>
+<tr>
+<td><strong>Secure Communication 安全通信</strong></td>
+<td>Istio</td>
+<td>Linkerd v2</td>
+<td>Consul</td>
+</tr>
+<tr>
+<td>mTLS</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Certificate Management</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Authentication and Authorization</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>&ndash;</td>
+<td>&ndash;</td>
+<td>&ndash;</td>
+<td>&ndash;</td>
+</tr>
+<tr>
+<td><strong>Communication Protocols 通信协议</strong></td>
+<td>Istio</td>
+<td>Linkerd v2</td>
+<td>Consul</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>HTTP/1.x</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>HTTP/2</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>gRPC</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>&ndash;</td>
+<td>&ndash;</td>
+<td>&ndash;</td>
+<td>&ndash;</td>
+</tr>
+<tr>
+<td><strong>Traffic Management 流量管控</strong></td>
+<td>Istio</td>
+<td>Linkerd v2</td>
+<td>Consul</td>
+</tr>
+<tr>
+<td>Blue/Green Deployments 蓝绿发布</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Circuit Breaking 熔断</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Fault Injection 故障注入</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Rate Limiting 限频</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>&ndash;</td>
+<td>&ndash;</td>
+<td>&ndash;</td>
+<td>&ndash;</td>
+</tr>
+<tr>
+<td><strong>Chaos Monkey-style Testing: 混沌测试</strong></td>
+<td>Istio</td>
+<td>Linkerd v2</td>
+<td>Consul</td>
+</tr>
+<tr>
+<td>Testing</td>
+<td>Yes- 可以配置服务延时响应或者按请求百分比返回失败</td>
+<td>Limited</td>
+<td>No</td>
+</tr>
+<tr>
+<td>&ndash;</td>
+<td>&ndash;</td>
+<td>&ndash;</td>
+<td>&ndash;</td>
+</tr>
+<tr>
+<td><strong>Observability 可观测性</strong></td>
+<td>Istio</td>
+<td>Linkerd v2</td>
+<td>Consul</td>
+</tr>
+<tr>
+<td>Monitoring 监控</td>
+<td>Yes, with Prometheus</td>
+<td>Yes, with Prometheus</td>
+<td>Yes, with Prometheus</td>
+</tr>
+<tr>
+<td>Distributed Tracing 分布式追踪</td>
+<td>Yes</td>
+<td>Some</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>&ndash;</td>
+<td>&ndash;</td>
+<td>&ndash;</td>
+<td>&ndash;</td>
+</tr>
+<tr>
+<td><strong>Multicluster Support 多集群支持</strong></td>
+<td>Istio</td>
+<td>Linkerd v2</td>
+<td>Consul</td>
+</tr>
+<tr>
+<td>Multicluster</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>&ndash;</td>
+<td>&ndash;</td>
+<td>&ndash;</td>
+<td>&ndash;</td>
+</tr>
+<tr>
+<td><strong>Installation 安装支持</strong></td>
+<td>Istio</td>
+<td>Linkerd v2</td>
+<td>Consul</td>
+</tr>
+<tr>
+<td>Deployment</td>
+<td>通过 Helm 和 istioctl 安装</td>
+<td>Helm</td>
+<td>Helm</td>
+</tr>
+<tr>
+<td>&ndash;</td>
+<td>&ndash;</td>
+<td>&ndash;</td>
+<td>&ndash;</td>
+</tr>
+<tr>
+<td><strong>Operations Complexity 操作复杂度</strong></td>
+<td>Istio</td>
+<td>Linkerd v2</td>
+<td>Consul</td>
+</tr>
+<tr>
+<td>Complexity</td>
+<td>High</td>
+<td>Low</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table>
+<p>以上任何一种服务网格技术都可以解决你遇到的基础需求。你要根据你需要的除了基础功能外的附加功能来进行选择。</p>
+<p>就目前为止 Istio 是 3 个技术方案中拥有最多的特性和灵活性的一个，但是要记住灵活性就意味着复杂性，所以你的团队要明白这一点，要为此做好准备。</p>
+<p>如果只是支持 Kubernetes，那么 Linkerd 或许是最好的选择。如果你想支持多种环境（包括了 Kubernetes 和 VM 环境）但是又不需要 Istio 的复杂性，那么 Consul 可能是最好的选择。</p>
+<h3 id="在不同服务网格技术间迁移">在不同服务网格技术间迁移</h3>
+<p>注意，服务网格技术并不是有侵入性的转变，不像单体应用到微服务或者从 VM 到基于 Kubernetes 应用一样，它们是有侵入性的。因为多数服务网格技术采用的是 sidecar 模式，所以多数服务都不知道它们是以服务网格的方式运行。但是从一个服务网格技术转换到另外一种是很复杂的。尤其是你想把服务网格技术作为你伸缩所有服务的标准方式的时候，这种情况下难度就很大了。</p>
+<p>所以明智的挑选服务网格技术非常重要！可以从简单的项目开始测试，以此来看那种解决方案更适合你。</p>
+<p>Istio 正迅速的成为 Kubernetes 上的服务网格技术标准。它是最成熟，但是部署最复杂的。</p>
+<h2 id="目前使用服务网格技术常用案例">目前使用服务网格技术常用案例</h2>
+<p>从运维的视角来看，服务网格对于管理任何形式的微服务架构系统都是有用的，它可以帮助你对微服务进行管控流量，安全，权限管理和服务观测。</p>
+<p>现在一旦你有了 Kubernetes 技术设施 + 微服务架构的体系，就可以参考下面的例子，来看看如何利用服务网格技术，先不管应用的伸缩性哈。</p>
+<p>通过熟悉这些知识，就可以开始在系统设计中对服务网格进行标准化，以便为将来的大规模操作放置构建块和关键组件。</p>
+<ol>
+<li>在分布式服务中改进可观测性：让你有了服务级别的可视化，追踪和监控能力。服务网格的一些关键能力极大地提高了可视化，同时提高了解决和减少问题的能力。例如，如果系统中的一个服务成为了瓶颈，一般的做法就是重试，但是这会因为瓶颈服务超时而恶化服务能力。有了服务网格，就可以很轻松的断开失败的服务，以此来禁止无用的副本，从而保持 API 的相应。</li>
+<li>蓝绿发布：有流量控制的能力。服务网格可以实现蓝绿发布，从而让应用程序的升级无需终端的安全升级。首先，暴露一小部分用户到新的版本，然后验证，最后再继续将其发布到生产中的所有实例</li>
+<li>生产环境中的混沌测试：注入延时、故障的能力，可以帮助提升部署的鲁棒性。</li>
+<li>对接已有应用程序：如果你正在迁移现有的应用程序到基于 Kubernetes 的微服务上，可以使用服务网格作为<code>桥接器</code>而不用重写你的应用。可以把已有的应用程序作为 <code>services</code> 注册成为 Istio 的服务，然后开始逐步的迁移到 Kubernetes，而不用改变现在的服务间通信（像 DNS 路由）。这个案例和使用服务发现类似。</li>
+<li>API 网关：如果你对服务网格很感兴趣，并且打算使用，但是还没有使用 Kubernetes 的应用程序在跑，可以让你的运维团队部署服务网格来度量你的 API 使用，以此来学习使用服务网格。</li>
+</ol>
+<p>在最成熟的实现中，服务网格变成了微服务架构的仪表盘。可以用来分析解决问题，应用流量策略，限流，测试新代码。这将是所有服务交互的监控，追踪和控制中心（它们如何连接，执行和做安全保护）。</p>
+<p>原文：https://platform9.com/blog/kubernetes-service-mesh-a-comparison-of-istio-linkerd-and-consul/</p>
+<center>
+看完本文有收获？请分享给更多人
+<p>关注「黑光技术」，关注大数据+微服务</p>
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+<!--
+<table><tbody>
+<tr><th></th><th><img src="imgs/istio.png"><p ><strong>Istio</strong></p></th><th><img  src="imgs/linkerd.png"><p ><strong>Linkerd v2</strong></p></th><th><img  src="imgs/consul.png" alt="" widthheight><p ><strong>Consul</strong></p></th></tr>
+<tr><td><strong>Supported Workloads</strong></td><td >Does it support both VMs-based applications and Kubernetes?</td></tr>
+<tr><td><strong>Workloads</strong></td><td>Kubernetes + VMs</td><td>Kubernetes only</td><td>Kubernetes + VMs</td></tr>
+<tr><td><strong>Architecture</strong></td><td >The solution’s architecture has implications on operation overhead.</td></tr>
+<tr><td><strong>Single point of failure</strong></td><td>No – uses sidecar per pod</td><td>No</td><td>No. But added complexity managing HA due to having to install the Consul server and its quorum operations, etc., vs. using the native K8s master primitives.</td></tr>
+<tr><td><strong>Sidecar Proxy</strong></td><td>Yes (Envoy)</td><td>Yes</td><td>Yes (Envoy)</td></tr>
+<tr><td><strong>Per-node agent</strong></td><td>No</td><td>No</td><td>Yes</td></tr>
+<tr><td><strong>Secure Communication</strong></td><td >All services support mutual TLS encryption (mTLS), and native certificate management so that you can rotate certificates or revoke them if they are compromised.</td></tr>
+<tr><td><strong>mTLS</strong></td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td><strong>Certificate Management</strong></td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td><strong>Authentication and Authorization</strong></td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td ><strong>Communication Protocols</strong></td></tr>
+<tr><td><strong>TCP</strong></td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td><strong>HTTP/1.x</strong></td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td><strong>HTTP/2</strong></td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td><strong>gRPC</strong></td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td ><strong>Traffic Management</strong></td></tr>
+<tr><td><strong>Blue/Green Deployments</strong></td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td><strong>Circuit Breaking</strong></td><td>Yes</td><td>No</td><td>Yes</td></tr>
+<tr><td><strong>Fault Injection</strong></td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td><strong>Rate Limiting</strong></td><td>Yes</td><td>No</td><td>Yes</td></tr>
+<tr><td><strong>Chaos Monkey-style Testing</strong></td><td >Traffic management features allow you to introduce delays or failures to some of the requests in order to improve the resiliency of your system and harden your operations</td></tr>
+<tr><td><strong>Testing</strong></td><td>Yes- you can configure services to delay or outright fail a certain percentage of requests</td><td>Limited</td><td>No</td></tr>
+<tr><td><strong>Observability</strong></td><td >In order to identify and troubleshoot incidents, you need distributed monitoring and tracing.</td></tr>
+<tr><td><strong>Monitoring</strong></td><td>Yes, with Prometheus</td><td>Yes, with Prometheus</td><td>Yes, with Prometheus</td></tr>
+<tr><td><strong>Distributed Tracing</strong></td><td>Yes</td><td>Some</td><td>Yes</td></tr>
+<tr><td ><strong>Multicluster Support</strong></td></tr>
+<tr><td><strong>Multicluster</strong></td><td>Yes</td><td>No</td><td>Yes</td></tr>
+<tr><td><strong>Installation</strong></td><td ></td></tr>
+<tr><td><strong>Deployment</strong></td><td>Install via Helm and Operator</td><td>Helm</td><td>Helm</td></tr>
+<tr><td><strong>Operations Complexity</strong></td><td >How difficult is it to install, configure and operate</td></tr>
+<tr><td><strong>Complexity</strong></td><td>High</td><td>Low</td><td>Medium</td></tr>
+</tbody></table>
+-->
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2020/setup-istio-in-minikube/" data-toggle="tooltip" data-placement="top" title="在minikube上安装istio并测试使用">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2020/when-not-to-do-microservices/" data-toggle="tooltip" data-placement="top" title="【译】以 Istio 为例来看什么时候不要拆分微服务">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2020/setup-istio-in-minikube/"><i class="fa fa-link"></i>在minikube上安装istio并测试使用</a></li>
+         
+        <li><a href="/blog/2019/servicemesh-intro/"><i class="fa fa-link"></i>什么是ServiceMesh</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

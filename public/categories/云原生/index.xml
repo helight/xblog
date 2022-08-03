@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>云原生 on 黑光技术</title>
+    <link>http://www.helight.cn/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/</link>
+    <description>Recent content in 云原生 on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Sat, 26 Mar 2022 08:45:20 +0800</lastBuildDate><atom:link href="http://www.helight.cn/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>可观测性:不是你想的那样</title>
+      <link>http://www.helight.cn/blog/2022/what-is-observability/</link>
+      <pubDate>Sat, 26 Mar 2022 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2022/what-is-observability/</guid>
+      <description>本文译自 可观测性:不是你想的那样。 译者：helight。 原文地址：https://www.splunk.com/en_us/blog/dev</description>
+    </item>
+    
+    <item>
+      <title>什么是 PaaS？ PaaS 类型介绍</title>
+      <link>http://www.helight.cn/blog/2022/what-is-paas-type/</link>
+      <pubDate>Sun, 20 Mar 2022 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2022/what-is-paas-type/</guid>
+      <description>本文译自 什么是 PaaS？ PaaS 类型介绍。 译者：helight。 原文地址：https://jelastic.com/blog/what-is-pa</description>
+    </item>
+    
+    <item>
+      <title>什么是 GitOps？</title>
+      <link>http://www.helight.cn/blog/2022/what-is-gitops/</link>
+      <pubDate>Tue, 08 Mar 2022 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2022/what-is-gitops/</guid>
+      <description>本文译自 What is GitOps。 译者：helight。 原文地址：https://www.redhat.com/en/topics/devops/w</description>
+    </item>
+    
+    <item>
+      <title>2022 年 kubernetes 的 5 个发展趋势</title>
+      <link>http://www.helight.cn/blog/2022/5-kubernetes-trends-watch-2022/</link>
+      <pubDate>Tue, 01 Mar 2022 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2022/5-kubernetes-trends-watch-2022/</guid>
+      <description>本文译自 5 Kubernetes trends to watch in 2022。 作者：Kevin Casey， 译者：helight。 原文地址：https://enterprisersproje</description>
+    </item>
+    
+    <item>
+      <title>云原生技术解读3-云原生交付部署：不可变基础设施</title>
+      <link>http://www.helight.cn/blog/2021/cloud-native3/</link>
+      <pubDate>Sun, 26 Dec 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/cloud-native3/</guid>
+      <description>前言 9 月初给 BG 的新人开了一门课，专门来讲云原生技术，云原生技术从出现到现在按最早的时间出现来说也是有 10 多年了。尤其是这几年火热的不得了，但是</description>
+    </item>
+    
+    <item>
+      <title>云原生技术解读2-云原生运行时：容器和容器编排</title>
+      <link>http://www.helight.cn/blog/2021/cloud-native2/</link>
+      <pubDate>Mon, 08 Nov 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/cloud-native2/</guid>
+      <description>前言 9 月初给 BG 的新人开了一门课，专门来讲云原生技术，云原生技术从出现到现在按最早的时间出现来说也是有 10 多年了。尤其是这几年火热的不得了，但是</description>
+    </item>
+    
+    <item>
+      <title>云原生技术解读1-如何理解云原生</title>
+      <link>http://www.helight.cn/blog/2021/cloud-native/</link>
+      <pubDate>Thu, 04 Nov 2021 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2021/cloud-native/</guid>
+      <description>前言 9 月初给 BG 的新人开了一门课，专门来讲云原生技术，云原生技术从出现到现在按最早的时间出现来说也是有 10 多年了。尤其是这几年火热的不得了，但是</description>
+    </item>
+    
+  </channel>
+</rss>

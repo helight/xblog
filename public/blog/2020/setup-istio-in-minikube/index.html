@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>在minikube上安装istio并测试使用</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, istio, k8s, minikube, kiali">
+  
+  
+  <meta name="description" content="完美之道，不在无可增加，而在无可删减。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="在minikube上安装istio并测试使用">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2020/setup-istio-in-minikube/" />
+  <meta property="og:description" content="完美之道，不在无可增加，而在无可删减。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/istio.png">
+  <meta property="og:image:type" content="image/png">
+  
+  
+  
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="375">
+  
+  
+  <meta property="og:updated_time" content="2020-01-18T13:47:08&#43;0200">
+  
+    
+    
+    <meta property="article:section" content="sevicemesh">
+    <meta property="article:tag" content="istio">
+    <meta property="article:tag" content="k8s">
+    
+    
+    <meta property="article:published_time" content="2020-01-18T13:47:08&#43;0200">
+    <meta property="article:modified_time" content="2020-01-18T13:47:08&#43;0200">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="在minikube上安装istio并测试使用">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/istio.png">
+  
+  <meta name="twitter:description" content="完美之道，不在无可增加，而在无可删减。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="在minikube上安装istio并测试使用 logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="在minikube上安装istio并测试使用 logo" class="visible-xs visible-sm">
+                    <span class="sr-only">在minikube上安装istio并测试使用 - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>在minikube上安装istio并测试使用</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2020年1月18日
+                        </i>
+                        |
+                        
+                        由 <a href="http://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        1700字 | 阅读大约需要4分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/sevicemesh">sevicemesh</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/istio/"><i>#istio</i></a>
+                        
+                        <a style="text-transform:capitalize" href="/tags/k8s/"><i>#k8s</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <h1 id="在minukube上安装istio并测试使用">在minukube上安装istio并测试使用</h1>
+<h2 id="前言">前言</h2>
+<p>只有一台机器，又想玩一下 istio 怎么办呢？本文将介绍如何使用 minikube 来安装 istio。</p>
+<h2 id="minikube-介绍">minikube 介绍</h2>
+<p>minikube的介绍如下：
+<a href="https://github.com/kubernetes/minikube">https://github.com/kubernetes/minikube</a></p>
+<p>Minikube 是一个 Kubernetes 发行版，在本地工作站上的虚拟机中运行。 要在本地计算机上安装 Docker 引擎。</p>
+<h2 id="在-linux-上安装-minikube">在 linux 上安装 minikube</h2>
+<p>在linux上怎么安装minikube看这里：
+<a href="https://minikube.sigs.k8s.io/docs/start/linux/">https://minikube.sigs.k8s.io/docs/start/linux/</a>.
+很简单，下载安装即可</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"> curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>   <span style="color:#f92672">&amp;&amp;</span> sudo install minikube-linux-amd64 /usr/local/bin/minikube
+</code></pre></div><p>安装之后就可以直接运行了。直接运行会展示 minikube 的帮助信息。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@VM_74_51_centos ~<span style="color:#f92672">]</span><span style="color:#75715e"># minikube </span>
+Minikube is a CLI tool that provisions and manages single-node Kubernetes clusters optimized <span style="color:#66d9ef">for</span> development workflows.
+
+Basic Commands:
+  start          Starts a local kubernetes cluster
+  status         Gets the status of a local kubernetes cluster
+  stop           Stops a running local kubernetes cluster
+  delete         Deletes a local kubernetes cluster
+  dashboard      Access the kubernetes dashboard running within the minikube cluster
+
+Images Commands:
+  docker-env     Sets up docker env variables; similar to <span style="color:#e6db74">&#39;$(docker-machine env)&#39;</span>
+  cache          Add or delete an image from the local cache.
+
+Configuration and Management Commands:
+  addons         Modify minikube<span style="color:#960050;background-color:#1e0010">&#39;</span>s kubernetes addons
+  config         Modify minikube config
+  profile        Profile gets or sets the current minikube profile
+  update-context Verify the IP address of the running cluster in kubeconfig.
+....
+</code></pre></div><p>启动的时候可以挂在虚拟机，所以可以检测以下 cpu 是否支持虚拟化。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">egrep -q <span style="color:#e6db74">&#39;vmx|svm&#39;</span> /proc/cpuinfo <span style="color:#f92672">&amp;&amp;</span> echo yes <span style="color:#f92672">||</span> echo no
+</code></pre></div><p>上面这个命令是检测 cpu 是否支持虚拟化的。如果你是 docker 主机，cpu 是不支持虚拟化的。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Hypervisor Setup
+Verify that your system has virtualization support enabled:
+If the above command outputs “no”:
+* If you are running within a VM, your hypervisor does not allow nested virtualization. You will need to use the None <span style="color:#f92672">(</span>bare-metal<span style="color:#f92672">)</span> driver
+* If you are running on a physical machine, ensure that your BIOS has hardware virtualization enabled
+</code></pre></div><p>不支持虚拟化，在启动minikube的时候就不需要指定虚拟机驱动程序了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@VM_74_51_centos /data/istio<span style="color:#f92672">]</span><span style="color:#75715e"># minikube start</span>
+* <span style="color:#f92672">[</span>helight<span style="color:#f92672">]</span> minikube v1.6.2 on Centos 7.2
+  - KUBECONFIG<span style="color:#f92672">=</span>/root/admin.conf
+* Automatically selected the <span style="color:#e6db74">&#39;kvm2&#39;</span> driver <span style="color:#f92672">(</span>alternates: <span style="color:#f92672">[</span>none<span style="color:#f92672">])</span>
+* The <span style="color:#e6db74">&#34;kvm2&#34;</span> driver should not be used with root privileges.
+* If you are running minikube within a VM, consider using --vm-driver<span style="color:#f92672">=</span>none:
+*   https://minikube.sigs.k8s.io/docs/reference/drivers/none/
+</code></pre></div><h2 id="启动-minikube">启动 minikube</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@VM_74_51_centos /data/istio<span style="color:#f92672">]</span><span style="color:#75715e"># minikube start --vm-driver=none</span>
+。。。
+</code></pre></div><p>启动minikube成功。
+检测minikube启动状态。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@VM_74_51_centos /data<span style="color:#f92672">]</span><span style="color:#75715e"># minikube status</span>
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+</code></pre></div><h2 id="安装-kubectl">安装 kubectl</h2>
+<p>kubectl 是和 kubeneters 交互的一个客户端，方便的和 k8s 进行交互，提交作业，查询状态等等。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -LO https://storage.googleapis.com/kubernetes-release/release/<span style="color:#e6db74">`</span>curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt<span style="color:#e6db74">`</span>/bin/linux/amd64/kubectl
+install kubectl /usr/local/bin/kubectl
+</code></pre></div><p>如果配置了https_proxy和http_proxy，就要再配置一下no_proxy，把本地ip加入到no_proxy中。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">export no_proxy<span style="color:#f92672">=</span>$no_proxy,xxx
+</code></pre></div><h2 id="istio-安装">Istio 安装</h2>
+<h3 id="istioctl-介绍">istioctl 介绍</h3>
+<p>使用 istioctl 进行istio的安装，istio提供了istioctl进行istio的安装，感觉非常方便，它提供了集中配置：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@VM_74_51_centos ~<span style="color:#f92672">]</span><span style="color:#75715e"># istioctl profile list</span>
+Istio configuration profiles:
+    remote
+    sds
+    default
+    demo
+    minimal
+</code></pre></div><p>这里使用一般demo规则来来安装。</p>
+<h3 id="使用-istioctl-进行-istio-安装">使用 istioctl 进行 Istio 安装</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@VM_74_51_centos /data<span style="color:#f92672">]</span><span style="color:#75715e">#</span>
+istioctl manifest apply --set profile<span style="color:#f92672">=</span>demo
+- Applying manifest <span style="color:#66d9ef">for</span> component Base...
+✔ Finished applying manifest <span style="color:#66d9ef">for</span> component Base.
+- Applying manifest <span style="color:#66d9ef">for</span> component Tracing...
+- Applying manifest <span style="color:#66d9ef">for</span> component Galley...
+- Applying manifest <span style="color:#66d9ef">for</span> component IngressGateway...
+- Applying manifest <span style="color:#66d9ef">for</span> component EgressGateway...
+- Applying manifest <span style="color:#66d9ef">for</span> component Citadel...
+- Applying manifest <span style="color:#66d9ef">for</span> component Policy...
+- Applying manifest <span style="color:#66d9ef">for</span> component Kiali...
+- Applying manifest <span style="color:#66d9ef">for</span> component Prometheus...
+- Applying manifest <span style="color:#66d9ef">for</span> component Pilot...
+- Applying manifest <span style="color:#66d9ef">for</span> component Injector...
+- Applying manifest <span style="color:#66d9ef">for</span> component Telemetry...
+- Applying manifest <span style="color:#66d9ef">for</span> component Grafana...
+✔ Finished applying manifest <span style="color:#66d9ef">for</span> component Citadel.
+✔ Finished applying manifest <span style="color:#66d9ef">for</span> component IngressGateway.
+✔ Finished applying manifest <span style="color:#66d9ef">for</span> component Galley.
+✔ Finished applying manifest <span style="color:#66d9ef">for</span> component Prometheus.
+✔ Finished applying manifest <span style="color:#66d9ef">for</span> component Policy.
+✔ Finished applying manifest <span style="color:#66d9ef">for</span> component Injector.
+✔ Finished applying manifest <span style="color:#66d9ef">for</span> component Pilot.
+✔ Finished applying manifest <span style="color:#66d9ef">for</span> component EgressGateway.
+✔ Finished applying manifest <span style="color:#66d9ef">for</span> component Kiali.
+✔ Finished applying manifest <span style="color:#66d9ef">for</span> component Tracing.
+✔ Finished applying manifest <span style="color:#66d9ef">for</span> component Telemetry.
+✔ Finished applying manifest <span style="color:#66d9ef">for</span> component Grafana.
+
+✔ Installation complete
+</code></pre></div><h3 id="istio-安装后检查">Istio 安装后检查</h3>
+<p>安装好之后可以直接这里看安装部署结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@VM_74_51_centos /data/istio-1.4.2<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl get pod -n istio-system</span>
+NAME                                      READY   STATUS    RESTARTS   AGE
+grafana-6b65874977-dmgxj                  1/1     Running   <span style="color:#ae81ff">0</span>          91m
+istio-citadel-86dcf4c6b-l5lp7             1/1     Running   <span style="color:#ae81ff">0</span>          91m
+istio-egressgateway-68f754ccdd-r6dsl      1/1     Running   <span style="color:#ae81ff">0</span>          91m
+istio-galley-57db75d6d7-lbzzn             2/2     Running   <span style="color:#ae81ff">0</span>          91m
+istio-ingressgateway-6df68ccfc9-2xkmj     1/1     Running   <span style="color:#ae81ff">0</span>          91m
+istio-pilot-d4fd9c9f-q9qs2                2/2     Running   <span style="color:#ae81ff">0</span>          91m
+istio-policy-595b47ccd5-b9vp5             2/2     Running   <span style="color:#ae81ff">3</span>          91m
+istio-sidecar-injector-746f7c7bbb-zlv8h   1/1     Running   <span style="color:#ae81ff">0</span>          91m
+istio-telemetry-bcf4df94d-tdj66           2/2     Running   <span style="color:#ae81ff">2</span>          91m
+istio-tracing-c66d67cd9-wcfq2             1/1     Running   <span style="color:#ae81ff">0</span>          111m
+kiali-8559969566-kz89j                    1/1     Running   <span style="color:#ae81ff">0</span>          111m
+prometheus-66c5887c86-fpgzl               1/1     Running   <span style="color:#ae81ff">0</span>          91m
+<span style="color:#f92672">[</span>root@VM_74_51_centos /data/istio-1.4.2<span style="color:#f92672">]</span><span style="color:#75715e">#</span>
+</code></pre></div><h3 id="kiali-配置修改">kiali 配置修改</h3>
+<p>这里要修改一下 kiali 的 ip 方式</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@VM_74_51_centos /data<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl edit svc kiali -n istio-system</span>
+spec:
+  clusterIP: 10.96.255.174
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: http-kiali
+    nodePort: <span style="color:#ae81ff">31952</span>
+    port: <span style="color:#ae81ff">20001</span>
+    protocol: TCP
+    targetPort: <span style="color:#ae81ff">20001</span>
+  selector:
+    app: kiali
+  sessionAffinity: None
+  type: NodePort
+</code></pre></div><p>上面的type设置为 NodePort，主要是为了测试简单
+kaili还有一个设置用户名密码的过程。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ KIALI_USERNAME<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>read -p <span style="color:#e6db74">&#39;Kiali Username: &#39;</span> uval <span style="color:#f92672">&amp;&amp;</span> echo -n $uval | base64<span style="color:#66d9ef">)</span>
+$ KIALI_PASSPHRASE<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>read -sp <span style="color:#e6db74">&#39;Kiali Passphrase: &#39;</span> pval <span style="color:#f92672">&amp;&amp;</span> echo -n $pval | base64<span style="color:#66d9ef">)</span>
+cat <span style="color:#e6db74">&lt;&lt;EOF | kubectl apply -f -
+</span><span style="color:#e6db74">apiVersion: v1
+</span><span style="color:#e6db74">kind: Secret
+</span><span style="color:#e6db74">metadata:
+</span><span style="color:#e6db74">  name: kiali
+</span><span style="color:#e6db74">  namespace: $NAMESPACE
+</span><span style="color:#e6db74">  labels:
+</span><span style="color:#e6db74">    app: kiali
+</span><span style="color:#e6db74">type: Opaque
+</span><span style="color:#e6db74">data:
+</span><span style="color:#e6db74">  username: $KIALI_USERNAME
+</span><span style="color:#e6db74">  passphrase: $KIALI_PASSPHRASE
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><p>查看 kiali 页面：
+<a href="http://x.x.x.x:31952/">http://x.x.x.x:31952/</a> 这里的 31952 就是上面 kiali 的配置信息中的 nodePort 字段的值。</p>
+<p><img src="imgs/kiali1.png" alt=""></p>
+<h2 id="bookinfo-配置">bookinfo 配置</h2>
+<p>这里以 istio 的 bookinfo 例子来测试。
+配置业务namespace，这里直接使用了default：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl label namespace default istio-injection<span style="color:#f92672">=</span>enabled
+</code></pre></div><p>使用demo代码来测试：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
+</code></pre></div><p>部署之后可以直接看部署结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@VM_74_51_centos /data/istio-1.4.2<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl get pod </span>
+NAME                              READY   STATUS    RESTARTS   AGE
+details-v1-78d78fbddf-vf6tc       2/2     Running   <span style="color:#ae81ff">0</span>          28m
+productpage-v1-596598f447-qqdnc   2/2     Running   <span style="color:#ae81ff">0</span>          28m
+ratings-v1-6c9dbf6b45-z872s       2/2     Running   <span style="color:#ae81ff">0</span>          28m
+reviews-v1-7bb8ffd9b6-hp75k       2/2     Running   <span style="color:#ae81ff">0</span>          28m
+reviews-v2-d7d75fff8-6mqmw        2/2     Running   <span style="color:#ae81ff">0</span>          28m
+reviews-v3-68964bc4c8-mfbhb       2/2     Running   <span style="color:#ae81ff">0</span>          28m
+</code></pre></div><p>进行网关配置：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@VM_74_51_centos /data/istio-1.4.2<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml</span>
+</code></pre></div><p>查看配置结果</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@VM_74_51_centos /data/istio-1.4.2<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl get gateway</span>
+NAME               AGE
+bookinfo-gateway   15d
+<span style="color:#f92672">[</span>root@VM_74_51_centos /data/istio-1.4.2<span style="color:#f92672">]</span><span style="color:#75715e">#  </span>
+</code></pre></div><p>查看网关关系：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@VM_74_51_centos /data/istio-1.4.2<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl get svc istio-ingressgateway -n istio-system</span>
+NAME                   TYPE           CLUSTER-IP      EXTERNAL-IP   PORT<span style="color:#f92672">(</span>S<span style="color:#f92672">)</span>                                                                                                                      AGE
+istio-ingressgateway   LoadBalancer   10.96.198.160   &lt;pending&gt;     15020:32242/TCP,80:31664/TCP,443:32342/TCP,15029:32264/TCP,15030:30110/TCP,15031:31085/TCP,15032:30265/TCP,15443:31177/TCP   15d
+<span style="color:#f92672">[</span>root@VM_74_51_centos /data/istio-1.4.2<span style="color:#f92672">]</span><span style="color:#75715e"># </span>
+</code></pre></div><p>这里就可以使用http://xx.xx.xx.xx:31664/productpage 访问例子中的页面了</p>
+<p><img src="imgs/bookinfo.png" alt=""></p>
+<p>在 kiali 中的可以看到调用关系：
+<img src="imgs/kiali3.png" alt=""></p>
+<h2 id="故障注入测试">故障注入测试</h2>
+<p>这里在介绍一个故障注入的测试，编辑这个文件：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">vim samples/bookinfo/networking/fault-injection-details-v1.yaml</span>
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">networking.istio.io/v1alpha3</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">VirtualService</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">details</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">hosts</span>:
+  - <span style="color:#ae81ff">details</span>
+  <span style="color:#f92672">http</span>:
+  - <span style="color:#f92672">fault</span>:
+      <span style="color:#f92672">abort</span>:
+        <span style="color:#f92672">httpStatus</span>: <span style="color:#ae81ff">555</span>
+        <span style="color:#f92672">percent</span>: <span style="color:#ae81ff">50</span><span style="color:#ae81ff">. // 主要修改这里</span>
+    <span style="color:#f92672">route</span>:
+    - <span style="color:#f92672">destination</span>:
+        <span style="color:#f92672">host</span>: <span style="color:#ae81ff">details</span>
+        <span style="color:#f92672">subset</span>: <span style="color:#ae81ff">v1</span>
+  - <span style="color:#f92672">route</span>:
+    - <span style="color:#f92672">destination</span>:
+        <span style="color:#f92672">host</span>: <span style="color:#ae81ff">details</span>
+        <span style="color:#f92672">subset</span>: <span style="color:#ae81ff">v1</span>
+---
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">networking.istio.io/v1alpha3</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">DestinationRule</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">details</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">host</span>: <span style="color:#ae81ff">details</span>
+  <span style="color:#f92672">subsets</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">v1</span>
+    <span style="color:#f92672">labels</span>:
+      <span style="color:#f92672">version</span>: <span style="color:#ae81ff">v1</span>
+</code></pre></div><p>修改上面 http 的 fault 中 abort 的 percent 值，让它可以有 50% 的不可访问。
+测试结果也可以在 kiali 的拓扑图中看出来：
+<img src="imgs/kiali2.png" alt=""></p>
+<center>
+看完本文有收获？请分享给更多人
+<p>关注「黑光技术」，关注大数据+微服务</p>
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2019/servicemesh-intro/" data-toggle="tooltip" data-placement="top" title="什么是ServiceMesh">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2020/comparison-of-service-mesh/" data-toggle="tooltip" data-placement="top" title="【译】Kubernetes 服务网格: Istio, Linkerd 和 Consul 大比较">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2019/servicemesh-intro/"><i class="fa fa-link"></i>什么是ServiceMesh</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

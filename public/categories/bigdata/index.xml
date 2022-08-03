@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>bigdata on 黑光技术</title>
+    <link>http://www.helight.cn/categories/bigdata/</link>
+    <description>Recent content in bigdata on 黑光技术</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Sun, 12 Jul 2020 08:45:20 +0800</lastBuildDate><atom:link href="http://www.helight.cn/categories/bigdata/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【dbaplus社群】线上分享-游戏数据应用的DevOps建设</title>
+      <link>http://www.helight.cn/blog/2020/dbaplus_show/</link>
+      <pubDate>Sun, 12 Jul 2020 08:45:20 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2020/dbaplus_show/</guid>
+      <description>前言 前段时间本号作为【dbaplus社群】的合作媒体，和他们做了一次大数据领域的话题宣传活动。聊了之后就邀请我来分享一下游戏数据领域内的相关</description>
+    </item>
+    
+    <item>
+      <title>DataMore数据服务开发系统Xone在服务化的架构实践</title>
+      <link>http://www.helight.cn/blog/2019/datamore/</link>
+      <pubDate>Sat, 18 May 2019 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2019/datamore/</guid>
+      <description>DataMore数据服务开发系统Xone在服务化的架构实践</description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch5.2.2安装坑记录</title>
+      <link>http://www.helight.cn/blog/2017/970/</link>
+      <pubDate>Thu, 16 Mar 2017 03:53:38 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2017/970/</guid>
+      <description>&lt;p&gt;部署完成ES之后，如果我们不修改配置，那么默认只有本机可以访问ES的api接口，如果需要给外部机器访问，那么就需要修改ES的配置了。&lt;/p&gt;
+&lt;p&gt;在默认情况下，ES只允许本地访问api接口，如果我们希望在另外一台机器上访问ES的接口的话，需要配置主机地址：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>为游戏分析设计的分布式数据存储系统</title>
+      <link>http://www.helight.cn/blog/2016/967/</link>
+      <pubDate>Tue, 27 Dec 2016 04:07:59 +0800</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2016/967/</guid>
+      <description>本文是今年5月在中国云计算大会中的分享内容，主要是介绍腾讯游戏数据分析平台的一些后台架构设计和游戏分析思路。 在“大数据”相对泛滥的今天，我们</description>
+    </item>
+    
+    <item>
+      <title>Spark在腾讯游戏数据分析和营销干预中的应用实践</title>
+      <link>http://www.helight.cn/blog/2016/spark_idata/</link>
+      <pubDate>Sun, 18 Dec 2016 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2016/spark_idata/</guid>
+      <description>Spark在腾讯游戏数据分析和营销干预中的应用实践</description>
+    </item>
+    
+    <item>
+      <title>腾讯游戏数据分析平台</title>
+      <link>http://www.helight.cn/blog/2016/idata/</link>
+      <pubDate>Wed, 18 May 2016 13:47:08 +0200</pubDate>
+      
+      <guid>http://www.helight.cn/blog/2016/idata/</guid>
+      <description>腾讯游戏数据分析平台</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>lex和yacc 学习笔记</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, golang, yacc, uwsgi, sid">
+  
+  
+  <meta name="description" content="完美之道，不在无可增加，而在无可删减。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="lex和yacc 学习笔记">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2018/977/" />
+  <meta property="og:description" content="完美之道，不在无可增加，而在无可删减。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/banner-2.jpg">
+  <meta property="og:image:type" content="image/jpg">
+  
+  
+  
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="375">
+  
+  
+  <meta property="og:updated_time" content="2018-01-20T16:01:36&#43;0800">
+  
+    
+    
+    <meta property="article:section" content="linux 应用">
+    <meta property="article:tag" content="golang">
+    <meta property="article:tag" content="yacc">
+    <meta property="article:tag" content="uwsgi">
+    <meta property="article:tag" content="sid">
+    
+    
+    <meta property="article:published_time" content="2018-01-20T16:01:36&#43;0800">
+    <meta property="article:modified_time" content="2018-01-20T16:01:36&#43;0800">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="lex和yacc 学习笔记">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/banner-2.jpg">
+  
+  <meta name="twitter:description" content="完美之道，不在无可增加，而在无可删减。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="lex和yacc 学习笔记 logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="lex和yacc 学习笔记 logo" class="visible-xs visible-sm">
+                    <span class="sr-only">lex和yacc 学习笔记 - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>lex和yacc 学习笔记</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2018年1月20日
+                        </i>
+                        |
+                        
+                        由 <a href="https://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        2400字 | 阅读大约需要5分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/linux-%e5%ba%94%e7%94%a8">linux 应用</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/golang/"><i>#golang</i></a>
+                        
+                        <a style="text-transform:capitalize" href="/tags/yacc/"><i>#yacc</i></a>
+                        
+                        <a style="text-transform:capitalize" href="/tags/uwsgi/"><i>#uwsgi</i></a>
+                        
+                        <a style="text-transform:capitalize" href="/tags/sid/"><i>#sid</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <p>前一段时间在项目中要使用一个规则表达式计算的功能，而且想可以任意扩展计算功能，比如计算AUB，A和B都表示一个号码包，计算并集，当然实际使用的公式会更为复杂，这里举例说明。在计算时候要判断如果A包已经计算ok了就可以使用A包，如果没有计算成功就需要发起计算并且等待计算成功，B包也是要同样的处理过程，最后再计算并集。当然这样一个功能自己定义写肯定是没问题的，但是还要想到后面的扩展性和程序代码可移交等问题，还是想有一个通用的方法来解决，所以在最后想到了使用yacc和lex来组织解决。实际上后来发现用yacc和lex非常方便的可以解决这类问题，而且在扩展性上非常好。所以想这里先总结一下yacc和lex使用的一些语法特点和具体我们使用的方式。现在这篇中总体总结一下yacc和lex的语法特点，下一篇再写具体使用中的一些过程。</p>
+<h2 id="首先看看lex">首先看看lex</h2>
+<p>lex是什么，我们通常叫做“词法解析器”，主要做输入内容的解析，按照事先定义的规范来解析，并输出给yacc来使用。lex把解析出来的词都叫做token，对于特定的编程语言或者具体实现的token总是有限的，不会像真实的语言一样有很多的词。
+    lex工具对我们定义好的词法文件进行编译，即可生成一个函数yylex，yacc在调用这个函数就可以把输入的内容解析为具体的token和类型。lex的输入函数一般是xxx.l文件，使用lex xxx.l编译后就可以生成lex.yy.c文件，这里面就包含了yacc要调用的词法解析函数。</p>
+<h2 id="yacc呢">yacc呢</h2>
+<p>yacc是什么呢？我们通常叫做“语法解析器”，主要作用就是根据lex解析输入的结果和实现定义好的对token的处理过程，进行一个解析执行，有点像单词和语法的关系。yacc的定义文件名为xxx.y，通过yacc -d xxx.y就可以得到两个输出文件： y.tab.h y.tab.c，前者包含了lex需要的token类型定义，需要被include进 .l文件中。</p>
+<p>    说了这么多，我们来看看到底xxx.l和xxx.y这两个文件是怎么定义的。首先看其格式：</p>
+<pre tabindex="0"><code class="language-lex" data-lang="lex">Definition section
+%%
+Rules section
+
+%%
+code section
+</code></pre><p>xxx.l和xxx.y的文件格式都是分成三段，用%%来分割，三个section的含义是：</p>
+<h3 id="definition-section">Definition Section </h3>
+<p>可以放编程语言的各种include，define等声明语句，但是要用%{ %}括起来。 
+如果是.l文件，可以放预定义的正则表达式：minus &ldquo;-&rdquo; 还要放token的定义，方法是：代号正则表达式。然后到了，Rules Section就可以通过{符号} 来引用正则表达式
+如果是.y文件，可以放token的定义，如：%token INTEGER PLUS ，这里的定一个的每个token都可以在y.tab.h中看到 
+### Rules section</p>
+<p>.l文件在这里放置的rules就是每个正则表达式要对应的动作，一般是返回一个token</p>
+<p>.y文件在这里放置的rules就是满足一个语法描述时要执行的动作</p>
+<p>不论是.l文件还是.y文件这里的动作都是用{}扩起来的，用语言来描述，这些代码可以做你任何想要做的事情 </p>
+<h3 id="code-section">code Section</h3>
+<p>main函数，yyerror函数等的定义 ，还有其它使用的一些函数的定义都可以放到这里
+    下面我们以一个具体的例子来看看lex和yacc是怎么配合做事的，实验环境是debian，实际上Lex和Yacc是一种标准，当然会有很多的实现了，其中有2个是免费的（好像还有商业版本），那就是flex和bison，这里我们先以c语言版本的来说明，实际上我们在项目中是是用golang的版本来的。如果在debian上安装，会很简单，直接运行一下命令即可。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt-get install flex bison
+<span style="color:#e6db74">``</span>
+    接下来我们以网上非常经典的例子来说明，用lex和yacc实现一个数字计算器。
+lex文件就是定义为如下格式：
+文件名cal.l
+<span style="color:#e6db74">```</span>lex
+%<span style="color:#f92672">{</span> 
+// 引入c的函数头
+<span style="color:#75715e">#include&lt;string.h&gt;  </span>
+<span style="color:#75715e">#include &#34;y.tab.h&#34;  </span>
+extern int yylval;  
+%<span style="color:#f92672">}</span>  
+/* 定义token，如数字，加，减等 */
+numbers <span style="color:#f92672">([</span>0-9<span style="color:#f92672">])</span>+  
+plus <span style="color:#e6db74">&#34;+&#34;</span>  
+minus <span style="color:#e6db74">&#34;-&#34;</span>  
+times <span style="color:#e6db74">&#34;*&#34;</span>  
+divide <span style="color:#e6db74">&#34;/&#34;</span>  
+lp <span style="color:#e6db74">&#34;(&#34;</span>  
+rp <span style="color:#e6db74">&#34;)&#34;</span>  
+delim <span style="color:#f92672">[</span> /n/t<span style="color:#f92672">]</span>  
+ws <span style="color:#f92672">{</span>delim<span style="color:#f92672">}</span>*  
+
+        /* 第二部分，主要就是怎么解析token，token解析的规则 */
+%%  
+<span style="color:#f92672">{</span>numbers<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>sscanf<span style="color:#f92672">(</span>yytext, <span style="color:#e6db74">&#34;%d&#34;</span>, &amp;amp;yylval<span style="color:#f92672">)</span>; <span style="color:#66d9ef">return</span> INTEGER;<span style="color:#f92672">}</span>  
+<span style="color:#f92672">{</span>plus<span style="color:#f92672">}</span> <span style="color:#f92672">{</span><span style="color:#66d9ef">return</span> PLUS;<span style="color:#f92672">}</span>  
+<span style="color:#f92672">{</span>minus<span style="color:#f92672">}</span> <span style="color:#f92672">{</span><span style="color:#66d9ef">return</span> MINUS;<span style="color:#f92672">}</span>  
+<span style="color:#f92672">{</span>times<span style="color:#f92672">}</span> <span style="color:#f92672">{</span><span style="color:#66d9ef">return</span> TIMES;<span style="color:#f92672">}</span>  
+<span style="color:#f92672">{</span>divide<span style="color:#f92672">}</span> <span style="color:#f92672">{</span><span style="color:#66d9ef">return</span> DIVIDE;<span style="color:#f92672">}</span>  
+<span style="color:#f92672">{</span>lp<span style="color:#f92672">}</span> <span style="color:#f92672">{</span><span style="color:#66d9ef">return</span> LP;<span style="color:#f92672">}</span>  
+<span style="color:#f92672">{</span>rp<span style="color:#f92672">}</span> <span style="color:#f92672">{</span><span style="color:#66d9ef">return</span> RP;<span style="color:#f92672">}</span>  
+<span style="color:#f92672">{</span>ws<span style="color:#f92672">}</span>       ;   
+. <span style="color:#f92672">{</span>printf<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Error&#34;</span><span style="color:#f92672">)</span>;exit<span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>;<span style="color:#f92672">}</span>    
+%% 
+</code></pre></div><p>yacc的文件定义如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">cal.y
+<span style="color:#f92672">%</span>{
+<span style="color:#75715e">// 引入c头文件
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;lex.yy.c&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#define YYSTYPE int  
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> yyparse(<span style="color:#66d9ef">void</span>);
+        <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">yyerror</span>(<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> s);
+        <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">yywrap</span>();
+<span style="color:#f92672">%</span>}
+<span style="color:#75715e">// 这里是申明token，和cal.l中的相对应
+</span><span style="color:#75715e"></span><span style="color:#f92672">%</span>token INTEGER PLUS MINUS TIMES DIVIDE LP RP
+<span style="color:#f92672">%%</span>
+<span style="color:#75715e">// token的运算规则
+</span><span style="color:#75715e"></span>command : exp {printf(<span style="color:#e6db74">&#34;%d/n&#34;</span>,<span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">1</span>);}
+
+<span style="color:#75715e">// 这里定义有嵌套的含义在里面，其实就是定义了规则执行的优先级，可以看出，括号中先执行，乘除的再执行，最后是加减
+</span><span style="color:#75715e"></span>exp: exp PLUS term {<span style="color:#960050;background-color:#1e0010">$$</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">3</span>;}
+    <span style="color:#f92672">|</span>exp MINUS term {<span style="color:#960050;background-color:#1e0010">$$</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">3</span>;}
+    <span style="color:#f92672">|</span>term {<span style="color:#960050;background-color:#1e0010">$$</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">1</span>;}
+    ;
+term : term TIMES factor {<span style="color:#960050;background-color:#1e0010">$$</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">*</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">3</span>;}
+    <span style="color:#f92672">|</span>term DIVIDE factor {<span style="color:#960050;background-color:#1e0010">$$</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">3</span>;}
+    <span style="color:#f92672">|</span>factor {<span style="color:#960050;background-color:#1e0010">$$</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">1</span>;}
+    ;
+factor : INTEGER {<span style="color:#960050;background-color:#1e0010">$$</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">1</span>;}
+    <span style="color:#f92672">|</span> LP exp RP {<span style="color:#960050;background-color:#1e0010">$$</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">2</span>;}
+    ;
+<span style="color:#f92672">%%</span>
+</code></pre></div><p>// 运行的main函数和异常处理函数，这几个函数都是必须定义的，后面有这几个函数的具体作用</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">return</span> yyparse();
+}
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">yyerror</span>(<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> s)
+{
+    fprintf(stderr,<span style="color:#e6db74">&#34;%s&#34;</span>,s);
+}
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">yywrap</span>()
+{
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+}
+</code></pre></div><p> 
+使用方式： </p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">yacc -d cal.y 
+flex cal.l
+gcc -o cal y.tab.c 
+</code></pre></div><p>运行./cal 然后输入3+4 ctrl+D就可以看到结果了</p>
+<h2 id="关于lex和yacc中一些预定义的东西">关于lex和yacc中一些预定义的东西</h2>
+<h3 id="lex-变量">Lex 变量</h3>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>yyin</td>
+<td>FILE* 类型。 它指向 lexer 正在解析的当前文件。</td>
+</tr>
+<tr>
+<td>yyout ｜ FILE* 类型。 它指向记录 lexer 输出的位置。 缺省情况下，yyin 和 yyout 都指向标准输入和输出。</td>
+<td></td>
+</tr>
+<tr>
+<td>yytext ｜ 匹配模式的文本存储在这一变量中（char*）。</td>
+<td></td>
+</tr>
+<tr>
+<td>yyleng ｜ 给出匹配模式的长度。</td>
+<td></td>
+</tr>
+<tr>
+<td>yylineno ｜ 提供当前的行数信息。 （lexer不一定支持。）</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="lex-函数">Lex 函数</h3>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>yylex()</td>
+<td>这一函数开始分析。 它由 Lex 自动生成。</td>
+</tr>
+<tr>
+<td>yywrap()</td>
+<td>这一函数在文件（或输入）的末尾调用。 如果函数的返回值是1，就停止解析。 因此它可以用来解析多个文件。 代码可以写在第三段，这就能够解析多个文件。 方法是使用 yyin 文件指针（见上表）指向不同的文件，直到所有的文件都被解析。 最后，yywrap() 可以返回 1 来表示解析的结束。</td>
+</tr>
+<tr>
+<td>yyless(int n)</td>
+<td>这一函数可以用来送回除了前n 个字符外的所有读出标记。</td>
+</tr>
+<tr>
+<td>yymore()</td>
+<td>这一函数告诉 Lexer 将下一个标记附加到当前标记后。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考资料">参考资料：</h2>
+<p>首先推荐<a href="http://epaperpress.com/lexandyacc/download/LexAndYaccTutorial.pdf">《lex and yacc tutorial》</a></p>
+<center> 
+看完本文有收获？请分享给更多人 <br> 关注「黑光技术」，关注大数据+微服务 <br> 
+<p><img src="/img/qrcode_helight_tech.jpg" alt=""></p>
+</center>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2018/974/" data-toggle="tooltip" data-placement="top" title="如何使用Swagger编写API文档">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2018/982/" data-toggle="tooltip" data-placement="top" title="nginx&#43;php站点配置https">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2015/907/"><i class="fa fa-link"></i>Java通过swig调用C&#43;&#43;接口</a></li>
+         
+        <li><a href="/blog/2014/798/"><i class="fa fa-link"></i>使用gdb和ps定位程序cpu占用问题</a></li>
+         
+        <li><a href="/blog/2014/682/"><i class="fa fa-link"></i>thrift之php客户端使用</a></li>
+         
+        <li><a href="/blog/2013/630/"><i class="fa fa-link"></i>Program received signal SIGPIPE, Broken pipe</a></li>
+         
+        <li><a href="/blog/2012/607/"><i class="fa fa-link"></i>terminate called after throwing an instance of &#39;stdz::logic_error&#39;</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>

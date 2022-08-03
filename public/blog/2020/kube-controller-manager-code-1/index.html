@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>k8s代码走读&amp;mdash;kube-controller-manager</title>
+  <meta name="author" content="helight" />
+  
+  
+  
+  
+  <meta name="keywords" content="helight, 微服务, kernel, DevOps, go, k8s, microservices">
+  
+  
+  <meta name="description" content="完美之道，不在无可增加，而在无可删减。">
+
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="/css/style.blue.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+  
+  <link href="/css/custom.css" rel="stylesheet">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="{{ "js/html5shiv.min.js" | relURL }}"></script>
+        <script src="{{ "js/respond.min.js" | relURL }}"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  
+  <link href="/css/owl.carousel.css" rel="stylesheet">
+  <link href="/css/owl.theme.css" rel="stylesheet">
+
+  
+  <link rel="alternate" href="http://www.helight.cn/index.xml" type="application/rss+xml" title="黑光技术">
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:locale" content="zh">
+  <meta property="og:site_name" content="黑光技术">
+  <meta property="og:title" content="k8s代码走读&amp;mdash;kube-controller-manager">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.helight.cn/blog/2020/kube-controller-manager-code-1/" />
+  <meta property="og:description" content="完美之道，不在无可增加，而在无可删减。">
+  <meta property="og:image" content="http://www.helight.cn/img/banners/kubernetes.jpeg">
+  <meta property="og:image:type" content="image/jpeg">
+  
+  
+  
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="500">
+  
+  
+  <meta property="og:updated_time" content="2020-07-30T08:45:20&#43;0800">
+  
+    
+    
+    <meta property="article:section" content="k8s">
+    <meta property="article:tag" content="k8s">
+    <meta property="article:tag" content="microservices">
+    
+    
+    <meta property="article:published_time" content="2020-07-30T08:45:20&#43;0800">
+    <meta property="article:modified_time" content="2020-07-30T08:45:20&#43;0800">
+  
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GoHugoIO">
+  <meta name="twitter:title" content="k8s代码走读&amp;mdash;kube-controller-manager">
+  
+  <meta name="twitter:image" content="http://www.helight.cn/img/banners/kubernetes.jpeg">
+  
+  <meta name="twitter:description" content="完美之道，不在无可增加，而在无可删减。">
+  
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="/">
+                    <img src="/img/helight.png" alt="k8s代码走读---kube-controller-manager logo" class="hidden-xs hidden-sm">
+                    <img src="/img/helight.png" alt="k8s代码走读---kube-controller-manager logo" class="visible-xs visible-sm">
+                    <span class="sr-only">k8s代码走读---kube-controller-manager - 跳到主页</span>
+                </a>
+                <div class="navbar-buttons">
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">切换导航</span>
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            <div class="navbar-collapse collapse" id="navigation">
+              <span class="navbar-left">黑光技术 - 完美之道，不在无可增加，而在无可删减。</span>
+                <ul class="nav navbar-nav navbar-right">
+                  
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/">Home</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown active">
+                    
+                    <a href="/blog/">Blog</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/projects/">Projects</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="/about/me">AboutMe</a>
+                    
+                  </li>
+                  
+                  
+                  <li class="dropdown">
+                    
+                    <a href="https://github.com/helight">Github</a>
+                    
+                  </li>
+                  
+                </ul>
+            </div>
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>k8s代码走读---kube-controller-manager</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+              <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                      <div class="well">
+                        <div class="author-category">
+                        <i class="fa fa-calendar-o">
+                        2020年7月30日
+                        </i>
+                        |
+                        
+                        由 <a href="http://helight.cn">helight</a>
+                        
+                        
+                        
+                        |
+                        2100字 | 阅读大约需要5分钟 |
+                        
+                        
+
+                        
+                        
+                        归档于 <a href="/categories/k8s">k8s</a>
+                        
+                        |
+                        
+                        
+                        
+                        标签
+                        
+                        <a style="text-transform:capitalize" href="/tags/k8s/"><i>#k8s</i></a>
+                        
+                        <a style="text-transform:capitalize" href="/tags/microservices/"><i>#microservices</i></a>
+                        
+                        
+                        
+                      </div>
+                        
+                    </div>
+                    <div id="post-content">
+                      <h2 id="前言">前言</h2>
+<p>今天开始走读 k8s 的代码，首先选择的是 controller-manager 这个组件。这几天也看了《kubernetes源码剖析》的前两章，这本书还是不错的，推荐大家阅读。前面两章主要讲解什么是 kubernets，它的来历，它的架构，它的代码结构，以及它的编译过程。读代码首先要了解它的架构，其次要知道它的代码结构。代码结构就是整个代码目录的组成，那个目录中的文件是做什么的。看了这本书的前面 2 章，对它的架构和结构就会有比较清晰的认识。</p>
+<h2 id="kubernetes-的代码目录结构">kubernetes 的代码目录结构</h2>
+<p>这里先列出我这一期认识到的比较重要的目录。</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmd</td>
+<td>这里面主要就是可以运行的模块，main 函数所在，比如 apiserver，kubectl，kubelet 等</td>
+<td>-</td>
+</tr>
+<tr>
+<td>pkg</td>
+<td>这里面是开发的主要代码，看代码实现的重要地方</td>
+<td>-</td>
+</tr>
+<tr>
+<td>third_party</td>
+<td>一些第三方库</td>
+<td>-</td>
+</tr>
+<tr>
+<td>logo</td>
+<td>这个目录中放有 kubernetes 的 logo 图片</td>
+<td>-</td>
+</tr>
+<tr>
+<td>translations</td>
+<td>是 kubectl 的语言包</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="kube-controller-manager-代码走读之主函数">kube-controller-manager 代码走读之主函数</h2>
+<p>其实看过一级目录后发现 kubernetes 的目录结构还是非常清晰的。比如我今天要看 controller-manager 的代码，那就直接先从 cmd 目录找起，找到 <code>kube-controller-manager</code> 这个目录，这个目录下的文件也非常简单。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console"> helightxu@  ~/k8s/kubernetes/cmd/kube-controller-manager  ls                                          
+BUILD                 OWNERS                app                   controller-manager.go
+ helightxu@  ~/k8s/kubernetes/cmd/kube-controller-manager    
+</code></pre></div><p><code>app</code> 是一个目录，<code>controller-manager.go</code> 就是主文件，里面有 main 函数。这个文件中的代码也是非常简单，就是一个 main 函数，里面创建了 controller-manager 的 command，然后初始化日志，最后启动执行这个command。删除注释和空行后的 main 函数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">UnixNano</span>())
+	<span style="color:#a6e22e">command</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">NewControllerManagerCommand</span>()
+	<span style="color:#a6e22e">logs</span>.<span style="color:#a6e22e">InitLogs</span>()
+	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">logs</span>.<span style="color:#a6e22e">FlushLogs</span>()
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">command</span>.<span style="color:#a6e22e">Execute</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>, <span style="color:#e6db74">&#34;%v\n&#34;</span>, <span style="color:#a6e22e">err</span>)
+		<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Exit</span>(<span style="color:#ae81ff">1</span>)
+	}
+}
+</code></pre></div><h2 id="kube-controller-manager-代码走读之-command">kube-controller-manager 代码走读之 command</h2>
+<p>这里主要分析上面提到的 app.NewControllerManagerCommand() 这个函数和相关执行过程。这个函数是在 app 这个目录下的 <code>controllermanager.go</code> 这个文件中。</p>
+<p>NewControllerManagerCommand 函数返回的是一个 cobra.Command 类型指针，里面主要的就是看 <code>Run</code> 这个方法，其它都是配置参数加载，解析，help 函数和使用函数注册。这个 <code>Run</code> 方法在后面执行 command.Execute() 的时候执行。<code>Run</code> 方法里面执行的还是一个 Run 函数，这个函数是在这个文件中定义的，这个函数也是 controller-manager 的主要函数，所有功能从此走起。</p>
+<p>这个函数中首先做的是在多个 controller-manager 中进行选主，在 k8s 的所有组件中据说是除了 api-server 没有高可用外，其它的组件都利用 etcd 进行高可用了。所以 controller-manager 启动后首先也是进行选主，只有主服务才进行服务，其它状态的服务处在等待状态，等待争取主状态。选主之后主服务会启用正式的服务，代码如下，还是在 Run 函数中，Run 函数的最后代码就是这块了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">    <span style="color:#a6e22e">leaderelection</span>.<span style="color:#a6e22e">RunOrDie</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">TODO</span>(), <span style="color:#a6e22e">leaderelection</span>.<span style="color:#a6e22e">LeaderElectionConfig</span>{
+		<span style="color:#a6e22e">Lock</span>:          <span style="color:#a6e22e">rl</span>,
+		<span style="color:#a6e22e">LeaseDuration</span>: <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">ComponentConfig</span>.<span style="color:#a6e22e">Generic</span>.<span style="color:#a6e22e">LeaderElection</span>.<span style="color:#a6e22e">LeaseDuration</span>.<span style="color:#a6e22e">Duration</span>, <span style="color:#75715e">// 租约时间
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">RenewDeadline</span>: <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">ComponentConfig</span>.<span style="color:#a6e22e">Generic</span>.<span style="color:#a6e22e">LeaderElection</span>.<span style="color:#a6e22e">RenewDeadline</span>.<span style="color:#a6e22e">Duration</span>, <span style="color:#75715e">// 更新租约的时间
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">RetryPeriod</span>:   <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">ComponentConfig</span>.<span style="color:#a6e22e">Generic</span>.<span style="color:#a6e22e">LeaderElection</span>.<span style="color:#a6e22e">RetryPeriod</span>.<span style="color:#a6e22e">Duration</span>, <span style="color:#75715e">// 非leader节点重试时间
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">Callbacks</span>: <span style="color:#a6e22e">leaderelection</span>.<span style="color:#a6e22e">LeaderCallbacks</span>{
+			<span style="color:#a6e22e">OnStartedLeading</span>: <span style="color:#a6e22e">run</span>,  <span style="color:#75715e">// 变为 leader 后执行的业务代码
+</span><span style="color:#75715e"></span>			<span style="color:#a6e22e">OnStoppedLeading</span>: <span style="color:#66d9ef">func</span>() { <span style="color:#75715e">// 进程退出
+</span><span style="color:#75715e"></span>				<span style="color:#a6e22e">klog</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;leaderelection lost&#34;</span>)
+			},
+		},
+		<span style="color:#a6e22e">WatchDog</span>: <span style="color:#a6e22e">electionChecker</span>,
+		<span style="color:#a6e22e">Name</span>:     <span style="color:#e6db74">&#34;kube-controller-manager&#34;</span>,
+	})
+</code></pre></div><p>leaderelection 这个组件这里先不多说，我在上面的代码中也做了简单的注释说明。这里分析 controllermanager 的主体逻辑，所以关键看它变为 leader 后要执行的业务代码。
+也就是上面看到 <code>OnStartedLeading</code> 后面有一个 run 函数，这个 run 函数是在 Run 函数中定义的函数，如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#a6e22e">run</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) {
+    <span style="color:#a6e22e">rootClientBuilder</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">controller</span>.<span style="color:#a6e22e">SimpleControllerClientBuilder</span>{ <span style="color:#75715e">// 构建客户端
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">ClientConfig</span>: <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Kubeconfig</span>,
+	}
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">clientBuilder</span> <span style="color:#a6e22e">controller</span>.<span style="color:#a6e22e">ControllerClientBuilder</span>
+<span style="color:#f92672">...</span>
+    <span style="color:#a6e22e">controllerContext</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">CreateControllerContext</span>(<span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">rootClientBuilder</span>, <span style="color:#a6e22e">clientBuilder</span>, <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Done</span>()) 
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">klog</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;error building controller context: %v&#34;</span>, <span style="color:#a6e22e">err</span>)
+	}
+	<span style="color:#a6e22e">saTokenControllerInitFunc</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">serviceAccountTokenControllerStarter</span>{<span style="color:#a6e22e">rootClientBuilder</span>: <span style="color:#a6e22e">rootClientBuilder</span>}.<span style="color:#a6e22e">startServiceAccountTokenController</span>
+
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">StartControllers</span>(<span style="color:#a6e22e">controllerContext</span>, <span style="color:#a6e22e">saTokenControllerInitFunc</span>, <span style="color:#a6e22e">NewControllerInitializers</span>(<span style="color:#a6e22e">controllerContext</span>.<span style="color:#a6e22e">LoopMode</span>), <span style="color:#a6e22e">unsecuredMux</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">klog</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;error starting controllers: %v&#34;</span>, <span style="color:#a6e22e">err</span>)
+	} <span style="color:#75715e">// 这里是根据配置信息启动相应的控制器，启动的控制可以看下面的代码
+</span><span style="color:#75715e"></span>
+	<span style="color:#a6e22e">controllerContext</span>.<span style="color:#a6e22e">InformerFactory</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#a6e22e">controllerContext</span>.<span style="color:#a6e22e">Stop</span>) <span style="color:#75715e">// 启动
+</span><span style="color:#75715e"></span>	close(<span style="color:#a6e22e">controllerContext</span>.<span style="color:#a6e22e">InformersStarted</span>)
+
+	<span style="color:#66d9ef">select</span> {} <span style="color:#75715e">// 等待
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>上面提到的默认的一些控制器，可以看到我们使用中的这些控制器都在这里。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewControllerInitializers</span>(<span style="color:#a6e22e">loopMode</span> <span style="color:#a6e22e">ControllerLoopMode</span>) <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">InitFunc</span> {
+	<span style="color:#a6e22e">controllers</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">InitFunc</span>{}
+	<span style="color:#a6e22e">controllers</span>[<span style="color:#e6db74">&#34;endpoint&#34;</span>] = <span style="color:#a6e22e">startEndpointController</span>
+	<span style="color:#a6e22e">controllers</span>[<span style="color:#e6db74">&#34;replicationcontroller&#34;</span>] = <span style="color:#a6e22e">startReplicationController</span>
+	<span style="color:#a6e22e">controllers</span>[<span style="color:#e6db74">&#34;podgc&#34;</span>] = <span style="color:#a6e22e">startPodGCController</span>
+	<span style="color:#a6e22e">controllers</span>[<span style="color:#e6db74">&#34;resourcequota&#34;</span>] = <span style="color:#a6e22e">startResourceQuotaController</span>
+	<span style="color:#a6e22e">controllers</span>[<span style="color:#e6db74">&#34;namespace&#34;</span>] = <span style="color:#a6e22e">startNamespaceController</span>
+	<span style="color:#a6e22e">controllers</span>[<span style="color:#e6db74">&#34;serviceaccount&#34;</span>] = <span style="color:#a6e22e">startServiceAccountController</span>
+	<span style="color:#a6e22e">controllers</span>[<span style="color:#e6db74">&#34;garbagecollector&#34;</span>] = <span style="color:#a6e22e">startGarbageCollectorController</span>
+	<span style="color:#a6e22e">controllers</span>[<span style="color:#e6db74">&#34;daemonset&#34;</span>] = <span style="color:#a6e22e">startDaemonSetController</span>
+	<span style="color:#a6e22e">controllers</span>[<span style="color:#e6db74">&#34;job&#34;</span>] = <span style="color:#a6e22e">startJobController</span>
+	<span style="color:#a6e22e">controllers</span>[<span style="color:#e6db74">&#34;deployment&#34;</span>] = <span style="color:#a6e22e">startDeploymentController</span>
+	<span style="color:#a6e22e">controllers</span>[<span style="color:#e6db74">&#34;replicaset&#34;</span>] = <span style="color:#a6e22e">startReplicaSetController</span>
+	<span style="color:#a6e22e">controllers</span>[<span style="color:#e6db74">&#34;horizontalpodautoscaling&#34;</span>] = <span style="color:#a6e22e">startHPAController</span>
+	<span style="color:#a6e22e">controllers</span>[<span style="color:#e6db74">&#34;disruption&#34;</span>] = <span style="color:#a6e22e">startDisruptionController</span>
+	<span style="color:#a6e22e">controllers</span>[<span style="color:#e6db74">&#34;statefulset&#34;</span>] = <span style="color:#a6e22e">startStatefulSetController</span>
+	<span style="color:#a6e22e">controllers</span>[<span style="color:#e6db74">&#34;cronjob&#34;</span>] = <span style="color:#a6e22e">startCronJobController</span>
+	<span style="color:#a6e22e">controllers</span>[<span style="color:#e6db74">&#34;csrsigning&#34;</span>] = <span style="color:#a6e22e">startCSRSigningController</span>
+<span style="color:#960050;background-color:#1e0010">。。。</span>
+</code></pre></div><h2 id="核心数据结构-controllercontext">核心数据结构 ControllerContext</h2>
+<p>这里顺着代码我看了一下这个核心的数据结构，作为 controllermanager 调度核心，目前是简单翻译了一下注释，后面会进一步分析。</p>
+<pre tabindex="0"><code>type ControllerContext struct {
+	// ClientBuilder 会提供一个客户端给这个 controller 来使用
+	ClientBuilder controller.ControllerClientBuilder
+
+	// InformerFactory 让 controller 可以访问 informers
+	InformerFactory informers.SharedInformerFactory
+
+	// ComponentConfig 对制定的 controller 提供访问初始的参数项
+	ComponentConfig kubectrlmgrconfig.KubeControllerManagerConfiguration
+
+	// DeferredDiscoveryRESTMapper is a RESTMapper that will defer
+	// initialization of the RESTMapper until the first mapping is
+	// requested.
+	RESTMapper *restmapper.DeferredDiscoveryRESTMapper
+
+	// AvailableResources is a map listing currently available resources
+	// 当前可用资源的列表
+	AvailableResources map[schema.GroupVersionResource]bool
+
+	// Cloud is the cloud provider interface for the controllers to use.
+	// It must be initialized and ready to use. 
+	Cloud cloudprovider.Interface
+
+	// Control for which control loops to be run  
+	// 控制执行哪些控制器循环，目前有两种：IncludeCloudLoops ，ExternalLoops 后面还要再走读分析
+	// IncludeCloudLoops is for a kube-controller-manager running all loops
+	// ExternalLoops is for a kube-controller-manager running with a cloud-controller-manager
+	LoopMode ControllerLoopMode
+
+	// Stop is the stop channel 为了停止进程而设置的 channel
+	Stop &lt;-chan struct{}
+
+	// InformersStarted is closed after all of the controllers have been initialized and are running.  After this point it is safe,
+	// for an individual controller to start the shared informers. Before it is closed, they should not.
+	// InformersStarted channel 在所有控制器都初始化完成并且运行之后会关闭。对于个人定义的控制器，要通过这个启动共享 informers。
+	InformersStarted chan struct{}
+
+	// ResyncPeriod generates a duration each time it is invoked; this is so that
+	// multiple controllers don't get into lock-step and all hammer the apiserver
+	// with list requests simultaneously.
+	// ResyncPeriod 调用的时候会产生一个时间片；这样多个控制器就不会进入锁定步骤，所有的控制器都会同时用列表请求冲击 apiserver。
+	// 这部分还不理解，后面再详细分析。
+	ResyncPeriod func() time.Duration
+}
+</code></pre><h2 id="总结">总结</h2>
+<p>目前看 kube-controller-manager 的代码看起来还算比较清晰顺利，不过目前也只是梳理了一个皮毛，真正工作的模块还没有梳理呢。我后面会继续对这部分的代码进行走读分析进行。</p>
+<p>不过这周开始要先走读一下 client-go 这个组件，社区发起了一个代码走读活动，本月大家的主要方向是 client-go，controller-manager 是我们还没有定好走读计划之前自己想走读的模块，所以先读了一点。后面由于时间问题，会和大家一起从 client-go 走读。</p>
+<p><a href="https://github.com/cloudnativeto/sig-k8s-source-code">Kubernetes 源码研习社：https://github.com/cloudnativeto/sig-k8s-source-code</a>，大家有兴趣可以加入进来一起走读代码。</p>
+<p>最后加个学习中梳理的一个图：
+<img src="imgs/k8s.png" alt=""></p>
+
+                    </div>
+                    
+                    
+                    
+                    <ul class="pager blog-pager">
+                    
+                    <li class="previous">
+                    <a href="http://www.helight.cn/blog/2020/netlink/" data-toggle="tooltip" data-placement="top" title="内核通信之 Netlink 源码分析和实例分析">&larr; 更旧</a>
+                    </li>
+                     
+                    <li class="next">
+                    <a href="http://www.helight.cn/blog/2020/kube-client-go-code-1/" data-toggle="tooltip" data-placement="top" title="k8s 代码走读---client-go 编程交互基础走读">更新 &rarr;</a>
+                    </li>
+                    
+                    </ul>
+
+                                         
+                    
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/js/md5.min.js"></script>
+<script>
+	const gitalk = new Gitalk({
+	  clientID: '30cefcb65c095711bcb5',
+	  clientSecret: 'f4e9477417138b2e8e7f9bb56fae91d97e5c5e0b',
+	  repo: 'xblog_gitalk',
+	  owner: 'helight',
+	  admin: ['helight'],
+	  id: md5(location.pathname),      
+	  distractionFreeMode: false  
+	})
+
+	gitalk.render('gitalk-container')
+</script>
+
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+     
+    <div class="panel-heading">
+     <h3 class="panel-title">相关文章</h3>
+    </div>
+    <div class="panel-body">
+     <ul class="nav nav-pills nav-stacked">
+        
+        <li><a href="/blog/2020/dbaplus_show/"><i class="fa fa-link"></i>【dbaplus社群】线上分享-游戏数据应用的DevOps建设</a></li>
+         
+        <li><a href="/blog/2020/what-microservie-should-be/"><i class="fa fa-link"></i>微服务的架构适合你吗？微服务为何而来？</a></li>
+         
+        <li><a href="/blog/2020/service-mesh-vs-api-gateway/"><i class="fa fa-link"></i>API 网关和服务网格功能定位比较</a></li>
+         
+        <li><a href="/blog/2020/when-not-to-do-microservices/"><i class="fa fa-link"></i>【译】以 Istio 为例来看什么时候不要拆分微服务</a></li>
+         
+        <li><a href="/blog/2020/api-traffic-formulas/"><i class="fa fa-link"></i>做 API 监控有没有什么方法论？</a></li>
+         
+     </ul>
+    </div>
+     
+</div>
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">分类</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            <li><a href="/categories/api"><i class="fa fa-navicon"></i>api (1)</a>
+            </li>
+            
+            <li><a href="/categories/bigdata"><i class="fa fa-navicon"></i>bigdata (6)</a>
+            </li>
+            
+            <li><a href="/categories/devops"><i class="fa fa-navicon"></i>devops (4)</a>
+            </li>
+            
+            <li><a href="/categories/doc"><i class="fa fa-navicon"></i>doc (5)</a>
+            </li>
+            
+            <li><a href="/categories/docker"><i class="fa fa-navicon"></i>docker (3)</a>
+            </li>
+            
+            <li><a href="/categories/ebpf"><i class="fa fa-navicon"></i>ebpf (2)</a>
+            </li>
+            
+            <li><a href="/categories/envoy"><i class="fa fa-navicon"></i>envoy (4)</a>
+            </li>
+            
+            <li><a href="/categories/flink"><i class="fa fa-navicon"></i>flink (7)</a>
+            </li>
+            
+            <li><a href="/categories/golang"><i class="fa fa-navicon"></i>golang (16)</a>
+            </li>
+            
+            <li><a href="/categories/k8s"><i class="fa fa-navicon"></i>k8s (8)</a>
+            </li>
+            
+            <li><a href="/categories/kernel"><i class="fa fa-navicon"></i>kernel (52)</a>
+            </li>
+            
+            <li><a href="/categories/life"><i class="fa fa-navicon"></i>life (18)</a>
+            </li>
+            
+            <li><a href="/categories/linux-%e5%ba%94%e7%94%a8"><i class="fa fa-navicon"></i>linux-应用 (75)</a>
+            </li>
+            
+            <li><a href="/categories/microservices"><i class="fa fa-navicon"></i>microservices (28)</a>
+            </li>
+            
+            <li><a href="/categories/programming"><i class="fa fa-navicon"></i>programming (29)</a>
+            </li>
+            
+            <li><a href="/categories/redis"><i class="fa fa-navicon"></i>redis (3)</a>
+            </li>
+            
+            <li><a href="/categories/sevicemesh"><i class="fa fa-navicon"></i>sevicemesh (15)</a>
+            </li>
+            
+            <li><a href="/categories/spark"><i class="fa fa-navicon"></i>spark (4)</a>
+            </li>
+            
+            <li><a href="/categories/storm"><i class="fa fa-navicon"></i>storm (2)</a>
+            </li>
+            
+            <li><a href="/categories/tools"><i class="fa fa-navicon"></i>tools (2)</a>
+            </li>
+            
+            <li><a href="/categories/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fa fa-navicon"></i>云原生 (7)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fa fa-navicon"></i>分布式 (5)</a>
+            </li>
+            
+            <li><a href="/categories/%e5%be%ae%e6%9c%8d%e5%8a%a1"><i class="fa fa-navicon"></i>微服务 (4)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%94%9f%e6%b4%bb"><i class="fa fa-navicon"></i>生活 (35)</a>
+            </li>
+            
+            <li><a href="/categories/%e7%a4%be%e5%8c%ba"><i class="fa fa-navicon"></i>社区 (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li>
+                <a href="/tags/2pc"><i class="fas fa-tags"></i> 2pc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/5g"><i class="fas fa-tags"></i> 5g</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apache"><i class="fas fa-tags"></i> apache</a>
+            </li>
+            
+            <li>
+                <a href="/tags/api"><i class="fas fa-tags"></i> api</a>
+            </li>
+            
+            <li>
+                <a href="/tags/apm"><i class="fas fa-tags"></i> apm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/bigdata"><i class="fas fa-tags"></i> bigdata</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cgi"><i class="fas fa-tags"></i> cgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cloud"><i class="fas fa-tags"></i> cloud</a>
+            </li>
+            
+            <li>
+                <a href="/tags/cpp"><i class="fas fa-tags"></i> cpp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/crontab"><i class="fas fa-tags"></i> crontab</a>
+            </li>
+            
+            <li>
+                <a href="/tags/db"><i class="fas fa-tags"></i> db</a>
+            </li>
+            
+            <li>
+                <a href="/tags/devops"><i class="fas fa-tags"></i> devops</a>
+            </li>
+            
+            <li>
+                <a href="/tags/django"><i class="fas fa-tags"></i> django</a>
+            </li>
+            
+            <li>
+                <a href="/tags/docker"><i class="fas fa-tags"></i> docker</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ebpf"><i class="fas fa-tags"></i> ebpf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/envoy"><i class="fas fa-tags"></i> envoy</a>
+            </li>
+            
+            <li>
+                <a href="/tags/faas"><i class="fas fa-tags"></i> faas</a>
+            </li>
+            
+            <li>
+                <a href="/tags/fastcgi"><i class="fas fa-tags"></i> fastcgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flask"><i class="fas fa-tags"></i> flask</a>
+            </li>
+            
+            <li>
+                <a href="/tags/flink"><i class="fas fa-tags"></i> flink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gcc"><i class="fas fa-tags"></i> gcc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/git"><i class="fas fa-tags"></i> git</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnome"><i class="fas fa-tags"></i> gnome</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gnu"><i class="fas fa-tags"></i> gnu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li>
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li>
+                <a href="/tags/grpc"><i class="fas fa-tags"></i> grpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/gtk"><i class="fas fa-tags"></i> gtk</a>
+            </li>
+            
+            <li>
+                <a href="/tags/hdfs"><i class="fas fa-tags"></i> hdfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/http"><i class="fas fa-tags"></i> http</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ibus"><i class="fas fa-tags"></i> ibus</a>
+            </li>
+            
+            <li>
+                <a href="/tags/iptables"><i class="fas fa-tags"></i> iptables</a>
+            </li>
+            
+            <li>
+                <a href="/tags/istio"><i class="fas fa-tags"></i> istio</a>
+            </li>
+            
+            <li>
+                <a href="/tags/java"><i class="fas fa-tags"></i> java</a>
+            </li>
+            
+            <li>
+                <a href="/tags/k8s"><i class="fas fa-tags"></i> k8s</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kcp"><i class="fas fa-tags"></i> kcp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kernel"><i class="fas fa-tags"></i> kernel</a>
+            </li>
+            
+            <li>
+                <a href="/tags/kubernetes"><i class="fas fa-tags"></i> kubernetes</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lex"><i class="fas fa-tags"></i> lex</a>
+            </li>
+            
+            <li>
+                <a href="/tags/life"><i class="fas fa-tags"></i> life</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux"><i class="fas fa-tags"></i> linux</a>
+            </li>
+            
+            <li>
+                <a href="/tags/linux-%e5%ba%94%e7%94%a8"><i class="fas fa-tags"></i> linux-应用</a>
+            </li>
+            
+            <li>
+                <a href="/tags/lua"><i class="fas fa-tags"></i> lua</a>
+            </li>
+            
+            <li>
+                <a href="/tags/makefile"><i class="fas fa-tags"></i> makefile</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mesh"><i class="fas fa-tags"></i> mesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/microservices"><i class="fas fa-tags"></i> microservices</a>
+            </li>
+            
+            <li>
+                <a href="/tags/msgfmt"><i class="fas fa-tags"></i> msgfmt</a>
+            </li>
+            
+            <li>
+                <a href="/tags/music"><i class="fas fa-tags"></i> music</a>
+            </li>
+            
+            <li>
+                <a href="/tags/mysql"><i class="fas fa-tags"></i> mysql</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netfilter"><i class="fas fa-tags"></i> netfilter</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netlink"><i class="fas fa-tags"></i> netlink</a>
+            </li>
+            
+            <li>
+                <a href="/tags/netty"><i class="fas fa-tags"></i> netty</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nfs"><i class="fas fa-tags"></i> nfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/nginx"><i class="fas fa-tags"></i> nginx</a>
+            </li>
+            
+            <li>
+                <a href="/tags/performance"><i class="fas fa-tags"></i> performance</a>
+            </li>
+            
+            <li>
+                <a href="/tags/php"><i class="fas fa-tags"></i> php</a>
+            </li>
+            
+            <li>
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li>
+                <a href="/tags/protobuf"><i class="fas fa-tags"></i> protobuf</a>
+            </li>
+            
+            <li>
+                <a href="/tags/python"><i class="fas fa-tags"></i> python</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ramfs"><i class="fas fa-tags"></i> ramfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/redis"><i class="fas fa-tags"></i> redis</a>
+            </li>
+            
+            <li>
+                <a href="/tags/romfs"><i class="fas fa-tags"></i> romfs</a>
+            </li>
+            
+            <li>
+                <a href="/tags/rpc"><i class="fas fa-tags"></i> rpc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/scons"><i class="fas fa-tags"></i> scons</a>
+            </li>
+            
+            <li>
+                <a href="/tags/serverless"><i class="fas fa-tags"></i> serverless</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sevicemesh"><i class="fas fa-tags"></i> sevicemesh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/shell"><i class="fas fa-tags"></i> shell</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sid"><i class="fas fa-tags"></i> sid</a>
+            </li>
+            
+            <li>
+                <a href="/tags/spark"><i class="fas fa-tags"></i> spark</a>
+            </li>
+            
+            <li>
+                <a href="/tags/sqlite"><i class="fas fa-tags"></i> sqlite</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ssh"><i class="fas fa-tags"></i> ssh</a>
+            </li>
+            
+            <li>
+                <a href="/tags/storm"><i class="fas fa-tags"></i> storm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/svn"><i class="fas fa-tags"></i> svn</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tao"><i class="fas fa-tags"></i> tao</a>
+            </li>
+            
+            <li>
+                <a href="/tags/test"><i class="fas fa-tags"></i> test</a>
+            </li>
+            
+            <li>
+                <a href="/tags/thrift"><i class="fas fa-tags"></i> thrift</a>
+            </li>
+            
+            <li>
+                <a href="/tags/tools"><i class="fas fa-tags"></i> tools</a>
+            </li>
+            
+            <li>
+                <a href="/tags/ubuntu"><i class="fas fa-tags"></i> ubuntu</a>
+            </li>
+            
+            <li>
+                <a href="/tags/udp"><i class="fas fa-tags"></i> udp</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uml"><i class="fas fa-tags"></i> uml</a>
+            </li>
+            
+            <li>
+                <a href="/tags/uwsgi"><i class="fas fa-tags"></i> uwsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/valgrind"><i class="fas fa-tags"></i> valgrind</a>
+            </li>
+            
+            <li>
+                <a href="/tags/vim"><i class="fas fa-tags"></i> vim</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wasm"><i class="fas fa-tags"></i> wasm</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wordpress"><i class="fas fa-tags"></i> wordpress</a>
+            </li>
+            
+            <li>
+                <a href="/tags/wsgi"><i class="fas fa-tags"></i> wsgi</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xcut"><i class="fas fa-tags"></i> xcut</a>
+            </li>
+            
+            <li>
+                <a href="/tags/xdmusic"><i class="fas fa-tags"></i> xdmusic</a>
+            </li>
+            
+            <li>
+                <a href="/tags/yacc"><i class="fas fa-tags"></i> yacc</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookeeper"><i class="fas fa-tags"></i> zookeeper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/zookerrper"><i class="fas fa-tags"></i> zookerrper</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e4%ba%91%e5%8e%9f%e7%94%9f"><i class="fas fa-tags"></i> 云原生</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f"><i class="fas fa-tags"></i> 分布式</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e5%bc%80%e6%ba%90"><i class="fas fa-tags"></i> 开源</a>
+            </li>
+            
+            <li>
+                <a href="/tags/%e7%94%9f%e6%b4%bb"><i class="fas fa-tags"></i> 生活</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+  
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="http://kerneltravel.net/" target="_blank"><i class="fa fa-navicon"></i>LINUX内核之旅开源社区</a></li>
+            <li><a href="https://blog.liuts.com/" target="_blank"><i class="fa fa-navicon"></i>刘天斯:运维进行时</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+              </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>关注本站微信公众号</h4>
+
+            <img src=/img/site/mp.jpg>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+        <div class="col-md-4 col-sm-6">
+
+             
+            <h4>最新博客</h4>
+
+            <div class="blog-entries">
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/technews/">
+                          
+                            <img src="/imgs/technews.png" class="img-responsive" alt="开发了一个技术文章订阅器：TechNews">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/technews/">开发了一个技术文章订阅器：TechNews</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-observability/">
+                          
+                            <img src="/img/banners/ms.jpg" class="img-responsive" alt="可观测性:不是你想的那样">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-observability/">可观测性:不是你想的那样</a></h5>
+                    </div>
+                </div>
+                
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="http://www.helight.cn/blog/2022/what-is-paas-type/">
+                          
+                            <img src="/img/banners/kubernetes.jpeg" class="img-responsive" alt="什么是 PaaS？ PaaS 类型介绍">
+                          
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="http://www.helight.cn/blog/2022/what-is-paas-type/">什么是 PaaS？ PaaS 类型介绍</a></h5>
+                    </div>
+                </div>
+                
+            </div>
+
+            <hr class="hidden-md hidden-lg">
+             
+
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+          <h4>微信扫码加好友交流</h4>
+
+            <img src=/img/site/wx.jpg>
+            
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright (c) 2007 - 2021, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 </p>
+            
+            <p class="pull-right">
+              模板来自 <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              
+
+              移植到 Hugo 来自 <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.cookie.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
+<script src="/js/jquery-parallax.js"></script>
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+
+  </body>
+</html>
