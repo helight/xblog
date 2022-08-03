@@ -94,7 +94,7 @@ paginate = 15
     email = "helight@helight.info"
     contact_form_ajax = false
 
-    about_us = "<img src=/img/site/mp.jpg>"
+    about_us = "<img src=/img/site/cf.png>"
     copyright = "Copyright (c) 2007 - 2022, helight; all rights reserved.【 <a href='https://beian.miit.gov.cn/' target='_blank'>粤ICP备15029944号</a> 】 "
 
     # Format dates with Go's time formatting
