@@ -29,7 +29,7 @@ date = "2019-05-18T13:47:08+02:00"
 ### 2021
 - 参与中国信息通信研究院《服务网格技术能力要求》的制定。
 - [开源之夏项目导师：Open Source Promotion Plan - Summer 2020](https://summer-ospp.ac.cn/2020/#/organisations/kernal-travel)，[项目详情](http://kerneltravel.net/project/)
-- 《腾讯游戏开发精粹II》作者之一
+- [《腾讯游戏开发精粹II》](https://item.jd.com/13005125.html)作者之一：
 #### 参会
 - MPD-北京《大数据服务开发平台建设实践》
 - MPD-成都《云原生技术在腾讯游戏运营服务中的应用实践》
