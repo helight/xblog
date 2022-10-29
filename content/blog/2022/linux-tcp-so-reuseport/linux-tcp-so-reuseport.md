@@ -1,5 +1,5 @@
 ---
-title: "使用 SO_REUSEPORT 套接字选项提升服务性能"
+title: "【译】使用 SO_REUSEPORT 套接字选项提升服务性能"
 date: 2022-10-29T09:47:20+08:00
 tags: ["ebpf"]
 categories: ["ebpf",]
