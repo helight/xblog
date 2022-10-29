@@ -1,6 +1,6 @@
 [submodule "static/tools/sudoku"]
 	path = static/tools/sudoku
-	url = https://github.com/helight/sudoku
+	url = https://github.com/chenfeitech/sudoku
 [submodule "themes/hugo-universal-theme"]
 	path = themes/hugo-universal-theme
 	url = https://github.com/helight/hugo-universal-theme
