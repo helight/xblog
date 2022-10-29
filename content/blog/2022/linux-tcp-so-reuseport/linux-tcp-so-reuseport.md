@@ -19,7 +19,7 @@ Linux 网络栈中有一个相对较新的特性——SO_REUSEPORT 套接字选�
 
 ![](imgs/1.jpeg)
 
-**图 1: 上面的服务是使用并行监听器来避免请求连接瓶颈，二下面的服务只使用一个监听器来接收连接**
+**图 1: 上面的服务是使用并行监听器来避免请求连接瓶颈，而下面的服务只使用一个监听器来接收连接**
 
 **概要**
 
@@ -145,7 +145,7 @@ SO_REUSEADDR 如何帮助解决这个问题的呢？当服务重新启动并在�
 
 **SO_REUSEPORT 套接字选项**
 
-当现有的套接字在 ESTABLISHED 或 TIME-WAIT 状态时，SO_REUSEADDR 选项允许套接字 _bind()_ 到相同的 _IP:port_ 组合，而当现有的套接字在 LISTEN 状态时 SO_REUSEPORT 选项允许绑定到相同的 _IP:port_ 。当应用程序在启用SO_REUSEPORT 的套接字上调用 _bind()_ 或 _listen()_ 时，内核回忽略所有套接字，包括处于 LISTEN 状态的套接字。这允许多次调用服务进程，允许多个进程监听连接。下一节我们来研究一下内核怎么实现 SO_REUSEPORT 的。
+当现有的套接字在 ESTABLISHED 或 TIME-WAIT 状态时，SO_REUSEADDR 选项允许套接字 _bind()_ 到相同的 _IP:port_ 组合，而当现有的套接字在 LISTEN 状态时 SO_REUSEPORT 选项允许绑定到相同的 _IP:port_ 。当应用程序在启用SO_REUSEPORT 的套接字上调用 _bind()_ 或 _listen()_ 时，内核会忽略所有套接字，包括处于 LISTEN 状态的套接字。这允许多次调用服务进程，允许多个进程监听连接。下一节我们来研究一下内核怎么实现 SO_REUSEPORT 的。
 
 **如何在多个监听器之间分配连接?**
 
@@ -417,7 +417,7 @@ struct sock *inet_csk_accept(struct sock *sk)
 }
 ```
 
-_lock_sock()_ 和 _release_sock()_ 都在内部获取并释放嵌入在' sk '中的自旋锁。参见本文后面的**图4**观察自旋锁争用造成的开销。
+_lock_sock()_ 和 _release_sock()_ 都在内部获取并释放嵌入在' sk '中的自旋锁。参见本文后面的**图4**观察自旋锁竞争用造成的开销。
 
 **Benchmarking SO_REUSEPORT**
 
