@@ -13,6 +13,8 @@ draft: false
 
 原文地址：https://www.tigera.io/blog/ebpf-when-and-when-not-to-use-it/
 
+本文介绍了 eBPF 的一些基本应用场景，主要和内核函数，iptables 对比，让大家能理解 eBPF 应该在那些场景下使用，那些场景下不建议使用。我认为可以作为入门 eBPF 的必修课，学习一个技术，必须知道这个技术擅长那些场景，不擅长那些场景，在学习和使用上才不至于走弯路。
+
 ## 前言
 
 扩展伯克利包过滤器 ([eBPF](https://www.tigera.io/learn/guides/ebpf)) 是 Linux 内核的一个相对较新的特性，这个特性让许多 DevOps、SRE 和工程师感到眼前一亮。但是它是满足所有 Linux 内核需求的一站式解决方案吗？所以本文中我们要分析看看 eBPF 在哪些方面做得很好，以及它与标准 Linux iptables 的对比如何。
