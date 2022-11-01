@@ -1,13 +1,13 @@
 ---
 title: "【译】使用 SO_REUSEPORT 套接字选项提升服务性能"
 date: 2022-10-29T09:47:20+08:00
-tags: ["ebpf"]
-categories: ["ebpf",]
+tags: ["kernel"]
+categories: ["kernel",]
 banner: "blog/2022/linux-tcp-so-reuseport/imgs/1.jpeg"
 author: "helight"
 authorlink: "http://helight.cn"
 summary: ""
-keywords: ["ebpf", "xdp"]
+keywords: ["kernel", "tcp"]
 draft: false
 ---
 
