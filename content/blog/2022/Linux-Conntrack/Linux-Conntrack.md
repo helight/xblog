@@ -11,6 +11,8 @@ keywords: ["kernel", "Conntrack"]
 draft: false
 ---
 
+Conntrack 这个话题也是非常复杂且重要的，文章中的案例在我们实际场景中确实遇到过，这篇文章总结的挺到位，但是没有进一步从原理解释如何实现 doNotTrack 及其原理。
+
 原文地址：[https://www.tigera.io/blog/when-linux-conntrack-is-no-longer-your-friend/](https://www.tigera.io/blog/when-linux-conntrack-is-no-longer-your-friend/)
 
 ## 前言
