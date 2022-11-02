@@ -1,12 +1,12 @@
 ---
 title: "【译】Linux Conntrack：为什么它会崩溃，如何避免这个问题"
-date: 2022-11-1T09:47:20+08:00
+date: 2022-11-01T09:47:20+08:00
 tags: ["kernel"]
 categories: ["kernel",]
-banner: "blog/2022/linux-tcp-so-reuseport/imgs/1.jpeg"
+banner: "blog/2022/Linux-Conntrack/imgs/1.png"
 author: "helight"
 authorlink: "http://helight.cn"
-summary: ""
+summary: "连接跟踪（“conntrack”）是 Linux 内核网络栈的核心特性。它允许内核跟踪所有的逻辑网络连接或数据包流，从而识别组成每个流的所有数据包，以便能够统一的处理它们。"
 keywords: ["kernel", "Conntrack"]
 draft: false
 ---
