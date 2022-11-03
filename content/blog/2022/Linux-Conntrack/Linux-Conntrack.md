@@ -24,7 +24,7 @@ Conntrack 是一个重要的内核特性，它支撑了一些关键的很重要�
 - NAT 根据于连接跟踪信息，可以以相同的方式转换这个流中的所有数据包。例如，当一个 pod 访问 Kubernetes 服务时，kube-proxy 的负载平衡使用 NAT 将连接重定向到一个特定的后端 pod。这个连接就是记录到 conntrack 表中，到服务 IP 的数据包应该都发送到相同的后端 pod，从后端 pod 返回的数据包应该做反向 NAT 才能返回到源 pod。
 - 有状态防火墙，例如 Calico，根据连接跟踪信息来精确地将“响应”流量列入白名单。你可以编写一个网络策略，如“允许我的 pod 连接到任何远程 IP”，而不是编写策略显式地允许响应流量。(如果没有这一点，你就需要添加更不安全的规则如“允许数据包从任何 IP 进入我的 pod”。)
 
-此外，conntrack 通常可以提高性能(减少 CPU 和数据包延迟)，因为只有数据流中的第一个数据包需要经过完整的网络堆栈处理，通过第一个包的处理确定后续包怎么处理。请参阅“[compare kube-proxy-modes](https://www.tigera.io/blog/comparing-kube-proxy-modes-iptables-or-ipvs/)”博客，可以进一步深入理解。
+此外，conntrack 通常可以提高性能(减少 CPU 和数据包延迟)，因为只有数据流中的第一个数据包需要经过完整的网络堆栈处理，通过第一个包的处理确定后续包怎么处理。请参阅“[compare kube-proxy-modes](http://www.helight.cn/blog/2021/kube-proxy-modes-iptables-or-ipvs/)”博客，可以进一步深入理解。
 
 但是，conntrack 也是有局限性的。。。
 
