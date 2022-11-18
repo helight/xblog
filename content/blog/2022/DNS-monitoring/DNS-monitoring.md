@@ -15,7 +15,7 @@ draft: true
 
 [eBPF](https://docs.kernel.org/bpf/classic_vs_extended.html) is an in-kernel virtual machine, provides a high-level library, instruction set and an execution environment inside the Linux kernel. It’s used in many Linux kernel subsystems, most prominently networking, tracing, debugging and security. Including to modify the processing of packets in the kernel and also allows the programming of network devices such as SmartNICs.
 
-![](imgs/1.png)
+![](DNS-monitoring/imgs/1.png)
 
 _Use cases in eBPF implementation._
 
