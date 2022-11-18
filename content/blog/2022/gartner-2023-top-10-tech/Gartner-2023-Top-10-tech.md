@@ -3,7 +3,7 @@ title: "Gartner2023年十大战略技术趋势"
 date: 2022-11-15T08:45:20+08:00
 tags: ["云原生"]
 categories: ["云原生"]
-banner: "img/banners/kubernetes.jpeg"
+banner: "blog/2022/gartner-2023-top-10-tech/imgs/2.png"
 author: "helight"
 authorlink: "http://helight.cn"
 summary: ""
