@@ -32,7 +32,7 @@ eBPF 彻底改变了 Linux 内核中的可观察性。在我之前的系列文�
 
 USDT (Userland Statically Defined Tracing)  的做法是直接在用户代码中嵌入探测。该技术的起源可以追溯到 Solaris/BSD DTrace 时代，包括使用 _DTRACE_PROBE()_ 宏在重要代码位置上声明跟踪点。与常规符号不同，USDT 钩子保证即使代码被重构也能保持稳定。下图描述了在用户代码中声明 USDT 跟踪点的过程，直到在内核中执行为止。
 
-![uprobe](imgs/1.png)
+![uprobe](Instrument-UserLand-Apps-with-eBPF/imgs/1.png)
 
 
 开发人员可以先通过 _DTRACE_PROBE_ 和 _DTRACE_PROBE1_ 宏来在需要的代码块中植入跟踪点。两个宏都接受两个强制参数，如提供者/探测名称，后面跟着你希望从跟踪点查询的任何值。编译器将把USDT 跟踪点塞进目标二进制文件 ELF 段中 。编译器和跟踪工具之间规定了 USDT 元数据所在的位置必须存在 _.note.stapstd_ 段。
