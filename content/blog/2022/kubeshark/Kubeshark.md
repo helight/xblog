@@ -21,7 +21,7 @@ Kubeshark 由 2021 年 UP9 公司开源的 K8s API 流量查看器 Mizu 发展�
 Kubeshark 被叫做 kubernetes 的 API 流量查看器，它提供对进出 Kubernetes 集群内容器和 pod 的所有 API 流量和负载的深度可见性和监控。 类似于针对 Kubernetes 而重新发明的 TCPDump 和 Wireshark。
 地址：[https://github.com/kubeshark/kubeshark](https://github.com/kubeshark/kubeshark)
 
-![[imgs/1.png]]
+![](imgs/1.png)
  
 
 
@@ -30,7 +30,7 @@ Kubeshark 也被叫做 Kubernetes 的可观测性工具，可以对微服务进�
 2. Kubeshark 可以嗅探集群中的部分或所有 TCP 流量，将其记录到 PCAP 文件中并剖析。
 3. Kubeshark 使用 eBPF 来跟踪内核空间和用户空间中的函数调用。
 
-![[imgs/2.png]]
+![](imgs/2.png)
 
 ## 二、Kubeshark 架构
 
@@ -39,7 +39,7 @@ Kubeshark 由三个不同的软件组成，它们可以协同工作：CLI、Hub 
 1. CLI，它是客户端的 二进制文件，通过 K8s API 与集群通信。
 2. Hub，它协调 worker 部署，接收来自每个 worker 的嗅探和剖析，并收集到一个中心位置。它还提供一个Web界面，用于在浏览器上显示收集到的流量。
 3. Work，作为 DaemonSet 部署到集群中，以确保集群中的每个节点都被 Kubeshark 覆盖。
-![[imgs/3.png]]
+![](imgs/3.png)
 
 ## 三、Kubeshark 功能
 ### 1）Kubeshark 功能 - 网络嗅探
@@ -50,7 +50,7 @@ Kubeshark 可以使用 Linux 内核中内置的各种方法和 API 嗅探集群�
 2. 基于 eBPF 抓包，基于 eBPF 的数据包捕获使用 eBPF 嗅探集群中的加密流量 (TLS)，而无需实际进行解密。事实上，它挂钩到 OpenSSL 库和 Go 的 crypto/tls 包中某些函数的入口点和出口点。
 
 ###  2）Kubeshark 功能 – 查询
-![[imgs/4.png]]
+![](imgs/4.png)
 ### 3）Kubeshark 功能 – 内核跟踪
 Kubeshark 使用 🐝 eBPF（扩展伯克利数据包过滤器）提供跟踪内核空间和用户空间功能。
 ``` sh
@@ -59,7 +59,7 @@ Kubeshark 使用 🐝 eBPF（扩展伯克利数据包过滤器）提供跟踪内
 kubeshark tap --tls -n harbor
 ```
 
-![[imgs/5.png]]
+![](imgs/5.png)
 
 ### 3）Kubeshark 功能 – 流量校验
 Kubeshark 具有流量验证功能，可与网络嗅探器功能结合使用。
@@ -81,7 +81,7 @@ rules:
 
 部署完成后，Kubeshark CLI 将在 http://localhost:8899 打开 UI 单击右上角名为 Service Map 的按钮打开服务依赖关系图。该图根据网络流量显示 Pod 以及它们之间的关系。
 
-![[imgs/6.png]]
+![](imgs/6.png)
 
 ### 5）Kubeshark 功能 – 数据脱敏
 Kubeshark 捕获的流量包含敏感信息。用户可以配置 Kubeshark 以隐藏某些关键字或数据片段将在 UI 中显示为 [REDACTED]。
