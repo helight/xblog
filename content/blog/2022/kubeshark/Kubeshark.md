@@ -21,7 +21,7 @@ Kubeshark 由 2021 年 UP9 公司开源的 K8s API 流量查看器 Mizu 发展�
 Kubeshark 被叫做 kubernetes 的 API 流量查看器，它提供对进出 Kubernetes 集群内容器和 pod 的所有 API 流量和负载的深度可见性和监控。 类似于针对 Kubernetes 而重新发明的 TCPDump 和 Wireshark。
 地址：[https://github.com/kubeshark/kubeshark](https://github.com/kubeshark/kubeshark)
 
-![](imgs/1.png)
+![](kubeshark/imgs/1.png)
  
 
 
