@@ -8,7 +8,7 @@ author: "helight"
 authorlink: "http://helight.cn"
 summary: ""
 keywords: ["DevOps", "SRE"]
-draft: false
+draft: true
 ---
 
 # Platform Engineering 101: all you need to know to get started

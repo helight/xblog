@@ -1,6 +1,6 @@
 ---
 title: "【译】2022 年 DevOps 状态报告中的可靠性和 SRE"
-date: 2023-02-18T08:45:20+08:00
+date: 2023-02-15T08:45:20+08:00
 tags: ["DevOps", "SRE"]
 categories: ["DevOps", "SRE"]
 banner: "img/banners/kubernetes.jpeg"
