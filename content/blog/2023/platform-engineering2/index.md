@@ -15,6 +15,7 @@ draft: false
 上周刚和一帮大佬讨论了这个话题，今天看到这篇文章，感觉和我的思考非常一致。赶紧 chatgpt 翻译了一下，当然感觉 chatgpt 翻译还是不够，还需要再对照英文审核修改一下，但是对于学习来说非常够用了。
 
 如果大家正在做平台工程相关的事情，本文我认为非常值得推荐。
+
 原文地址：[https://dzone.com/articles/what-is-platform-engineering-how-to-get-started](https://dzone.com/articles/what-is-platform-engineering-how-to-get-started)
 
 ## 引子
