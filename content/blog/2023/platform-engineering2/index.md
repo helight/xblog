@@ -122,7 +122,6 @@ SRE (Site reliability engineers)专注于确保应用的可靠性、安全性和
 
 ### 创建角色（工程主管/工程副总裁）
 
-Top-level engineers like the VP or Head of Engineering usually create the role of a platform engineer when developers spend more time configuring the tools and infrastructure rather than delivering the business logic. They would find that most IT teams are solving the same problems, like spinning up a new environment, which lags the delivery process. So the Head of Engineering would define the scope of platform engineering, identify the areas of responsibility, and create the role of a platform engineer/team.
 当开发人员花更多时间配置工具和基础设施而不是交付业务逻辑时，像副总裁或工程主管这样的顶级工程师通常会创建平台工程师的角色。他们会发现，大多数IT团队都在解决同样的问题，比如创建新环境，这导致交付过程滞后。因此，工程主管将定义平台工程的范围，确定责任领域，并创建平台工程师/团队的角色。
 
 ### 创建一个内部开发人员平台（平台工程师/团队）
