@@ -1,8 +1,8 @@
 ---
 title: "平台工程是否终结了 DevOps 和 SRE？"
 date: 2023-02-16T08:45:20+08:00
-tags: ["DevOps", "SRE"]
-categories: ["DevOps", "SRE"]
+tags: ["DevOps", "SRE", "Platform Engineering"]
+categories: ["DevOps", "SRE", "Platform Engineering"]
 banner: "img/banners/kubernetes.jpeg"
 author: "helight"
 authorlink: "http://helight.cn"
