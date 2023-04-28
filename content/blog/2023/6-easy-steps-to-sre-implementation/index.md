@@ -8,7 +8,7 @@ author: "helight"
 authorlink: "http://helight.cn"
 summary: ""
 keywords: ["DevOps", "SRE"]
-draft: true
+draft: false
 ---
 
 原文：[https://medium.com/@l.halicki/6-easy-steps-to-sre-implementation-51cc24e6edbc](https://medium.com/@l.halicki/6-easy-steps-to-sre-implementation-51cc24e6edbc)
