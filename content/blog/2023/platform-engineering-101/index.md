@@ -1,5 +1,5 @@
 ---
-title: "平台工程: 入门所需的所有知识"
+title: "【译】平台工程: 入门所需的所有知识"
 date: 2023-06-27T08:45:20+08:00
 tags: ["DevOps", "SRE"]
 categories: ["DevOps", "SRE"]
