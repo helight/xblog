@@ -19,8 +19,14 @@ date = "2019-05-18T13:47:08+02:00"
 
 
 ## 经历
+
+### 2023
+- [开源之夏项目导师：Open Source Promotion Plan - Summer 2023](https://summer-ospp.ac.cn/2023/org/orgdetail/acac956c-ff57-4ec8-9657-e5a14ff91b62?lang=en)
+- #### 参会
+- 首届中国eBPF大会 (https://www.ebpftravel.com/2023/)
+
 ### 2022
-- [开源之夏项目导师：Open Source Promotion Plan - Summer 2021](https://summer-ospp.ac.cn/#/org/orgdetail/acac956c-ff57-4ec8-9657-e5a14ff91b62/)
+- [开源之夏项目导师：Open Source Promotion Plan - Summer 2022](https://summer-ospp.ac.cn/#/org/orgdetail/acac956c-ff57-4ec8-9657-e5a14ff91b62/)
 - [GitLink编程夏令营项目导师](https://www.gitlink.org.cn/glcc/subjects/detail/387)
 - #### 参会
 - 中国信息通信研究院-混沌工程实验室《可观测性技木沙龙eBPF技木大揭秘》
@@ -28,7 +34,7 @@ date = "2019-05-18T13:47:08+02:00"
   
 ### 2021
 - 参与中国信息通信研究院《服务网格技术能力要求》的制定。
-- [开源之夏项目导师：Open Source Promotion Plan - Summer 2020](https://summer-ospp.ac.cn/2020/#/organisations/kernal-travel)，[项目详情](http://kerneltravel.net/project/)
+- [开源之夏项目导师：Open Source Promotion Plan - Summer 2021](https://summer-ospp.ac.cn/2020/#/organisations/kernal-travel)，[项目详情](http://kerneltravel.net/project/)
 - [《腾讯游戏开发精粹II》](https://item.jd.com/13005125.html)作者之一：
 #### 参会
 - MPD-北京《大数据服务开发平台建设实践》
