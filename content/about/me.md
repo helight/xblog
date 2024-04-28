@@ -23,7 +23,7 @@ date = "2019-05-18T13:47:08+02:00"
 ### 2023
 - [开源之夏项目导师：Open Source Promotion Plan - Summer 2023](https://summer-ospp.ac.cn/2023/org/orgdetail/acac956c-ff57-4ec8-9657-e5a14ff91b62?lang=en)
 - #### 参会
-- 首届中国eBPF大会 (https://www.ebpftravel.com/2023/)
+- [首届中国eBPF大会](https://www.ebpftravel.com/2023/)
 
 ### 2022
 - [开源之夏项目导师：Open Source Promotion Plan - Summer 2022](https://summer-ospp.ac.cn/#/org/orgdetail/acac956c-ff57-4ec8-9657-e5a14ff91b62/)
