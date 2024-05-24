@@ -3,7 +3,7 @@ title: "【译】平台工程: 入门所需的所有知识"
 date: 2023-06-27T08:45:20+08:00
 tags: ["DevOps", "SRE"]
 categories: ["DevOps", "SRE"]
-banner: "img/banners/kubernetes.jpeg"
+banner: "/blog/2023/platform-engineering-101/imgs/Digital-Platform02.svg"
 author: "helight"
 authorlink: "http://helight.cn"
 summary: ""
