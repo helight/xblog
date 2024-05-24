@@ -3,6 +3,10 @@
 */.DS_Store 
 .idea/
 .vscode/
+.hugo_build.lock
+content/.obsidian
+
+public
 
 .DS_Store
 # Vim ignore

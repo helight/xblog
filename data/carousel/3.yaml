@@ -1,0 +1,12 @@
+weight: 3
+title: "预约系统"
+description: >
+  <ul class="list-style-none">
+    <li>预约信息填写</li>
+    <li>对预约信息查看</li>
+    <li>预约地方信息管理</li>
+    <li>预约短信通知能力</li>
+    <li>预约数据的导出</li>
+    <li><a href="/blog/2024/yuyue">查看</a></li>
+  </ul>
+image: "/blog/2024/yuyue/imgs/641.webp"

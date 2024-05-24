@@ -1,0 +1,12 @@
+weight: 4
+title: "微信小程序答题系统"
+description: >
+  <ul class="list-style-none">
+     <li>独立微信小程序</li>
+     <li>题库能够自定义</li>
+     <li>支持多选题和单选题</li>
+     <li>支持排行榜</li>
+     <li>支持限定名单用户参与 ......</li>
+     <li><a href="/blog/2024/dati/">查看</a></li>
+   </ul>
+image: "/blog/2024/dati/imgs/1.jpg"
