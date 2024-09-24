@@ -74,7 +74,7 @@ ubuntu@ubuntu:/data/mesh/envoy-filter-example$ bazel build //:envoy
 ## 6. 测试编译后的例子
 ### 6.1 测试流程
 先说一下基本的测试流程，`echo` 这个例子非常好测试，因为它是一个拦截 filter，就是说请求到这个 filter 这里就终止了，不会继续向下游传。而且是正对 tcp 协议的一个 filter，没有使用私有协议，所以测试工具也不用找了，直接使用 telnet 进行测试就好了。如下图所示：
-![](imgs/1.png)
+![](blog/2020/build-envoy-filter-echo/imgs/1.png)
 
 所以测试流程也就非常简单了，罗列如下：
 1. 准备启动配置文件 test.yaml。

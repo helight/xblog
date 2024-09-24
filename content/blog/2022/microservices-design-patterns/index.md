@@ -43,7 +43,7 @@ draft: false
 
 
 
-![](imgs/1.png)
+![](blog/2022/microservices-design-patterns/imgs/1.png)
 
 _微服务设计模式_
 
@@ -191,7 +191,7 @@ There will be multiple dependencies of for single services or microservice eg: S
 这些事件持久化存储在充当系统记录系统的事件存储中。事件存储系统中事件发布的典型应用场景是：在应用中保持实体的物化视图和事件的动作一样来改变他们，以及集成的外部系统。例如系统可以维护一个针对所有用户的物化视图，用来填充UI部分的数据。当应用程序添加新订单，添加或删除订单上的项目以及添加运输信息时，这些事件描述了这些数据变化可以被处理并且可以更新到物化视图上。下面是这个模式的纵览：
 
 
-![](imgs/2.png)
+![](blog/2022/microservices-design-patterns/imgs/2.png)
 
 Event Sourcing pattern[8]
 
@@ -201,7 +201,7 @@ Event Sourcing pattern[8]
 
 -   编排（Choreography）指导  — 如果没有中央服务协调，则每个服务都会产生并侦听另一个服务的事件，并决定是否应采取措施。编排是指定两个或两个以上参与者的方式。 每一个参与者都无法控制对方的流程，或者任意可见的流程，这些可见的流程可以协调他们的活动和流程以共享信息和数值。当需要跨控制/可见性域进行协调时，请使用 Choreography 编排指导 。你可以在简单的情况下将编排视为网络协议，它规定了各参与者之间可接受的请求和响应模式。
 
-![](imgs/3.png)
+![](blog/2022/microservices-design-patterns/imgs/3.png)
 
   
 
@@ -211,7 +211,7 @@ Saga pattern — Choreography
 
 - Orchestration —  一个Orchestration （对象）负责 Saga 的决策和业务逻辑顺序。当你已经控制流程中的所有参与者时，当它们全部处于一个控制范围内时，你可以控制活动的流程。当然，通常情况下，当你制定一个组织内的业务流程时，你已经控制了它。
 
-![](imgs/4.png)
+![](blog/2022/microservices-design-patterns/imgs/4.png)
 
 Sage pattern — Orchestration  
 
@@ -264,7 +264,7 @@ Sage pattern — Orchestration
 -   客户端，例如：Netflix Eureka
 -   服务端：例如： AWS ALB
 
-![](imgs/5.png)
+![](blog/2022/microservices-design-patterns/imgs/5.png)
 服务发现 [9]
 
 ### **断路器模式（Circuit Breaker Pattern）**
@@ -273,7 +273,7 @@ Sage pattern — Orchestration
 
 消费者应通过代理来调用远程服务，该代理的行为类似于电路中的断路器。当连续的请求失败的次数超过阈值时，断路器将跳闸一段时间，并且在跳闸的这段时间内，所有远程服务调用的尝试都将立即失败。当超过了断路器跳闸时间之后，断路器将允许有限数量的测试请求通过。如果这些请求成功，则断路器将恢复正常操作。否则，如果有一个请求失败，则断路器再次跳闸。对于一个应用试图尝试调用另一个远程服务或者获取共享资源，并且该操作很容易的失败的情况来说， 这个模式非常适用。
 
-![](imgs/6.png)
+![](blog/2022/microservices-design-patterns/imgs/6.png)
 
  断路器模式Circuit Breaker Pattern [10]  
 
@@ -283,7 +283,7 @@ Sage pattern — Orchestration
 
 蓝绿发布模式可以减少或消除停机时间，它的做法是通过运行切换两个相同的生产环境：Blue 和 Green。这里我们假设 Green 是已存在的工作实例，Blue 是该应用程序的新版本。在任何时候，只有一个环境处于服务状态，该服务环境为所有生产流量提供服务。 所有云平台均提供了用于实施蓝绿色部署的选项。
 
-![](imgs/7.png)
+![](blog/2022/microservices-design-patterns/imgs/7.png)
 蓝绿发布模式Blue-Green Deployment Pattern
 
 **References**  

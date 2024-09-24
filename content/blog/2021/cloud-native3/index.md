@@ -66,13 +66,13 @@ draft: false
 
 ## 云原生交付部署：不可变基础设施：镜像
 这是镜像的宣传口号：Build, Ship, and Run Any App, Anywhere。
-![](imgs/6.png)
+![](blog/2021/cloud-native3/imgs/6.png)
 
 在这块镜像确实是做到了这一点，OCI 的成立，让容器镜像在只要符合 OCI 标准的环境下就可以使用，无论是 windows 还是 linux，包括不同版本的 linux。
 
 ## 容器镜像仓库
 就如上图一样，镜像总是要保存在一个地方，这也就催生了另外一个技术专门做镜像的存储，我们叫这个技术为镜像仓库技术。解决镜像的基本存储，延伸的功能还有镜像的声明周期管理，安全扫描，镜像分发加速等等。目前提供这类服务的商业公司也有很多，同时也有免费的镜像仓库，比如 docker 公司的这个，大家可以浏览看看：[https://hub.docker.com/](https://hub.docker.com/)。
-![](imgs/3.png)
+![](blog/2021/cloud-native3/imgs/3.png)
 
 目前我们内部使用的腾讯云的 tcr，也是比较好用的，而且提供了安全扫描，镜像分发加速等能力。TCR提供安全独享、高性能的容器镜像托管分发服务。可同时在全球多个地域创建独享实例，以实现容器镜像的就近拉取，降低拉取时间，节约带宽成本。
 [https://cloud.tencent.com/product/tcr](https://cloud.tencent.com/product/tcr)。

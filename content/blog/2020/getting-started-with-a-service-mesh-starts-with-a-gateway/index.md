@@ -47,7 +47,7 @@ Solo CTO 的文章让我更坚定了我们目前的思路和做法。下面几�
 
 如果你想在组织内使用落地服务网格，那么采用基于 Envoy 作为微服务网关是非常好的一个开始。作者在他之前写的一本书《Istio in Action》中就极力介绍 Istio 的[服务网关资源](https://istio.io/docs/tasks/traffic-management/ingress/ingress-control/)。因为把 Envoy 作为入口网关是使用 Istio 的最好的开始方式，这样你在不断熟悉 Isito 和推广服务网格文化，让内部逐步接受，并且探索服务网格的最佳使用方式是非常好的，不用一上来就推动大家都必须启用边车。
 
-![](imgs/1.png)
+![](blog/2020/getting-started-with-a-service-mesh-starts-with-a-gateway/imgs/1.png)
 
 使用基于 Envoy 的服务网关这意味着你不但可以解决你微服务网关的问题，而且还可以逐步实践小型化的服务网格。当你部署了服务网关之后，你就可以强有力的掌控流量和路由了（包括百分比的路由，基于协议头或者方法的路由，还有流量镜像），还有加密传输等。
 
@@ -68,11 +68,11 @@ Solo CTO 的文章让我更坚定了我们目前的思路和做法。下面几�
 
 另外还有一堆其它的功能，比如外部鉴权，内容改写等等。
 
-![](imgs/2.png)
+![](blog/2020/getting-started-with-a-service-mesh-starts-with-a-gateway/imgs/2.png)
 
 Gloo 的做法是基于 Envoy 构建了一个强大的微服务网关，而且基于 xDS 配备了一个好用的控制管理端。使得这个微服务网关既可以作为微服务网关，也可以继续深入作为边车使用。而在他们的设计单中，首先是可以作为一个强大的微服务网关来使用。而且他们可以直接和 Istio，Consul， AWS App Mesh 和 Linkerd 等集成。目前他们说已经在很多客户那里落地了。
 
-![](imgs/3.png)
+![](blog/2020/getting-started-with-a-service-mesh-starts-with-a-gateway/imgs/3.png)
 
 在我们的实践单中也是这样一个思路，早期我们使用 OpenResty 来构建我们的微服务网关，插件都是使用 lua 来编写，直到我们 2 年前遇到了 Envoy 和 Isito，我们综合对比考虑之后，采用了 Envoy 最为我们的微服务网关，我们也是和 Consul 结合，利用其 xDS 开发了我们公司内的诸多业务插件，配合使用。目前已经作为微服务网关在内部大量使用。同时也在逐步积累开发一个基于 Envoy 和 Istio 的控制系统。目标是既可以控制微服务网关，也可以控制服务网格，统一的把集群内以及多个集群的网络流量管理做一个统一。
 

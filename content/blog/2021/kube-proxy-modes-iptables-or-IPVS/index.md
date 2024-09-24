@@ -50,7 +50,7 @@ OK，虽然说 kube-proxy 的链接处理在 iptables 模式下是 O(n) 的复�
 
 为了说明这些区别，我们测试了有链接复用和没有链接复用的情况。在链接复用的情况下，我们使用 NGINX 的默认配置，默认配置设置了每个存活链接可以给最多100个请求复用。看下面的图，越低的响应延时越好。
 
-![](imgs/1.png)
+![](blog/2021/kube-proxy-modes-iptables-or-IPVS/imgs/1.png)
 
 这个图展示 2 个关键的东西：
 
@@ -64,7 +64,7 @@ OK，虽然说 kube-proxy 的链接处理在 iptables 模式下是 O(n) 的复�
 ## 总 CPU
 为了说明总 CPU 使用率，下图就聚焦于没有使用持久链接的最坏情况，这样对 kube-proxy 的链接处理开销的影响是最大的。
 
-![](imgs/2.png)
+![](blog/2021/kube-proxy-modes-iptables-or-IPVS/imgs/2.png)
 
 这图展示了 2 个关键事情：
 1. 在 iptables 和 IPVS 模式下 CPU 使用率的区别是直到后端 service 超过 1000 个的时候才比较明显。（每个后端还是 10000 个 pod）。
@@ -89,7 +89,7 @@ OK，虽然说 kube-proxy 的链接处理在 iptables 模式下是 O(n) 的复�
 
 要正确的看这个事情，下面的图展示了 kube-proxy 和 Calico 对每个链接处理的平均 iptables 规则数量，假设集群中的每个节点上平均有 30 个 pod，每个 pid 平均有 3 个网关处理策略。
 
-![](imgs/3.png)
+![](blog/2021/kube-proxy-modes-iptables-or-IPVS/imgs/3.png)
 
 甚至当集群中全力运行有 10000 个 service 和 100000 个后端 pod，Calico 在每个连接上执行的 iptables 规则数量与kube-proxy 在 20 个服务和 200 个后端 pod 上执行的 iptables 规则数量大致相同。换句话说，Calico 使用 iptables 是非常高效的。
 

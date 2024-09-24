@@ -51,7 +51,7 @@ bazel build //http-filter-example:envoy
 4. 使用命令行 curl 测试
 
 测试示意
-![](imgs/1.png)
+![](blog/2020/build-envoy-filter-http/imgs/1.png)
 
 官网这个 http filter 功能非常简单，其目的就是在 http 请求头中加入一个 kv 健值对，并且是把 key 转换为小写字母。
 ```c++

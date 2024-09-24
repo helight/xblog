@@ -41,7 +41,7 @@ draft: false
 
 下面这幅图可以看出一般 VM 和容器方式的区别。
 
-![](imgs/2.png)
+![](blog/2021/cloud-native2/imgs/2.png)
 
 **容器提供的方式是标准化的，可以将不同应用程序的不同组件组装在一起，又可以将它们彼此隔离。**
 
@@ -74,7 +74,7 @@ Docker 项目是当前最受欢迎的容器实现，以至于很多人通常都�
 ### 容器编排发展 
 所以容器的编排技术应运而生，从容器诞生起就有在做这方面的工作了，主要的有 Mesos，Swarm，Kuberneters，另外还有其它小型的就更多了。而且现在有了 CRI 标准，实现一个简单的容器调度管理服务也不是太复杂，曾经面试过几个大学生，大学期间就参与过这类项目的开发工作。一般主要是针对一些特殊环境的定制开发。
 
-![](imgs/3.png)
+![](blog/2021/cloud-native2/imgs/3.png)
 
 Kubernetes 源自Google 15 年生产环境的运维经验，同时凝聚了社区的最佳创意和实践。从 Mesos，Swarm，Kuberneters 三个开始争夺天下，到最后 Kuberneters 一统天下也就不过 3 年时间。而且目前 Kuberneters 的开源社区非常活跃，我们本人也参与了 Kuberneters 社区的 2 个项目：
 >1. 社区文档项目：我主要参与中文文档的翻译和review。
@@ -88,7 +88,7 @@ Kubernetes 源自Google 15 年生产环境的运维经验，同时凝聚了社�
 
 Kuberneters 的架构非常简单清晰，但是功能也确实非常强调，这里可以看看它的基本架构。
 
-![](imgs/5.png)
+![](blog/2021/cloud-native2/imgs/5.png)
 
 下面我简要的说一下 K8S 架构中的各个模块。
 ### Master
