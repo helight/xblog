@@ -1,6 +1,6 @@
 ---
 title: "Esp32 上跑 python 玩玩"
-date: 2024-01-18T08:45:20+08:00
+date: 2025-03-08T08:45:20+08:00
 tags: ["应用", "嵌入式"]
 categories: ["应用", "嵌入式"]
 banner: "/blog/2025/esp32/imgs/640.png"
