@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>数独游戏</title>
+  <link rel="stylesheet" type="text/css" href="css/sudoku.css">
+</head>
+<body>
+<h1 style="text-align: center">数独游戏</h1>
+<p id="timer" style="text-align: center"></p>
+
+<div id="container">
+<!-- 九宫格 -->
+  <div class="sudoku_wrap">
+    <ul id="sudoku" class="center">
+      <li x="0" y="0"></li>
+      <li x="0" y="1"></li>
+      <li x="0" y="2"></li>
+      <li x="0" y="3"></li>
+      <li x="0" y="4"></li>
+      <li x="0" y="5"></li>
+      <li x="0" y="6"></li>
+      <li x="0" y="7"></li>
+      <li x="0" y="8"></li>
+
+      <li x="1" y="0"></li>
+      <li x="1" y="1"></li>
+      <li x="1" y="2"></li>
+      <li x="1" y="3"></li>
+      <li x="1" y="4"></li>
+      <li x="1" y="5"></li>
+      <li x="1" y="6"></li>
+      <li x="1" y="7"></li>
+      <li x="1" y="8"></li>
+
+      <li x="2" y="0"></li>
+      <li x="2" y="1"></li>
+      <li x="2" y="2"></li>
+      <li x="2" y="3"></li>
+      <li x="2" y="4"></li>
+      <li x="2" y="5"></li>
+      <li x="2" y="6"></li>
+      <li x="2" y="7"></li>
+      <li x="2" y="8"></li>
+
+      <li x="3" y="0"></li>
+      <li x="3" y="1"></li>
+      <li x="3" y="2"></li>
+      <li x="3" y="3"></li>
+      <li x="3" y="4"></li>
+      <li x="3" y="5"></li>
+      <li x="3" y="6"></li>
+      <li x="3" y="7"></li>
+      <li x="3" y="8"></li>
+
+      <li x="4" y="0"></li>
+      <li x="4" y="1"></li>
+      <li x="4" y="2"></li>
+      <li x="4" y="3"></li>
+      <li x="4" y="4"></li>
+      <li x="4" y="5"></li>
+      <li x="4" y="6"></li>
+      <li x="4" y="7"></li>
+      <li x="4" y="8"></li>
+
+      <li x="5" y="0"></li>
+      <li x="5" y="1"></li>
+      <li x="5" y="2"></li>
+      <li x="5" y="3"></li>
+      <li x="5" y="4"></li>
+      <li x="5" y="5"></li>
+      <li x="5" y="6"></li>
+      <li x="5" y="7"></li>
+      <li x="5" y="8"></li>
+
+      <li x="6" y="0"></li>
+      <li x="6" y="1"></li>
+      <li x="6" y="2"></li>
+      <li x="6" y="3"></li>
+      <li x="6" y="4"></li>
+      <li x="6" y="5"></li>
+      <li x="6" y="6"></li>
+      <li x="6" y="7"></li>
+      <li x="6" y="8"></li>
+
+      <li x="7" y="0"></li>
+      <li x="7" y="1"></li>
+      <li x="7" y="2"></li>
+      <li x="7" y="3"></li>
+      <li x="7" y="4"></li>
+      <li x="7" y="5"></li>
+      <li x="7" y="6"></li>
+      <li x="7" y="7"></li>
+      <li x="7" y="8"></li>
+
+      <li x="8" y="0"></li>
+      <li x="8" y="1"></li>
+      <li x="8" y="2"></li>
+      <li x="8" y="3"></li>
+      <li x="8" y="4"></li>
+      <li x="8" y="5"></li>
+      <li x="8" y="6"></li>
+      <li x="8" y="7"></li>
+      <li x="8" y="8"></li>
+
+    </ul>
+  </div>
+<!-- 菜单、按钮组 -->
+  <div id="difficulty" class="check_wrap center-horizontal">
+    <input type="radio" name="difficulty" value="easy" onclick="easy()" checked>简单
+    <input type="radio" name="difficulty" value="hard" onclick="hard()">困难
+    <input type="radio" name="difficulty" value="disgust" onclick="disgust()">变态
+  </div>
+  <div class="button_wrap center-horizontal">
+    <button type="button" onclick="showAnswer()">看答案</button>
+    <button type="button" id="check">检查</button>
+    <button type="button" onclick="resetGame()">重置</button>
+    <button type="button" onclick="startGame()">重建</button>
+  </div>
+
+</div>
+
+  <!-- 弹出面板 -->
+  <div class="grid popup-num hidden" id="popupNumbers">
+    <div class="row">
+      <span>1</span>
+      <span>2</span>
+      <span>3</span>
+    </div>
+    <div class="row">
+      <span>4</span>
+      <span>5</span>
+      <span>6</span>
+    </div>
+    <div class="row">
+      <span>7</span>
+      <span>8</span>
+      <span>9</span>
+    </div>
+    <div class="row">
+      <span class="mark1"></span>
+      <span class="empty"></span>
+      <span class="mark2"></span>
+    </div>
+  </div>
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="js/sudoku.js"></script>
+</body>
+</html>

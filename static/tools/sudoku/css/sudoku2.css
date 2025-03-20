@@ -1,0 +1,232 @@
+@charset "utf-8";
+/* CSS Document */
+.center {
+	margin: 0 auto;
+}
+
+.boxShadow {
+}
+
+.textShadow {
+	text-shadow: 3px 3px 7px #bbb;
+	filter: progid:DXImageTransform.Microsoft.Shadow(color='gray', Direction=135, Strength=4);
+}
+
+.font {
+	font-family: "微软雅黑"
+}
+
+.color {
+	color: #333
+}
+
+.background1 {
+	background: #ccc;
+}
+
+.background2 {
+	background: #aaa;
+}
+
+.background0 {
+	background: #c6c;
+};
+
+.radius {
+	border-radius: 3px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.wrong {
+	background: #c6c
+}
+/*	div{ cursor:default;}
+	p{ line-height:30px; font-size:17px; padding-top:20px;}*/
+/**********
+*界面样式
+*********/
+body {
+	text-align: center;
+	background: #f4f4f4;
+}
+
+#header {
+	height: 100px;
+	font-size: 28px;
+}
+
+#footer {
+	width: 400px;
+	text-align: right;
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	font-size: 14px;
+}
+
+#mainArea {
+	width: 100%;
+	background: #f4f4f4;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#mainArea #gameBoard {
+	width: 100%;
+	height: 900px;
+}
+
+.mainboard {
+	width: 100%;
+	float: none;
+}
+
+#mainArea #selectBoard {
+	width: 150px;
+	height: 150px;
+	top: 0px;
+	left: 0px;
+	position: absolute;
+	background: #FFF;
+	display: none;
+	z-index: 1999;
+}
+
+#control {
+	height: auto;
+}
+
+#btn {
+	font-size: 32px;
+}
+
+#timer {
+	font-size: 48px;
+	text-align: center;
+	padding-top: 20px;
+	color: #4CAF50;
+}
+
+#tips {
+	position: absolute;
+	top: 20px;
+	width: 288px;
+	font-size: 40px;
+	color: #f74464;
+	background: #dcf3d1;
+	text-align: center;
+	-webkit-transition: all 2s linear 0s;
+	-moz-transition: all 2s linear 0s;
+	-ms-transition: all 2s linear 0s;
+	-o-transition: all 2s linear 0s;
+	transition: all 2s linear 0s;
+	-webkit-transform: scale(1.5);
+	-webkit-transform-origin: 0 0;
+}
+	
+/* button 
+---------------------------------------------- */
+#mainArea .button {
+	display: inline-block;
+	zoom: 1;
+ /* zoom and *display = ie7 hack for display:inline-block */
+	*display: inline;
+	vertical-align: baseline;
+	width: 20%;
+	height: 80px;
+	margin: 10px 10px;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 32px/100% Arial, Helvetica, sans-serif;
+	padding: .5em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: .5em;
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+
+#mainArea .button:hover {
+	text-decoration: none;
+}
+
+#mainArea .button:active {
+	position: relative;
+	top: 1px;
+}
+/* white */
+#mainArea .white {
+	color: #606060;
+	border: solid 1px #b7b7b7;
+	background: #fff;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));
+	background: -moz-linear-gradient(top,  #fff,  #ededed);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
+}
+
+#mainArea .white:hover {
+	background: #ededed;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc));
+	background: -moz-linear-gradient(top,  #fff,  #dcdcdc);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');
+}
+
+#mainArea .white:active {
+	color: #999;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff));
+	background: -moz-linear-gradient(top,  #ededed,  #fff);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');
+}
+/**********
+*游戏样式
+*********/
+#mainArea .block {
+	width: 10.9%;
+	height: 90px;
+	line-height: 90px;
+	border: 1px solid #ccc;
+	margin: 1px;
+	float: left;
+	padding: 5px;
+	line-height: 46px;
+	text-align: center;
+	font-size: 60px;
+    font-weight: bolder;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+#mainArea .editable {
+	color: #06F;
+}
+
+#mainArea .editable:hover {
+	background: #f1f1f1;
+}
+
+#mainArea .selectDiv {
+	width: 40px;
+	height: 40px;
+	border: 1px solid #ccc;
+	margin: 1px;
+	float: left;
+	line-height: 30px;
+	text-align: center;
+	font-size: 36px;
+	font-weight: bolder;
+    margin: 3px;
+}
+
+#mainArea .selectDiv:hover {
+	background: #6CC;
+}

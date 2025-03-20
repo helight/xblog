@@ -1,0 +1,200 @@
+#container {
+  display: block;
+}
+.sudoku_wrap {
+  width: inherit;
+  height: 600px;
+}
+.button_wrap {
+  width: 500px;
+  height: 100px;
+}
+.check_wrap {
+  width:170px;
+  height: 50px;
+}
+.center {
+  position: absolute;
+  margin:auto;
+  top:0;
+  left: 0;
+  right: 0;
+  bottom:0;
+}
+.center-horizontal {
+  margin-left:auto;
+  margin-right: auto;
+  left: 0;
+  right:0;
+  text-align: center;
+}
+
+#sudoku {
+  width: 590px;
+  height: 540px;
+  list-style: none;
+  position: static;
+}
+
+#sudoku li {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #000;
+  float: left;
+  text-align: center;
+  line-height: 60px;
+  font-size: 30px;
+}
+#sudoku li:nth-child(3n) {
+  border-right: 3px solid #660202;
+}
+
+#sudoku li:nth-child(9n+1) {
+  border-left: 3px solid #660202;
+}
+
+#sudoku li:nth-child(n+0):nth-child(-n+9) {
+  border-top: 3px solid #660202;
+}
+
+#sudoku li:nth-child(n+19):nth-child(-n+27) {
+  border-bottom: 3px solid #660202;
+}
+
+#sudoku li:nth-child(n+46):nth-child(-n+54) {
+  border-bottom: 3px solid #660202;
+}
+#sudoku li:nth-child(n+73):nth-child(-n+81) {
+  border-bottom: 3px solid #660202;
+}
+#sudoku li span {
+  width: 64px;
+  height: 64px;
+  display: inline-block;
+}
+
+li>span.commonNum {
+  background: #80bb3b;
+  color: #fff;
+}
+
+li>span.common {
+    background: #ffefdb;
+}
+
+li>span.numbg {
+  background: #cccccc;
+}
+
+li>span>input.common {
+  background:#ffefdb;
+}
+
+li>span.active {
+    background: #f1ca7f;
+}
+
+li>span.answer {
+  background: #eef5e8;
+  color: #c00d6f;
+  font-weight: bolder;
+}
+
+#sudoku input {
+  width: 60px;
+  height: 60px;
+  border: 0px;
+  float: left;
+  text-align: center;
+  line-height: 60px;
+  font-size: 30px;
+  padding: 0px;
+  background: #eef5e8;
+  color: #c00d6f;
+  font-weight: bolder;
+}
+
+button {
+  width:80px;
+  height: 50px;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+
+.hidden {
+  display: none;
+}
+
+
+.popup-num {
+  padding-left: 5%;
+  position: absolute;
+  padding-left: 0;
+}
+.popup-num .row > span {
+  display: inline-block;
+  width: 10%;
+  height: 24px;
+  line-height: 24px;
+  border-left: 1px solid #cccccc;
+  border-top: 1px solid #cccccc;
+  background: #ffffff;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+}
+.popup-num .row > span.empty {
+  color: #ffffff;
+}
+.popup-num .row > span.fixed {
+  background: #f0f0f0;
+}
+.popup-num .row > span.col_g_right {
+  border-right: 1px solid #cccccc;
+}
+.popup-num .row > span:first-child {
+  border-left: 2px solid #cccccc;
+}
+.popup-num .row > span:last-child {
+  border-right: 2px solid #cccccc;
+}
+.popup-num .row > span.mark1 {
+  background: lightblue;
+}
+.popup-num .row > span.mark1.empty {
+  color: lightblue;
+}
+.popup-num .row > span.mark2 {
+  background: lightgreen;
+}
+.popup-num .row > span.mark2.empty {
+  color: lightgreen;
+}
+.popup-num .row > span.error {
+  background: lightpink;
+}
+.popup-num .row > span.error.empty {
+  color: lightpink;
+}
+.popup-num .row > span.active {
+  box-shadow: 0 0 5px #ff0000 inset;
+}
+.popup-num .row.row_g_bottom > span {
+  border-bottom: 1px solid #cccccc;
+}
+.popup-num .row:first-child > span {
+  border-top: 2px solid #cccccc;
+}
+.popup-num .row:last-child > span {
+  border-bottom: 2px solid #cccccc;
+}
+.popup-num .row {
+  font-size: 0;
+}
+.popup-num .row > span {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+}
